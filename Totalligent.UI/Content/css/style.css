@@ -31800,3 +31800,21 @@ div.radio.switcher label {
     border-left: 0;
     border-right: 0;
 }
+.ui-autocomplete {
+    max-height: 100px;
+    overflow-y: auto;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
+}
+/* IE 6 doesn't support max-height
+    * we use height instead, but this forces the menu to always be this tall
+    */
+* html .ui-autocomplete {
+    height: 100px;
+}
+
+.fixed-height {
+    padding: 1px;
+    max-height: 200px;
+    overflow: auto;
+}

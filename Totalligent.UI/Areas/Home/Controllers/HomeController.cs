@@ -1,14 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using Totalligent.BusinessEntities;
 using Totalligent.BAL;
 using System.Web.Mvc;
+
 using Totalligent.UI.Models;
 using System.Text.RegularExpressions;
 using System.IO;
 using Totalligent.Utilities;
 using System.Data;
+using System.Text;
+//using iText.Kernel.Pdf;
+//using iText.Layout;
+//using iText.Layout.Element;
+
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using iTextSharp.tool.xml;
@@ -44,10 +51,10 @@ namespace Totalligent.UI.Areas.Home.Controllers
             return View();
 
         }
-        public ActionResult Login()
-        {
-            return View();
-        }
+        //public ActionResult Login()
+        //{
+        //    return View();
+        //}
         public ActionResult Userlogin()
         {
             return View();
@@ -88,7 +95,7 @@ namespace Totalligent.UI.Areas.Home.Controllers
                 return View("Error");
 
         }
-        [HttpGet]
+        //[HttpGet]
         public ActionResult Login(RolesModel objModels)
         {
             string UName = string.Empty;
@@ -97,6 +104,9 @@ namespace Totalligent.UI.Areas.Home.Controllers
                 Employee objEmployee = objBALTot.GetLogin(objModels.LoginUser.UserName, objModels.LoginUser.Password, objModels.Role, out string IsFirstLogin);
                 if (!string.IsNullOrEmpty(objEmployee.UserName))
                 {
+                    Session["Loginid"] = objEmployee.Loginid.ToString();
+                    Session["UserName"] = objEmployee.UserName;
+
                     UName = objEmployee.UserName;
                     U_Name = objEmployee.UserName;
                     TempData["uname"] = UName;
@@ -328,7 +338,7 @@ namespace Totalligent.UI.Areas.Home.Controllers
                     UN = TempData["u"].ToString() ?? "";
 
                 }
-                model.AddedBy = UN;
+                model.CreatedBy = UN;
                 returnCode = objBALTot.InsertEM(model);
                 //if (model.ID > 0 && returnCode > 0)
                 //{

@@ -136,6 +136,7 @@ namespace Totalligent.DAL
                         objEmp.EmailId = reader.GetValue(5).ToString();
                         objEmp.MobileNumber = reader.GetValue(6).ToString();
                         objEmp.RoleId = (int)reader.GetValue(7);
+                        objEmp.Loginid = (int)reader.GetValue(8);
                     }
                     reader.Close();
                     cmd.Dispose();

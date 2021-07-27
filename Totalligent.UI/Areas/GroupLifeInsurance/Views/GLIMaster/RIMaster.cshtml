@@ -1,63 +1,50 @@
 ﻿
-@{
-    ViewBag.Title = "RIMaster";
-    Layout = "~/Areas/GroupLifeInsurance/Views/Shared/_Layout.cshtml";
-}
+@model Totalligent.UI.Models.RIMasterModel
+@using Totalligent.BusinessEntities;
 
-@{ List<SelectListItem> listItems = new List<SelectListItem>();
-    listItems.Add(new SelectListItem
-    {
-        Text = "Broker",
-        Value = "Broker"
-    });
-    listItems.Add(new SelectListItem
-    {
-        Text = "Agent",
-        Value = "Agent"
-    });
-    listItems.Add(new SelectListItem
-    {
-        Text = "Direct Sales",
-        Value = "Direct Sales"
-    });
-    listItems.Add(new SelectListItem
-    {
-        Text = "Branches",
-        Value = "Branches",
-    }); }
-@{ List<SelectListItem> BankList = new List<SelectListItem>();
-    BankList.Add(new SelectListItem
-    {
-        Text = "Axis Bank",
-        Value = "AxisBank"
-    });
-    BankList.Add(new SelectListItem
-    {
-        Text = "HDFC Bank",
-        Value = "HDFC"
-    });
-    BankList.Add(new SelectListItem
-    {
-        Text = "Kotak Mahindra Bank",
-        Value = "Kotak"
-    });
-    BankList.Add(new SelectListItem
-    {
-        Text = "State Bank of India",
-        Value = "SIBBank",
-    }); }
+
+@{ ViewBag.Title = "RIMaster";
+    Layout = "~/Areas/GroupLifeInsurance/Views/Shared/_Layout.cshtml"; }
+
+@*<style type="text/css">
+        .ui-autocomplete {
+            max-height: 100px;
+            overflow-y: auto;
+            /* prevent horizontal scrollbar */
+            overflow-x: hidden;
+        }
+        /* IE 6 doesn't support max-height
+        * we use height instead, but this forces the menu to always be this tall
+        */
+        * html .ui-autocomplete {
+            height: 100px;
+        }
+
+        .fixed-height {
+            padding: 1px;
+            max-height: 200px;
+            overflow: auto;
+        }
+    </style>*@
+
+@* AutoComplete *@
+
+
+
 <div class="p-t-30">
     <div class="box">
         <div class="box-header with-border">
             <ul class="nav nav-pills justify-content-center mb-0">
-                <li class=" nav-item flex-fill text-center"> <a href="#navpills2-1" class="nav-link active" data-toggle="tab" aria-expanded="false"><i class="fa fa-building-o mr-3"></i>RI Master</a> </li>
-                <li class="nav-item flex-fill text-center"> <a href="#navpills2-2" class="nav-link" data-toggle="tab" aria-expanded="false"><i class="fa fa-search mr-3"></i>Search RI Master</a> </li>
+                <li class=" nav-item flex-fill text-center"> <a href="#navpills2-1" class="nav-link active" id="anavpills2-1" data-toggle="tab" aria-expanded="false"><i class="fa fa-building-o mr-3"></i>RI Master</a> </li>
+                <li class="nav-item flex-fill text-center"> <a href="#navpills2-2" class="nav-link" id="anavpills2-2" data-toggle="tab" aria-expanded="false"><i class="fa fa-search mr-3"></i>Search RI Master</a> </li>
             </ul>
         </div>
         <div class="box-body">
             <div class="tab-content">
                 <div id="navpills2-1" class="tab-pane active">
-                    <form id="formProducer">
+                    <form id="formRIMaster">
+                        @TempData["Alertmsg"];
+
                         <div class="row">
                             <div class="col-12 col-md-6">
                                 <div class="form-group m-b-15">
@@ -73,7 +60,7 @@
                                             <label class="col-form-label text-md-right w-full">RI Name</label>
                                         </div>
                                         <div class="col-md-6">
-                                            @Html.TextBox("RIName", "", new { @class = "form-control w-full", @placeholder = "Enter RI Name" })
+                                            @Html.TextBox("RIName", "", new { @class = "form-control w-full", @placeholder = "Enter RI Name", @maxlength = "200" })
                                         </div>
                                     </div>
                                 </div>
@@ -83,7 +70,7 @@
                                             <label class="col-form-label text-md-right w-full">Contact Person</label>
                                         </div>
                                         <div class="col-md-6">
-                                            @Html.TextBox("ContactName", "", new { @class = "form-control w-full", @placeholder = "Enter Contact Person Name" })
+                                            @Html.TextBox("ContactName", "", new { @class = "form-control w-full", @placeholder = "Enter Contact Person Name", @maxlength = "200" })
                                         </div>
                                     </div>
                                 </div>
@@ -93,7 +80,7 @@
                                             <label class="col-form-label text-md-right w-full">Mobile Number</label>
                                         </div>
                                         <div class="col-md-6">
-                                            @Html.TextBox("MobileNumber", "", new { @class = "form-control w-full", @placeholder = "Enter Mobile Number" })
+                                            @Html.TextBox("MobileNumber", "", new { @type = "number", @class = "form-control w-full", @placeholder = "Enter Mobile Number", @maxlength = "10" })
                                         </div>
                                     </div>
                                 </div>
@@ -104,7 +91,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             @*@Html.EditorFor(model => model.EmailId, "", new { htmlAttributes = new { @class = "form-control w-full" } })*@
-                                            @Html.TextBox("EmailID", "", "", new { @class = "form-control w-full", @placeholder = "Enter Email ID" })
+                                            @Html.TextBox("EmailID", "", "", new { @class = "form-control w-full", @placeholder = "Enter Email ID", @maxlength = "200" })
                                         </div>
                                     </div>
                                 </div>
@@ -114,7 +101,7 @@
                                             <label class="col-form-label text-md-right w-full">Address</label>
                                         </div>
                                         <div class="col-md-6">
-                                            @Html.TextBox("TAddress", "", new { @class = "form-control w-full", @placeholder = "Enter Address" })
+                                            @Html.TextBox("TAddress", "", new { @class = "form-control w-full", @placeholder = "Enter Address", @maxlength = "255" })
                                         </div>
                                     </div>
                                 </div>
@@ -124,7 +111,7 @@
                                             <label class="col-form-label text-md-right w-full">City</label>
                                         </div>
                                         <div class="col-md-6">
-                                            @Html.TextBox("TCity", "", new { @class = "form-control w-full", @placeholder = "Enter City Name" })
+                                            @Html.TextBox("TCity", "", new { @class = "form-control w-full", @placeholder = "Enter City Name", @maxlength = "200" })
                                         </div>
                                     </div>
                                 </div>
@@ -134,7 +121,7 @@
                                             <label class="col-form-label text-md-right w-full">State</label>
                                         </div>
                                         <div class="col-md-6">
-                                            @Html.TextBox("TState", "", new { @class = "form-control w-full", @placeholder = "Enter State Name" })
+                                            @Html.TextBox("TState", "", new { @class = "form-control w-full", @placeholder = "Enter State Name", @maxlength = "200" })
                                         </div>
                                     </div>
                                 </div>
@@ -144,7 +131,7 @@
                                             <label class="col-form-label text-md-right w-full">Zipcode</label>
                                         </div>
                                         <div class="col-md-6">
-                                            @Html.TextBox("TZipcode", "", new { @class = "form-control w-full", @placeholder = "Enter Zipcode" })
+                                            @Html.TextBox("TZipcode", "", new { @class = "form-control w-full", @placeholder = "Enter Zipcode", @maxlength = "10" })
                                         </div>
                                     </div>
                                 </div>
@@ -163,7 +150,7 @@
                                             <label for="BankName" class="col-form-label text-md-right w-full">Bank Name</label>
                                         </div>
                                         <div class="col-md-6">
-                                            @Html.DropDownList("BankName", BankList, "-- Select Bank --", new { @class = "form-control" })
+                                            @Html.DropDownList("BankName", Model.lstBankMaster, "-- Select Bank --", new { @class = "form-control" })
                                         </div>
                                     </div>
                                 </div>
@@ -173,7 +160,7 @@
                                             <label class="col-form-label text-md-right w-full">Account Number</label>
                                         </div>
                                         <div class="col-md-6">
-                                            @Html.TextBox("MobileNumber", "", new { @class = "form-control w-full", @placeholder = "Enter Account Number" })
+                                            @Html.TextBox("AccountNumber", "", new { @class = "form-control w-full", @placeholder = "Enter Account Number", @maxlength = "20" })
                                         </div>
                                     </div>
                                 </div>
@@ -183,7 +170,8 @@
                                             <label class="col-form-label text-md-right w-full">Repeat Account Number</label>
                                         </div>
                                         <div class="col-md-6">
-                                            @Html.TextBox("MobileNumber", "", new { @class = "form-control w-full", @placeholder = "Enter Account Number" })
+
+                                            @Html.Password("RepeatAccountNumber", "", new { @class = "form-control w-full", @placeholder = "Enter Account Number", @maxlength = "20" })
                                         </div>
                                     </div>
                                 </div>
@@ -193,14 +181,15 @@
                                             <label class="col-form-label text-md-right w-full">IFSC Code</label>
                                         </div>
                                         <div class="col-md-6">
-                                            @Html.TextBox("MobileNumber", "", new { @class = "form-control w-full", @placeholder = "Enter IFSC Code" })
+                                            @Html.TextBox("IFSCCode", "", new { @class = "form-control w-full", @placeholder = "Enter IFSC Code", @maxlength = "15" })
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="form-group m-b-15">
                                     <div class="row">
                                         <div class="col-md-5">
-                                            <label class="col-form-label text-md-right w-full">Upload KYC</label>
+                                            <label class="col-form-label text-md-right w-full">Upload KYC </label>
                                         </div>
                                         <div class="col-md-6">
                                             <div class=" dropzone" action="/file-upload">
@@ -231,6 +220,8 @@
                                 </div>
                             </div>
                         </div>
+
+                        <input type="hidden" id="hdnRIMasterID" value="0">
                     </form>
                 </div>
                 <div id="navpills2-2" class="tab-pane ">
@@ -238,16 +229,18 @@
                         <div class="card-body form-horizontal">
                             <div class="row ">
                                 <div class="col-md-3">
-                                    @Html.TextBox("MobileNumber", "", new { @class = "form-control w-full", @placeholder = "Enter RI Master Name" })
+                                    @Html.TextBox("txtSeaRIName", "", new { @class = "form-control w-full", @placeholder = "Enter RI Master Name" })
                                 </div>
                                 <div class="col-md-3">
-                                    @Html.TextBox("MobileNumber", "", new { @class = "form-control w-full", @placeholder = "Enter RI Master Code" })
+                                    @Html.TextBox("txtSeaRICode", "", new { @class = "form-control w-full", @placeholder = "Enter RI Master Code" })
                                 </div>
                                 <div class="col-md-3">
-                                    @Html.TextBox("MobileNumber", "", new { @class = "form-control w-full", @placeholder = "Enter RI Master City" })
+                                    @Html.TextBox("txtSeaRICity", "", new { @class = "form-control w-full", @placeholder = "Enter RI Master City" })
                                 </div>
                                 <div class="col-md-3">
-                                    <button type="button" class="btn btn-block btn-primary"><i class="fa fa-search mr-3"></i>Search</button>
+
+                                    <button type="submit" class="btn btn-block btn-primary" id="btnSearch"><i class="fa fa-search mr-3"></i>Search</button>
+
                                 </div>
                             </div>
                         </div>
@@ -255,74 +248,33 @@
                     <h5>Search Results:</h5>
                     <br />
                     <div class="table-responsive">
-                        <table class="table table-hover">
+                        <table id="tblRIMaster" class="table table-hover">
                             <tr>
-                                <th>Name</th>
-                                <th>Gender</th>
-                                <th>Relation</th>
-                                <th>Age</th>
-                                <th>Nationality</th>
-                                <th>Category</th>
-                                <th>Salary</th>
-                                <th>EAW</th>
-                                <th>Mobile Number</th>
+                                <th>RIName</th>
+                                <th>RICode</th>
+                                <th>ContactPerson</th>
+                                <th>MobileNumber</th>
+                                <th>EmailId</th>
+                                <th>Address</th>
+                                @*<th>City</th>
+                                    <th>State</th>
+                                    <th>Zipcode</th>*@
+                                <th>BankName</th>
+                                <th>AccountNumber</th>
+                                <th>IFSCCode</th>
+                                <th>KYCDocument</th>
                                 <th class="text-center">Actions</th>
                             </tr>
-                            <tr>
-                                <td><a href="javascript:void(0)">Sandy</a></td>
-                                <td>Male</td>
-                                <td><span class="badge badge-pill badge-primary">Self</span></td>
-                                <td>53</td>
-                                <td>Indian</td>
-                                <td>Band A</td>
-                                <td>50,00,000</td>
-                                <td>EAW - 1</td>
-                                <td>+91 9094314558</td>
-                                <td class="text-center"><i class="mdi mdi-pencil text-primary mx-3"></i><i class="mdi mdi-delete text-danger mx-3"></i></td>
-                            </tr>
-                            <tr>
-                                <td><a href="javascript:void(0)">Kajal</a></td>
-                                <td>Female</td>
-                                <td><span class="badge badge-pill badge-warning">Spouse</span></td>
-                                <td>48</td>
-                                <td>Indian</td>
-                                <td>Band A</td>
-                                <td>45,00,000</td>
-                                <td>EAW - 1</td>
-                                <td>+91 9094314558</td>
-                                <td class="text-center"><i class="mdi mdi-pencil text-primary mx-3"></i><i class="mdi mdi-delete text-danger mx-3"></i></td>
-                            </tr>
-                            <tr>
-                                <td><a href="javascript:void(0)">Slyvia</a></td>
-                                <td>Female</td>
-                                <td><span class="badge badge-pill badge-warning">Spouse</span></td>
-                                <td>45</td>
-                                <td>Indian</td>
-                                <td>Band A</td>
-                                <td>57,00,000</td>
-                                <td>EAW - 1</td>
-                                <td>+91 9094314558</td>
-                                <td class="text-center"><i class="mdi mdi-pencil text-primary mx-3"></i><i class="mdi mdi-delete text-danger mx-3"></i></td>
-                            </tr>
-                            <tr>
-                                <td><a href="javascript:void(0)">Sam</a></td>
-                                <td>Male</td>
-                                <td><span class="badge badge-pill badge-danger">Child</span></td>
-                                <td>10</td>
-                                <td>Indian</td>
-                                <td>Band A</td>
-                                <td>N/A</td>
-                                <td>EAW - 1</td>
-                                <td>N/A</td>
-                                <td class="text-center"><i class="mdi mdi-pencil text-primary mx-3"></i><i class="mdi mdi-delete text-danger mx-3"></i></td>
-                            </tr>
+                            <tbody>
+                            </tbody>
+
                         </table>
                     </div>
                 </div>
             </div>
-            
+
         </div>
-        <div class="box-footer text-right">
+        <div class="box-footer text-right hide">
             <button class="btn btn-rounded btn-primary">Submit</button>
             <button class="btn btn-rounded btn-secondary">Cancel</button>
         </div>
@@ -423,3 +375,301 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+
+        $("#txtSeaRIName").autocomplete({
+            minLength: 2,
+            autoFocus: true,
+            open: function () { $($('.ui-autocomplete')).css('width', '300px'); },
+            source: function (request, response) {
+                var param = { prefixText: $('#txtSeaRIName').val(), Action: "RIName" };
+
+                $.ajax({
+                    url: "/GroupLifeInsurance/ReInsurenceMaster/GetAutocompleteRINameRICodeCity",
+                    data: JSON.stringify(param),
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return {
+                                label: item.ReInsurerName,
+                                value: item.ReInsurerName
+                            }
+                        }))
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        var err = eval("(" + XMLHttpRequest.responseText + ")");
+                        //alert(err.Message)
+                        console.log("Ajax Error!");
+                    }
+                });
+            },
+            //select: function (e, i) {
+            //    $("#txtSeaRIMaster").val(i.item.label);
+            //    return false;
+            //},
+        });
+
+        $("#txtSeaRICode").autocomplete({
+            minLength: 2,
+            autoFocus: true,
+            open: function () { $($('.ui-autocomplete')).css('width', '300px'); },
+            source: function (request, response) {
+                var param = { prefixText: $('#txtSeaRICode').val(), Action: "RICode" };
+
+                $.ajax({
+                    url: "/GroupLifeInsurance/ReInsurenceMaster/GetAutocompleteRINameRICodeCity",
+                    data: JSON.stringify(param),
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return {
+                                label: item.ReInsurerCode,
+                                value: item.ReInsurerCode
+                            }
+                        }))
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        var err = eval("(" + XMLHttpRequest.responseText + ")");
+                        //alert(err.Message)
+                        console.log("Ajax Error! " + err.Message);
+                    }
+                });
+            },
+            //select: function (e, i) {
+            //    $("#txtSeaRICode").val(i.item.label);
+            //    return false;
+            //},
+        });
+
+
+        $('#btnSubmitProducerMaster').on('click', function () {
+
+            if ($.trim($("#RIName").val()) == "") {
+                alert("Please enter RIName");
+                $("#RIName").focus();
+                return false;
+            }
+            if ($.trim($("#ContactName").val()) == "") {
+                alert("Please enter ContactName");
+                $("#ContactName").focus();
+                return false;
+            }
+            if ($.trim($("#MobileNumber").val()) == "") {
+                alert("Please enter MobileNumber");
+                $("#MobileNumber").focus();
+                return false;
+            }
+            if ($.trim($("#EmailID").val()) == "") {
+                alert("Please enter EmailID");
+                $("#EmailID").focus();
+                return false;
+            }
+            if ($.trim($("#TAddress").val()) == "") {
+                alert("Please enter Address");
+                $("#TAddress").focus();
+                return false;
+            }
+            if ($.trim($("#TCity").val()) == "") {
+                alert("Please enter City");
+                $("#TCity").focus();
+                return false;
+            }
+            if ($.trim($("#TState").val()) == "") {
+                alert("Please enter State");
+                $("#TState").focus();
+                return false;
+            }
+            if ($.trim($("#TZipcode").val()) == "") {
+                alert("Please enter Zipcode");
+                return false;
+            }
+            if ($.trim($('#BankName :selected').val()) == "") {
+                alert("Please select BankName");
+                $("#BankName").focus();
+                return false;
+            }
+
+            if ($.trim($("#AccountNumber").val()) == "") {
+                alert("Please enter Account Number");
+                $("#AccountNumber").focus();
+                return false;
+            }
+            if ($.trim($("#RepeatAccountNumber").val()) == "") {
+                alert("Please enter Repeat Account Number");
+                $("#RepeatAccountNumber").focus();
+                return false;
+            }
+
+            if ($.trim($("#AccountNumber").val()) != "" && $.trim($("#RepeatAccountNumber").val()) != "") {
+
+                if ($.trim($("#AccountNumber").val()) != $.trim($("#RepeatAccountNumber").val())) {
+                    $("#RepeatAccountNumber").val("");
+                    $("#RepeatAccountNumber").focus();
+                    alert("Please check,Account Number is not match");
+
+                    return false;
+                }
+
+            }
+
+            if ($.trim($("#IFSCCode").val()) == "") {
+                alert("Please enter IFSCCode");
+                $("#IFSCCode").focus();
+                return false;
+            }
+
+            var objRiMaster = new Object();
+            objRiMaster.ReInsurerMasterId = $("#hdnRIMasterID").val();
+            objRiMaster.ReInsurerName = $("#RIName").val();
+            objRiMaster.ContactPerson = $("#ContactName").val();
+            objRiMaster.MobileNumber = $("#MobileNumber").val();
+            objRiMaster.EmailId = $("#EmailID").val();
+            objRiMaster.Address = $("#TAddress").val();
+            objRiMaster.City = $("#TCity").val();
+            objRiMaster.State = $("#TState").val();
+            objRiMaster.Zipcode = $("#TZipcode").val();
+
+            objRiMaster.BankName = $('#BankName :selected').text();
+            objRiMaster.BankID = $('#BankName :selected').val();
+            objRiMaster.AccountNumber = $("#AccountNumber").val();
+            objRiMaster.IFSCCode = $("#IFSCCode").val();
+
+            var param = { objReInsurerMaster: objRiMaster, Action: $("#btnSubmitProducerMaster").val() };
+            //var renewalData = $('#formRIMaster').serialize();
+            $.ajax({
+                type: "POST",
+                url: "/GroupLifeInsurance/ReInsurenceMaster/AddUpdateRIMaster",
+                dataType: "json",
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                data: param,
+                success: function (res) {
+                    if (res > 0) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: '',
+                            text: "Data Submitted Successfully.",
+                        })
+                    }
+                    else if (res == -2) {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: '',
+                            text: "Please provide all mandatory fields.",
+                        })
+                        //alert('Please provide all mandatory fields')
+                        return false;
+                    }
+                    $('#formRenewal').reset();
+                },
+                error: function () {
+                    // $("#lblMessage").html('Error while Registring the Company!.');
+                    $('#formRIMaster').reset();
+                }
+            })
+        });
+    });
+
+
+    $('#btnSearch').on('click', function () {
+        // var formData = $('#MotorForm').serialize();
+        var param = { RIName: $('#txtSeaRIName').val(), RICode: $('#txtSeaRICode').val(), City: $('#txtSeaRICity').val() };
+        $("#tblRIMaster").find("tr:not(:first)").remove();
+
+        $.ajax({
+
+            type: "GET",
+            url: "/GroupLifeInsurance/ReInsurenceMaster/GetRIMaster",
+            dataType: "json",
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            data: param,
+            success: function (Result) {
+                if (Result.length > 0) {
+                    var i = 0;
+                    $.each(Result, function (key, value) {
+                        i++;
+                        var hdnID = "hdnobjJSonVal_" + i;
+                        var JVal = JSON.stringify(value);
+                        $('#tblRIMaster').append('<tr> <td>' + value.ReInsurerName + '</td>  <td>' + value.ReInsurerCode + '</td> <td>' + value.ContactPerson + '</td> <td>' + value.MobileNumber + '</td><td>' + value.EmailId + '</td> <td>' + value.Address + '</td><td>' + value.BankName + '</td><td>' + value.AccountNumber + '</td><td>' + value.IFSCCode + '</td><td>' + value.UploadKYC_01 + '</td><td class="text-center"><i class="mdi mdi-pencil text-primary mx-3" onclick="EditRIMaster(' + "'" + hdnID + "'" + ')"></i><i class="mdi mdi-delete text-danger mx-3" onclick="DeActiveRIMaster(this,' + value.ReInsurerMasterId.toString() + ');"></i><input type="hidden" id=' + hdnID + ' value=' + "'" + JVal + "'" + '></td></tr>');
+
+
+                    })
+                }
+                else {
+                    $('#tblRIMaster').append('<tr> <td colspan="14" aligen="center" > No Records found </td></tr>');
+                }
+                //$("#tblRIMaster tr").filter(function () {
+                //    $(this).toggle($(this).text().toLowerCase().indexOf(formData) > -1)
+                //});
+
+            },
+            error: function () {
+                // $("#lblMessage").html('Error while Registring the Company!.');
+            }
+        })
+    });
+
+    function DeActiveRIMaster(obj, RID) {
+
+        var RIDs = '' + RID;
+        var param = { RiMasterID: RIDs };
+        $.ajax({
+            type: "POST",
+            url: "/GroupLifeInsurance/ReInsurenceMaster/DeactivateRIMaster",
+            dataType: "json",
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            data: param,
+            success: function (Result) {
+                if (Result == "DeActivated") {
+                    $(obj).closest('tr').remove();
+                    alert("DeActivated successfully");
+                    return false;
+                }
+                else { alert(Result); }
+
+
+
+            },
+            error: function () {
+                console.log('Error while Registring the Company!.');
+            }
+        })
+
+    }
+    function EditRIMaster(JsonObj) {
+        $("#anavpills2-2").removeClass("active");
+        $("#navpills2-2").removeClass("active");
+
+        $("#anavpills2-1").addClass("active");
+        $("#navpills2-1").addClass("active");
+
+        var objRow = JSON.parse($("#" + JsonObj).val());
+        $("#RIName").val(objRow.ReInsurerName);
+        $("#ContactName").val(objRow.ContactPerson);
+        $("#MobileNumber").val(objRow.MobileNumber);
+        $("#EmailID").val(objRow.EmailId);
+        $("#TAddress").val(objRow.Address);
+        $("#TCity").val(objRow.City);
+        $("#TState").val(objRow.State);
+        $("#TZipcode").val(objRow.Zipcode);
+
+        //objRow.BankName = $('#BankName :selected').text();
+        $('#BankName').val(objRow.BankID);
+        $("#AccountNumber").val(objRow.AccountNumber);
+        $("#RepeatAccountNumber").val(objRow.AccountNumber);
+        $("#IFSCCode").val(objRow.IFSCCode);
+        $("#hdnRIMasterID").val(objRow.ReInsurerMasterId);
+
+        $("#btnSubmitProducerMaster").val("Update");
+
+    }
+
+</script>

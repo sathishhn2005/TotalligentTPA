@@ -51,7 +51,7 @@ namespace Totalligent.BAL
                 {
                     byte[] b = ASCIIEncoding.ASCII.GetBytes(objClientCom.EmailId);
                     string encryptedPswd = Convert.ToBase64String(b);
-                    objClientCom.Password = encryptedPswd;
+                    //objClientCom.Password = encryptedPswd;
                     returnCode = objMasterDAL.SaveClientCompany(objClientCom, out string UserName, out string Password);
 
 

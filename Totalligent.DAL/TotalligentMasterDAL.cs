@@ -106,7 +106,7 @@ namespace Totalligent.DAL
                     cmd.Parameters.AddWithValue("@Address", objCCMaster.Address);
                     //cmd.Parameters.AddWithValue("@City", objCCMaster.City);
                     //cmd.Parameters.AddWithValue("@Zipcode", objCCMaster.Zipcode);
-                    cmd.Parameters.AddWithValue("@Password", objCCMaster.Password);
+                    //cmd.Parameters.AddWithValue("@Password", objCCMaster.Password);
                     cmd.Parameters.AddWithValue("@ContactPerson", objCCMaster.ContactPerson);
                     cmd.Parameters.AddWithValue("@MobileNumber", objCCMaster.MobileNumber);
                     cmd.Parameters.AddWithValue("@EmailId", objCCMaster.EmailId);

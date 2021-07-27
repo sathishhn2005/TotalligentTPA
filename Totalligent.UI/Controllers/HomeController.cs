@@ -52,10 +52,10 @@ namespace Totalligent.UI.Controllers
             return View();
 
         }
-        public ActionResult Login()
-        {
-            return View();
-        }
+        //public ActionResult Login()
+        //{
+        //    return View();
+        //}
         public ActionResult Userlogin()
         {
             return View();
@@ -96,7 +96,7 @@ namespace Totalligent.UI.Controllers
                 return View("Error");
 
         }
-        [HttpGet]
+        //[HttpGet]
         public ActionResult Login(RolesModel objModels)
         {
             string UName = string.Empty;
@@ -105,6 +105,9 @@ namespace Totalligent.UI.Controllers
                 Employee objEmployee = objBALTot.GetLogin(objModels.LoginUser.UserName, objModels.LoginUser.Password, objModels.Role, out string IsFirstLogin);
                 if (!string.IsNullOrEmpty(objEmployee.UserName))
                 {
+                    Session["Loginid"] = objEmployee.Loginid.ToString();
+                    Session["UserName"] = objEmployee.UserName;
+
                     UName = objEmployee.UserName;
                     U_Name = objEmployee.UserName;
                     TempData["uname"] = UName;

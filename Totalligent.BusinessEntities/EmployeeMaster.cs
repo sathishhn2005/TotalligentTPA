@@ -8,12 +8,10 @@ namespace Totalligent.BusinessEntities
 {
     public class EmployeeMaster
     {
-
         public long EmployeeId { get; set; }
-        public decimal ClientRate { get; set; }
-        public decimal RIRate { get; set; }
-        
+
         public string EmployeeName { get; set; }
+        public string ClientName { get; set; }
 
         public string EmployeeUniqueNumber { get; set; }
 
@@ -39,13 +37,33 @@ namespace Totalligent.BusinessEntities
 
         public string EntryType { get; set; }
 
-        public string AddedBy { get; set; }
+        public int? BankID { get; set; }
 
-        public DateTime? AddedOn { get; set; }
+        public string AccountNumber { get; set; }
 
-        public string UpdatedBy { get; set; }
+        public string IFSCCode { get; set; }
 
-        public DateTime? UpdatedOn { get; set; }
+        public string UploadKYC_01 { get; set; }
+
+        public string UploadKYC_02 { get; set; }
+
+        public string UploadKYC_03 { get; set; }
+
+        public string UploadKYC_04 { get; set; }
+
+        public string UploadKYC_05 { get; set; }
+
+        public string Status { get; set; }
+
+        public string CreatedBy { get; set; }
+
+        public DateTime? CreatedAt { get; set; }
+
+        public string ModifyBy { get; set; }
+
+        public DateTime? ModifyAt { get; set; }
 
     }
+
+
 }

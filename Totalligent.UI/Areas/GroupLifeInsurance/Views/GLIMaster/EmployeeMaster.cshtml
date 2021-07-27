@@ -1,36 +1,43 @@
-﻿@model Totalligent.BusinessEntities.EmployeeMaster
+﻿@model Totalligent.UI.Models.EmployeeMasterModel
+@using Totalligent.BusinessEntities;
 
 @{
     ViewBag.Title = "EmployeeMaster";
     Layout = "~/Areas/GroupLifeInsurance/Views/Shared/_Layout.cshtml";
 }
+@{ List<SelectListItem>
+           lstGender = new List<SelectListItem>
+               ();
+    lstGender.Add(new SelectListItem
+    {
+        Text = "Male",
+        Value = "Male"
+    });
+    lstGender.Add(new SelectListItem
+    {
+        Text = "Female",
+        Value = "Female"
+    });
 
+}
+@{ List<SelectListItem>
+             lstNationlity = new List<SelectListItem>
+                 ();
+    lstNationlity.Add(new SelectListItem
+    {
+        Text = "India",
+        Value = "India"
+    });
+    lstNationlity.Add(new SelectListItem
+    {
+        Text = "Oman",
+        Value = "Oman"
+    });
 
-@{ List<SelectListItem> BankList = new List<SelectListItem>();
-    BankList.Add(new SelectListItem
-    {
-        Text = "Axis Bank",
-        Value = "AxisBank"
-    });
-    BankList.Add(new SelectListItem
-    {
-        Text = "HDFC Bank",
-        Value = "HDFC"
-    });
-    BankList.Add(new SelectListItem
-    {
-        Text = "Kotak Mahindra Bank",
-        Value = "Kotak"
-    });
-    BankList.Add(new SelectListItem
-    {
-        Text = "State Bank of India",
-        Value = "SIBBank",
-    }); }
+}
 @Html.AntiForgeryToken()
+@*formEmployee*@
 
-
-@Html.ValidationSummary(true, "", new { @class = "text-danger" })
 <div class="p-t-30">
     <div class="box">
         <div class="box-header with-border">
@@ -48,52 +55,7 @@
                                 <div class="form-group m-b-15">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <h4 class="col-sm-12 font-weight-bold text-center">Employee Basic Details</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                               
-                                <div class="form-group m-b-15">
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            @Html.LabelFor(model => model.EmployeeName, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
-                                        </div>
-                                        <div class="col-md-6">
-                                            @Html.TextBoxFor(model => model.EmployeeName, new { @required = "required", @class = "form-control", placeholder = "Enter Employee Name" })
-                                            @Html.ValidationMessageFor(model => model.EmployeeName, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group m-b-15">
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            @Html.LabelFor(model => model.EmployeeUniqueNumber, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
-                                        </div>
-                                        <div class="col-md-6">
-                                            @Html.TextBoxFor(model => model.EmployeeUniqueNumber, new { @required = "required", @class = "form-control", placeholder = "Enter Employee UID" })
-                                            @Html.ValidationMessageFor(model => model.EmployeeUniqueNumber, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group m-b-15">
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            <label class="col-sm-12 col-form-label text-right">Client Name</label>
-
-                                        </div>
-                                        <div class="col-md-6">
-                                            @Html.DropDownList("BankName", BankList, "-- Select Client --", new { @class = "form-control" })
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group m-b-15">
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            <label class="col-sm-12 col-form-label text-right">Gender</label>
-
-                                        </div>
-                                        <div class="col-md-6">
-                                            @Html.DropDownList("BankName", BankList, "-- Select Gender --", new { @class = "form-control" })
+                                            <h4 class="font-weight-bold text-center">Employee Basic Details</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -101,11 +63,56 @@
                                 <div class="form-group m-b-15">
                                     <div class="row">
                                         <div class="col-md-5">
-                                            @Html.LabelFor(model => model.DOB, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                            <label for="EmployeeName" class="col-form-label text-md-right w-full">Employee Name</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            @Html.TextBox("EmployeeName", "", new { @required = "required", @class = "form-control", placeholder = "Enter Employee Name" })
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group m-b-15">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <label for="EmployeeUID" class="col-form-label text-md-right w-full">Employee UID</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            @Html.TextBox("EmployeeUniqueNumber", "", new { @required = "required", @class = "form-control", placeholder = "Enter Employee UID" })
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group m-b-15">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <label class="col-form-label text-md-right w-full">Client Name</label>
+
+                                        </div>
+                                        <div class="col-md-6">
+                                            @Html.DropDownList("ClientName", Model.lstClientMaster, "-- Select Client --", new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group m-b-15">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <label class="col-form-label text-md-right w-full">Gender</label>
+
+                                        </div>
+                                        <div class="col-md-6">
+                                            @Html.DropDownList("Gender", lstGender, "-- Select Gender --", new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group m-b-15">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <label for="DOB" class="col-form-label text-md-right w-full">DOB</label>
                                         </div>
                                         <div class="col-md-6">
                                             @(Html.Kendo().DatePicker()
-                                        .Name("datepicker")
+                                        .Name("DOB")
                                         .Value("10/10/2011")
                                         .HtmlAttributes(new { style = "width: 100%", title = "datepicker" })
                                     )
@@ -115,34 +122,34 @@
                                 <div class="form-group m-b-15">
                                     <div class="row">
                                         <div class="col-md-5">
-                                            @Html.LabelFor(model => model.Age, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                            <label for="Age" class="col-form-label text-md-right w-full">Age</label>
                                         </div>
                                         <div class="col-md-6">
-                                            @Html.TextBoxFor(model => model.Age, new { @required = "required", @class = "form-control", placeholder = "Enter Age" })
-                                            @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
+                                            @Html.TextBox("Age", "", new { @required = "required", @class = "form-control", placeholder = "Enter Age" })
+
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group m-b-15">
                                     <div class="row">
                                         <div class="col-md-5">
-                                            @Html.LabelFor(model => model.Nationality, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                            <label for="Nationality" class="col-form-label text-md-right w-full">Nationality</label>
 
                                         </div>
                                         <div class="col-md-6">
-                                            @Html.DropDownList("BankName", BankList, "-- Select Nationality --", new { @class = "form-control" })
+                                            @Html.DropDownList("Nationality", lstNationlity, "-- Select Nationality --", new { @class = "form-control" })
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group m-b-15">
                                     <div class="row">
                                         <div class="col-md-5">
-                                            @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                            <label for="Category" class="col-form-label text-md-right w-full">Category</label>
 
                                         </div>
                                         <div class="col-md-6">
-                                            @Html.TextBoxFor(model => model.Category, new { @required = "required", @class = "form-control", placeholder = "Enter Category" })
-                                            @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
+                                            @Html.TextBox("Category", "", new { @required = "required", @class = "form-control", placeholder = "Enter Category" })
+
                                         </div>
                                     </div>
                                 </div>
@@ -150,111 +157,98 @@
                                 <div class="form-group m-b-15">
                                     <div class="row">
                                         <div class="col-md-5">
-                                            @Html.LabelFor(model => model.SumAssured, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                            <label for="SumAssured" class="col-form-label text-md-right w-full">Sum Assured</label>
                                         </div>
                                         <div class="col-md-6">
-                                            @Html.TextBoxFor(model => model.SumAssured, new { @required = "required", @class = "form-control", placeholder = "Enter SumAssured" })
-                                            @Html.ValidationMessageFor(model => model.SumAssured, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group m-b-15">
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            @Html.LabelFor(model => model.ClientRate, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
-                                        </div>
-                                        <div class="col-md-6">
-                                            @Html.TextBoxFor(model => model.ClientRate, new { @required = "required", @class = "form-control", placeholder = "Enter ClientRate" })
-                                            @Html.ValidationMessageFor(model => model.ClientRate, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group m-b-15">
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            @Html.LabelFor(model => model.RIRate, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
-                                        </div>
-                                        <div class="col-md-6">
-                                            @Html.TextBoxFor(model => model.RIRate, new { @required = "required", @class = "form-control", placeholder = "Enter RIRate" })
-                                            @Html.ValidationMessageFor(model => model.RIRate, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group m-b-15">
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            @Html.LabelFor(model => model.Salary, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
-                                        </div>
-                                        <div class="col-md-6">
-                                            @Html.TextBoxFor(model => model.Salary, new { @required = "required", @class = "form-control", placeholder = "Enter Salary" })
-                                            @Html.ValidationMessageFor(model => model.Salary, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group m-b-15">
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            @Html.LabelFor(model => model.EAW, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
-                                        </div>
-                                        <div class="col-md-6">
-                                            @Html.TextBoxFor(model => model.EAW, new { @required = "required", @class = "form-control", placeholder = "Enter EAW" })
-                                            @Html.ValidationMessageFor(model => model.EAW, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group m-b-15">
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            @Html.LabelFor(model => model.EffectiveDate, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
-                                        </div>
-                                        <div class="col-md-6">
-                                            @Html.TextBoxFor(model => model.EffectiveDate, new { @required = "required", @class = "form-control", placeholder = "Enter Effective Date" })
-                                            @Html.ValidationMessageFor(model => model.EffectiveDate, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group m-b-15">
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            @Html.LabelFor(model => model.Remarks, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
-                                        </div>
-                                        <div class="col-md-6">
-                                            @Html.TextBoxFor(model => model.Remarks, new { @required = "required", @class = "form-control", placeholder = "Enter Remarks" })
-                                            @Html.ValidationMessageFor(model => model.Remarks, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group m-b-15">
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            <label class="col-sm-12 col-form-label text-right">Status</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            @Html.TextBoxFor(model => model.Remarks, new { @required = "required", @class = "form-control", placeholder = "Enter Status" })
-                                            @Html.ValidationMessageFor(model => model.Remarks, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-none">
+                                            @Html.TextBox("SumAssured", "", new { @required = "required", @class = "form-control", placeholder = "Enter SumAssured" })
 
-                                    <div class="form-group m-b-15">
-                                        <div class="row">
-                                            <div class="col-md-5">
-                                                @Html.LabelFor(model => model.EntryType, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
-                                            </div>
-                                            <div class="col-md-6">
-                                                @Html.TextBoxFor(model => model.EntryType, new { @required = "required", @class = "form-control", placeholder = "Enter Employee Name" })
-                                                @Html.ValidationMessageFor(model => model.EntryType, "", new { @class = "text-danger" })
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="form-group m-b-15">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <label for="ClientRate" class="col-form-label text-md-right w-full">Client Rate</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            @Html.TextBox("ClientRate", "", new { @required = "required", @class = "form-control", placeholder = "Enter ClientRate" })
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group m-b-15">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <label for="RIRate" class="col-form-label text-md-right w-full">RI Rate</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            @Html.TextBox("RIRate", "", new { @required = "required", @class = "form-control", placeholder = "Enter RIRate" })
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group m-b-15">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <label for="Salary" class="col-form-label text-md-right w-full">Salary</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            @Html.TextBox("Salary", "", new { @required = "required", @class = "form-control", placeholder = "Enter Salary" })
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group m-b-15">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <label for="EmployeeName" class="col-form-label text-md-right w-full">EAW</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            @Html.TextBox("EAW", "", new { @required = "required", @class = "form-control", placeholder = "Enter EAW" })
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group m-b-15">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <label for="EffectiveDate" class="col-form-label text-md-right w-full">Effective Date</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            @Html.TextBox("EffectiveDate", "", new { @required = "required", @class = "form-control", placeholder = "Enter Effective Date" })
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group m-b-15">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <label for="Remarks" class="col-form-label text-md-right w-full">Remarks</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            @Html.TextBox("Remarks", "", new { @required = "required", @class = "form-control", placeholder = "Enter Remarks" })
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group m-b-15">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <label class="col-form-label text-md-right w-full">Status</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            @Html.TextBox("Status", "", new { @required = "required", @class = "form-control", placeholder = "Enter Status" })
+
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                             <div class="col-12 col-md-6">
                                 <div class="form-group m-b-15">
                                     <div class="row">
                                         <div class="col-12 col-md-10">
-                                            <h4 class="col-sm-12 font-weight-bold text-center">Employee's Account Details</h4>
+                                            <h4 class="font-weight-bold text-center">Employee's Account Details</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -264,7 +258,7 @@
                                             <label for="BankName" class="col-form-label text-md-right w-full">Bank Name</label>
                                         </div>
                                         <div class="col-md-6">
-                                            @Html.DropDownList("BankName", BankList, "-- Select Bank --", new { @class = "form-control" })
+                                            @Html.DropDownList("BankName", Model.lstBankMaster, "-- Select Bank --", new { @class = "form-control" })
                                         </div>
                                     </div>
                                 </div>
@@ -274,7 +268,7 @@
                                             <label class="col-form-label text-md-right w-full">Account Number</label>
                                         </div>
                                         <div class="col-md-6">
-                                            @Html.TextBoxFor(model => model.EntryType, new { @class = "form-control w-full", @placeholder = "Enter Account Number" })
+                                            @Html.TextBox("AccountNumber", "", new { @class = "form-control w-full", @placeholder = "Enter Account Number", @maxlength = "20" })
                                         </div>
                                     </div>
                                 </div>
@@ -284,7 +278,7 @@
                                             <label class="col-form-label text-md-right w-full">Repeat Account Number</label>
                                         </div>
                                         <div class="col-md-6">
-                                            @Html.TextBoxFor(model => model.EntryType, new { @class = "form-control w-full", @placeholder = "Enter Account Number" })
+                                            @Html.Password("RepeatAccountNumber", "", new { @class = "form-control w-full", @placeholder = "Enter Account Number", @maxlength = "20" })
                                         </div>
                                     </div>
                                 </div>
@@ -294,7 +288,7 @@
                                             <label class="col-form-label text-md-right w-full">IFSC Code</label>
                                         </div>
                                         <div class="col-md-6">
-                                            @Html.TextBoxFor(model => model.EntryType, new { @class = "form-control w-full", @placeholder = "Enter IFSC Code" })
+                                            @Html.TextBox("IFSCCode", "", new { @class = "form-control w-full", @placeholder = "Enter IFSC Code", @maxlength = "15" })
                                         </div>
                                     </div>
                                 </div>
@@ -321,7 +315,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12">
+                            <div class="d-none col-12">
                                 <div class="form-group">
                                     <div class="col-md-12 text-center">
                                         <button class="btn btn-primary-login m-20" type="button">
@@ -330,7 +324,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="col-12">
                                 <div class="form-group">
                                     <div class="col-md-12 text-center">
@@ -341,6 +335,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <input type="hidden" id="hdnEmpMasterID" value="0">
                         </div>
                     </form>
                 </div>
@@ -349,19 +344,19 @@
                         <div class="card-body form-horizontal">
                             <div class="row ">
                                 <div class="col-md-3">
-                                    @Html.TextBoxFor(model => model.EntryType, new { @required = "required", @class = "form-control", placeholder = "Enter an Employee Master Name" })
-                                    @Html.ValidationMessageFor(model => model.EntryType, "", new { @class = "text-danger" })
+                                    @Html.TextBox("txtEmpName", "", new { @required = "required", @class = "form-control", placeholder = "Enter an Employee Master Name" })
+
                                 </div>
                                 <div class="col-md-3">
-                                    @Html.TextBoxFor(model => model.EntryType, new { @required = "required", @class = "form-control", placeholder = "Enter an Employee Master Code" })
-                                    @Html.ValidationMessageFor(model => model.EntryType, "", new { @class = "text-danger" })
+                                    @Html.TextBox("txtEmpId", "", new { @required = "required", @class = "form-control", placeholder = "Enter an Employee Master Code" })
+
                                 </div>
                                 <div class="col-md-3">
-                                    @Html.TextBoxFor(model => model.EntryType, new { @required = "required", @class = "form-control", placeholder = "Enter an Employee Master City" })
-                                    @Html.ValidationMessageFor(model => model.EntryType, "", new { @class = "text-danger" })
+                                    @Html.TextBox("txtClientName", "", new { @required = "required", @class = "form-control", placeholder = "Enter an Employee Client Name" })
+
                                 </div>
                                 <div class="col-md-3">
-                                    <button type="button" class="btn btn-block btn-primary"><i class="fa fa-search mr-3"></i>Search</button>
+                                    <button type="button" id="btnSearch" class="btn btn-block btn-primary"><i class="fa fa-search mr-3"></i>Search</button>
                                 </div>
                             </div>
                         </div>
@@ -369,72 +364,23 @@
                     <h5>Search Results:</h5>
                     <br />
                     <div class="table-responsive">
-                        <table class="table table-hover">
+                        <table id="tblEMaster" class="table table-hover">
                             <tr>
-                                <th>Name</th>
-                                <th>Gender</th>
-                                <th>Relation</th>
-                                <th>Age</th>
+                                <th>EmployeeName</th>
+                                <th>EmpUniqueNumber</th>
+                                
                                 <th>Nationality</th>
                                 <th>Category</th>
-                                <th>Salary</th>
-                                <th>EAW</th>
-                                <th>Mobile Number</th>
+                                <th>Age</th>
+                                
                                 <th class="text-center">Actions</th>
                             </tr>
-                            <tr>
-                                <td><a href="javascript:void(0)">Sandy</a></td>
-                                <td>Male</td>
-                                <td><span class="badge badge-pill badge-primary">Self</span></td>
-                                <td>53</td>
-                                <td>Indian</td>
-                                <td>Band A</td>
-                                <td>50,00,000</td>
-                                <td>EAW - 1</td>
-                                <td>+91 9094314558</td>
-                                <td class="text-center"><i class="mdi mdi-pencil text-primary mx-3"></i><i class="mdi mdi-delete text-danger mx-3"></i></td>
-                            </tr>
-                            <tr>
-                                <td><a href="javascript:void(0)">Kajal</a></td>
-                                <td>Female</td>
-                                <td><span class="badge badge-pill badge-warning">Spouse</span></td>
-                                <td>48</td>
-                                <td>Indian</td>
-                                <td>Band A</td>
-                                <td>45,00,000</td>
-                                <td>EAW - 1</td>
-                                <td>+91 9094314558</td>
-                                <td class="text-center"><i class="mdi mdi-pencil text-primary mx-3"></i><i class="mdi mdi-delete text-danger mx-3"></i></td>
-                            </tr>
-                            <tr>
-                                <td><a href="javascript:void(0)">Slyvia</a></td>
-                                <td>Female</td>
-                                <td><span class="badge badge-pill badge-warning">Spouse</span></td>
-                                <td>45</td>
-                                <td>Indian</td>
-                                <td>Band A</td>
-                                <td>57,00,000</td>
-                                <td>EAW - 1</td>
-                                <td>+91 9094314558</td>
-                                <td class="text-center"><i class="mdi mdi-pencil text-primary mx-3"></i><i class="mdi mdi-delete text-danger mx-3"></i></td>
-                            </tr>
-                            <tr>
-                                <td><a href="javascript:void(0)">Sam</a></td>
-                                <td>Male</td>
-                                <td><span class="badge badge-pill badge-danger">Child</span></td>
-                                <td>10</td>
-                                <td>Indian</td>
-                                <td>Band A</td>
-                                <td>N/A</td>
-                                <td>EAW - 1</td>
-                                <td>N/A</td>
-                                <td class="text-center"><i class="mdi mdi-pencil text-primary mx-3"></i><i class="mdi mdi-delete text-danger mx-3"></i></td>
-                            </tr>
+                            <tbody></tbody>
                         </table>
                     </div>
                 </div>
             </div>
-            
+
         </div>
     </div>
     <div id="uploadBulk" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -533,6 +479,350 @@
     </div>
 </div>
 <script type="text/javascript">
+    //txtCitytxtEmpCopdetxtEmpName
+
+    $(document).ready(function () {
+
+        $("#txtEmpName").autocomplete({
+            minLength: 2,
+            autoFocus: true,
+            open: function () { $($('.ui-autocomplete')).css('width', '300px'); },
+            source: function (request, response) {
+                var param = { prefixText: $('#txtEmpName').val(), Action: "EName" };
+
+                $.ajax({
+                    url: "/GroupLifeInsurance/EmployeeMaster/GetAutocompleteEmpNameId",
+                    data: JSON.stringify(param),
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return {
+                                label: item.EmployeeName,
+                                value: item.EmployeeName
+                            }
+                        }))
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        var err = eval("(" + XMLHttpRequest.responseText + ")");
+                        //alert(err.Message)
+                        console.log("Ajax Error!");
+                    }
+                });
+            },
+            //select: function (e, i) {
+            //    $("#txtSeaRIMaster").val(i.item.label);
+            //    return false;
+            //},
+        });
+
+        $('#btnSubmitEmployeeMaster').on('click', function () {
+
+
+            if ($.trim($('#EmployeeName').val()) == "") {
+                alert('Please enter EmployeeName');
+                $('#EmployeeName').focus();
+                return false;
+            }
+
+            //if ($.trim($('#Relation').val()) == "") {
+            //    alert('Please enter Relation');
+            //    $('#Relation').focus();
+            //    return false;
+            //}
+            if ($.trim($('#Nationality').val()) == "") {
+                alert('Please enter Nationality');
+                $('#Nationality').focus();
+                return false;
+            }
+            if ($.trim($('#Category').val()) == "") {
+                alert('Please enter Category');
+                $('#Category').focus();
+                return false;
+            }
+            if ($.trim($('#DOB').val()) == "") {
+                alert('Please enter DOB');
+                $('#DOB').focus();
+                return false;
+            }
+            if ($.trim($('#Age').val()) == "") {
+                alert('Please enter Age');
+                $('#Age').focus();
+                return false;
+            }
+            if ($.trim($('#Salary').val()) == "") {
+                alert('Please enter Salary');
+                $('#Salary').focus();
+                return false;
+            }
+            if ($.trim($('#EAW').val()) == "") {
+                alert('Please enter EAW');
+                $('#EAW').focus();
+                return false;
+            }
+            if ($.trim($('#SumAssured').val()) == "") {
+                alert('Please enter SumAssured');
+                $('#SumAssured').focus();
+                return false;
+            }
+            if ($.trim($('#EffectiveDate').val()) == "") {
+                alert('Please enter EffectiveDate');
+                $('#EffectiveDate').focus();
+                return false;
+            }
+            if ($.trim($('#Remarks').val()) == "") {
+                alert('Please enter Remarks');
+                $('#Remarks').focus();
+                return false;
+            }
+            //if ($.trim($('#EntryType').val()) == "") {
+            //    alert('Please enter EntryType');
+            //    $('#EntryType').focus();
+            //    return false;
+            //}
+            if ($.trim($('#BankName').val()) == "") {
+                alert('Please enter BankName');
+                $('#BankName').focus();
+                return false;
+            }
+            if ($.trim($('#AccountNumber').val()) == "") {
+                alert('Please enter AccountNumber');
+                $('#AccountNumber').focus();
+                return false;
+            }
+            if ($.trim($('#IFSCCode').val()) == "") {
+                alert('Please enter IFSCCode');
+                $('#IFSCCode').focus();
+                return false;
+            }
+            //if ($.trim($('#UploadKYC_01').val()) == "") {
+            //    alert('Please enter UploadKYC_01');
+            //    $('#UploadKYC_01').focus();
+            //    return false;
+            //}
+            //if ($.trim($('#UploadKYC_02').val()) == "") {
+            //    alert('Please enter UploadKYC_02');
+            //    $('#UploadKYC_02').focus();
+            //    return false;
+            //}
+            //if ($.trim($('#UploadKYC_03').val()) == "") {
+            //    alert('Please enter UploadKYC_03');
+            //    $('#UploadKYC_03').focus();
+            //    return false;
+            //}
+            //if ($.trim($('#UploadKYC_04').val()) == "") {
+            //    alert('Please enter UploadKYC_04');
+            //    $('#UploadKYC_04').focus();
+            //    return false;
+            //}
+            //if ($.trim($('#UploadKYC_05').val()) == "") {
+            //    alert('Please enter UploadKYC_05');
+            //    $('#UploadKYC_05').focus();
+            //    return false;
+            //}
+
+
+            if ($.trim($('#BankName :selected').val()) == "") {
+                alert("Please select BankName");
+                $("#BankName").focus();
+                return false;
+            }
+
+            if ($.trim($("#AccountNumber").val()) == "") {
+                alert("Please enter Account Number");
+                $("#AccountNumber").focus();
+                return false;
+            }
+            if ($.trim($("#RepeatAccountNumber").val()) == "") {
+                alert("Please enter Repeat Account Number");
+                $("#RepeatAccountNumber").focus();
+                return false;
+            }
+            if ($.trim($("#AccountNumber").val()) != "" && $.trim($("#RepeatAccountNumber").val()) != "") {
+                if ($.trim($("#AccountNumber").val()) != $.trim($("#RepeatAccountNumber").val())) {
+                    $("#RepeatAccountNumber").val("");
+                    $("#RepeatAccountNumber").focus();
+                    alert("Please check,Account Number is not match");
+                    return false;
+                }
+            }
+
+            if ($.trim($("#IFSCCode").val()) == "") {
+                alert("Please enter IFSCCode");
+                $("#IFSCCode").focus();
+                return false;
+            }
+
+            var objEmpMaster = new Object();
+            objEmpMaster.EmployeeId = $('#hdnEmpMasterID').val();
+            objEmpMaster.EmployeeName = $('#EmployeeName').val();
+            objEmpMaster.EmployeeUniqueNumber = $('#EmployeeUniqueNumber').val();
+            //objEmpMaster.Relation = $('#Relation').val();
+            objEmpMaster.Nationality = $('#Nationality').val();
+            objEmpMaster.Category = $('#Category').val();
+            objEmpMaster.DOB = $('#DOB').val();
+            objEmpMaster.Age = $('#Age').val();
+            objEmpMaster.Salary = $('#Salary').val();
+            objEmpMaster.EAW = $('#EAW').val();
+            objEmpMaster.SumAssured = $('#SumAssured').val();
+            objEmpMaster.EffectiveDate = $('#EffectiveDate').val();
+            objEmpMaster.Remarks = $('#Remarks').val();
+            objEmpMaster.EntryType = $('#EntryType').val();
+            objEmpMaster.ClientName = $('#ClientName').val();
+
+            objEmpMaster.UploadKYC_01 = $('#UploadKYC_01').val();
+            objEmpMaster.UploadKYC_02 = $('#UploadKYC_02').val();
+            objEmpMaster.UploadKYC_03 = $('#UploadKYC_03').val();
+            objEmpMaster.UploadKYC_04 = $('#UploadKYC_04').val();
+            objEmpMaster.UploadKYC_05 = $('#UploadKYC_05').val();
+            objEmpMaster.Status = $('#Status').val();
+
+
+
+            objEmpMaster.BankName = $('#BankName :selected').text();
+            objEmpMaster.BankID = $('#BankName :selected').val();
+            objEmpMaster.AccountNumber = $("#AccountNumber").val();
+            objEmpMaster.IFSCCode = $("#IFSCCode").val();
+
+            var param = { objEmpMaster: objEmpMaster, Action: $("#btnSubmitEmployeeMaster").val() };
+            //var renewalData = $('#formRIMaster').serialize();
+            $.ajax({
+                type: "POST",
+                url: "/GroupLifeInsurance/EmployeeMaster/AddUpdateEmpMaster",
+                dataType: "json",
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                data: param,
+                success: function (res) {
+                    if (res > 0) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: '',
+                            text: "Data Submitted Successfully.",
+                        })
+                    }
+                    else if (res == -2) {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: '',
+                            text: "Please provide all mandatory fields.",
+                        })
+                        //alert('Please provide all mandatory fields')
+                        return false;
+                    }
+                    $('#formEmployee').reset();
+                },
+                error: function () {
+                    // $("#lblMessage").html('Error while Registring the Company!.');
+                    $('#formEmployee').reset();
+                }
+            })
+        });
+    });
+
+
+    $('#btnSearch').on('click', function () {
+        // var formData = $('#MotorForm').serialize();
+        //txtCitytxtEmpCopdetxtEmpName
+        var param = { EmpName: $('#txtEmpName').val(), EmpId: $('#txtEmpId').val(), ClientName: $('#txtClientName').val() };
+        $("#tblEMaster").find("tr:not(:first)").remove();
+
+        $.ajax({
+
+            type: "GET",
+            url: "/GroupLifeInsurance/EmployeeMaster/GetEmpMaster",
+            dataType: "json",
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            data: param,
+            success: function (Result) {
+                if (Result.length > 0) {
+                    var i = 0;
+                    $.each(Result, function (key, value) {
+                        i++;
+                        var hdnID = "hdnobjJSonVal_" + i;
+                        var JVal = JSON.stringify(value);
+                        $('#tblEMaster').append('<tr> <td>' + value.EmployeeName + '</td>  <td>' + value.EmployeeUniqueNumber + '</td> <td>' + value.Nationality + '</td> <td>' + value.Category + '</td><td>' + value.Age + '</td><td class="text-center"><i class="mdi mdi-pencil text-primary mx-3" onclick="EditEmpMaster(' + "'" + hdnID + "'" + ')"></i><i class="mdi mdi-delete text-danger mx-3" onclick="DeActiveEmpMaster(this,' + value.EmployeeId.toString() + ');"></i><input type="hidden" id=' + hdnID + ' value=' + "'" + JVal + "'" + '></td></tr>');
+
+
+                    })
+                }
+                else {
+                    $('#tblEMaster').append('<tr> <td colspan="14" aligen="center" > No Records found </td></tr>');
+                }
+
+            },
+            error: function () {
+                // $("#lblMessage").html('Error while Registring the Company!.');
+            }
+        })
+    });
+
+    function DeActiveEmpMaster(obj, RID) {
+
+        var RIDs = '' + RID;
+        var param = { EmpId: RIDs };
+        $.ajax({
+            type: "POST",
+            url: "/GroupLifeInsurance/EmployeeMaster/DeactivateEmpMaster",
+            dataType: "json",
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            data: param,
+            success: function (Result) {
+                if (Result == "DeActivated") {
+                    $(obj).closest('tr').remove();
+                    alert("DeActivated successfully");
+                    return false;
+                }
+                else { alert(Result); }
+            },
+            error: function () {
+                console.log('Error while deactivating!.');
+            }
+        })
+
+    }
+    function EditEmpMaster(JsonObj) {
+        $("#anavpills2-2").removeClass("active");
+        $("#navpills2-2").removeClass("active");
+
+        $("#anavpills2-1").addClass("active");
+        $("#navpills2-1").addClass("active");
+
+        var objRow = JSON.parse($("#" + JsonObj).val());
+        $('#EmployeeName').val(objRow.EmployeeName);
+        $('#EmployeeUniqueNumber').val(objRow.EmployeeUniqueNumber);
+        //$('#Relation').val(objRow.Relation);
+        $('#Nationality').val(objRow.Nationality);
+        $('#Category').val(objRow.Category);
+        $('#DOB').val(objRow.DOB);
+        $('#Age').val(objRow.Age);
+        $('#Salary').val(objRow.Salary);
+        $('#EAW').val(objRow.EAW);
+        $('#SumAssured').val(objRow.SumAssured);
+        $('#EffectiveDate').val(objRow.EffectiveDate);
+        $('#Remarks').val(objRow.Remarks);
+        $('#EntryType').val(objRow.EntryType);
+
+        $('#UploadKYC_01').val(objRow.UploadKYC_01);
+        $('#UploadKYC_02').val(objRow.UploadKYC_02);
+        $('#UploadKYC_03').val(objRow.UploadKYC_03);
+        $('#UploadKYC_04').val(objRow.UploadKYC_04);
+        $('#UploadKYC_05').val(objRow.UploadKYC_05);
+
+        $('#BankName').val(objRow.BankID);
+        $("#AccountNumber").val(objRow.AccountNumber);
+        $("#RepeatAccountNumber").val(objRow.AccountNumber);
+        $("#IFSCCode").val(objRow.IFSCCode);
+        $("#hdnEmpMasterID").val(objRow.EmployeeId);
+
+
+        $("#btnSubmitEmployeeMaster").val("Update");
+
+    }
+
+</script>
+@*<script type="text/javascript">
     $(window).on("load", function () {
         $('#btnSubmitEmployeeMaster').on('click', function () {
             var formData = $('#formEmployee').serialize();
@@ -678,5 +968,5 @@
         $("#btnUpload").removeAttr("disabled", "disabled");
         //}
         //alert('The file "' + fileName + '" has been selected.');
-    });</script>
+    });</script>*@
 

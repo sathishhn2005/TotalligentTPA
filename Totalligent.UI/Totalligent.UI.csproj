@@ -190,8 +190,13 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\GroupLifeInsurance\Controllers\ClaimsController.cs" />
+    <Compile Include="Areas\GroupLifeInsurance\Controllers\ClientMasterController.cs" />
     <Compile Include="Areas\GroupLifeInsurance\Controllers\DashBoardController.cs" />
+    <Compile Include="Areas\GroupLifeInsurance\Controllers\EmployeeMasterController.cs" />
     <Compile Include="Areas\GroupLifeInsurance\Controllers\GLIMasterController.cs" />
+    <Compile Include="Areas\GroupLifeInsurance\Controllers\InsuranceCompanyMasterController.cs" />
+    <Compile Include="Areas\GroupLifeInsurance\Controllers\MedicalProviderController.cs" />
+    <Compile Include="Areas\GroupLifeInsurance\Controllers\ReInsurenceMasterController.cs" />
     <Compile Include="Areas\GroupLifeInsurance\Controllers\UnderWritingController.cs" />
     <Compile Include="Areas\GroupLifeInsurance\GroupLifeInsuranceAreaRegistration.cs" />
     <Compile Include="Areas\Home\Controllers\HomeController.cs" />
@@ -205,11 +210,42 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AdminModel.cs" />
+    <Compile Include="Models\CCMasterModel.cs" />
     <Compile Include="Models\ClientModel.cs" />
+    <Compile Include="Models\EmployeeMasterModel.cs" />
+    <Compile Include="Models\ICMasterModel.cs" />
+    <Compile Include="Models\MedicalProviderModel.cs" />
+    <Compile Include="Models\RIMasterModel.cs" />
     <Compile Include="Models\RolesModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\GroupLifeInsurance\Views\Claims\ClaimsRegistration.cshtml" />
+    <Content Include="Areas\GroupLifeInsurance\Views\Claims\DashBoard.cshtml" />
+    <Content Include="Areas\GroupLifeInsurance\Views\Claims\IPApprovals.cshtml" />
+    <Content Include="Areas\GroupLifeInsurance\Views\Claims\OPApprovals.cshtml" />
+    <Content Include="Areas\GroupLifeInsurance\Views\Claims\OPIPTreatment.cshtml" />
+    <Content Include="Areas\GroupLifeInsurance\Views\Claims\PreApprovals.cshtml" />
+    <Content Include="Areas\GroupLifeInsurance\Views\Claims\Reimbursement.cshtml" />
+    <Content Include="Areas\GroupLifeInsurance\Views\Claims\TPADataManagement.cshtml" />
+    <Content Include="Areas\GroupLifeInsurance\Views\DashBoard\BIDashBoard.cshtml" />
+    <Content Include="Areas\GroupLifeInsurance\Views\DashBoard\MISDashBoard.cshtml" />
+    <Content Include="Areas\GroupLifeInsurance\Views\DashBoard\UnderWriterDashBoard.cshtml" />
+    <Content Include="Areas\GroupLifeInsurance\Views\GLIMaster\BenefitMaster.cshtml" />
+    <Content Include="Areas\GroupLifeInsurance\Views\GLIMaster\ClientMaster.cshtml" />
+    <Content Include="Areas\GroupLifeInsurance\Views\GLIMaster\DrugMaster.cshtml" />
+    <Content Include="Areas\GroupLifeInsurance\Views\GLIMaster\EmployeeMaster.cshtml" />
+    <Content Include="Areas\GroupLifeInsurance\Views\GLIMaster\InsuranceCompanyMaster.cshtml" />
+    <Content Include="Areas\GroupLifeInsurance\Views\GLIMaster\MedicalProviderMaster.cshtml" />
+    <Content Include="Areas\GroupLifeInsurance\Views\GLIMaster\ProducerMaster.cshtml" />
+    <Content Include="Areas\GroupLifeInsurance\Views\GLIMaster\RIMaster.cshtml" />
+    <Content Include="Areas\GroupLifeInsurance\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\GroupLifeInsurance\Views\UnderWriting\CardIssuance.cshtml" />
+    <Content Include="Areas\GroupLifeInsurance\Views\UnderWriting\Endorsement.cshtml" />
+    <Content Include="Areas\GroupLifeInsurance\Views\UnderWriting\Masters.cshtml" />
+    <Content Include="Areas\GroupLifeInsurance\Views\UnderWriting\PolicyIssuance.cshtml" />
+    <Content Include="Areas\GroupLifeInsurance\Views\UnderWriting\Quotation.cshtml" />
+    <Content Include="Areas\GroupLifeInsurance\Views\web.config" />
     <Content Include="Content\Content.zip" />
     <Content Include="Content\css\color_theme.css" />
     <Content Include="Content\css\color_theme.css.map" />
@@ -2254,6 +2290,8 @@
     <Content Include="fonts\font-awesome-4.7.0\HELP-US-OUT.txt" />
     <Content Include="fonts\montserrat\OFL.txt" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\Autocomplete\jquery-ui.css" />
+    <Content Include="Scripts\Autocomplete\jquery-ui.js" />
     <Content Include="Scripts\bootstrap-material-design.min.js" />
     <Content Include="fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.ttf" />
@@ -2350,6 +2388,10 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\GroupLifeInsurance\Data\" />
+    <Folder Include="Areas\GroupLifeInsurance\Views\ClientMaster\" />
+    <Folder Include="Areas\GroupLifeInsurance\Views\EmployeeMaster\" />
+    <Folder Include="Areas\GroupLifeInsurance\Views\InsuranceCompanyMaster\" />
+    <Folder Include="Areas\GroupLifeInsurance\Views\MedicalProvider\" />
     <Folder Include="Areas\Home\Data\" />
     <Folder Include="Areas\MedicalInsurance\Data\" />
     <Folder Include="Content\vendor\js\" />
@@ -2377,24 +2419,7 @@
     <Content Include="Content\vendor\dropzone-5.7.0\LICENSE" />
     <Content Include="Content\vendor\dropzone-5.7.0\package.json" />
     <Content Include="Content\vendor\dropzone-5.7.0\README.md" />
-    <Content Include="Areas\GroupLifeInsurance\Views\web.config" />
     <Content Include="Areas\MedicalInsurance\Views\web.config" />
-    <Content Include="Areas\GroupLifeInsurance\Views\DashBoard\UnderWriterDashBoard.cshtml" />
-    <Content Include="Areas\GroupLifeInsurance\Views\DashBoard\MISDashBoard.cshtml" />
-    <Content Include="Areas\GroupLifeInsurance\Views\DashBoard\BIDashBoard.cshtml" />
-    <Content Include="Areas\GroupLifeInsurance\Views\UnderWriting\Masters.cshtml" />
-    <Content Include="Areas\GroupLifeInsurance\Views\UnderWriting\Quotation.cshtml" />
-    <Content Include="Areas\GroupLifeInsurance\Views\UnderWriting\PolicyIssuance.cshtml" />
-    <Content Include="Areas\GroupLifeInsurance\Views\UnderWriting\CardIssuance.cshtml" />
-    <Content Include="Areas\GroupLifeInsurance\Views\UnderWriting\Endorsement.cshtml" />
-    <Content Include="Areas\GroupLifeInsurance\Views\Claims\DashBoard.cshtml" />
-    <Content Include="Areas\GroupLifeInsurance\Views\Claims\OPIPTreatment.cshtml" />
-    <Content Include="Areas\GroupLifeInsurance\Views\Claims\Reimbursement.cshtml" />
-    <Content Include="Areas\GroupLifeInsurance\Views\Claims\TPADataManagement.cshtml" />
-    <Content Include="Areas\GroupLifeInsurance\Views\Claims\ClaimsRegistration.cshtml" />
-    <Content Include="Areas\GroupLifeInsurance\Views\Claims\PreApprovals.cshtml" />
-    <Content Include="Areas\GroupLifeInsurance\Views\Claims\OPApprovals.cshtml" />
-    <Content Include="Areas\GroupLifeInsurance\Views\Claims\IPApprovals.cshtml" />
     <Content Include="Areas\MedicalInsurance\Views\MIClaims\MIDashBoard.cshtml" />
     <Content Include="Areas\MedicalInsurance\Views\MIClaims\MIOPIPTreatment.cshtml" />
     <Content Include="Areas\MedicalInsurance\Views\MIClaims\MIReimbursement.cshtml" />
@@ -2415,16 +2440,7 @@
     <Content Include="Areas\Home\Views\Home\Login.cshtml" />
     <Content Include="Areas\Home\Views\Home\HomePage.cshtml" />
     <Content Include="Areas\Home\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\GroupLifeInsurance\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\MedicalInsurance\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\GroupLifeInsurance\Views\GLIMaster\InsuranceCompanyMaster.cshtml" />
-    <Content Include="Areas\GroupLifeInsurance\Views\GLIMaster\ClientMaster.cshtml" />
-    <Content Include="Areas\GroupLifeInsurance\Views\GLIMaster\ProducerMaster.cshtml" />
-    <Content Include="Areas\GroupLifeInsurance\Views\GLIMaster\EmployeeMaster.cshtml" />
-    <Content Include="Areas\GroupLifeInsurance\Views\GLIMaster\RIMaster.cshtml" />
-    <Content Include="Areas\GroupLifeInsurance\Views\GLIMaster\MedicalProviderMaster.cshtml" />
-    <Content Include="Areas\GroupLifeInsurance\Views\GLIMaster\DrugMaster.cshtml" />
-    <Content Include="Areas\GroupLifeInsurance\Views\GLIMaster\BenefitMaster.cshtml" />
     <Content Include="Areas\MedicalInsurance\Views\MIMaster\InsuranceCompanyMaster.cshtml" />
     <Content Include="Areas\MedicalInsurance\Views\MIMaster\ClientMaster.cshtml" />
     <Content Include="Areas\MedicalInsurance\Views\MIMaster\ProducerMaster.cshtml" />
@@ -2433,6 +2449,7 @@
     <Content Include="Areas\MedicalInsurance\Views\MIMaster\MedicalProviderMaster.cshtml" />
     <Content Include="Areas\MedicalInsurance\Views\MIMaster\DrugMaster.cshtml" />
     <Content Include="Areas\MedicalInsurance\Views\MIMaster\BenefitMaster.cshtml" />
+    <Content Include="Areas\Home\Views\Home\Registration.cshtml" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Uploads\Agentmaster.xlsx" />

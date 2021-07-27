@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Totalligent.UI.Models;
+using Totalligent.BAL;
+using Totalligent.BusinessEntities;
 
 namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
 {
@@ -11,11 +14,86 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
         // GET: GroupLifeInsurance/GLIMaster
         public ActionResult InsuranceCompanyMaster()
         {
-            return View();
+            List<BankMaster> lstBM = null;
+            ICMasterModel obj = new ICMasterModel();
+            new GLIMasterBAL().GetBankMasters(out lstBM);
+            obj.lstICMaster = null;
+
+            var selectList = new List<SelectListItem>();
+
+            foreach (var element in lstBM)
+            {
+                selectList.Add(new SelectListItem
+                {
+                    Value = element.BankID.ToString(),
+                    Text = element.BankName
+                });
+                obj.lstBankMaster = selectList;
+            }
+            return View(obj);
         }
         public ActionResult ClientMaster()
         {
-            return View();
+            List<BankMaster> lstBM = null;
+            MasterSelectedList objCCMasters = new MasterSelectedList();
+            CCMasterModel obj = new CCMasterModel();
+            new GLIMasterBAL().GetBankMasters(out lstBM);
+            new GLIMasterBAL().GetMasterData(out objCCMasters);
+            obj.lstCCMaster = null;
+            
+
+            var selectList = new List<SelectListItem>();
+            var selectListICM = new List<SelectListItem>();
+            var selectListRI = new List<SelectListItem>();
+            var selectListLOB = new List<SelectListItem>();
+            var selectListPM = new List<SelectListItem>();
+
+            foreach (var element in lstBM)
+            {
+                selectList.Add(new SelectListItem
+                {
+                    Value = element.BankID.ToString(),
+                    Text = element.BankName
+                });
+                obj.lstBankMaster = selectList;
+            }
+            foreach (var element in objCCMasters.lstInsCompddl)
+            {
+                selectListICM.Add(new SelectListItem
+                {
+                    Value = element.ICMId.ToString(),
+                    Text = element.InsurancecompanyName
+                });
+                obj.lstCCInsddl = selectListICM;
+            }
+            foreach (var element in objCCMasters.lstProducerMaster)
+            {
+                selectListPM.Add(new SelectListItem
+                {
+                    Value = element.Id.ToString(),
+                    Text = element.Name
+                });
+                obj.lstProducerMaster = selectListPM;
+            }
+            foreach (var element in objCCMasters.lstRIMaster)
+            {
+                selectListRI.Add(new SelectListItem
+                {
+                    Value = element.ReInsurerMasterId.ToString(),
+                    Text = element.ReInsurerName
+                });
+                obj.lstRIMaster = selectListRI;
+            }
+            foreach (var element in objCCMasters.lstLOB)
+            {
+                selectListLOB.Add(new SelectListItem
+                {
+                    Value = element.LOBId.ToString(),
+                    Text = element.LOBName
+                });
+                obj.lstLOB = selectListLOB;
+            }
+            return View(obj);
         }
         public ActionResult ProducerMaster()
         {
@@ -23,15 +101,78 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
         }
         public ActionResult EmployeeMaster()
         {
-            return View();
+            List<BankMaster> lstBM = null;
+            EmployeeMasterModel obj = new EmployeeMasterModel();
+            new GLIMasterBAL().GetBankMasters(out lstBM);
+            MasterSelectedList objCCMasters = new MasterSelectedList();
+            new GLIMasterBAL().GetMasterData(out objCCMasters);
+            obj.lstEMaster = null;
+
+            var selectList = new List<SelectListItem>();
+            var lstClientMasterdata = new List<SelectListItem>();
+
+            foreach (var element in lstBM)
+            {
+                selectList.Add(new SelectListItem
+                {
+                    Value = element.BankID.ToString(),
+                    Text = element.BankName
+                });
+                obj.lstBankMaster = selectList;
+            }
+            
+
+            foreach (var element in objCCMasters.lstCCMaster)
+            {
+                lstClientMasterdata.Add(new SelectListItem
+                {
+                    Value = element.ClientCompanyMasterId.ToString(),
+                    Text = element.ClientCompanyName
+                });
+                obj.lstClientMaster = lstClientMasterdata;
+            }
+            return View(obj);
         }
         public ActionResult RIMaster()
         {
-            return View();
+
+            List<BankMaster> lstBM = null;
+            RIMasterModel obj = new RIMasterModel();
+            new GLIMasterBAL().GetBankMasters(out lstBM);
+            obj.lstRIMaster = null;
+
+            var selectList = new List<SelectListItem>();
+
+            foreach (var element in lstBM)
+            {
+                selectList.Add(new SelectListItem
+                {
+                    Value = element.BankID.ToString(),
+                    Text = element.BankName
+                });
+                obj.lstBankMaster = selectList;
+            }
+            return View(obj);
         }
         public ActionResult MedicalProviderMaster()
         {
-            return View();
+            List<BankMaster> lstBM = null;
+            MedicalProviderModel obj = new MedicalProviderModel();
+            new GLIMasterBAL().GetBankMasters(out lstBM);
+            obj.lstRIMaster = null;
+
+            var selectList = new List<SelectListItem>();
+
+            foreach (var element in lstBM)
+            {
+                selectList.Add(new SelectListItem
+                {
+                    Value = element.BankID.ToString(),
+                    Text = element.BankName
+                });
+                obj.lstBankMaster = selectList;
+            }
+            return View(obj);
         }
         public ActionResult DrugMaster()
         {
@@ -41,9 +182,9 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
         {
             return View();
         }
-        
 
 
-        
+
+
     }
 }

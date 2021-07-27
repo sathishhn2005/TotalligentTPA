@@ -11,6 +11,7 @@ namespace Totalligent.BusinessEntities
         public long Id { get; set; }
 
         public string MasterType { get; set; }
+        public string ProducerType { get; set; }
 
         public string Name { get; set; }
 

@@ -26,8 +26,8 @@ namespace Totalligent.BusinessEntities
         private string updatedBy = string.Empty;
         private string newpassword = string.Empty;
         private int ticketId = 0;
-        
-        
+        private Int32 _Loginid = 0;
+        public Int32 Loginid { get => _Loginid; set => _Loginid = value; }
         public int EmployeeId { get => employeeId; set => employeeId = value; }
         
         public string UserName { get => userName; set => userName = value; }
