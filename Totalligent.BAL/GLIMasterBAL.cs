@@ -10,21 +10,25 @@ namespace Totalligent.BAL
 {
     public class GLIMasterBAL
     {
+       
         #region CommonMaster        
-
         public int GetBankMasters(out List<BankMaster> lstBankMaster)
         {
             return new GLIMasterDAL().GetBankMasters(out lstBankMaster);
         }
+        public int GetBusinessDesignationTypeMaster(out List<BusinessDesignationTypeMaster> lstBusinessTypeMaster)
+        {
+            return new GLIMasterDAL().GetBusinessDesignationTypeMaster(out lstBusinessTypeMaster);
+        }
         public int GetMasterData(out MasterSelectedList lst)
         {
-            
+
             return new GLIMasterDAL().GetDefaultMasters(out lst);
         }
         #endregion
 
         #region RIMaster  
-        public int DMLRIMaster(string Action, string JPramValue)
+        public long DMLRIMaster(string Action, string JPramValue)
         {
             return new GLIMasterDAL().DMLRIMaster(Action, JPramValue);
         }
@@ -43,12 +47,50 @@ namespace Totalligent.BAL
         {
             return new GLIMasterDAL().DeactivateRIMaster(ReInsurerMasterId);
         }
+
+        public int pUpdateFolderPathRIMaster(long RIMAsterID, string ZipFilePath)
+        {
+            return new GLIMasterDAL().pUpdateFolderPathRIMaster(RIMAsterID, ZipFilePath);
+        }
+        public long BulkInsertRIMaster(string Action, string JPramValue, long Createdby, out string Msg)
+        {
+            return new GLIMasterDAL().BulkInsertRIMaster(Action, JPramValue, Createdby, out Msg);
+        }
+        #endregion
+
+        #region ProducerMaster
+        public long DMLProducerMaster(string Action, string JPramValue)
+        {
+            return new GLIMasterDAL().DMLProducerMaster(Action, JPramValue);
+        }
+        public int pUpdateFolderPathProducerMaster(long ProducerID, string ZipFilePath)
+        {
+            return new GLIMasterDAL().pUpdateFolderPathProducerMaster(ProducerID, ZipFilePath);
+        }
+        public int GetAutocompleteProducerName_Code_City(string prefixText, string Action, out List<ProducerMaster> lstPMMaster)
+        {
+            return new GLIMasterDAL().GetAutocompleteProducerName_Code_City(prefixText, Action, out lstPMMaster);
+        }
+
+        public int GetProducerMaster(string PMName, string PMCode, string PMCity, out List<ProducerMaster> lstPMMaster)
+        {
+            return new GLIMasterDAL().GetProducerMaster(PMName, PMCode, PMCity, out lstPMMaster);
+        }
+        public int DeactivatePMMaster(long ProducerMasterID)
+        {
+            return new GLIMasterDAL().DeactivatePMMaster(ProducerMasterID);
+        }
+        public long BulkInsertPMMaster(string Action, string JPramValue, long Createdby, out string Msg)
+        {
+            return new GLIMasterDAL().BulkInsertPMMaster(Action, JPramValue, Createdby, out Msg);
+        }
+
         #endregion
 
         #region ClientCompanyMaster  
         public int DMLCCMaster(string Action, string JPramValue)
         {
-            return new GLIMasterDAL().DMLRIMaster(Action, JPramValue);
+            return new GLIMasterDAL().DMLCCMaster(Action, JPramValue);
         }
 
         public int GetAutocompleteCCName(string prefixText, string Action, out List<ClientCompanyMaster> lstCCMaster)
@@ -133,4 +175,6 @@ namespace Totalligent.BAL
         }
         #endregion
     }
+
 }
+

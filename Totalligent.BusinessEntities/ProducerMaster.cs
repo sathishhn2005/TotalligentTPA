@@ -8,29 +8,29 @@ namespace Totalligent.BusinessEntities
 {
     public class ProducerMaster
     {
-        public long Id { get; set; }
-
-        public string MasterType { get; set; }
-        public string ProducerType { get; set; }
-
-        public string Name { get; set; }
-
-        public string UserName { get; set; }
-
-        public string Password { get; set; }
-
+        public long ProducerMasterID { get; set; }
+        public string ProducerName { get; set; }
+        public string ProducerCode { get; set; }
+        public string ContactPerson { get; set; }
+        public string MobileNumber { get; set; }
         public string EmailId { get; set; }
-
-        public DateTime? AddedOn { get; set; }
-
-        public string AddedBy { get; set; }
-
-        public DateTime? UpdatedOn { get; set; }
-
+        public string Address { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+        public string Zipcode { get; set; }
+        public int BusinessDesignationTypeMasterID { get; set; }
+        public int BankID { get; set; }
+        public string BankName { get; set; }
+        public string AccountNumber { get; set; }
+        public string IFSCCode { get; set; }
+        public string KYCUploadPath { get; set; }
+        public string InsertType { get; set; }
+        public string Status { get; set; }
+        public string CreatedBy { get; set; }
+        public DateTime CreatedAt { get; set; }
         public string UpdatedBy { get; set; }
-
-        public string EntryType { get; set; }
-
+        public DateTime UpdatedAt { get; set; }
+        public string BusinessTypeName { get; set; }
 
     }
 }

@@ -196,6 +196,7 @@
     <Compile Include="Areas\GroupLifeInsurance\Controllers\GLIMasterController.cs" />
     <Compile Include="Areas\GroupLifeInsurance\Controllers\InsuranceCompanyMasterController.cs" />
     <Compile Include="Areas\GroupLifeInsurance\Controllers\MedicalProviderController.cs" />
+    <Compile Include="Areas\GroupLifeInsurance\Controllers\ProducerMasterController.cs" />
     <Compile Include="Areas\GroupLifeInsurance\Controllers\ReInsurenceMasterController.cs" />
     <Compile Include="Areas\GroupLifeInsurance\Controllers\UnderWritingController.cs" />
     <Compile Include="Areas\GroupLifeInsurance\GroupLifeInsuranceAreaRegistration.cs" />
