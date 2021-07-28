@@ -2397,6 +2397,7 @@
     <Folder Include="Areas\MedicalInsurance\Data\" />
     <Folder Include="Content\vendor\js\" />
     <Folder Include="GLEndorsementDocument\20210222010910_archive.zip\" />
+    <Folder Include="KYC_Files\ProducerMasterKYCFiles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Masters\Agentmaster.xlsx" />
@@ -2471,6 +2472,8 @@
     <Content Include="Uploads\QuotationSheet.xlsx" />
     <Content Include="Uploads\TPA PROJECT.docx" />
     <Content Include="Uploads\WC_ENDORSEMENT_PAGE.xls" />
+    <Content Include="reproducermaster\ProducerMaster.csv" />
+    <Content Include="reproducermaster\RIMaster.csv" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Totalligent.BAL\Totalligent.BAL.csproj">
