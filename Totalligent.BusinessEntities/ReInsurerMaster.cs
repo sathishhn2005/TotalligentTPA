@@ -12,6 +12,8 @@ namespace Totalligent.BusinessEntities
         public string ReInsurerName { get; set; }
         public string ReInsurerCode { get; set; }
         public string ContactPerson { get; set; }
+        public string KYCUploadPath { get; set; }
+        
         public string MobileNumber { get; set; }
         public string EmailId { get; set; }
         public string Address { get; set; }

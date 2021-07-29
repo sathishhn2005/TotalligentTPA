@@ -19,6 +19,82 @@ namespace Totalligent.DAL
         Hashtable HTOutParam = null;
 
         #region CommonMataDataMaster
+        public int GetDefaultMasters(out MasterSelectedList obj)
+        {
+            int ReturnCode = 0;
+            DataSet ds = new DataSet();
+            obj = new MasterSelectedList();
+            //lstBankMaster = null;
+            // dtResult = new DataSet();
+            try
+            {
+                SqlParameter[] Param = null;
+
+
+
+                objDBEngine = new DBEngine();
+
+                using (objDBEngine = new DBEngine())
+                {
+                    ds = objDBEngine.GetDataSet("pGetDefaultMaster", Param);
+                    //List<DataRow> obj = dtResult.AsEnumerable().ToList();                  
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        obj.lstInsCompddl = ds.Tables[0].AsEnumerable().Select(U => new InsuranceCompanyMaster()
+                        {
+                            ICMId = U.Field<long>("ICMId"),
+                            InsurancecompanyName = U.Field<string>("InsurancecompanyName")
+                        }
+                        ).ToList();
+                    }
+                    if (ds.Tables[1].Rows.Count > 0)
+                    {
+                        obj.lstLOB = ds.Tables[1].AsEnumerable().Select(U => new LOB()
+                        {
+                            LOBId = U.Field<long>("LOBId"),
+                            LOBName = U.Field<string>("LOBName")
+                        }
+                        ).ToList();
+                    }
+                    if (ds.Tables[2].Rows.Count > 0)
+                    {
+                        obj.lstProducerMaster = ds.Tables[2].AsEnumerable().Select(U => new ProducerMaster()
+                        {
+                            ProducerMasterID = U.Field<long>("ProducerMasterID"),
+                            ProducerName = U.Field<string>("ProducerName")
+                        }
+                        ).ToList();
+                    }
+                    if (ds.Tables[3].Rows.Count > 0)
+                    {
+                        obj.lstRIMaster = ds.Tables[3].AsEnumerable().Select(U => new ReInsurerMaster()
+                        {
+                            ReInsurerMasterId = U.Field<long>("ReInsurerMasterId"),
+                            ReInsurerName = U.Field<string>("ReInsurerName")
+                        }
+                        ).ToList();
+                    }
+                    if (ds.Tables[4].Rows.Count > 0)
+                    {
+                        obj.lstCCMaster = ds.Tables[4].AsEnumerable().Select(U => new ClientCompanyMaster()
+                        {
+                            ClientCompanyMasterId = U.Field<long>("ClientCompanyMasterId"),
+                            ClientCompanyName = U.Field<string>("ClientCompanyName")
+                        }
+                        ).ToList();
+                    }
+
+                }
+
+                ReturnCode = 1;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return ReturnCode;
+        }
         public int GetBankMasters(out List<BankMaster> lstBankMaster)
         {
             int ReturnCode = 0;
@@ -102,30 +178,19 @@ namespace Totalligent.DAL
             SqlCommand sqlCommand = new SqlCommand();
             try
             {
-
-
                 SqlParameter[] Param = {
                                             new SqlParameter("@Action",SqlDbType.NVarChar),
                                             new SqlParameter("@JParamVal",SqlDbType.NVarChar),
                                             new SqlParameter("@ReturnRIid",SqlDbType.BigInt)
-                                            
-                                            
                                       };
                 Param[0].Value = Action;
                 Param[1].Value = JPramValue;
                 Param[2].Direction = ParameterDirection.Output;
-              
-
-           
                 using (objDBEngine = new DBEngine())
                 {
-                    sqlCommand = objDBEngine.DMLOperationOutPutParam("pDMLRIMaster", Param,out InsRow);              
-
+                    sqlCommand = objDBEngine.DMLOperationOutPutParam("pDMLRIMaster", Param,out InsRow);     
                 }
-
                 RIMAsterID = (long)sqlCommand.Parameters["@ReturnRIid"].Value;
-                               
-
             }
             catch (Exception ex)
             {
@@ -133,74 +198,6 @@ namespace Totalligent.DAL
             }
             return RIMAsterID;
         }
-
-        public long BulkInsertRIMaster(string Action, string JPramValue, long Createdby,out string Msg)
-        {
-            int InsRow = 0;
-            Msg = string.Empty;
-            SqlCommand sqlCommand = new SqlCommand();
-            try
-            {
-
-                SqlParameter[] Param = {
-                                            new SqlParameter("@Action",SqlDbType.NVarChar),
-                                            new SqlParameter("@JParamVal",SqlDbType.NVarChar),
-                                            new SqlParameter("@CreatedBy",SqlDbType.BigInt),
-                                            new SqlParameter("@Message",SqlDbType.NVarChar,5000)
-                                      };
-                Param[0].Value = Action;
-                Param[1].Value = JPramValue;
-                Param[2].Value = Createdby;
-                Param[3].Direction = ParameterDirection.Output;
-
-                using (objDBEngine = new DBEngine())
-                {
-                    sqlCommand = objDBEngine.DMLOperationOutPutParam("pBulkInsertRIMaster", Param, out InsRow);
-
-                }
-
-                Msg = (string)sqlCommand.Parameters["@Message"].Value;
-
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            return InsRow;
-        }
-
-        public int pUpdateFolderPathRIMaster(long RIMAsterID, string ZipFilePath)
-        {
-           
-            int InsRow = 0;
-         
-            try
-            {
-
-
-                SqlParameter[] Param = {
-                                            new SqlParameter("@RIMasterID",SqlDbType.BigInt),
-                                            new SqlParameter("@KYCzipPath",SqlDbType.NVarChar)                                          
-
-                                      };
-                Param[0].Value = RIMAsterID;
-                Param[1].Value = ZipFilePath;
-
-                using (objDBEngine = new DBEngine())
-                {
-                    InsRow = objDBEngine.DMLOperation("pUpdateFolderPathRIMaster", Param);
-
-                }                
-
-
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            return InsRow;
-        }
-
         public int GetAutocompleteRINameRICodeCity(string prefixText,string Action, out List<ReInsurerMaster> lstRIMaster)
         {
             int ReturnCode = 0;        
@@ -245,7 +242,6 @@ namespace Totalligent.DAL
             }
             return ReturnCode;
         }
-
         public int GetRIMaster(string RIName, string RICode, string City ,out List<ReInsurerMaster> lstRIMaster)
         {
             int ReturnCode = 0;       
@@ -305,7 +301,6 @@ namespace Totalligent.DAL
             }
             return ReturnCode;
         }
-
         public int DeactivateRIMaster(long ReInsurerMasterId)
         {
             int intResult = 0;
@@ -331,6 +326,71 @@ namespace Totalligent.DAL
                 throw ex;
             }
             return intResult;
+        }
+        public long BulkInsertRIMaster(string Action, string JPramValue, long Createdby, out string Msg)
+        {
+            int InsRow = 0;
+            Msg = string.Empty;
+            SqlCommand sqlCommand = new SqlCommand();
+            try
+            {
+
+                SqlParameter[] Param = {
+                                            new SqlParameter("@Action",SqlDbType.NVarChar),
+                                            new SqlParameter("@JParamVal",SqlDbType.NVarChar),
+                                            new SqlParameter("@CreatedBy",SqlDbType.BigInt),
+                                            new SqlParameter("@Message",SqlDbType.NVarChar,5000)
+                                      };
+                Param[0].Value = Action;
+                Param[1].Value = JPramValue;
+                Param[2].Value = Createdby;
+                Param[3].Direction = ParameterDirection.Output;
+
+                using (objDBEngine = new DBEngine())
+                {
+                    sqlCommand = objDBEngine.DMLOperationOutPutParam("pBulkInsertRIMaster", Param, out InsRow);
+
+                }
+
+                Msg = (string)sqlCommand.Parameters["@Message"].Value;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return InsRow;
+        }
+        public int pUpdateFolderPathRIMaster(long RIMAsterID, string ZipFilePath)
+        {
+
+            int InsRow = 0;
+
+            try
+            {
+
+
+                SqlParameter[] Param = {
+                                            new SqlParameter("@RIMasterID",SqlDbType.BigInt),
+                                            new SqlParameter("@KYCzipPath",SqlDbType.NVarChar)
+
+                                      };
+                Param[0].Value = RIMAsterID;
+                Param[1].Value = ZipFilePath;
+
+                using (objDBEngine = new DBEngine())
+                {
+                    InsRow = objDBEngine.DMLOperation("pUpdateFolderPathRIMaster", Param);
+
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return InsRow;
         }
         #endregion
 
@@ -570,109 +630,35 @@ namespace Totalligent.DAL
 
         #endregion
 
-        public int GetDefaultMasters(out MasterSelectedList obj)
-        {
-            int ReturnCode = 0;
-            DataSet ds = new DataSet();
-            obj = new MasterSelectedList();
-            //lstBankMaster = null;
-            // dtResult = new DataSet();
-            try
-            {
-                SqlParameter[] Param = null;
-
-
-
-                objDBEngine = new DBEngine();
-
-                using (objDBEngine = new DBEngine())
-                {
-                    ds = objDBEngine.GetDataSet("pGetDefaultMaster", Param);
-                    //List<DataRow> obj = dtResult.AsEnumerable().ToList();                  
-                    if (ds.Tables[0].Rows.Count > 0)
-                    {
-                        obj.lstInsCompddl = ds.Tables[0].AsEnumerable().Select(U => new InsuranceCompanyMaster()
-                        {
-                            ICMId = U.Field<long>("ICMId"),
-                            InsurancecompanyName = U.Field<string>("InsurancecompanyName")
-                        }
-                        ).ToList();
-                    }
-                    if (ds.Tables[1].Rows.Count > 0)
-                    {
-                        obj.lstLOB = ds.Tables[1].AsEnumerable().Select(U => new LOB()
-                        {
-                            LOBId = U.Field<long>("LOBId"),
-                            LOBName = U.Field<string>("LOBName")
-                        }
-                        ).ToList();
-                    }
-                    if (ds.Tables[2].Rows.Count > 0)
-                    {
-                        obj.lstProducerMaster = ds.Tables[2].AsEnumerable().Select(U => new ProducerMaster()
-                        {
-                            Id = U.Field<long>("Id"),
-                            Name = U.Field<string>("Name")
-                        }
-                        ).ToList();
-                    }
-                    if (ds.Tables[3].Rows.Count > 0)
-                    {
-                        obj.lstRIMaster = ds.Tables[3].AsEnumerable().Select(U => new ReInsurerMaster()
-                        {
-                            ReInsurerMasterId = U.Field<long>("ReInsurerMasterId"),
-                            ReInsurerName = U.Field<string>("ReInsurerName")
-                        }
-                        ).ToList();
-                    }
-                    if (ds.Tables[4].Rows.Count > 0)
-                    {
-                        obj.lstCCMaster = ds.Tables[4].AsEnumerable().Select(U => new ClientCompanyMaster()
-                        {
-                            ClientCompanyMasterId = U.Field<long>("ClientCompanyMasterId"),
-                            ClientCompanyName = U.Field<string>("ClientCompanyName")
-                        }
-                        ).ToList();
-                    }
-
-                }
-
-                ReturnCode = 1;
-
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            return ReturnCode;
-        }
-
         #region ClientCompanyMaster  
 
-        public int DMLCCMaster(string Action, string JPramValue)
+        public long DMLCCMaster(string Action, string JPramValue)
         {
-            int intResult = 0;
+            long RIMAsterID = 0;
+            int InsRow = 0;
+            SqlCommand sqlCommand = new SqlCommand();
             try
             {
                 SqlParameter[] Param = {
                                             new SqlParameter("@Action",SqlDbType.NVarChar),
-                                            new SqlParameter("@JParamVal",SqlDbType.NVarChar)
+                                            new SqlParameter("@JParamVal",SqlDbType.NVarChar),
+                                            new SqlParameter("@ReturnRIid",SqlDbType.BigInt)
                                       };
                 Param[0].Value = Action;
                 Param[1].Value = JPramValue;
-
+                Param[2].Direction = ParameterDirection.Output;
                 using (objDBEngine = new DBEngine())
                 {
-                    intResult = objDBEngine.DMLOperation("pDMLCCMaster", Param);
+                    sqlCommand = objDBEngine.DMLOperationOutPutParam("pDMLCCMaster", Param, out InsRow);
 
                 }
-
+                RIMAsterID = (long)sqlCommand.Parameters["@ReturnRIid"].Value;
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-            return intResult;
+            return RIMAsterID;
         }
 
         public int GetAutocompleteCCMaster(string prefixText, string Action, out List<ClientCompanyMaster> lstCCMaster)
@@ -806,34 +792,96 @@ namespace Totalligent.DAL
             }
             return intResult;
         }
-        #endregion
 
-        #region InsuranceCompanyMaster  
-
-        public int DMLICMaster(string Action, string JPramValue)
+        public long BulkInsertCCMaster(string Action, string JPramValue, long Createdby, out string Msg)
         {
-            int intResult = 0;
+            int InsRow = 0;
+            Msg = string.Empty;
+            SqlCommand sqlCommand = new SqlCommand();
             try
             {
+
                 SqlParameter[] Param = {
                                             new SqlParameter("@Action",SqlDbType.NVarChar),
-                                            new SqlParameter("@JParamVal",SqlDbType.NVarChar)
+                                            new SqlParameter("@JParamVal",SqlDbType.NVarChar),
+                                            new SqlParameter("@CreatedBy",SqlDbType.BigInt),
+                                            new SqlParameter("@Message",SqlDbType.NVarChar,5000)
                                       };
                 Param[0].Value = Action;
                 Param[1].Value = JPramValue;
+                Param[2].Value = Createdby;
+                Param[3].Direction = ParameterDirection.Output;
 
                 using (objDBEngine = new DBEngine())
                 {
-                    intResult = objDBEngine.DMLOperation("pDMLICMaster", Param);
+                    sqlCommand = objDBEngine.DMLOperationOutPutParam("pBulkInsertClientMaster", Param, out InsRow);
 
                 }
+
+                Msg = (string)sqlCommand.Parameters["@Message"].Value;
 
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-            return intResult;
+            return InsRow;
+        }
+        public int pUpdateFolderPathCCMaster(long CCMasterID, string ZipFilePath)
+        {
+            int InsRow = 0;
+            try
+            {
+                SqlParameter[] Param = {
+                                            new SqlParameter("@ClientCompanyMasterId",SqlDbType.BigInt),
+                                            new SqlParameter("@KYCzipPath",SqlDbType.NVarChar)
+
+                                      };
+                Param[0].Value = CCMasterID;
+                Param[1].Value = ZipFilePath;
+
+                using (objDBEngine = new DBEngine())
+                {
+                    InsRow = objDBEngine.DMLOperation("pUpdateFolderPathCCMasterPath", Param);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return InsRow;
+        }
+        #endregion
+
+        #region InsuranceCompanyMaster  
+
+        public long DMLICMaster(string Action, string JPramValue)
+        {
+            long RIMAsterID = 0;
+            int InsRow = 0;
+            SqlCommand sqlCommand = new SqlCommand();
+            try
+            {
+                SqlParameter[] Param = {
+                                            new SqlParameter("@Action",SqlDbType.NVarChar),
+                                            new SqlParameter("@JParamVal",SqlDbType.NVarChar),
+                                            new SqlParameter("@ReturnRIid",SqlDbType.BigInt)
+                                      };
+                Param[0].Value = Action;
+                Param[1].Value = JPramValue;
+                Param[2].Direction = ParameterDirection.Output;
+                using (objDBEngine = new DBEngine())
+                {
+                    sqlCommand = objDBEngine.DMLOperationOutPutParam("pDMLICMaster", Param, out InsRow);
+
+                }
+                RIMAsterID = (long)sqlCommand.Parameters["@ReturnRIid"].Value;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return RIMAsterID;
         }
 
         public int GetAutocompleteICMaster(string prefixText, string Action, out List<InsuranceCompanyMaster> lstICMaster)
@@ -967,34 +1015,103 @@ namespace Totalligent.DAL
             }
             return intResult;
         }
-        #endregion
 
-        #region EmployeeMaster  
-
-        public int DMLEmpMaster(string Action, string JPramValue)
+        public long BulkInsertICMaster(string Action, string JPramValue, long Createdby, out string Msg)
         {
-            int intResult = 0;
+            int InsRow = 0;
+            Msg = string.Empty;
+            SqlCommand sqlCommand = new SqlCommand();
             try
             {
+
                 SqlParameter[] Param = {
                                             new SqlParameter("@Action",SqlDbType.NVarChar),
-                                            new SqlParameter("@JParamVal",SqlDbType.NVarChar)
+                                            new SqlParameter("@JParamVal",SqlDbType.NVarChar),
+                                            new SqlParameter("@CreatedBy",SqlDbType.BigInt),
+                                            new SqlParameter("@Message",SqlDbType.NVarChar,5000)
                                       };
                 Param[0].Value = Action;
                 Param[1].Value = JPramValue;
+                Param[2].Value = Createdby;
+                Param[3].Direction = ParameterDirection.Output;
 
                 using (objDBEngine = new DBEngine())
                 {
-                    intResult = objDBEngine.DMLOperation("pDMLEmpMaster", Param);
+                    sqlCommand = objDBEngine.DMLOperationOutPutParam("pBulkInsertICMaster", Param, out InsRow);
 
                 }
+
+                Msg = (string)sqlCommand.Parameters["@Message"].Value;
 
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-            return intResult;
+            return InsRow;
+        }
+        public int pUpdateFolderPathICMaster(long ICMasterID, string ZipFilePath)
+        {
+
+            int InsRow = 0;
+
+            try
+            {
+
+
+                SqlParameter[] Param = {
+                                            new SqlParameter("@ICMId",SqlDbType.BigInt),
+                                            new SqlParameter("@KYCzipPath",SqlDbType.NVarChar)
+
+                                      };
+                Param[0].Value = ICMasterID;
+                Param[1].Value = ZipFilePath;
+
+                using (objDBEngine = new DBEngine())
+                {
+                    InsRow = objDBEngine.DMLOperation("pUpdateFolderPathICMasterPath", Param);
+
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return InsRow;
+        }
+        #endregion
+
+        #region EmployeeMaster  
+
+        public long DMLEmpMaster(string Action, string JPramValue)
+        {
+            long RIMAsterID = 0;
+            int InsRow = 0;
+            SqlCommand sqlCommand = new SqlCommand();
+            try
+            {
+                SqlParameter[] Param = {
+                                            new SqlParameter("@Action",SqlDbType.NVarChar),
+                                            new SqlParameter("@JParamVal",SqlDbType.NVarChar),
+                                            new SqlParameter("@ReturnRIid",SqlDbType.BigInt)
+                                      };
+                Param[0].Value = Action;
+                Param[1].Value = JPramValue;
+                Param[2].Direction = ParameterDirection.Output;
+                using (objDBEngine = new DBEngine())
+                {
+                    sqlCommand = objDBEngine.DMLOperationOutPutParam("pDMLEmpMaster", Param, out InsRow);
+
+                }
+                RIMAsterID = (long)sqlCommand.Parameters["@ReturnRIid"].Value;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return RIMAsterID;
         }
 
         public int GetAutocompleteEmpMaster(string prefixText, string Action, out List<EmployeeMaster> lstEmpMaster)
@@ -1116,34 +1233,95 @@ namespace Totalligent.DAL
             }
             return intResult;
         }
-        #endregion
 
-        #region MedicalProviderMaster  
-
-        public int DMLMPMaster(string Action, string JPramValue)
+        public long BulkInsertEmpMaster(string Action, string JPramValue, long Createdby, out string Msg)
         {
-            int intResult = 0;
+            int InsRow = 0;
+            Msg = string.Empty;
+            SqlCommand sqlCommand = new SqlCommand();
             try
             {
+
                 SqlParameter[] Param = {
                                             new SqlParameter("@Action",SqlDbType.NVarChar),
-                                            new SqlParameter("@JParamVal",SqlDbType.NVarChar)
+                                            new SqlParameter("@JParamVal",SqlDbType.NVarChar),
+                                            new SqlParameter("@CreatedBy",SqlDbType.BigInt),
+                                            new SqlParameter("@Message",SqlDbType.NVarChar,5000)
                                       };
                 Param[0].Value = Action;
                 Param[1].Value = JPramValue;
+                Param[2].Value = Createdby;
+                Param[3].Direction = ParameterDirection.Output;
 
                 using (objDBEngine = new DBEngine())
                 {
-                    intResult = objDBEngine.DMLOperation("pDMLMPMaster", Param);
+                    sqlCommand = objDBEngine.DMLOperationOutPutParam("pBulkInsertEmpMaster", Param, out InsRow);
 
                 }
+
+                Msg = (string)sqlCommand.Parameters["@Message"].Value;
 
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-            return intResult;
+            return InsRow;
+        }
+        public int pUpdateFolderPathempMaster(long EmpMasterID, string ZipFilePath)
+        {
+            int InsRow = 0;
+            try
+            {
+                SqlParameter[] Param = {
+                                            new SqlParameter("@EmployeeId",SqlDbType.BigInt),
+                                            new SqlParameter("@KYCzipPath",SqlDbType.NVarChar)
+
+                                      };
+                Param[0].Value = EmpMasterID;
+                Param[1].Value = ZipFilePath;
+                using (objDBEngine = new DBEngine())
+                {
+                    InsRow = objDBEngine.DMLOperation("pUpdateFolderPathEmpMasterPath", Param);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return InsRow;
+        }
+        #endregion
+
+        #region MedicalProviderMaster  
+
+        public long DMLMPMaster(string Action, string JPramValue)
+        {
+            long RIMAsterID = 0;
+            int InsRow = 0;
+            SqlCommand sqlCommand = new SqlCommand();
+            try
+            {
+                SqlParameter[] Param = {
+                                            new SqlParameter("@Action",SqlDbType.NVarChar),
+                                            new SqlParameter("@JParamVal",SqlDbType.NVarChar),
+                                            new SqlParameter("@ReturnRIid",SqlDbType.BigInt)
+                                      };
+                Param[0].Value = Action;
+                Param[1].Value = JPramValue;
+                Param[2].Direction = ParameterDirection.Output;
+                using (objDBEngine = new DBEngine())
+                {
+                    sqlCommand = objDBEngine.DMLOperationOutPutParam("pDMLMPMaster", Param, out InsRow);
+
+                }
+                RIMAsterID = (long)sqlCommand.Parameters["@ReturnRIid"].Value;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return RIMAsterID;
         }
 
         public int GetAutocompleteMPMaster(string prefixText, string Action, out List<MedicalProviderMaster> lstMPMaster)
@@ -1264,6 +1442,64 @@ namespace Totalligent.DAL
                 throw ex;
             }
             return intResult;
+        }
+
+        public long BulkInsertMPMaster(string Action, string JPramValue, long Createdby, out string Msg)
+        {
+            int InsRow = 0;
+            Msg = string.Empty;
+            SqlCommand sqlCommand = new SqlCommand();
+            try
+            {
+
+                SqlParameter[] Param = {
+                                            new SqlParameter("@Action",SqlDbType.NVarChar),
+                                            new SqlParameter("@JParamVal",SqlDbType.NVarChar),
+                                            new SqlParameter("@CreatedBy",SqlDbType.BigInt),
+                                            new SqlParameter("@Message",SqlDbType.NVarChar,5000)
+                                      };
+                Param[0].Value = Action;
+                Param[1].Value = JPramValue;
+                Param[2].Value = Createdby;
+                Param[3].Direction = ParameterDirection.Output;
+
+                using (objDBEngine = new DBEngine())
+                {
+                    sqlCommand = objDBEngine.DMLOperationOutPutParam("pBulkInsertMPMaster", Param, out InsRow);
+
+                }
+
+                Msg = (string)sqlCommand.Parameters["@Message"].Value;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return InsRow;
+        }
+        public int pUpdateFolderPathMPMaster(long MPMasterID, string ZipFilePath)
+        {
+            int InsRow = 0;
+            try
+            {
+                SqlParameter[] Param = {
+                                            new SqlParameter("@MedicalProviderId",SqlDbType.BigInt),
+                                            new SqlParameter("@KYCzipPath",SqlDbType.NVarChar)
+
+                                      };
+                Param[0].Value = MPMasterID;
+                Param[1].Value = ZipFilePath;
+                using (objDBEngine = new DBEngine())
+                {
+                    InsRow = objDBEngine.DMLOperation("pUpdateFolderPathMPMasterPath", Param);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return InsRow;
         }
         #endregion
     }

@@ -193,14 +193,14 @@ namespace Totalligent.UI.Areas.Home.Controllers
                     UN = TempData["u"].ToString() ?? "";
 
                 }
-                model.AddedBy = UN;
+                model.CreatedBy = UN;
                 returnCode = objBALTot.InsertPM(model);
                 //if (model.ID > 0 && returnCode > 0)
                 //{
                 //    returnCode = 2;
                 //    TempData["un"] = u;
                 //}
-                if (model.Id.Equals(0) && returnCode > 0)
+                if (model.ProducerMasterID.Equals(0) && returnCode > 0)
                 {
                     returnCode = 1;
                     TempData["u"] = UN;

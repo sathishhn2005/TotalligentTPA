@@ -7,6 +7,9 @@ using System.Web.Mvc;
 using Totalligent.BusinessEntities;
 using Totalligent.BAL;
 using Totalligent.UI.Models;
+using System.IO;
+using System.Configuration;
+using System.IO.Compression;
 
 namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
 {
@@ -20,25 +23,49 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddUpdateCCMaster(ClientCompanyMaster objCCMaster, string Action)
+        public ActionResult AddUpdateCCMaster(ClientCompanyMaster objCCMaster, string Action, string FolderName)
         {
             string msg = "";
-            int ReturnCode = 0;
+            long CCMasterID = 0;
+            int ResultRow = 0;
             string loginID = Session["Loginid"].ToString();
             string UserName = Session["UserName"].ToString();
             objGLIMasterBAL = new GLIMasterBAL();
+            string FileFolderPath = GetFolderPath(FolderName);
 
             objCCMaster.CreatedBy = loginID;// Convert.ToInt64(loginID);
             string JParamVal = JsonConvert.SerializeObject(objCCMaster);
 
-            ReturnCode = objGLIMasterBAL.DMLCCMaster(Action, JParamVal);
+            CCMasterID = objGLIMasterBAL.DMLCCMaster(Action, JParamVal);
 
-            if (Action == "Create" && ReturnCode > 0)
+            if (Action == "Create" && CCMasterID > 0)
             {
+                var dir = new DirectoryInfo(FileFolderPath);
+                if (Directory.Exists(FileFolderPath) && dir.GetFiles().Length > 0)
+                {
+                    string KYCzipPath = Server.MapPath(ConfigurationManager.AppSettings["CMMasterKYCFilesPath"]) + FolderName + "_" + CCMasterID.ToString() + ".zip";
+                    ZipFile.CreateFromDirectory(FileFolderPath, KYCzipPath);
+                    ResultRow = objGLIMasterBAL.pUpdateFolderPathCCMaster(CCMasterID, KYCzipPath);
+
+                    dir.Delete(true);
+                }
+
                 msg = "Inserted Successfully";
             }
-            else if (Action == "Update" && ReturnCode > 0)
+            else if (Action == "Update" && CCMasterID > 0)
             {
+                var dir = new DirectoryInfo(FileFolderPath);
+
+                if (Directory.Exists(FileFolderPath) && dir.GetFiles().Length > 0)
+                {
+                    string KYCzipPath = Server.MapPath(ConfigurationManager.AppSettings["CMMasterKYCFilesPath"]) + FolderName + "_" + CCMasterID.ToString() + ".zip";
+                    ZipFile.CreateFromDirectory(FileFolderPath, KYCzipPath);
+                    ResultRow = objGLIMasterBAL.pUpdateFolderPathCCMaster(CCMasterID, KYCzipPath);
+
+
+                    dir.Delete(true);
+                }
+
                 msg = "Updated Successfully";
             }
             else
@@ -88,6 +115,166 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
             return Json(Msg, JsonRequestBehavior.AllowGet);
         }
 
+
+        [HttpPost]
+        public ActionResult SaveUploadedFile()
+        {
+            bool isSavedSuccessfully = true;
+            string FName = TempData["FolderName"].ToString();
+            TempData["FolderName"] = FName;
+            string fName = "";
+            try
+            {
+                foreach (string fileName in Request.Files)
+                {
+                    HttpPostedFileBase file = Request.Files[fileName];
+                    //Save file content goes here
+                    fName = file.FileName;
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        string pathString = GetFolderPath(FName);
+
+                        var path = string.Format("{0}\\{1}", pathString, file.FileName);
+                        file.SaveAs(path);
+
+                    }
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                isSavedSuccessfully = false;
+            }
+
+
+            if (isSavedSuccessfully)
+            {
+                return Json(new { Message = fName });
+            }
+            else
+            {
+                return Json(new { Message = "Error in saving file" });
+            }
+        }
+
+        private string GetFolderPath(string FName)
+        {
+            string FPath = ConfigurationManager.AppSettings["KYCpath"];
+            var originalDirectory = new System.IO.DirectoryInfo(string.Format("{0}" + FPath, Server.MapPath(@"\")));
+            string pathString = System.IO.Path.Combine(originalDirectory.ToString(), FName);
+
+            bool isExists = System.IO.Directory.Exists(pathString);
+            if (!isExists)
+                System.IO.Directory.CreateDirectory(pathString);
+
+            return pathString;
+
+
+        }
+
+
+        [HttpPost]
+        public ActionResult BulkUpdate(HttpPostedFileBase CSVFile, string hdnMsgStatus)
+        {
+            long returnCode = -1;
+            string RIMasterJson = string.Empty;
+            string ErrorMsg = string.Empty;
+
+            string _filePath = string.Empty;
+            string _FileName = string.Empty;
+            string FPath = ConfigurationManager.AppSettings["KYCpath"];
+
+            objGLIMasterBAL = new GLIMasterBAL();
+            try
+            {
+                long loginID = Convert.ToInt64(Session["Loginid"].ToString());
+
+                if (ModelState.IsValid)
+                {
+
+                    if (CSVFile.ContentLength > 0)
+                    {
+                        _FileName = DateTime.Now.ToString("yyyyMMddHHmmss") + "_" + Path.GetFileName(CSVFile.FileName);
+                        var originalDirectory = new System.IO.DirectoryInfo(string.Format("{0}" + FPath, Server.MapPath(@"\")));
+                        _filePath = System.IO.Path.Combine(originalDirectory.ToString(), _FileName);
+                        CSVFile.SaveAs(_filePath);
+                    }
+
+
+                    List<ClientCompanyMaster> lstValues = System.IO.File.ReadAllLines(_filePath)
+                                              .Skip(1)
+                                              .Select(v => FromCsv(v))
+                                              .ToList();
+
+                    List<List<ClientCompanyMaster>> lstValueList = lstValues.Select((x, i) => new { Index = i, Value = x })
+                                                                 .GroupBy(x => x.Index / 5000)
+                                                                 .Select(x => x.Select(v => v.Value).ToList()).ToList();
+
+                    using (System.Transactions.TransactionScope transactionScope = new System.Transactions.TransactionScope())
+                    {
+                        try
+                        {
+                            for (int i = 0; i < lstValueList.Count; i++)
+                            {
+
+                                RIMasterJson = JsonConvert.SerializeObject(lstValueList[i]);
+                                returnCode = objGLIMasterBAL.BulkInsertCCMaster("", RIMasterJson, loginID, out ErrorMsg);
+                            }
+                            transactionScope.Complete();
+                            transactionScope.Dispose();
+                        }
+                        catch (Exception ex)
+                        {
+                            transactionScope.Dispose();
+                            TempData["Alertmsg"] = "please contact Administrator";
+                            throw ex;
+                        }
+                    }
+                    if (returnCode != -1)
+                    {
+                        TempData["Alertmsg"] = ErrorMsg;
+                        System.IO.File.Delete(_filePath);
+                    }
+                    else
+                    {
+                        TempData["Alertmsg"] = "please contact Administrator";
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["Alertmsg"] = "please contact Administrator";
+                throw;
+            }
+
+            return RedirectToAction("ClientMaster", "GLIMaster");
+
+        }
+
+
+        public static ClientCompanyMaster FromCsv(string csvLineData)
+        {
+            string[] values = csvLineData.Split(',');
+
+
+            ClientCompanyMaster objCsvFileBulkUplaod = new ClientCompanyMaster();
+
+            objCsvFileBulkUplaod.ClientCompanyName = values[0];
+            objCsvFileBulkUplaod.ContactPerson = values[1];
+            objCsvFileBulkUplaod.MobileNumber = values[2];
+            objCsvFileBulkUplaod.EmailId = values[3];
+            objCsvFileBulkUplaod.Address = values[4];
+            objCsvFileBulkUplaod.City = values[5];
+            objCsvFileBulkUplaod.State = values[6];
+            objCsvFileBulkUplaod.Zipcode = values[7];
+            objCsvFileBulkUplaod.BankName = values[8];
+            objCsvFileBulkUplaod.AccountNumber = values[9];
+            objCsvFileBulkUplaod.IFSCCode = values[10];
+
+            return objCsvFileBulkUplaod;
+        }
 
     }
 }

@@ -6,28 +6,26 @@
 @{ ViewBag.Title = "RIMaster";
     Layout = "~/Areas/GroupLifeInsurance/Views/Shared/_Layout.cshtml"; }
 
-@*<style type="text/css">
-        .ui-autocomplete {
-            max-height: 100px;
-            overflow-y: auto;
-            /* prevent horizontal scrollbar */
-            overflow-x: hidden;
-        }
-        /* IE 6 doesn't support max-height
-        * we use height instead, but this forces the menu to always be this tall
-        */
-        * html .ui-autocomplete {
-            height: 100px;
-        }
+<style type="text/css">
+    .ui-autocomplete {
+        max-height: 100px;
+        overflow-y: auto;
+        /* prevent horizontal scrollbar */
+        overflow-x: hidden;
+    }
+    /* IE 6 doesn't support max-height
+    * we use height instead, but this forces the menu to always be this tall
+    */
+    * html .ui-autocomplete {
+        height: 100px;
+    }
 
-        .fixed-height {
-            padding: 1px;
-            max-height: 200px;
-            overflow: auto;
-        }
-    </style>*@
-
-@* AutoComplete *@
+    .fixed-height {
+        padding: 1px;
+        max-height: 200px;
+        overflow: auto;
+    }
+</style>
 
 
 
@@ -42,8 +40,10 @@
         <div class="box-body">
             <div class="tab-content">
                 <div id="navpills2-1" class="tab-pane active">
-                    <form id="formRIMaster">
+                    <form id="formRIMaster" enctype="multipart/form-data">
+
                         @TempData["Alertmsg"];
+                        @{ TempData.Keep("FolderName");}
 
                         <div class="row">
                             <div class="col-12 col-md-6">
@@ -192,7 +192,7 @@
                                             <label class="col-form-label text-md-right w-full">Upload KYC </label>
                                         </div>
                                         <div class="col-md-6">
-                                            <div class=" dropzone" action="/file-upload">
+                                            <div id="Divdropzone" class=" dropzone" action="~/GroupLifeInsurance/ReInsurenceMaster/SaveUploadedFile" method="post" enctype="multipart/form-data">
                                                 <div id="tabs-3">
                                                     <div class="row field ">
                                                         <div id="dropzoneWrapper" class="dz-default dz-message col-12">
@@ -205,9 +205,15 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div id="divKYCDownload" class="hide">
+                                                <a href="/KYC_Files/RIMasterKYCFiles/20041.zip" class="badge badge-pill badge-warning" download> Download KYC</a>
+                                            </div>
+
                                         </div>
                                     </div>
+
                                 </div>
+
                             </div>
                         </div>
                         <div class="form-group m-b-15">
@@ -238,7 +244,7 @@
                                     @Html.TextBox("txtSeaRICity", "", new { @class = "form-control w-full", @placeholder = "Enter RI Master City" })
                                 </div>
                                 <div class="col-md-3">
-
+                                    <input type="hidden" id="FolderName" value='@TempData["FolderName"]' />
                                     <button type="submit" class="btn btn-block btn-primary" id="btnSearch"><i class="fa fa-search mr-3"></i>Search</button>
 
                                 </div>
@@ -256,9 +262,9 @@
                                 <th>MobileNumber</th>
                                 <th>EmailId</th>
                                 <th>Address</th>
-                                @*<th>City</th>
-                                    <th>State</th>
-                                    <th>Zipcode</th>*@
+                                <th>City</th>
+                                <th>State</th>
+                                <th>Zipcode</th>
                                 <th>BankName</th>
                                 <th>AccountNumber</th>
                                 <th>IFSCCode</th>
@@ -267,7 +273,6 @@
                             </tr>
                             <tbody>
                             </tbody>
-
                         </table>
                     </div>
                 </div>
@@ -281,100 +286,50 @@
     </div>
 </div>
 
-<div id="uploadBulk" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-md">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title mt-0" id="uploadBulkLabel">Upload Bulk Policies</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-10 mx-auto">
-                        <div class="text-right">
+@using (Html.BeginForm("BulkUpdate", "ReInsurenceMaster", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div id="uploadBulk" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title mt-0" id="uploadBulkLabel">Upload Bulk Policies</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-10 mx-auto">
+                            <div class="text-right">
 
-                            <a href="~/Masters/ProducerMaster.xlsx" class="btn btn-dark btn-sm" download>
-                                <i class="mdi mdi-download"></i> Download Sample format
-                            </a>
-                        </div>
-                        @*
-                            <form method="post" enctype="multipart/form-data">
-                        *@
-                        <div class="fileuploader fileuploader-theme-dragdrop">
+                                <a href="~/Masters/RIMaster.csv" class="btn btn-dark btn-sm" download>
+                                    <i class="mdi mdi-download"></i> Download Sample format
+                                </a>
+                            </div>
 
-                            <input type="file" name="postedFile" id="fileUploadMotor" accept=".xls,.xlsx" />
-                            <input type="hidden" id="txtMotorMaster" name="txtMotorMaster" value="1">
-                            <input type="hidden" id="uploadFilesInptHdn" name="fileuploader-list-files" value="[]">
-                            <input type="file" id="uploadFilesInpt" name="files[]" multiple="multiple" style="position: absolute; z-index: -9999; height: 0px; width: 0px; padding: 0px; margin: 0px; line-height: 0; outline: 0px; border: 0px; opacity: 0;">
-                            <div class="fileuploader-input">
-                                <div class="fileuploader-input-inner">
-                                    <div class="fileuploader-icon-main"></div>
-                                    <h3 class="fileuploader-input-caption">
-                                        <span>Drag and drop files here</span>
-                                    </h3>
-                                    <p></p>
-                                    <button type="button" class="fileuploader-input-button">
-                                        <span>Browse files</span>
-                                    </button>
+                            <div class="fileuploader fileuploader-theme-dragdrop">
+
+                                <input type="file" name="CSVFile" id="fileUploadRIMaster" accept=".csv" />
+
+                                <div class="mt-2">
+
+                                    <i class="fas fa-upload fa-sm btn btn-success btn-block" onclick="csvFileUpload();">
+                                        <span>Upload</span>
+                                    </i>
+                                    <button id="uploadMotorPolicies" class="btn btn-primary btn-sm mx-1 hide">Upload File</button>
                                 </div>
                             </div>
-                            <div class="fileuploader-items">
-                                <ul class="fileuploader-items-list">
-                                    <li class="fileuploader-item file-type-application file-ext-xlsx file-has-popup upload-successful">
-                                        <div id="fileContainer" class="columns" style="display: none;">
-                                            <div class="column-thumbnail">
-                                                <div class="fileuploader-item-image fileuploader-no-thumbnail">
-                                                    <div style="background-color: #591605" class="fileuploader-item-icon">
-                                                        <i>xlsx</i>
-                                                    </div>
-                                                </div>
-                                                <span class="fileuploader-action-popup"></span>
-                                            </div>
-                                            <div class="column-title">
-                                                <div id="fileName">SampleFile.xlsx</div>
-                                                <span id="fileSize">0 KB</span>
-                                            </div>
-                                            <div class="column-actions">
-                                                <button type="button" id="clearFiles" class="btn btn-success btn-sm round" title="Delete">
-                                                    <i class="fas fa-check fa-sm"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="progress-bar2" style="display: none;">
-                                            <div class="fileuploader-progressbar">
-                                                <div class="bar" style="width: 100%;"></div>
-                                            </div>
-                                            <span>100%</span>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="mt-2">
-                                <button id="btnUpload" type="submit" class="btn btn-success btn-block">
-                                    <i class="fas fa-upload fa-sm"></i>
-                                    <span>Upload</span>
-                                </button>
-                            </div>
+
+
                         </div>
-                        @*
-                            </form>
-                        *@
                     </div>
                 </div>
             </div>
-            @*
-                <div class="modal-footer justify-content-center">
-                   <button type="button" class="btn btn-secondary btn-sm waves-effect" data-dismiss="modal">Close</button>
-                   <button type="button" class="btn btn-primary btn-sm waves-effect waves-light">Renew</button>
-                </div>
-            *@
+            <!-- /.modal-content -->
         </div>
-        <!-- /.modal-content -->
+        <!-- /.modal-dialog -->
     </div>
-    <!-- /.modal-dialog -->
-</div>
+}
 <script type="text/javascript">
 
 
@@ -526,6 +481,12 @@
                 $("#IFSCCode").focus();
                 return false;
             }
+            if ($("#btnSubmitProducerMaster").val() != "Update" && Dropzone.forElement("#Divdropzone").files.length == 0) {
+                alert("Please Upload the files");
+                return false;
+            }
+
+
 
             var objRiMaster = new Object();
             objRiMaster.ReInsurerMasterId = $("#hdnRIMasterID").val();
@@ -542,22 +503,31 @@
             objRiMaster.BankID = $('#BankName :selected').val();
             objRiMaster.AccountNumber = $("#AccountNumber").val();
             objRiMaster.IFSCCode = $("#IFSCCode").val();
+            //objRiMaster.UploadKYC = Dropzone.forElement("#Divdropzone");
 
-            var param = { objReInsurerMaster: objRiMaster, Action: $("#btnSubmitProducerMaster").val() };
-            //var renewalData = $('#formRIMaster').serialize();
+            var param = {
+                objReInsurerMaster: objRiMaster, Action: $("#btnSubmitProducerMaster").val(), FolderName: $("#FolderName").val()
+            };
+            //var renewalData = $('#formRIMaster').serialize(); x-www-form-urlencoded; charset=UTF-8
+
+
+
+            // var formdata = new FormData($('formRIMaster').get(0));
+
             $.ajax({
                 type: "POST",
                 url: "/GroupLifeInsurance/ReInsurenceMaster/AddUpdateRIMaster",
                 dataType: "json",
-                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                data: param,
+                contentType: 'application/json',
+                data: JSON.stringify(param),
                 success: function (res) {
                     if (res > 0) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: '',
-                            text: "Data Submitted Successfully.",
-                        })
+                        //Divdropzone.processQueue();
+                        //Swal.fire({
+                        //    icon: 'success',
+                        //    title: '',
+                        //    text: "Data Submitted Successfully.",
+                        //})
                     }
                     else if (res == -2) {
                         Swal.fire({
@@ -578,7 +548,6 @@
         });
     });
 
-
     $('#btnSearch').on('click', function () {
         // var formData = $('#MotorForm').serialize();
         var param = { RIName: $('#txtSeaRIName').val(), RICode: $('#txtSeaRICode').val(), City: $('#txtSeaRICity').val() };
@@ -598,7 +567,7 @@
                         i++;
                         var hdnID = "hdnobjJSonVal_" + i;
                         var JVal = JSON.stringify(value);
-                        $('#tblRIMaster').append('<tr> <td>' + value.ReInsurerName + '</td>  <td>' + value.ReInsurerCode + '</td> <td>' + value.ContactPerson + '</td> <td>' + value.MobileNumber + '</td><td>' + value.EmailId + '</td> <td>' + value.Address + '</td><td>' + value.BankName + '</td><td>' + value.AccountNumber + '</td><td>' + value.IFSCCode + '</td><td>' + value.UploadKYC_01 + '</td><td class="text-center"><i class="mdi mdi-pencil text-primary mx-3" onclick="EditRIMaster(' + "'" + hdnID + "'" + ')"></i><i class="mdi mdi-delete text-danger mx-3" onclick="DeActiveRIMaster(this,' + value.ReInsurerMasterId.toString() + ');"></i><input type="hidden" id=' + hdnID + ' value=' + "'" + JVal + "'" + '></td></tr>');
+                        $('#tblRIMaster').append('<tr> <td>' + value.ReInsurerName + '</td>  <td>' + value.ReInsurerCode + '</td> <td>' + value.ContactPerson + '</td> <td>' + value.MobileNumber + '</td><td>' + value.EmailId + '</td> <td>' + value.Address + '</td> <td>' + value.City + '</td><td>' + value.State + '</td><td>' + value.Zipcode + '</td><td>' + value.BankName + '</td><td>' + value.AccountNumber + '</td><td>' + value.IFSCCode + '</td><td> <a href="' + value.KYCUploadPath + '" class="badge badge-pill badge-warning" download> Download KYC</a></td><td class="text-center"><i class="mdi mdi-pencil text-primary mx-3" onclick="EditRIMaster(' + "'" + hdnID + "'" + ')"></i><i class="mdi mdi-delete text-danger mx-3" onclick="DeActiveRIMaster(this,' + value.ReInsurerMasterId.toString() + ');"></i><input type="hidden" id=' + hdnID + ' value=' + "'" + JVal + "'" + '></td></tr>');
 
 
                     })
@@ -644,6 +613,7 @@
         })
 
     }
+
     function EditRIMaster(JsonObj) {
         $("#anavpills2-2").removeClass("active");
         $("#navpills2-2").removeClass("active");
@@ -672,4 +642,234 @@
 
     }
 
+    function csvFileUpload() {
+
+        var rowCount = 0;
+        var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
+        if (regex.test($("#fileUploadRIMaster").val().toLowerCase())) {
+
+            if (typeof (FileReader) != "undefined") {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+
+                    var rows = e.target.result.split('\r\n');
+
+                    for (var i = 0; i < rows.length; i++) {
+
+                        var cells = rows[i].split(",");
+                        var RRC = rowCount + 1;
+                        if (i == 0) {
+
+
+                            // Heater validation
+                            if (cells.length == 11) {
+
+                                if (cells[0] != "RIName") {
+                                    $('#fileUploadRIMaster').val('');
+                                    alert("Please check column name mismatch (RIName).");
+                                    return false;
+                                }
+                                if (cells[1] != "ContactPerson") {
+                                    $('#fileUploadRIMaster').val('');
+                                    alert("Please check column name mismatch (ContactPerson).");
+                                    return false;
+                                }
+                                if (cells[2] != "MobileNumber") {
+                                    $('#fileUploadRIMaster').val('');
+                                    alert("Please check column name mismatch (MobileNumber).");
+                                    return false;
+                                }
+                                if (cells[3] != "EmailID") {
+                                    $('#fileUploadRIMaster').val('');
+                                    alert("Please check column name mismatch (EmailID).");
+                                    return false;
+                                }
+                                if (cells[4] != "Address") {
+                                    $('#fileUploadRIMaster').val('');
+                                    alert("Please check column name mismatch (Address).");
+                                    return false;
+                                }
+                                if (cells[5] != "City") {
+                                    $('#fileUploadRIMaster').val('');
+                                    alert("Please check column name mismatch (City).");
+                                    return false;
+                                }
+                                if (cells[6] != "State") {
+                                    $('#fileUploadRIMaster').val('');
+                                    alert("Please check column name mismatch (State).");
+                                    return false;
+                                }
+                                if (cells[7] != "Zipcode") {
+                                    $('#fileUploadRIMaster').val('');
+                                    alert("Please check column name mismatch (Zipcode).");
+                                    return false;
+                                }
+                                if (cells[8] != "BankName") {
+                                    $('#fileUploadRIMaster').val('');
+                                    alert("Please check column name mismatch (BankName).");
+                                    return false;
+                                }
+                                if (cells[9] != "AccountNumber") {
+                                    $('#fileUploadRIMaster').val('');
+                                    alert("Please check column name mismatch (AccountNumber).");
+                                    return false;
+                                }
+                                if (cells[10] != "IFSCCode") {
+                                    $('#fileUploadRIMaster').val('');
+                                    alert("Please check column name mismatch (IFSCCode).");
+                                    return false;
+                                }
+
+
+                            }
+                            else {
+                                $('#fileUploadRIMaster').val('');
+                                alert("Upload Csv file invalid template , Please check .");
+                                return false;
+                            }
+
+                        } else {
+                            // Row validation
+                            if (cells.length == 11) {
+
+
+                                if (cells[0] == "") {
+                                    $('#fileUploadRIMaster').val('');
+                                    alert("Please check Row NO : " + RRC + " RIName  is empty");
+                                    return false;
+                                }
+
+                                if (cells[1] == "") {
+                                    $('#fileUploadRIMaster').val('');
+                                    alert("Please check Row NO : " + RRC + " ContactPerson is empty");
+                                    return false;
+                                }
+
+                                if (cells[2] == "") {
+                                    $('#fileUploadRIMaster').val('');
+                                    alert("Please check Row NO : " + RRC + " MobileNumber  is empty");
+                                    return false;
+                                }
+
+                                if (cells[3] == "") {
+                                    $('#fileUploadRIMaster').val('');
+                                    alert("Please check Row NO : " + RRC + " EmailID is empty");
+                                    return false;
+                                }
+
+                                if (cells[4] == "") {
+                                    $('#fileUploadRIMaster').val('');
+                                    alert("Please check Row NO : " + RRC + " Address is empty");
+                                    return false;
+                                }
+                                if (cells[5] == "") {
+                                    $('#fileUploadRIMaster').val('');
+                                    alert("Please check Row NO : " + RRC + " City is empty");
+                                    return false;
+                                }
+
+                                if (cells[6] == "") {
+                                    $('#fileUploadRIMaster').val('');
+                                    alert("Please check Row NO : " + RRC + " State is empty");
+                                    return false;
+                                }
+                                if (cells[7] == "") {
+                                    $('#fileUploadRIMaster').val('');
+                                    alert("Please check Row NO : " + RRC + " Zipcode is empty");
+                                    return false;
+                                }
+                                if (cells[8] == "") {
+                                    $('#fileUploadRIMaster').val('');
+                                    alert("Please check Row NO : " + RRC + " BankName is empty");
+                                    return false;
+                                }
+                                else {
+                                    //if need PhoneNumber Valitation
+                                }
+                                if (cells[9] == "") {
+                                    $('#fileUploadRIMaster').val('');
+                                    alert("Please check Row NO : " + RRC + " AccountNumber is empty");
+                                    return false;
+                                }
+                                if (cells[10] == "") {
+                                    $('#fileUploadRIMaster').val('');
+                                    alert("Please check Row NO : " + RRC + " IFSCCode is empty");
+                                    return false;
+                                }
+
+
+
+                            }
+                            else {
+
+                                if (cells.length > 1) {
+                                    $('#fileUploadRIMaster').val('');
+                                    alert("Please check Row NO : " + RRC + " This row have comma simple or invalied Column length");
+                                    return false;
+                                }
+                            }
+
+                        }
+
+                        rowCount += 1;
+
+                    }
+
+                    if (rowCount == rows.length) {
+                        $("#hdnMsgStatus").val('Y');
+                        $("#uploadMotorPolicies").click();
+
+                    }
+
+                }
+                reader.readAsText($("#fileUploadRIMaster")[0].files[0]);
+            } else {
+                $('#fileUploadRIMaster').val('');
+                alert("This browser does not support HTML5.");
+                return false;
+            }
+        } else {
+            $('#fileUploadRIMaster').val('');
+            alert("Please upload a valid CSV file.");
+            return false;
+
+        }
+
+
+
+    }
+
 </script>
+
+
+@section scripts {
+
+    <script type="text/javascript">
+        //Dropzone.options.Divdropzone = false;
+        Dropzone.options.Divdropzone = {
+            maxFiles: 6,
+            acceptedFiles: 'image/*',
+            maxFilesize: 2, // max file size in MB,
+            addRemoveLinks: true,
+            //  autoProcessQueue: false,
+            init: function () {
+                //this.on("complete", function (data) {
+                //    //var res = eval('(' + data.xhr.responseText + ')');
+                //    var res = JSON.parse(data.xhr.responseText);
+                //}),
+                this.on("error", function (file, message) {
+                    alert(message + " because already reached maxmim file limt (3) or invalid file extension");
+                    this.removeFile(file);
+                });
+
+
+            },
+            //thumbnail: function (file, dataUrl) {
+            //    // Display the image in your file.previewElement
+            //    if (file.accepted == false) {
+            //        this.removeFile(file);
+            //    }
+            //},
+        };
+    </script>
+}

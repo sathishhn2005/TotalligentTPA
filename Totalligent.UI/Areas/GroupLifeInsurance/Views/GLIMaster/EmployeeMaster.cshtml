@@ -295,10 +295,10 @@
                                 <div class="form-group m-b-15">
                                     <div class="row">
                                         <div class="col-md-5">
-                                            <label class="col-form-label text-md-right w-full">Upload KYC</label>
+                                            <label class="col-form-label text-md-right w-full">Upload KYC </label>
                                         </div>
                                         <div class="col-md-6">
-                                            <div class=" dropzone" action="/file-upload">
+                                            <div id="Divdropzone" class=" dropzone" action="~/GroupLifeInsurance/EmployeeMaster/SaveUploadedFile" method="post" enctype="multipart/form-data">
                                                 <div id="tabs-3">
                                                     <div class="row field ">
                                                         <div id="dropzoneWrapper" class="dz-default dz-message col-12">
@@ -311,8 +311,13 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div id="divKYCDownload" class="hide">
+                                                <a href="/KYC_Files/EmpMasterKYCFiles/20041.zip" class="badge badge-pill badge-warning" download> Download KYC</a>
+                                            </div>
+
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                             <div class="d-none col-12">

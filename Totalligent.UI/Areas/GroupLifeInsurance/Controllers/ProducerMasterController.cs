@@ -31,7 +31,7 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
             objGLIMasterBAL = new GLIMasterBAL();
             string FileFolderPath = GetFolderPath(FolderName);
 
-            objProducerMaster.CreatedBy = Convert.ToInt64(loginID);
+            objProducerMaster.CreatedBy = Convert.ToString(loginID);
             string JParamVal = JsonConvert.SerializeObject(objProducerMaster);
 
             ProducerMasterID = objGLIMasterBAL.DMLProducerMaster(Action, JParamVal);

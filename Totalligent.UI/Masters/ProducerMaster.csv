@@ -1,0 +1,6 @@
+BusinessType,Name,ContactPerson,MobileNumber,EmailId,Address,City,State,Zipcode,BankName,AccountNumber,IFSCCode
+Direct Sales,TestBroker,TestBroker,8882154689,r@gmail.com,Gandhi Street,Madurai,Tamilname,625004,HDFC,213213213213,IFSC012124
+Broker,TestBroker,TestBroker,8882154689,r@gmail.com,Gandhi Street,Madurai,Tamilname,625004,HDFC,213213213213,IFSC012124
+Direct Sales,TestBroker,TestBroker,8882154689,r@gmail.com,Gandhi Street,Madurai,Tamilname,625004,HDFC,213213213213,IFSC012124
+Broker,TestBroker,TestBroker,8882154689,r@gmail.com,Gandhi Street,Madurai,Tamilname,625004,ICICI,213213213213,IFSC012124
+Branches,TestBroker,TestBroker,8882154689,r@gmail.com,Gandhi Street,Madurai,Tamilname,625004,HDFC,213213213213,IFSC012124

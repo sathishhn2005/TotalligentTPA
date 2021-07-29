@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
 using Totalligent.Utilities;
+using System.Collections;
 
 namespace Totalligent.DAL
 {
@@ -29,6 +30,46 @@ namespace Totalligent.DAL
             }
 
         }
+
+
+        public SqlCommand DMLOperationOutPutParam(string SPname, SqlParameter[] arrParam, out int ReturnCode)
+        {
+            ReturnCode = 0;
+            try
+            {
+                using (objConn = new SqlConnection(objUtility.GetConnectionString()))
+                {
+                    objConn.Open();
+                    objCmd = new SqlCommand(SPname, objConn);
+                    objCmd.CommandType = CommandType.StoredProcedure;
+
+                    foreach (SqlParameter SPpram in arrParam)
+                    {
+                        objCmd.Parameters.Add(SPpram);
+                    }
+
+                    ReturnCode = objCmd.ExecuteNonQuery();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+                if (ConnectionState.Open == objConn.State)
+                {
+                    objConn.Close();
+                }
+            }
+
+            return objCmd;
+
+        }
+
+
         public int DMLOperation(string SPname, SqlParameter[] arrParam)
         {
             int ReturnCode = 0;
@@ -108,7 +149,7 @@ namespace Totalligent.DAL
                 }
             }
         }
-        public DataSet GetDataSet(string SPname, SqlParameter[] arrParam)
+        public DataSet GetDataSet( string SPname, SqlParameter[] arrParam)
         {
             objds = new DataSet();
             try

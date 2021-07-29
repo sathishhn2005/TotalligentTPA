@@ -279,10 +279,10 @@
                                 <div class="form-group m-b-15">
                                     <div class="row">
                                         <div class="col-md-5">
-                                            <label class="col-form-label text-md-right w-full">Upload KYC</label>
+                                            <label class="col-form-label text-md-right w-full">Upload KYC </label>
                                         </div>
                                         <div class="col-md-6">
-                                            <div class=" dropzone" action="/file-upload">
+                                            <div id="Divdropzone" class=" dropzone" action="~/GroupLifeInsurance/ClientMaster/SaveUploadedFile" method="post" enctype="multipart/form-data">
                                                 <div id="tabs-3">
                                                     <div class="row field ">
                                                         <div id="dropzoneWrapper" class="dz-default dz-message col-12">
@@ -295,8 +295,13 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div id="divKYCDownload" class="hide">
+                                                <a href="/KYC_Files/CMMasterKYCFiles/20041.zip" class="badge badge-pill badge-warning" download> Download KYC</a>
+                                            </div>
+
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                             <div class="col-12">
@@ -345,7 +350,7 @@
                                 <th>MobileNumber</th>
                                 <th>EmailId</th>
                                 <th>City</th>
-                                
+
 
                                 <th class="text-center">Actions</th>
                             </tr>
@@ -363,101 +368,103 @@
         </div>
     </div>
 </div>
-<div id="uploadBulk" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-md">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title mt-0" id="uploadBulkLabel">Upload Bulk Policies</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-10 mx-auto">
-                        <div class="text-right">
+@using (Html.BeginForm("BulkUpdate", "ClientMaster", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div id="uploadBulk" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title mt-0" id="uploadBulkLabel">Upload Bulk Policies</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-10 mx-auto">
+                            <div class="text-right">
 
-                            <a href="~/Masters/ProducerMaster.xlsx" class="btn btn-dark btn-sm" download>
-                                <i class="fas fa-download fa-sm"></i> Download Sample format
-                            </a>
-                        </div>
-                        @*
-                            <form method="post" enctype="multipart/form-data">
-                        *@
-                        <div class="fileuploader fileuploader-theme-dragdrop">
+                                <a href="~/Masters/ProducerMaster.xlsx" class="btn btn-dark btn-sm" download>
+                                    <i class="fas fa-download fa-sm"></i> Download Sample format
+                                </a>
+                            </div>
+                            @*
+                                <form method="post" enctype="multipart/form-data">
+                            *@
+                            <div class="fileuploader fileuploader-theme-dragdrop">
 
-                            <input type="file" name="postedFile" id="fileUploadMotor" accept=".xls,.xlsx" />
-                            <input type="hidden" id="txtMotorMaster" name="txtMotorMaster" value="2">
-                            <input type="hidden" name="fileuploader-list-files" value="[]">
-                            <input type="file" name="files[]" multiple="multiple" style="position: absolute; z-index: -9999; height: 0px; width: 0px; padding: 0px; margin: 0px; line-height: 0; outline: 0px; border: 0px; opacity: 0;">
-                            <div class="fileuploader-input">
-                                <div class="fileuploader-input-inner">
-                                    <div class="fileuploader-icon-main"></div>
-                                    <h3 class="fileuploader-input-caption">
-                                        <span>Drag and drop files here</span>
-                                    </h3>
-                                    <p></p>
-                                    <button type="button" class="fileuploader-input-button">
-                                        <span>Browse files</span>
+                                <input type="file" name="postedFile" id="fileUploadMotor" accept=".xls,.xlsx" />
+                                <input type="hidden" id="txtMotorMaster" name="txtMotorMaster" value="2">
+                                <input type="hidden" name="fileuploader-list-files" value="[]">
+                                <input type="file" name="files[]" multiple="multiple" style="position: absolute; z-index: -9999; height: 0px; width: 0px; padding: 0px; margin: 0px; line-height: 0; outline: 0px; border: 0px; opacity: 0;">
+                                <div class="fileuploader-input">
+                                    <div class="fileuploader-input-inner">
+                                        <div class="fileuploader-icon-main"></div>
+                                        <h3 class="fileuploader-input-caption">
+                                            <span>Drag and drop files here</span>
+                                        </h3>
+                                        <p></p>
+                                        <button type="button" class="fileuploader-input-button">
+                                            <span>Browse files</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="fileuploader-items">
+                                    <ul class="fileuploader-items-list">
+                                        <li class="fileuploader-item file-type-application file-ext-xlsx file-has-popup upload-successful">
+                                            <div id="fileContainer" class="columns" style="display: none;">
+                                                <div class="column-thumbnail">
+                                                    <div class="fileuploader-item-image fileuploader-no-thumbnail">
+                                                        <div style="background-color: #591605" class="fileuploader-item-icon">
+                                                            <i>xlsx</i>
+                                                        </div>
+                                                    </div>
+                                                    <span class="fileuploader-action-popup"></span>
+                                                </div>
+                                                <div class="column-title">
+                                                    <div id="fileName">SampleFile.xlsx</div>
+                                                    <span id="fileSize">0 KB</span>
+                                                </div>
+                                                <div class="column-actions">
+                                                    <button type="button" id="clearFiles" class="btn btn-success btn-sm round" title="Delete">
+                                                        <i class="fas fa-check fa-sm"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="progress-bar2" style="display: none;">
+                                                <div class="fileuploader-progressbar">
+                                                    <div class="bar" style="width: 100%;"></div>
+                                                </div>
+                                                <span>100%</span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="mt-2">
+                                    <button id="btnUpload" type="submit" class="btn btn-success btn-block">
+                                        <i class="fas fa-upload fa-sm"></i>
+                                        <span>Upload</span>
                                     </button>
                                 </div>
                             </div>
-                            <div class="fileuploader-items">
-                                <ul class="fileuploader-items-list">
-                                    <li class="fileuploader-item file-type-application file-ext-xlsx file-has-popup upload-successful">
-                                        <div id="fileContainer" class="columns" style="display: none;">
-                                            <div class="column-thumbnail">
-                                                <div class="fileuploader-item-image fileuploader-no-thumbnail">
-                                                    <div style="background-color: #591605" class="fileuploader-item-icon">
-                                                        <i>xlsx</i>
-                                                    </div>
-                                                </div>
-                                                <span class="fileuploader-action-popup"></span>
-                                            </div>
-                                            <div class="column-title">
-                                                <div id="fileName">SampleFile.xlsx</div>
-                                                <span id="fileSize">0 KB</span>
-                                            </div>
-                                            <div class="column-actions">
-                                                <button type="button" id="clearFiles" class="btn btn-success btn-sm round" title="Delete">
-                                                    <i class="fas fa-check fa-sm"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="progress-bar2" style="display: none;">
-                                            <div class="fileuploader-progressbar">
-                                                <div class="bar" style="width: 100%;"></div>
-                                            </div>
-                                            <span>100%</span>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="mt-2">
-                                <button id="btnUpload" type="submit" class="btn btn-success btn-block">
-                                    <i class="fas fa-upload fa-sm"></i>
-                                    <span>Upload</span>
-                                </button>
-                            </div>
+                            @*
+                                </form>
+                            *@
                         </div>
-                        @*
-                            </form>
-                        *@
                     </div>
                 </div>
+                @*
+                    <div class="modal-footer justify-content-center">
+                       <button type="button" class="btn btn-secondary btn-sm waves-effect" data-dismiss="modal">Close</button>
+                       <button type="button" class="btn btn-primary btn-sm waves-effect waves-light">Renew</button>
+                    </div>
+                *@
             </div>
-            @*
-                <div class="modal-footer justify-content-center">
-                   <button type="button" class="btn btn-secondary btn-sm waves-effect" data-dismiss="modal">Close</button>
-                   <button type="button" class="btn btn-primary btn-sm waves-effect waves-light">Renew</button>
-                </div>
-            *@
+            <!-- /.modal-content -->
         </div>
-        <!-- /.modal-content -->
+        <!-- /.modal-dialog -->
     </div>
-    <!-- /.modal-dialog -->
-</div>
-
+}
 <script type="text/javascript">
 
     $(document).ready(function () {

@@ -16,6 +16,7 @@ namespace Totalligent.BusinessEntities
         public long? InsuranceCompanyId { get; set; }
 
         public string Address { get; set; }
+        public string BankName { get; set; }
 
         public string City { get; set; }
 

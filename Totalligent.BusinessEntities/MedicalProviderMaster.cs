@@ -33,6 +33,7 @@ namespace Totalligent.BusinessEntities
         public string Location { get; set; }
 
         public string Category { get; set; }
+        public string BankName { get; set; }
 
         public int? BankID { get; set; }
 

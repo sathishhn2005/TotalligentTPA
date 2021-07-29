@@ -659,12 +659,12 @@ namespace Totalligent.DAL
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Connection = con;
 
-                    cmd.Parameters.AddWithValue("@MasterType", objPM.MasterType);
-                    cmd.Parameters.AddWithValue("@Name", objPM.Name);
+                   // cmd.Parameters.AddWithValue("@MasterType", objPM.MasterType);
+                   // cmd.Parameters.AddWithValue("@Name", objPM.Name);
                     // cmd.Parameters.AddWithValue("@UserName", objPM.UserName);
                     cmd.Parameters.AddWithValue("@Password", objPM.Password);
                     cmd.Parameters.AddWithValue("@EmailId", objPM.EmailId);
-                    cmd.Parameters.AddWithValue("@AddedBy", objPM.AddedBy);
+                   // cmd.Parameters.AddWithValue("@AddedBy", objPM.AddedBy);
                     //  cmd.Parameters.AddWithValue("@MobileNumber", objPM.MobileNumber);
                     //  cmd.Parameters.AddWithValue("@CreatedBy", "Admin");
                     //  cmd.Parameters.AddWithValue("@RoleId", objPM.RoleId);
@@ -1206,8 +1206,8 @@ namespace Totalligent.DAL
                         lst = (from DataRow dr in ds.Tables[0].Rows
                                select new ProducerMaster()
                                {
-                                   Id = (long)dr["Id"],
-                                   Name = dr["Name"].ToString(),
+                                   ProducerMasterID= (long)dr["Id"],
+                                   ProducerName = dr["Name"].ToString(),
                                    EmailId = dr["EmailId"].ToString(),
 
                                }).ToList();

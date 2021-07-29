@@ -34,6 +34,7 @@ namespace Totalligent.BusinessEntities
         public DateTime? EffectiveDate { get; set; }
 
         public string Remarks { get; set; }
+        public string BankName { get; set; }
 
         public string EntryType { get; set; }
 

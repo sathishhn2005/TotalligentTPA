@@ -1,41 +1,70 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using Totalligent.BusinessEntities;
 using Totalligent.BAL;
-
+using Totalligent.UI.Models;
+using System.IO;
+using System.Configuration;
+using System.IO.Compression;
 
 namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
 {
     public class MedicalProviderController : Controller
     {
         GLIMasterBAL objGLIMasterBAL;
-        // GET: GroupLifeInsurance/ReInsurenceMaster
+        // GET: GroupLifeInsurance/MedicalProvider
         public ActionResult Index()
         {
             return View();
         }
         [HttpPost]
-        public ActionResult AddUpdateMPMaster(MedicalProviderMaster objMPMaster, string Action)
+        public ActionResult AddUpdateMPMaster(MedicalProviderMaster objMPMaster, string Action, string FolderName)
         {
             string msg = "";
-            int ReturnCode = 0;
+            long MPMasterID = 0;
+            int ResultRow = 0;
             string loginID = Session["Loginid"].ToString();
             string UserName = Session["UserName"].ToString();
             objGLIMasterBAL = new GLIMasterBAL();
+            string FileFolderPath = GetFolderPath(FolderName);
 
             objMPMaster.CreatedBy = Convert.ToString(loginID);
             string JParamVal = JsonConvert.SerializeObject(objMPMaster);
 
-            ReturnCode = objGLIMasterBAL.DMLMPMaster(Action, JParamVal);
+            MPMasterID = objGLIMasterBAL.DMLMPMaster(Action, JParamVal);
 
-            if (Action == "Create" && ReturnCode > 0)
+            if (Action == "Create" && MPMasterID > 0)
             {
+                var dir = new DirectoryInfo(FileFolderPath);
+                if (Directory.Exists(FileFolderPath) && dir.GetFiles().Length > 0)
+                {
+                    string KYCzipPath = Server.MapPath(ConfigurationManager.AppSettings["MPMasterKYCFilesPath"]) + FolderName + "_" + MPMasterID.ToString() + ".zip";
+                    ZipFile.CreateFromDirectory(FileFolderPath, KYCzipPath);
+                    ResultRow = objGLIMasterBAL.pUpdateFolderPathMPMaster(MPMasterID, KYCzipPath);
+	
+                    dir.Delete(true);
+                }
+
                 msg = "Inserted Successfully";
             }
-            else if (Action == "Update" && ReturnCode > 0)
+            else if (Action == "Update" && MPMasterID > 0)
             {
+                var dir = new DirectoryInfo(FileFolderPath);
+
+                if (Directory.Exists(FileFolderPath) && dir.GetFiles().Length > 0)
+                {
+                    string KYCzipPath = Server.MapPath(ConfigurationManager.AppSettings["MPMasterKYCFilesPath"]) + FolderName + "_" + MPMasterID.ToString() + ".zip";
+                    ZipFile.CreateFromDirectory(FileFolderPath, KYCzipPath);
+                    ResultRow = objGLIMasterBAL.pUpdateFolderPathMPMaster(MPMasterID, KYCzipPath);
+
+
+                    dir.Delete(true);
+                }
+
                 msg = "Updated Successfully";
             }
             else
@@ -86,40 +115,166 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
         }
 
 
+        [HttpPost]
+        public ActionResult SaveUploadedFile()
+        {
+            bool isSavedSuccessfully = true;
+            string FName = TempData["FolderName"].ToString();
+            TempData["FolderName"] = FName;
+            string fName = "";
+            try
+            {
+                foreach (string fileName in Request.Files)
+                {
+                    HttpPostedFileBase file = Request.Files[fileName];
+                    //Save file content goes here
+                    fName = file.FileName;
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        string pathString = GetFolderPath(FName);
+
+                        var path = string.Format("{0}\\{1}", pathString, file.FileName);
+                        file.SaveAs(path);
+
+                    }
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                isSavedSuccessfully = false;
+            }
 
 
-        //[HttpGet]
-        //public ActionResult GetRIMaster(string RIName, string RICode, string City)
-        //{
-        //    List<ReInsurerMaster> lstRIMaster = null;
-        //    int ReturnCode = 0;
+            if (isSavedSuccessfully)
+            {
+                return Json(new { Message = fName });
+            }
+            else
+            {
+                return Json(new { Message = "Error in saving file" });
+            }
+        }
 
-        //    objGLIMasterBAL = new GLIMasterBAL();
-        //    ReturnCode = objGLIMasterBAL.GetRIMaster(RIName, RICode, City, out lstRIMaster);
+        private string GetFolderPath(string FName)
+        {
+            string FPath = ConfigurationManager.AppSettings["KYCpath"];
+            var originalDirectory = new System.IO.DirectoryInfo(string.Format("{0}" + FPath, Server.MapPath(@"\")));
+            string pathString = System.IO.Path.Combine(originalDirectory.ToString(), FName);
+
+            bool isExists = System.IO.Directory.Exists(pathString);
+            if (!isExists)
+                System.IO.Directory.CreateDirectory(pathString);
+
+            return pathString;
 
 
-        //    List<BankMaster> lstBM = null;
-        //    RIMasterModel obj = new RIMasterModel();
-        //    new GLIMasterBAL().GetBankMasters(out lstBM);
-        //    obj.lstRIMaster = null;
+        }
 
-        //    var selectList = new List<SelectListItem>();
 
-        //    foreach (var element in lstBM)
-        //    {
-        //        selectList.Add(new SelectListItem
-        //        {
-        //            Value = element.BankID.ToString(),
-        //            Text = element.BankName
-        //        });
-        //        obj.lstBankMaster = selectList;
-        //    }
-        //    obj.lstRIMaster = lstRIMaster;
-        //    return View("RIMaster", obj);
-        //}
+        [HttpPost]
+        public ActionResult BulkUpdate(HttpPostedFileBase CSVFile, string hdnMsgStatus)
+        {
+            long returnCode = -1;
+            string MPMasterJson = string.Empty;
+            string ErrorMsg = string.Empty;
 
+            string _filePath = string.Empty;
+            string _FileName = string.Empty;
+            string FPath = ConfigurationManager.AppSettings["KYCpath"];
+
+            objGLIMasterBAL = new GLIMasterBAL();
+            try
+            {
+                long loginID = Convert.ToInt64(Session["Loginid"].ToString());
+
+                if (ModelState.IsValid)
+                {
+
+                    if (CSVFile.ContentLength > 0)
+                    {
+                        _FileName = DateTime.Now.ToString("yyyyMMddHHmmss") + "_" + Path.GetFileName(CSVFile.FileName);
+                        var originalDirectory = new System.IO.DirectoryInfo(string.Format("{0}" + FPath, Server.MapPath(@"\")));
+                        _filePath = System.IO.Path.Combine(originalDirectory.ToString(), _FileName);
+                        CSVFile.SaveAs(_filePath);
+                    }
+
+
+                    List<MedicalProviderMaster> lstValues = System.IO.File.ReadAllLines(_filePath)
+                                              .Skip(1)
+                                              .Select(v => FromCsv(v))
+                                              .ToList();
+
+                    List<List<MedicalProviderMaster>> lstValueList = lstValues.Select((x, i) => new { Index = i, Value = x })
+                                                                 .GroupBy(x => x.Index / 5000)
+                                                                 .Select(x => x.Select(v => v.Value).ToList()).ToList();
+
+                    using (System.Transactions.TransactionScope transactionScope = new System.Transactions.TransactionScope())
+                    {
+                        try
+                        {
+                            for (int i = 0; i < lstValueList.Count; i++)
+                            {
+
+                                MPMasterJson = JsonConvert.SerializeObject(lstValueList[i]);
+                                returnCode = objGLIMasterBAL.BulkInsertMPMaster("", MPMasterJson, loginID, out ErrorMsg);
+                            }
+                            transactionScope.Complete();
+                            transactionScope.Dispose();
+                        }
+                        catch (Exception ex)
+                        {
+                            transactionScope.Dispose();
+                            TempData["Alertmsg"] = "please contact Administrator";
+                            throw ex;
+                        }
+                    }
+                    if (returnCode != -1)
+                    {
+                        TempData["Alertmsg"] = ErrorMsg;
+                        System.IO.File.Delete(_filePath);
+                    }
+                    else
+                    {
+                        TempData["Alertmsg"] = "please contact Administrator";
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["Alertmsg"] = "please contact Administrator";
+                throw;
+            }
+
+            return RedirectToAction("MedicalProviderMaster", "GLIMaster");
+
+        }
+
+
+        public static MedicalProviderMaster FromCsv(string csvLineData)
+        {
+            string[] values = csvLineData.Split(',');
+
+
+            MedicalProviderMaster objCsvFileBulkUplaod = new MedicalProviderMaster();
+
+            objCsvFileBulkUplaod.MedicalProvider = values[0];
+            objCsvFileBulkUplaod.ContactPerson = values[1];
+            objCsvFileBulkUplaod.MobileNumber = values[2];
+            objCsvFileBulkUplaod.EmailId = values[3];
+            objCsvFileBulkUplaod.Address = values[4];
+            objCsvFileBulkUplaod.City = values[5];
+            objCsvFileBulkUplaod.State = values[6];
+            objCsvFileBulkUplaod.Zipcode = values[7];
+            objCsvFileBulkUplaod.BankName = values[8];
+            objCsvFileBulkUplaod.AccountNumber = values[9];
+            objCsvFileBulkUplaod.IFSCCode = values[10];
+
+            return objCsvFileBulkUplaod;
+        }
 
 
     }
 }
-

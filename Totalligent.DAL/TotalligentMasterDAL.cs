@@ -560,7 +560,7 @@ namespace Totalligent.DAL
                             lstPMBulkUpload = (from DataRow dr in dt.Rows
                                               select new ProducerMaster()
                                               {
-                                                  UserName = dr["UserName"].ToString(),
+                                                  ProducerName = dr["UserName"].ToString(),
                                                   EmailId = dr["EmailId"].ToString(),
                                               }).ToList();
 

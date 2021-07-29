@@ -11,10 +11,9 @@ using System.IO;
 using System.Configuration;
 using System.IO.Compression;
 
-
 namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
 {
-    
+
     public class ReInsurenceMasterController : Controller
     {
         GLIMasterBAL objGLIMasterBAL;
@@ -24,10 +23,10 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
             return View();
         }
         [HttpPost]
-         public ActionResult AddUpdateRIMaster(ReInsurerMaster objReInsurerMaster,string Action, string FolderName)
-       
+        public ActionResult AddUpdateRIMaster(ReInsurerMaster objReInsurerMaster, string Action, string FolderName)
+
         {
-            string msg = "";            
+            string msg = "";
             long RIMasterID = 0;
             int ResultRow = 0;
             string loginID = Session["Loginid"].ToString();
@@ -39,7 +38,7 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
             string JParamVal = JsonConvert.SerializeObject(objReInsurerMaster);
 
             RIMasterID = objGLIMasterBAL.DMLRIMaster(Action, JParamVal);
-         
+
 
             if (Action == "Create" && RIMasterID > 0)
             {
@@ -47,9 +46,9 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
                 if (Directory.Exists(FileFolderPath) && dir.GetFiles().Length > 0)
                 {
                     string KYCzipPath = Server.MapPath(ConfigurationManager.AppSettings["RIMasterKYCFilesPath"]) + FolderName + "_" + RIMasterID.ToString() + ".zip";
-                  ZipFile.CreateFromDirectory(FileFolderPath, KYCzipPath);
-                  ResultRow = objGLIMasterBAL.pUpdateFolderPathRIMaster(RIMasterID, KYCzipPath);                   
-                                 
+                    ZipFile.CreateFromDirectory(FileFolderPath, KYCzipPath);
+                    ResultRow = objGLIMasterBAL.pUpdateFolderPathRIMaster(RIMasterID, KYCzipPath);
+
                     dir.Delete(true);
                 }
 
@@ -59,13 +58,13 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
             {
                 var dir = new DirectoryInfo(FileFolderPath);
 
-                if (Directory.Exists(FileFolderPath) && dir.GetFiles().Length>0)
+                if (Directory.Exists(FileFolderPath) && dir.GetFiles().Length > 0)
                 {
                     string KYCzipPath = Server.MapPath(ConfigurationManager.AppSettings["RIMasterKYCFilesPath"]) + FolderName + "_" + RIMasterID.ToString() + ".zip";
                     ZipFile.CreateFromDirectory(FileFolderPath, KYCzipPath);
                     ResultRow = objGLIMasterBAL.pUpdateFolderPathRIMaster(RIMasterID, KYCzipPath);
 
-                   
+
                     dir.Delete(true);
                 }
 
@@ -80,13 +79,13 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
             return View();
         }
         [HttpPost]
-        public JsonResult GetAutocompleteRINameRICodeCity(string prefixText,string Action)
+        public JsonResult GetAutocompleteRINameRICodeCity(string prefixText, string Action)
         {
             List<ReInsurerMaster> lstRIMaster = null;
             int ReturnCode = 0;
 
             objGLIMasterBAL = new GLIMasterBAL();
-            ReturnCode = objGLIMasterBAL.GetAutocompleteRINameRICodeCity(prefixText, Action,out lstRIMaster);
+            ReturnCode = objGLIMasterBAL.GetAutocompleteRINameRICodeCity(prefixText, Action, out lstRIMaster);
 
             return Json(lstRIMaster, JsonRequestBehavior.AllowGet);
         }
@@ -104,11 +103,12 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
         }
 
         [HttpPost]
-        public JsonResult DeactivateRIMaster(string RiMasterID)  {
-           
+        public JsonResult DeactivateRIMaster(string RiMasterID)
+        {
+
             int ReturnCode = 0;
 
-            long RID = RiMasterID == "" || RiMasterID == null ? 0 : Convert.ToInt64(RiMasterID) ;
+            long RID = RiMasterID == "" || RiMasterID == null ? 0 : Convert.ToInt64(RiMasterID);
 
             objGLIMasterBAL = new GLIMasterBAL();
             ReturnCode = objGLIMasterBAL.DeactivateRIMaster(RID);
@@ -117,7 +117,7 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
             return Json(Msg, JsonRequestBehavior.AllowGet);
         }
 
-        
+
         [HttpPost]
         public ActionResult SaveUploadedFile()
         {
@@ -164,8 +164,8 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
         {
             string FPath = ConfigurationManager.AppSettings["KYCpath"];
             var originalDirectory = new System.IO.DirectoryInfo(string.Format("{0}" + FPath, Server.MapPath(@"\")));
-            string pathString = System.IO.Path.Combine(originalDirectory.ToString(), FName); 
-          
+            string pathString = System.IO.Path.Combine(originalDirectory.ToString(), FName);
+
             bool isExists = System.IO.Directory.Exists(pathString);
             if (!isExists)
                 System.IO.Directory.CreateDirectory(pathString);
@@ -175,7 +175,7 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
 
         }
 
-       
+
         [HttpPost]
         public ActionResult BulkUpdate(HttpPostedFileBase CSVFile, string hdnMsgStatus)
         {
@@ -252,7 +252,7 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
             }
 
             return RedirectToAction("RIMaster", "GLIMaster");
-          
+
         }
 
 
@@ -261,7 +261,7 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
             string[] values = csvLineData.Split(',');
 
 
-            ReInsurerMaster objCsvFileBulkUplaod = new ReInsurerMaster();                             
+            ReInsurerMaster objCsvFileBulkUplaod = new ReInsurerMaster();
 
             objCsvFileBulkUplaod.ReInsurerName = values[0];
             objCsvFileBulkUplaod.ContactPerson = values[1];

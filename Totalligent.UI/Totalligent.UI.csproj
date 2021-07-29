@@ -77,6 +77,9 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -216,6 +219,7 @@
     <Compile Include="Models\EmployeeMasterModel.cs" />
     <Compile Include="Models\ICMasterModel.cs" />
     <Compile Include="Models\MedicalProviderModel.cs" />
+    <Compile Include="Models\ProducerMasterModel.cs" />
     <Compile Include="Models\RIMasterModel.cs" />
     <Compile Include="Models\RolesModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -2397,7 +2401,12 @@
     <Folder Include="Areas\MedicalInsurance\Data\" />
     <Folder Include="Content\vendor\js\" />
     <Folder Include="GLEndorsementDocument\20210222010910_archive.zip\" />
+    <Folder Include="KYC_Files\CMMasterKYCFiles\" />
+    <Folder Include="KYC_Files\EmpMasterKYCFiles\" />
+    <Folder Include="KYC_Files\ICMasterKYCFiles\" />
+    <Folder Include="KYC_Files\MPMasterKYCFiles\" />
     <Folder Include="KYC_Files\ProducerMasterKYCFiles\" />
+    <Folder Include="KYC_Files\RIMasterKYCFiles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Masters\Agentmaster.xlsx" />

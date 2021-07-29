@@ -88,7 +88,7 @@ namespace Totalligent.BAL
         #endregion
 
         #region ClientCompanyMaster  
-        public int DMLCCMaster(string Action, string JPramValue)
+        public long DMLCCMaster(string Action, string JPramValue)
         {
             return new GLIMasterDAL().DMLCCMaster(Action, JPramValue);
         }
@@ -107,10 +107,19 @@ namespace Totalligent.BAL
         {
             return new GLIMasterDAL().DeactivateCCMaster(ClientCompanyMasterId);
         }
+
+        public int pUpdateFolderPathCCMaster(long RIMAsterID, string ZipFilePath)
+        {
+            return new GLIMasterDAL().pUpdateFolderPathCCMaster(RIMAsterID, ZipFilePath);
+        }
+        public long BulkInsertCCMaster(string Action, string JPramValue, long Createdby, out string Msg)
+        {
+            return new GLIMasterDAL().BulkInsertCCMaster(Action, JPramValue, Createdby, out Msg);
+        }
         #endregion
 
         #region InsuranceCompanyMaster  
-        public int DMLICMaster(string Action, string JPramValue)
+        public long DMLICMaster(string Action, string JPramValue)
         {
             return new GLIMasterDAL().DMLICMaster(Action, JPramValue);
         }
@@ -129,10 +138,18 @@ namespace Totalligent.BAL
         {
             return new GLIMasterDAL().DeactivateICMaster(ICMId);
         }
+        public int pUpdateFolderPathICMaster(long ICMasterID, string ZipFilePath)
+        {
+            return new GLIMasterDAL().pUpdateFolderPathICMaster(ICMasterID, ZipFilePath);
+        }
+        public long BulkInsertICMaster(string Action, string JPramValue, long Createdby, out string Msg)
+        {
+            return new GLIMasterDAL().BulkInsertICMaster(Action, JPramValue, Createdby, out Msg);
+        }
         #endregion
 
         #region EmployeeMaster  
-        public int DMLEmpMaster(string Action, string JPramValue)
+        public long DMLEmpMaster(string Action, string JPramValue)
         {
             return new GLIMasterDAL().DMLEmpMaster(Action, JPramValue);
         }
@@ -151,10 +168,18 @@ namespace Totalligent.BAL
         {
             return new GLIMasterDAL().DeactivateEmpMaster(EmpId);
         }
+        public int pUpdateFolderPathEmpMaster(long EmpMasterID, string ZipFilePath)
+        {
+            return new GLIMasterDAL().pUpdateFolderPathempMaster(EmpMasterID, ZipFilePath);
+        }
+        public long BulkInsertEmpMaster(string Action, string JPramValue, long Createdby, out string Msg)
+        {
+            return new GLIMasterDAL().BulkInsertEmpMaster(Action, JPramValue, Createdby, out Msg);
+        }
         #endregion
 
         #region MedicalProviderMaster  
-        public int DMLMPMaster(string Action, string JPramValue)
+        public long DMLMPMaster(string Action, string JPramValue)
         {
             return new GLIMasterDAL().DMLMPMaster(Action, JPramValue);
         }
@@ -172,6 +197,14 @@ namespace Totalligent.BAL
         public int DeactivateMPMaster(long MPId)
         {
             return new GLIMasterDAL().DeactivateMPMaster(MPId);
+        }
+        public int pUpdateFolderPathMPMaster(long EmpMasterID, string ZipFilePath)
+        {
+            return new GLIMasterDAL().pUpdateFolderPathMPMaster(EmpMasterID, ZipFilePath);
+        }
+        public long BulkInsertMPMaster(string Action, string JPramValue, long Createdby, out string Msg)
+        {
+            return new GLIMasterDAL().BulkInsertMPMaster(Action, JPramValue, Createdby, out Msg);
         }
         #endregion
     }
