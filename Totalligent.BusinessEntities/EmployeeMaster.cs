@@ -14,6 +14,7 @@ namespace Totalligent.BusinessEntities
         public string ClientName { get; set; }
 
         public string EmployeeUniqueNumber { get; set; }
+        public string KYCUploadPath { get; set; }
 
         public string Relation { get; set; }
 

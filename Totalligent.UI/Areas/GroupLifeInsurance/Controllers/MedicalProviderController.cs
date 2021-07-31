@@ -119,7 +119,7 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
         public ActionResult SaveUploadedFile()
         {
             bool isSavedSuccessfully = true;
-            string FName = TempData["FolderName"].ToString();
+            string FName = TempData["MPFolderName"].ToString();
             TempData["FolderName"] = FName;
             string fName = "";
             try
@@ -174,7 +174,7 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
 
 
         [HttpPost]
-        public ActionResult BulkUpdate(HttpPostedFileBase CSVFile, string hdnMsgStatus)
+        public ActionResult BulkUpdate(HttpPostedFileBase MPCSVFile, string hdnMsgStatus)
         {
             long returnCode = -1;
             string MPMasterJson = string.Empty;
@@ -192,12 +192,12 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
                 if (ModelState.IsValid)
                 {
 
-                    if (CSVFile.ContentLength > 0)
+                    if (MPCSVFile.ContentLength > 0)
                     {
-                        _FileName = DateTime.Now.ToString("yyyyMMddHHmmss") + "_" + Path.GetFileName(CSVFile.FileName);
+                        _FileName = DateTime.Now.ToString("yyyyMMddHHmmss") + "_" + Path.GetFileName(MPCSVFile.FileName);
                         var originalDirectory = new System.IO.DirectoryInfo(string.Format("{0}" + FPath, Server.MapPath(@"\")));
                         _filePath = System.IO.Path.Combine(originalDirectory.ToString(), _FileName);
-                        CSVFile.SaveAs(_filePath);
+                        MPCSVFile.SaveAs(_filePath);
                     }
 
 
@@ -271,6 +271,9 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
             objCsvFileBulkUplaod.BankName = values[8];
             objCsvFileBulkUplaod.AccountNumber = values[9];
             objCsvFileBulkUplaod.IFSCCode = values[10];
+            objCsvFileBulkUplaod.Name = values[11];
+            objCsvFileBulkUplaod.Location = values[12];
+            objCsvFileBulkUplaod.Category = values[13];
 
             return objCsvFileBulkUplaod;
         }

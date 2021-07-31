@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="AgentMaster.cs" />
     <Compile Include="BankMaster.cs" />
+    <Compile Include="BenefitsMaster.cs" />
     <Compile Include="BrokerMaster.cs" />
     <Compile Include="BusinessDesignationTypeMaster.cs" />
     <Compile Include="ClientCompanyMaster.cs" />

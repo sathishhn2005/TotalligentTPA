@@ -120,7 +120,7 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
         public ActionResult SaveUploadedFile()
         {
             bool isSavedSuccessfully = true;
-            string FName = TempData["FolderName"].ToString();
+            string FName = TempData["CMFolderName"].ToString();
             TempData["FolderName"] = FName;
             string fName = "";
             try
@@ -175,7 +175,7 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
 
 
         [HttpPost]
-        public ActionResult BulkUpdate(HttpPostedFileBase CSVFile, string hdnMsgStatus)
+        public ActionResult BulkUpdate(HttpPostedFileBase CMCSVFile, string hdnMsgStatus)
         {
             long returnCode = -1;
             string RIMasterJson = string.Empty;
@@ -193,12 +193,12 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
                 if (ModelState.IsValid)
                 {
 
-                    if (CSVFile.ContentLength > 0)
+                    if (CMCSVFile.ContentLength > 0)
                     {
-                        _FileName = DateTime.Now.ToString("yyyyMMddHHmmss") + "_" + Path.GetFileName(CSVFile.FileName);
+                        _FileName = DateTime.Now.ToString("yyyyMMddHHmmss") + "_" + Path.GetFileName(CMCSVFile.FileName);
                         var originalDirectory = new System.IO.DirectoryInfo(string.Format("{0}" + FPath, Server.MapPath(@"\")));
                         _filePath = System.IO.Path.Combine(originalDirectory.ToString(), _FileName);
-                        CSVFile.SaveAs(_filePath);
+                        CMCSVFile.SaveAs(_filePath);
                     }
 
 
@@ -252,7 +252,28 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
             return RedirectToAction("ClientMaster", "GLIMaster");
 
         }
+        public JsonResult GetProducerName(string BusinessType)
+        {
+            try
+            {
+                List<ProducerMaster> lst = null;
+                objGLIMasterBAL = new GLIMasterBAL();
+                objGLIMasterBAL.GetProducers(BusinessType, out lst);
 
+                return Json(new
+                {
+                    list = lst
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+
+
+        }
 
         public static ClientCompanyMaster FromCsv(string csvLineData)
         {
@@ -273,6 +294,15 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
             objCsvFileBulkUplaod.AccountNumber = values[9];
             objCsvFileBulkUplaod.IFSCCode = values[10];
 
+            objCsvFileBulkUplaod.ClientCompanyName = values[11];
+            objCsvFileBulkUplaod.Currency = values[12];
+            objCsvFileBulkUplaod.LOBName = Convert.ToInt64(values[13]);
+            objCsvFileBulkUplaod.ProducerType = Convert.ToInt64(values[14]);
+            objCsvFileBulkUplaod.ProducerName = Convert.ToInt64(values[15]);
+            objCsvFileBulkUplaod.ProducerCommission = Convert.ToDecimal(values[16]);
+            objCsvFileBulkUplaod.RIName = values[7];
+            objCsvFileBulkUplaod.RIRetention = Convert.ToInt64(values[18]);
+            objCsvFileBulkUplaod.AMIRetention = Convert.ToInt64(values[19]);
             return objCsvFileBulkUplaod;
         }
 

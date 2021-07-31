@@ -1,0 +1,7 @@
+"InsuranceCompanyName
+",ContactPerson,MobileNumber,EmailId,Address,City,State,Zipcode,BankName,AccountNumber,IFSCCode
+ICICI,Test1,9840359280,iciic@gmail.com,Gandhr St 1,Madurai,Tamilname,625004,ICICI,2.13E+11,IFSC012124
+HDFC,Test2,9840359281,hdfc@gmail.com,Gandhr St 2,Madurai,Tamilname,625005,HDFC,2.13E+11,IFSC012125
+Totalligent,Test3,9840359282,tot@gmail.com,Gandhr St 3,Madurai,Tamilname,625006,axis,2.13E+11,IFSC012126
+StartHealth,Test4,9840359283,star@gmail.com,Gandhr St 4,Madurai,Tamilname,625007,central,2.13E+11,IFSC012127
+Relience,Test5,9840359284,relience@gmail.com,Gandhr St 5,Madurai,Tamilname,625008,iob,2.13E+11,IFSC012128

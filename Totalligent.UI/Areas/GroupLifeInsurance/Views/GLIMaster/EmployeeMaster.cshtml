@@ -6,8 +6,8 @@
     Layout = "~/Areas/GroupLifeInsurance/Views/Shared/_Layout.cshtml";
 }
 @{ List<SelectListItem>
-           lstGender = new List<SelectListItem>
-               ();
+            lstGender = new List<SelectListItem>
+                ();
     lstGender.Add(new SelectListItem
     {
         Text = "Male",
@@ -21,8 +21,8 @@
 
 }
 @{ List<SelectListItem>
-             lstNationlity = new List<SelectListItem>
-                 ();
+              lstNationlity = new List<SelectListItem>
+                  ();
     lstNationlity.Add(new SelectListItem
     {
         Text = "India",
@@ -50,6 +50,8 @@
             <div class="tab-content">
                 <div id="navpills2-1" class="tab-pane active">
                     <form id="formEmployee">
+                        @TempData["Alertmsg"]
+                        @{ TempData.Keep("EMFolderNam");}
                         <div class="row">
                             <div class="col-12 col-md-6">
                                 <div class="form-group m-b-15">
@@ -361,6 +363,7 @@
 
                                 </div>
                                 <div class="col-md-3">
+                                    <input type="hidden" id="EMFolderName" value='@TempData["EMFolderName"]' />
                                     <button type="button" id="btnSearch" class="btn btn-block btn-primary"><i class="fa fa-search mr-3"></i>Search</button>
                                 </div>
                             </div>
@@ -373,11 +376,12 @@
                             <tr>
                                 <th>EmployeeName</th>
                                 <th>EmpUniqueNumber</th>
-                                
+
                                 <th>Nationality</th>
                                 <th>Category</th>
                                 <th>Age</th>
-                                
+                                <th>KYCUploadPath</th>
+
                                 <th class="text-center">Actions</th>
                             </tr>
                             <tbody></tbody>
@@ -691,7 +695,7 @@
             objEmpMaster.AccountNumber = $("#AccountNumber").val();
             objEmpMaster.IFSCCode = $("#IFSCCode").val();
 
-            var param = { objEmpMaster: objEmpMaster, Action: $("#btnSubmitEmployeeMaster").val() };
+            var param = { objEmpMaster: objEmpMaster, Action: $("#btnSubmitEmployeeMaster").val(), FolderName: $("#EMFolderName").val() };
             //var renewalData = $('#formRIMaster').serialize();
             $.ajax({
                 type: "POST",
@@ -747,7 +751,7 @@
                         i++;
                         var hdnID = "hdnobjJSonVal_" + i;
                         var JVal = JSON.stringify(value);
-                        $('#tblEMaster').append('<tr> <td>' + value.EmployeeName + '</td>  <td>' + value.EmployeeUniqueNumber + '</td> <td>' + value.Nationality + '</td> <td>' + value.Category + '</td><td>' + value.Age + '</td><td class="text-center"><i class="mdi mdi-pencil text-primary mx-3" onclick="EditEmpMaster(' + "'" + hdnID + "'" + ')"></i><i class="mdi mdi-delete text-danger mx-3" onclick="DeActiveEmpMaster(this,' + value.EmployeeId.toString() + ');"></i><input type="hidden" id=' + hdnID + ' value=' + "'" + JVal + "'" + '></td></tr>');
+                        $('#tblEMaster').append('<tr> <td>' + value.EmployeeName + '</td>  <td>' + value.EmployeeUniqueNumber + '</td> <td>' + value.Nationality + '</td> <td>' + value.Category + '</td><td>' + value.Age + '</td><td> <a href="' + value.KYCUploadPath + '" class="badge badge-pill badge-warning" download> Download KYC</a></td><td class="text-center"><i class="mdi mdi-pencil text-primary mx-3" onclick="EditEmpMaster(' + "'" + hdnID + "'" + ')"></i><i class="mdi mdi-delete text-danger mx-3" onclick="DeActiveEmpMaster(this,' + value.EmployeeId.toString() + ');"></i><input type="hidden" id=' + hdnID + ' value=' + "'" + JVal + "'" + '></td></tr>');
 
 
                     })
@@ -827,6 +831,23 @@
     }
 
 </script>
+@section scripts {
+    <script type="text/javascript">
+        Dropzone.options.Divdropzone = {
+            maxFiles: 6,
+            acceptedFiles: 'image/*',
+            maxFilesize: 2, // max file size in MB,
+            addRemoveLinks: true,
+            init: function () {
+                this.on("error", function (file, message) {
+                    alert(message + " because already reached maxmim file limt (3) or invalid file extension");
+                    this.removeFile(file);
+                });
+            },
+
+        };
+    </script>
+}
 @*<script type="text/javascript">
     $(window).on("load", function () {
         $('#btnSubmitEmployeeMaster').on('click', function () {

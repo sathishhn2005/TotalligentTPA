@@ -42,7 +42,7 @@
                 <div id="navpills2-1" class="tab-pane active">
                     <form id="formRIMaster" enctype="multipart/form-data">
 
-                        @TempData["Alertmsg"];
+                        @TempData["Alertmsg"]
                         @{ TempData.Keep("FolderName");}
 
                         <div class="row">
@@ -192,7 +192,7 @@
                                             <label class="col-form-label text-md-right w-full">Upload KYC </label>
                                         </div>
                                         <div class="col-md-6">
-                                            <div id="Divdropzone" class=" dropzone" action="~/GroupLifeInsurance/ReInsurenceMaster/SaveUploadedFile" method="post" enctype="multipart/form-data">
+                                            <div id="Divdropzone" class="dropzone" action="~/GroupLifeInsurance/ReInsurenceMaster/SaveUploadedFile" method="post" enctype="multipart/form-data">
                                                 <div id="tabs-3">
                                                     <div class="row field ">
                                                         <div id="dropzoneWrapper" class="dz-default dz-message col-12">
@@ -313,10 +313,10 @@
 
                                 <div class="mt-2">
 
-                                    <i class="fas fa-upload fa-sm btn btn-success btn-block" onclick="csvFileUpload();">
+                                    <i class="fa fa-upload fa-sm btn btn-success btn-block" onclick="csvFileUpload();">
                                         <span>Upload</span>
                                     </i>
-                                    <button id="uploadMotorPolicies" class="btn btn-primary btn-sm mx-1 hide">Upload File</button>
+                                    <button id="uploadFiles" class="btn btn-primary btn-sm mx-1 hide">Upload File</button>
                                 </div>
                             </div>
 
@@ -817,7 +817,7 @@
 
                     if (rowCount == rows.length) {
                         $("#hdnMsgStatus").val('Y');
-                        $("#uploadMotorPolicies").click();
+                        $("#uploadFiles").click();
 
                     }
 
@@ -832,11 +832,7 @@
             $('#fileUploadRIMaster').val('');
             alert("Please upload a valid CSV file.");
             return false;
-
         }
-
-
-
     }
 
 </script>

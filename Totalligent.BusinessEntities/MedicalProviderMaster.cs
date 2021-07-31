@@ -15,6 +15,7 @@ namespace Totalligent.BusinessEntities
         public string Name { get; set; }
 
         public string MedicalProviderCode { get; set; }
+        public string KYCUploadPath { get; set; }
 
         public string ContactPerson { get; set; }
 

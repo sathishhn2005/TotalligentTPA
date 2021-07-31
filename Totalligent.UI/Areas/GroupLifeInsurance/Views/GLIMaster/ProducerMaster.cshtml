@@ -20,7 +20,7 @@
             <div class="tab-content">
                 <div id="navpills2-1" class="tab-pane active">
                     <form id="formProducer">
-                        @TempData["Alertmsg"];
+                        @TempData["Alertmsg"]
                         @{ TempData.Keep("PMFolderName");}
                         <div class="row">
                             <div class="col-12 col-md-6">
@@ -110,7 +110,7 @@
                                             <label class="col-form-label text-md-right w-full">State</label>
                                         </div>
                                         <div class="col-md-6">
-                                            @Html.TextBoxFor(model => Model.lstProducerMaster[0].State, new { @id = "txtState", @class = "form -control w-full", @placeholder = "Enter State Name", @maxlength = "255" })
+                                            @Html.TextBoxFor(model => Model.lstProducerMaster[0].State, new { @id = "txtState", @class = "form-control w-full", @placeholder = "Enter State Name", @maxlength = "255" })
                                         </div>
                                     </div>
                                 </div>
@@ -120,7 +120,7 @@
                                             <label class="col-form-label text-md-right w-full">Zipcode</label>
                                         </div>
                                         <div class="col-md-6">
-                                            @Html.TextBoxFor(model => Model.lstProducerMaster[0].Zipcode, new { @id = "txtZipcode", @class = "form -control w-full", @placeholder = "Enter Zipcode", @maxlength = "15" })
+                                            @Html.TextBoxFor(model => Model.lstProducerMaster[0].Zipcode, new { @id = "txtZipcode", @class = "form-control w-full", @placeholder = "Enter Zipcode", @maxlength = "15" })
                                         </div>
                                     </div>
                                 </div>
@@ -170,7 +170,7 @@
                                             <label class="col-form-label text-md-right w-full">IFSC Code</label>
                                         </div>
                                         <div class="col-md-6">
-                                            @Html.TextBoxFor(model => Model.lstProducerMaster[0].IFSCCode, new { @id = "txtIFSCCode", @class = "form -control w-full", @placeholder = "Enter IFSC Code", @maxlength = "20" })
+                                            @Html.TextBoxFor(model => Model.lstProducerMaster[0].IFSCCode, new { @id = "txtIFSCCode", @class = "form-control w-full", @placeholder = "Enter IFSC Code", @maxlength = "20" })
                                         </div>
                                     </div>
                                 </div>
@@ -257,9 +257,9 @@
                                 <th>Contact Person</th>
                                 <th>Mobile Number</th>
                                 <th>Email Id</th>
-                                <th>[Address]</th>
+                                <th>Address</th>
                                 <th>City</th>
-                                <th>[State]</th>
+                                <th>State</th>
                                 <th>KYC Document</th>
                                 <th class="text-center">Actions</th>
                             </tr>
@@ -298,56 +298,9 @@
                                 </a>
                             </div>
                             <div class="fileuploader fileuploader-theme-dragdrop">
-
                                 <input type="file" name="PMCSVFile" id="fileUploadPM" accept=".csv" />
-                                @*<input type="hidden" id="txtMotorMaster" name="txtMotorMaster" value="1">
-                                    <input type="hidden" id="uploadFilesInptHdn" name="fileuploader-list-files" value="[]">
-                                    <input type="file" id="uploadFilesInpt" name="files[]" multiple="multiple" style="position: absolute; z-index: -9999; height: 0px; width: 0px; padding: 0px; margin: 0px; line-height: 0; outline: 0px; border: 0px; opacity: 0;">
-                                    <div class="fileuploader-input">
-                                        <div class="fileuploader-input-inner">
-                                            <div class="fileuploader-icon-main"></div>
-                                            <h3 class="fileuploader-input-caption">
-                                                <span>Drag and drop files here</span>
-                                            </h3>
-                                            <p></p>
-                                            <button type="button" class="fileuploader-input-button">
-                                                <span>Browse files</span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="fileuploader-items">
-                                        <ul class="fileuploader-items-list">
-                                            <li class="fileuploader-item file-type-application file-ext-xlsx file-has-popup upload-successful">
-                                                <div id="fileContainer" class="columns" style="display: none;">
-                                                    <div class="column-thumbnail">
-                                                        <div class="fileuploader-item-image fileuploader-no-thumbnail">
-                                                            <div style="background-color: #591605" class="fileuploader-item-icon">
-                                                                <i>xlsx</i>
-                                                            </div>
-                                                        </div>
-                                                        <span class="fileuploader-action-popup"></span>
-                                                    </div>
-                                                    <div class="column-title">
-                                                        <div id="fileName">SampleFile.xlsx</div>
-                                                        <span id="fileSize">0 KB</span>
-                                                    </div>
-                                                    <div class="column-actions">
-                                                        <button type="button" id="clearFiles" class="btn btn-success btn-sm round" title="Delete">
-                                                            <i class="fas fa-check fa-sm"></i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                                <div class="progress-bar2" style="display: none;">
-                                                    <div class="fileuploader-progressbar">
-                                                        <div class="bar" style="width: 100%;"></div>
-                                                    </div>
-                                                    <span>100%</span>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>*@
                                 <div class="mt-2">
-                                    <i class="fas fa-upload fa-sm btn btn-success btn-block" onclick="csvFileUpload();">
+                                    <i class="fa fa-upload fa-sm btn btn-success btn-block" onclick="csvFileUpload();">
                                         <span>Upload</span>
                                     </i>
                                     <button id="uploadMotorPolicies" class="btn btn-primary btn-sm mx-1 hide">Upload File</button>

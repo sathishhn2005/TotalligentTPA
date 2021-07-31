@@ -52,6 +52,7 @@ namespace Totalligent.BAL
         {
             return new GLIMasterDAL().pUpdateFolderPathRIMaster(RIMAsterID, ZipFilePath);
         }
+       
         public long BulkInsertRIMaster(string Action, string JPramValue, long Createdby, out string Msg)
         {
             return new GLIMasterDAL().BulkInsertRIMaster(Action, JPramValue, Createdby, out Msg);
@@ -115,6 +116,10 @@ namespace Totalligent.BAL
         public long BulkInsertCCMaster(string Action, string JPramValue, long Createdby, out string Msg)
         {
             return new GLIMasterDAL().BulkInsertCCMaster(Action, JPramValue, Createdby, out Msg);
+        }
+        public int GetProducers(string BT,out List<ProducerMaster> lstProducerMaster)
+        {
+            return new GLIMasterDAL().GetProducers(BT,out lstProducerMaster);
         }
         #endregion
 
@@ -205,6 +210,55 @@ namespace Totalligent.BAL
         public long BulkInsertMPMaster(string Action, string JPramValue, long Createdby, out string Msg)
         {
             return new GLIMasterDAL().BulkInsertMPMaster(Action, JPramValue, Createdby, out Msg);
+        }
+        #endregion
+
+        #region DrugMaster  
+        public int DMLDrugMaster(string Action, string JPramValue)
+        {
+            return new GLIMasterDAL().DMLDrugMaster(Action, JPramValue);
+        }
+
+        public int GetAutocompleteDrugNameCode(string prefixText, string Action, out List<DrugMaster> lstdm)
+        {
+            return new GLIMasterDAL().GetAutocompleteDrugNameCode(prefixText, Action, out lstdm);
+        }
+
+        public int GetDM(string DrugName, string DrugCode ,out List<DrugMaster> lstDM)
+        {
+            return new GLIMasterDAL().GetDrugMaster(DrugName, DrugCode, out lstDM);
+        }
+
+        public int DeactivateDrugMaster(int DrugId)
+        {
+            return new GLIMasterDAL().DeactivateDrugMaster(DrugId);
+        }
+
+        public int pUpdateFolderPathDrugMaster(int DrugId, string ZipFilePath)
+        {
+            return new GLIMasterDAL().pUpdateFolderPathDrugMaster(DrugId, ZipFilePath);
+        }
+
+        public long BulkInsertDM(string Action, string JPramValue, long Createdby, out string Msg)
+        {
+            return new GLIMasterDAL().BulkInsertDrugMaster(Action, JPramValue, Createdby, out Msg);
+        }
+        #endregion
+
+        #region BenefitsMaster  
+        public int DMLBenefitsMaster(string Action, string JPramValue)
+        {
+            return new GLIMasterDAL().DMLBenefitsMaster(Action, JPramValue);
+        }
+
+        public int GetAutocompleteBMCode(string prefixText, string Action, out List<BenefitsMaster> lstbm)
+        {
+            return new GLIMasterDAL().GetAutocompleteBenefitsNameCode(prefixText, Action, out lstbm);
+        }
+
+        public int GetBenefits(string BenefitsName, string BenefitsCode, out List<BenefitsMaster> lstbM)
+        {
+            return new GLIMasterDAL().GetBenefitsMaster(BenefitsName, BenefitsCode, out lstbM);
         }
         #endregion
     }

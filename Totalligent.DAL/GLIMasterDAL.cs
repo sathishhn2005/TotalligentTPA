@@ -171,7 +171,7 @@ namespace Totalligent.DAL
 
         #region RIMaster   
 
-        public long DMLRIMaster(string Action,string JPramValue) 
+        public long DMLRIMaster(string Action, string JPramValue)
         {
             long RIMAsterID = 0;
             int InsRow = 0;
@@ -188,7 +188,7 @@ namespace Totalligent.DAL
                 Param[2].Direction = ParameterDirection.Output;
                 using (objDBEngine = new DBEngine())
                 {
-                    sqlCommand = objDBEngine.DMLOperationOutPutParam("pDMLRIMaster", Param,out InsRow);     
+                    sqlCommand = objDBEngine.DMLOperationOutPutParam("pDMLRIMaster", Param, out InsRow);
                 }
                 RIMAsterID = (long)sqlCommand.Parameters["@ReturnRIid"].Value;
             }
@@ -198,10 +198,10 @@ namespace Totalligent.DAL
             }
             return RIMAsterID;
         }
-        public int GetAutocompleteRINameRICodeCity(string prefixText,string Action, out List<ReInsurerMaster> lstRIMaster)
+        public int GetAutocompleteRINameRICodeCity(string prefixText, string Action, out List<ReInsurerMaster> lstRIMaster)
         {
-            int ReturnCode = 0;        
-            lstRIMaster = null;            
+            int ReturnCode = 0;
+            lstRIMaster = null;
 
             try
             {
@@ -221,7 +221,7 @@ namespace Totalligent.DAL
                     dtResult = new DataTable();
 
                     dtResult = objDBEngine.GetDataTable("pGetAutocompleteRINameRICodeCity", Param);
-                              
+
                     if (dtResult.Rows.Count > 0)
                     {
                         lstRIMaster = dtResult.AsEnumerable().Select(U => new ReInsurerMaster()
@@ -230,11 +230,11 @@ namespace Totalligent.DAL
                             ReInsurerCode = U.Field<string>("ReInsurerCode")
                         }
                         ).ToList();
-                    }                   
+                    }
 
                 }
 
-                ReturnCode = 1;               
+                ReturnCode = 1;
             }
             catch (Exception ex)
             {
@@ -242,9 +242,9 @@ namespace Totalligent.DAL
             }
             return ReturnCode;
         }
-        public int GetRIMaster(string RIName, string RICode, string City ,out List<ReInsurerMaster> lstRIMaster)
+        public int GetRIMaster(string RIName, string RICode, string City, out List<ReInsurerMaster> lstRIMaster)
         {
-            int ReturnCode = 0;       
+            int ReturnCode = 0;
             lstRIMaster = null;
 
             try
@@ -260,7 +260,7 @@ namespace Totalligent.DAL
                 Param[0].Value = RIName;
                 Param[1].Value = RICode;
                 Param[2].Value = City;
-              
+
 
                 using (objDBEngine = new DBEngine())
                 {
@@ -286,8 +286,8 @@ namespace Totalligent.DAL
                             BankName = U.Field<string>("BankName"),
                             AccountNumber = U.Field<string>("AccountNumber"),
                             KYCUploadPath = U.Field<string>("KYCUploadPath"),
-                            Status = U.Field<string>("Status")  
-                            
+                            Status = U.Field<string>("Status")
+
                         }).ToList();
                     }
 
@@ -310,10 +310,10 @@ namespace Totalligent.DAL
 
                 SqlParameter[] Param = {
                                             new SqlParameter("@ReInsurerMasterId",SqlDbType.BigInt),
-                                           
+
                                       };
                 Param[0].Value = ReInsurerMasterId;
-          
+
                 using (objDBEngine = new DBEngine())
                 {
                     intResult = objDBEngine.DMLOperation("pDeactivateRIMaster", Param);
@@ -487,7 +487,7 @@ namespace Totalligent.DAL
                     {
                         lstPMMaster = dtResult.AsEnumerable().Select(U => new ProducerMaster()
                         {
-                            ProducerName = U.Field<string>("ProducerName"),                            
+                            ProducerName = U.Field<string>("ProducerName"),
                             ProducerCode = U.Field<string>("ProducerCode")
                         }
                         ).ToList();
@@ -546,7 +546,7 @@ namespace Totalligent.DAL
                             BankID = U.Field<int>("BankID"),
                             BankName = U.Field<string>("BankName"),
                             AccountNumber = U.Field<string>("AccountNumber"),
-                            IFSCCode = U.Field<string>("IFSCCode"),                          
+                            IFSCCode = U.Field<string>("IFSCCode"),
                             KYCUploadPath = U.Field<string>("KYCUploadPath"),
                             Status = U.Field<string>("Status"),
                             BusinessDesignationTypeMasterID = U.Field<int>("BusinessDesignationTypeMasterID"),
@@ -750,6 +750,8 @@ namespace Totalligent.DAL
                             //BankName = U.Field<string>("BankName"),
                             AccountNumber = U.Field<string>("AccountNumber"),
                             UploadKYC_01 = U.Field<string>("UploadKYC_01"),
+                            KYCUploadPath = U.Field<string>("KYCUploadPath"),
+
 
 
                         }).ToList();
@@ -850,6 +852,48 @@ namespace Totalligent.DAL
                 throw ex;
             }
             return InsRow;
+        }
+        public int GetProducers(string BT, out List<ProducerMaster> lstProducerMaster)
+        {
+            int ReturnCode = 0;
+            DataTable dt = new DataTable();
+            lstProducerMaster = null;
+            dtResult = new DataTable();
+            try
+            {
+                //SqlParameter[] Param = null;
+                objDBEngine = new DBEngine();
+                SqlParameter[] Param = {
+                                            new SqlParameter("@BusinessType",SqlDbType.NVarChar),
+
+
+                                      };
+
+                Param[0].Value = BT;
+
+                using (objDBEngine = new DBEngine())
+                {
+                    dtResult = objDBEngine.GetDataTable("pGetProducersCM", Param);
+                    //List<DataRow> obj = dtResult.AsEnumerable().ToList();                  
+                    if (dtResult.Rows.Count > 0)
+                    {
+                        lstProducerMaster = dtResult.AsEnumerable().Select(U => new ProducerMaster()
+                        {
+                            ProducerMasterID = U.Field<long>("ProducerMasterID"),
+                            ProducerName = U.Field<string>("ProducerName")
+                        }
+                        ).ToList();
+                    }
+
+                }
+
+                ReturnCode = 1;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return ReturnCode;
         }
         #endregion
 
@@ -973,7 +1017,7 @@ namespace Totalligent.DAL
                             //BankName = U.Field<string>("BankName"),
                             AccountNumber = U.Field<string>("AccountNumber"),
                             UploadKYC_01 = U.Field<string>("UploadKYC_01"),
-
+                            KYCUploadPath = U.Field<string>("KYCUploadPath"),
 
                         }).ToList();
                     }
@@ -1195,6 +1239,7 @@ namespace Totalligent.DAL
                             DOB = U.Field<DateTime>("DOB"),
                             Nationality = U.Field<string>("Nationality"),
                             Category = U.Field<string>("Category"),
+                            KYCUploadPath = U.Field<string>("KYCUploadPath"),
                         }).ToList();
                     }
 
@@ -1405,6 +1450,7 @@ namespace Totalligent.DAL
                             MobileNumber = U.Field<string>("MobileNumber"),
                             EmailId = U.Field<string>("EmailId"),
                             Category = U.Field<string>("Category"),
+                            KYCUploadPath = U.Field<string>("KYCUploadPath"),
                         }).ToList();
                     }
 
@@ -1502,5 +1548,331 @@ namespace Totalligent.DAL
             return InsRow;
         }
         #endregion
+
+        #region DrugMaster   
+
+        public int DMLDrugMaster(string Action, string JPramValue)
+        {
+            int DrugId = 0;
+            int InsRow = 0;
+            SqlCommand sqlCommand = new SqlCommand();
+            try
+            {
+                SqlParameter[] Param = {
+                                            new SqlParameter("@Action",SqlDbType.NVarChar),
+                                            new SqlParameter("@JParamVal",SqlDbType.NVarChar),
+                                            new SqlParameter("@ReturnRIid",SqlDbType.BigInt)
+                                      };
+                Param[0].Value = Action;
+                Param[1].Value = JPramValue;
+                Param[2].Direction = ParameterDirection.Output;
+                using (objDBEngine = new DBEngine())
+                {
+                    sqlCommand = objDBEngine.DMLOperationOutPutParam("pDMLDrugMaster", Param, out InsRow);
+                }
+                DrugId = Convert.ToInt32(sqlCommand.Parameters["@ReturnRIid"].Value);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return DrugId;
+        }
+        public int GetAutocompleteDrugNameCode(string prefixText, string Action, out List<DrugMaster> lstDrugMaster)
+        {
+            int ReturnCode = 0;
+            lstDrugMaster = null;
+
+            try
+            {
+                SqlParameter[] Param = {
+                                            new SqlParameter("@prefixText",SqlDbType.NVarChar),
+                                            new SqlParameter("@Action",SqlDbType.NVarChar),
+
+                                      };
+
+                Param[0].Value = prefixText;
+                Param[1].Value = Action;
+
+                objDBEngine = new DBEngine();
+
+                using (objDBEngine = new DBEngine())
+                {
+                    dtResult = new DataTable();
+
+                    dtResult = objDBEngine.GetDataTable("pGetAutocompleteDrugCodeName", Param);
+
+                    if (dtResult.Rows.Count > 0)
+                    {
+                        lstDrugMaster = dtResult.AsEnumerable().Select(U => new DrugMaster()
+                        {
+                            DrugName = U.Field<string>("DrugName"),
+                            DrugCode = U.Field<string>("DrugCode")
+                        }
+                        ).ToList();
+                    }
+
+                }
+
+                ReturnCode = 1;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return ReturnCode;
+        }
+        public int GetDrugMaster(string DrugName, string DrugCode, out List<DrugMaster> lstDrugMaster)
+        {
+            int ReturnCode = 0;
+            lstDrugMaster = null;
+
+            try
+            {
+
+                SqlParameter[] Param = {
+                                            new SqlParameter("@DrugName",SqlDbType.NVarChar),
+                                            new SqlParameter("@DrugCode",SqlDbType.NVarChar),
+
+
+                                      };
+
+                Param[0].Value = DrugName;
+                Param[1].Value = DrugCode;
+
+
+
+                using (objDBEngine = new DBEngine())
+                {
+                    dtResult = new DataTable();
+                    dtResult = objDBEngine.GetDataTable("pGetDrugMaster", Param);
+
+                    if (dtResult.Rows.Count > 0)
+                    {
+                        lstDrugMaster = dtResult.AsEnumerable().Select(U => new DrugMaster()
+                        {
+                            DrugId = U.Field<int>("DrugId"),
+                            DrugName = U.Field<string>("DrugName"),
+                            DrugCode = U.Field<string>("DrugCode"),
+
+                        }).ToList();
+                    }
+
+                }
+
+                ReturnCode = 1;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return ReturnCode;
+        }
+        public int DeactivateDrugMaster(int DrugId)
+        {
+            int intResult = 0;
+            try
+            {
+
+
+                SqlParameter[] Param = {
+                                            new SqlParameter("@DrugId",SqlDbType.BigInt),
+
+                                      };
+                Param[0].Value = DrugId;
+
+                using (objDBEngine = new DBEngine())
+                {
+                    intResult = objDBEngine.DMLOperation("pDeactivateDrugMaster", Param);
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return intResult;
+        }
+        public long BulkInsertDrugMaster(string Action, string JPramValue, long Createdby, out string Msg)
+        {
+            int InsRow = 0;
+            Msg = string.Empty;
+            SqlCommand sqlCommand = new SqlCommand();
+            try
+            {
+
+                SqlParameter[] Param = {
+                                            new SqlParameter("@Action",SqlDbType.NVarChar),
+                                            new SqlParameter("@JParamVal",SqlDbType.NVarChar),
+                                            new SqlParameter("@CreatedBy",SqlDbType.BigInt),
+                                            new SqlParameter("@Message",SqlDbType.NVarChar,5000)
+                                      };
+                Param[0].Value = Action;
+                Param[1].Value = JPramValue;
+                Param[2].Value = Createdby;
+                Param[3].Direction = ParameterDirection.Output;
+
+                using (objDBEngine = new DBEngine())
+                {
+                    sqlCommand = objDBEngine.DMLOperationOutPutParam("pBulkInsertDrugMaster", Param, out InsRow);
+
+                }
+
+                Msg = (string)sqlCommand.Parameters["@Message"].Value;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return InsRow;
+        }
+        public int pUpdateFolderPathDrugMaster(long DrugID, string ZipFilePath)
+        {
+
+            int InsRow = 0;
+
+            try
+            {
+
+
+                SqlParameter[] Param = {
+                                            new SqlParameter("@DrugID",SqlDbType.BigInt),
+                                            new SqlParameter("@KYCzipPath",SqlDbType.NVarChar)
+
+                                      };
+                Param[0].Value = DrugID;
+                Param[1].Value = ZipFilePath;
+
+                using (objDBEngine = new DBEngine())
+                {
+                    InsRow = objDBEngine.DMLOperation("pUpdateFolderPathDrugMaster", Param);
+
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return InsRow;
+        }
+        #endregion
+
+        #region BenefitsMaster 
+        public int DMLBenefitsMaster(string Action, string JPramValue)
+        {
+            int BenefitsId = 0;
+            int InsRow = 0;
+            SqlCommand sqlCommand = new SqlCommand();
+            try
+            {
+                SqlParameter[] Param = {
+                                            new SqlParameter("@Action",SqlDbType.NVarChar),
+                                            new SqlParameter("@JParamVal",SqlDbType.NVarChar),
+                                            new SqlParameter("@ReturnRIid",SqlDbType.BigInt)
+                                      };
+                Param[0].Value = Action;
+                Param[1].Value = JPramValue;
+                Param[2].Direction = ParameterDirection.Output;
+                using (objDBEngine = new DBEngine())
+                {
+                    sqlCommand = objDBEngine.DMLOperationOutPutParam("pDMLBenefitsMaster", Param, out InsRow);
+                }
+                BenefitsId = Convert.ToInt32(sqlCommand.Parameters["@ReturnRIid"].Value);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return BenefitsId;
+        }
+        public int GetAutocompleteBenefitsNameCode(string prefixText, string Action, out List<BenefitsMaster> lstBenefitsMaster)
+        {
+            int ReturnCode = 0;
+            lstBenefitsMaster = null;
+
+            try
+            {
+                SqlParameter[] Param = {
+                                            new SqlParameter("@prefixText",SqlDbType.NVarChar),
+                                            new SqlParameter("@Action",SqlDbType.NVarChar),
+
+                                      };
+
+                Param[0].Value = prefixText;
+                Param[1].Value = Action;
+
+                objDBEngine = new DBEngine();
+
+                using (objDBEngine = new DBEngine())
+                {
+                    dtResult = new DataTable();
+
+                    dtResult = objDBEngine.GetDataTable("pGetAutocompleteBenefitsName", Param);
+
+                    if (dtResult.Rows.Count > 0)
+                    {
+                        lstBenefitsMaster = dtResult.AsEnumerable().Select(U => new BenefitsMaster()
+                        {
+                            BenefitsName = U.Field<string>("BenefitsName"),
+                            BenefitsCode = U.Field<string>("BenefitsCode")
+                        }
+                        ).ToList();
+                    }
+
+                }
+
+                ReturnCode = 1;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return ReturnCode;
+        }
+        public int GetBenefitsMaster(string BenefitsName, string BenefitsCode, out List<BenefitsMaster> lstBM)
+        {
+            int ReturnCode = 0;
+            lstBM = null;
+            try
+            {
+                SqlParameter[] Param = {
+                                            new SqlParameter("@BenefitsName",SqlDbType.NVarChar),
+                                            new SqlParameter("@BenefitsCode",SqlDbType.NVarChar),
+                                      };
+
+                Param[0].Value = BenefitsName;
+                Param[1].Value = BenefitsCode;
+                using (objDBEngine = new DBEngine())
+                {
+                    dtResult = new DataTable();
+                    dtResult = objDBEngine.GetDataTable("pGetBenefitsMaster", Param);
+
+                    if (dtResult.Rows.Count > 0)
+                    {
+                        lstBM = dtResult.AsEnumerable().Select(U => new BenefitsMaster()
+                        {
+                            BenefitsId = U.Field<int>("BenefitsId"),
+                            BenefitsName = U.Field<string>("BenefitsName"),
+                            BenefitsCode = U.Field<string>("BenefitsCode"),
+
+                        }).ToList();
+                    }
+
+                }
+
+                ReturnCode = 1;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return ReturnCode;
+        }
+        #endregion
+
     }
 }

@@ -1,0 +1,5 @@
+MedicalProvider,ContactPerson,MobileNumber,EmailId,Address,City,State,Zipcode,BankName,AccountNumber,IFSCCode,Name,Location,Category
+Hospital,Hos1,9840359280,iciic@gmail.com,Gandhr St 1,Madurai,Tamilname,625004,ICICI,2.13E+11,IFSC012124,TestName1,Chennai,BAND A
+Clinic,Cli1,9840359281,hdfc@gmail.com,Gandhr St 2,Madurai,Tamilname,625005,HDFC,2.13E+11,IFSC012125,TestName2,Kanchipuram,BAND B
+PolyClinic,Pol1,9840359282,tot@gmail.com,Gandhr St 3,Madurai,Tamilname,625006,axis,2.13E+11,IFSC012126,TestName3,Kelambakkam,BAND C
+DiagonosticCenter,DC1,9840359283,star@gmail.com,Gandhr St 4,Madurai,Tamilname,625007,central,2.13E+11,IFSC012127,TestName4,Padur,BAND D

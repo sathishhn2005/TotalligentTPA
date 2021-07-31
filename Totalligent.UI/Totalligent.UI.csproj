@@ -192,9 +192,11 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\GroupLifeInsurance\Controllers\BenefitsMasterController.cs" />
     <Compile Include="Areas\GroupLifeInsurance\Controllers\ClaimsController.cs" />
     <Compile Include="Areas\GroupLifeInsurance\Controllers\ClientMasterController.cs" />
     <Compile Include="Areas\GroupLifeInsurance\Controllers\DashBoardController.cs" />
+    <Compile Include="Areas\GroupLifeInsurance\Controllers\DrugMasterController.cs" />
     <Compile Include="Areas\GroupLifeInsurance\Controllers\EmployeeMasterController.cs" />
     <Compile Include="Areas\GroupLifeInsurance\Controllers\GLIMasterController.cs" />
     <Compile Include="Areas\GroupLifeInsurance\Controllers\InsuranceCompanyMasterController.cs" />
@@ -216,6 +218,7 @@
     <Compile Include="Models\AdminModel.cs" />
     <Compile Include="Models\CCMasterModel.cs" />
     <Compile Include="Models\ClientModel.cs" />
+    <Compile Include="Models\DrugMasterModel.cs" />
     <Compile Include="Models\EmployeeMasterModel.cs" />
     <Compile Include="Models\ICMasterModel.cs" />
     <Compile Include="Models\MedicalProviderModel.cs" />
@@ -2393,7 +2396,9 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\GroupLifeInsurance\Data\" />
+    <Folder Include="Areas\GroupLifeInsurance\Views\BenefitsMaster\" />
     <Folder Include="Areas\GroupLifeInsurance\Views\ClientMaster\" />
+    <Folder Include="Areas\GroupLifeInsurance\Views\DrugMaster\" />
     <Folder Include="Areas\GroupLifeInsurance\Views\EmployeeMaster\" />
     <Folder Include="Areas\GroupLifeInsurance\Views\InsuranceCompanyMaster\" />
     <Folder Include="Areas\GroupLifeInsurance\Views\MedicalProvider\" />
@@ -2402,6 +2407,7 @@
     <Folder Include="Content\vendor\js\" />
     <Folder Include="GLEndorsementDocument\20210222010910_archive.zip\" />
     <Folder Include="KYC_Files\CMMasterKYCFiles\" />
+    <Folder Include="KYC_Files\DrugMasterKYCFiles\" />
     <Folder Include="KYC_Files\EmpMasterKYCFiles\" />
     <Folder Include="KYC_Files\ICMasterKYCFiles\" />
     <Folder Include="KYC_Files\MPMasterKYCFiles\" />
@@ -2409,14 +2415,6 @@
     <Folder Include="KYC_Files\RIMasterKYCFiles\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Masters\Agentmaster.xlsx" />
-    <Content Include="Masters\BrokerMaster.xlsx" />
-    <Content Include="Masters\ClientMaster.xlsx" />
-    <Content Include="Masters\DiagnosticsMaster.xlsx" />
-    <Content Include="Masters\DrugMaster.xlsx" />
-    <Content Include="Masters\HospitalMaster.xlsx" />
-    <Content Include="Masters\InsuranceCompanyMaster.xlsx" />
-    <Content Include="Masters\LabMaster.xlsx" />
     <Content Include="Content.zip" />
     <Content Include="Employee Upload table.xlsx" />
     <Content Include="Master report.xlsx" />
@@ -2461,6 +2459,12 @@
     <Content Include="Areas\MedicalInsurance\Views\MIMaster\DrugMaster.cshtml" />
     <Content Include="Areas\MedicalInsurance\Views\MIMaster\BenefitMaster.cshtml" />
     <Content Include="Areas\Home\Views\Home\Registration.cshtml" />
+    <Content Include="Masters\ProducerMaster.csv" />
+    <Content Include="Masters\RIMaster.csv" />
+    <Content Include="Masters\InsuranceCompanyMaster.csv" />
+    <Content Include="Masters\MedicalProviderMaster.csv" />
+    <Content Include="Masters\ClientMaster.csv" />
+    <Content Include="Masters\DrugMaster.csv" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Uploads\Agentmaster.xlsx" />
@@ -2481,8 +2485,6 @@
     <Content Include="Uploads\QuotationSheet.xlsx" />
     <Content Include="Uploads\TPA PROJECT.docx" />
     <Content Include="Uploads\WC_ENDORSEMENT_PAGE.xls" />
-    <Content Include="reproducermaster\ProducerMaster.csv" />
-    <Content Include="reproducermaster\RIMaster.csv" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Totalligent.BAL\Totalligent.BAL.csproj">

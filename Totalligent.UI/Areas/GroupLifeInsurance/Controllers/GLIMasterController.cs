@@ -45,12 +45,12 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
                 obj.lstBusinessTypeMaster = lstddlBusinessType;
             }
             TempData["PMFolderName"] = DateTime.Now.ToString("ddMMyyyyHHmmss") + "_PM";
-            return View(obj);      
+            return View(obj);
 
         }
         public ActionResult RIMaster()
         {
-        
+
             List<BankMaster> lstBM = null;
             RIMasterModel obj = new RIMasterModel();
             new GLIMasterBAL().GetBankMasters(out lstBM);
@@ -66,9 +66,9 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
                 });
                 obj.lstBankMaster = selectList;
             }
-            TempData["FolderName"] = DateTime.Now.ToString("ddMMyyyyHHmmss");
+            TempData["FolderName"] = DateTime.Now.ToString("ddMMyyyyHHmmss") + "_RI";
             return View(obj);
-           
+
         }
         public ActionResult InsuranceCompanyMaster()
         {
@@ -88,6 +88,7 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
                 });
                 obj.lstBankMaster = selectList;
             }
+            TempData["ICFolderName"] = DateTime.Now.ToString("ddMMyyyyHHmmss") + "_IC";
             return View(obj);
         }
         public ActionResult ClientMaster()
@@ -151,9 +152,25 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
                 });
                 obj.lstLOB = selectListLOB;
             }
+
+            List<BusinessDesignationTypeMaster> lstBDTM = null;
+            new GLIMasterBAL().GetBusinessDesignationTypeMaster(out lstBDTM);
+            obj.lstBusinessTypeMaster = null;
+
+            var lstddlBusinessType = new List<SelectListItem>();
+            foreach (var element in lstBDTM)
+            {
+                lstddlBusinessType.Add(new SelectListItem
+                {
+                    Value = element.BusinessDesignationTypeMasterID.ToString(),
+                    Text = element.TypeName
+                });
+                obj.lstBusinessTypeMaster = lstddlBusinessType;
+            }
+            TempData["CMFolderName"] = DateTime.Now.ToString("ddMMyyyyHHmmss") + "_CM";
             return View(obj);
         }
-        
+
         public ActionResult EmployeeMaster()
         {
             List<BankMaster> lstBM = null;
@@ -186,6 +203,7 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
                 });
                 obj.lstClientMaster = lstClientMasterdata;
             }
+            TempData["EMFolderName"] = DateTime.Now.ToString("ddMMyyyyHHmmss") + "_EM";
             return View(obj);
         }
 
@@ -207,14 +225,17 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
                 });
                 obj.lstBankMaster = selectList;
             }
+            TempData["MPFolderName"] = DateTime.Now.ToString("ddMMyyyyHHmmss") + "_MP";
             return View(obj);
         }
         public ActionResult DrugMaster()
         {
+            TempData["DMFolderName"] = DateTime.Now.ToString("ddMMyyyyHHmmss") + "_DM";
             return View();
         }
         public ActionResult BenefitMaster()
         {
+            TempData["BMFolderName"] = DateTime.Now.ToString("ddMMyyyyHHmmss") + "_BM";
             return View();
         }
 

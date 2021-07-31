@@ -13,6 +13,8 @@ namespace Totalligent.BusinessEntities
         public string InsCompCode { get; set; }
 
         public string Address { get; set; }
+        public string KYCUploadPath { get; set; }
+        public string BankName { get; set; }
 
         public string City { get; set; }
 

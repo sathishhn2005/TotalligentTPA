@@ -21,6 +21,7 @@
                 <div id="navpills2-1" class="tab-pane active">
                     <form id="formCCMaster">
                         <h1>@TempData["Alertmsg"]</h1>
+                        @{ TempData.Keep("CMFolderName");}
                         <div class="row">
                             <div class="col-12 col-md-6">
                                 <div class="form-group m-b-15">
@@ -163,7 +164,7 @@
                                             <label for="BankName" class="col-form-label text-md-right w-full">Producer Type</label>
                                         </div>
                                         <div class="col-md-6">
-                                            @Html.DropDownList("ProducerType", Model.lstProducerMaster, "-- Select Producer Type --", new { @class = "form-control" })
+                                            @Html.DropDownList("ProducerType", Model.lstBusinessTypeMaster, "-- Select Producer Type --", new { @class = "form-control", @onchange = "javascript:GetUsers(this.value);" })
                                         </div>
                                     </div>
                                 </div>
@@ -173,7 +174,8 @@
                                             <label for="BankName" class="col-form-label text-md-right w-full">Producer Name</label>
                                         </div>
                                         <div class="col-md-6">
-                                            @Html.DropDownList("Name", Model.lstProducerMaster, "-- Producer Name --", new { @class = "form-control" })
+                                            <select class="form-control" disabled id="ProducerName" name="ProducerName"></select>
+                                            @* @Html.DropDownList("Name", Model.lstProducerMaster, "-- Producer Name --", new { @class = "form-control" })*@
                                         </div>
                                     </div>
                                 </div>
@@ -334,6 +336,7 @@
                                     @Html.TextBox("txtCity", "", new { @class = "form-control w-full", @placeholder = "Enter City" })
                                 </div>
                                 <div class="col-md-3">
+                                    <input type="hidden" id="CMFolderName" value='@TempData["CMFolderName"]' />
                                     <button type="button" id="btnSearch" class="btn btn-block btn-primary"><i class="fa fa-search mr-3"></i>Search</button>
                                 </div>
                             </div>
@@ -350,6 +353,7 @@
                                 <th>MobileNumber</th>
                                 <th>EmailId</th>
                                 <th>City</th>
+                                <th>KYCUploadPath</th>
 
 
                                 <th class="text-center">Actions</th>
@@ -384,81 +388,23 @@
                         <div class="col-10 mx-auto">
                             <div class="text-right">
 
-                                <a href="~/Masters/ProducerMaster.xlsx" class="btn btn-dark btn-sm" download>
-                                    <i class="fas fa-download fa-sm"></i> Download Sample format
+                                <a href="~/Masters/ClientMaster.csv" class="btn btn-dark btn-sm" download>
+                                    <i class="mdi mdi-download"></i> Download Sample format
                                 </a>
                             </div>
-                            @*
-                                <form method="post" enctype="multipart/form-data">
-                            *@
                             <div class="fileuploader fileuploader-theme-dragdrop">
-
-                                <input type="file" name="postedFile" id="fileUploadMotor" accept=".xls,.xlsx" />
-                                <input type="hidden" id="txtMotorMaster" name="txtMotorMaster" value="2">
-                                <input type="hidden" name="fileuploader-list-files" value="[]">
-                                <input type="file" name="files[]" multiple="multiple" style="position: absolute; z-index: -9999; height: 0px; width: 0px; padding: 0px; margin: 0px; line-height: 0; outline: 0px; border: 0px; opacity: 0;">
-                                <div class="fileuploader-input">
-                                    <div class="fileuploader-input-inner">
-                                        <div class="fileuploader-icon-main"></div>
-                                        <h3 class="fileuploader-input-caption">
-                                            <span>Drag and drop files here</span>
-                                        </h3>
-                                        <p></p>
-                                        <button type="button" class="fileuploader-input-button">
-                                            <span>Browse files</span>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="fileuploader-items">
-                                    <ul class="fileuploader-items-list">
-                                        <li class="fileuploader-item file-type-application file-ext-xlsx file-has-popup upload-successful">
-                                            <div id="fileContainer" class="columns" style="display: none;">
-                                                <div class="column-thumbnail">
-                                                    <div class="fileuploader-item-image fileuploader-no-thumbnail">
-                                                        <div style="background-color: #591605" class="fileuploader-item-icon">
-                                                            <i>xlsx</i>
-                                                        </div>
-                                                    </div>
-                                                    <span class="fileuploader-action-popup"></span>
-                                                </div>
-                                                <div class="column-title">
-                                                    <div id="fileName">SampleFile.xlsx</div>
-                                                    <span id="fileSize">0 KB</span>
-                                                </div>
-                                                <div class="column-actions">
-                                                    <button type="button" id="clearFiles" class="btn btn-success btn-sm round" title="Delete">
-                                                        <i class="fas fa-check fa-sm"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="progress-bar2" style="display: none;">
-                                                <div class="fileuploader-progressbar">
-                                                    <div class="bar" style="width: 100%;"></div>
-                                                </div>
-                                                <span>100%</span>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
+                                <input type="file" name="CMCSVFile" id="fileUploadCM" accept=".csv" />
                                 <div class="mt-2">
-                                    <button id="btnUpload" type="submit" class="btn btn-success btn-block">
-                                        <i class="fas fa-upload fa-sm"></i>
+                                    <i class="fa fa-upload fa-sm btn btn-success btn-block" onclick="csvFileUpload();">
                                         <span>Upload</span>
-                                    </button>
+                                    </i>
+                                    <button id="uploadFiles" class="btn btn-primary btn-sm mx-1 hide">Upload File</button>
                                 </div>
                             </div>
-                            @*
-                                </form>
-                            *@
+
                         </div>
                     </div>
                 </div>
-                @*
-                    <div class="modal-footer justify-content-center">
-                       <button type="button" class="btn btn-secondary btn-sm waves-effect" data-dismiss="modal">Close</button>
-                       <button type="button" class="btn btn-primary btn-sm waves-effect waves-light">Renew</button>
-                    </div>
-                *@
             </div>
             <!-- /.modal-content -->
         </div>
@@ -562,7 +508,7 @@
                 $('#ProducerType').focus();
                 return false;
             }
-            if ($.trim($('#Name').val()) == "") {
+            if ($.trim($('#ProducerName').val()) == "") {
                 alert('Please enter ProducerName');
                 $('#Name').focus();
                 return false;
@@ -696,7 +642,7 @@
             objCCMaster.AccountNumber = $("#AccountNumber").val();
             objCCMaster.IFSCCode = $("#IFSCCode").val();
 
-            var param = { objCCMaster: objCCMaster, Action: $("#btnClientMaster").val() };
+            var param = { objCCMaster: objCCMaster, Action: $("#btnClientMaster").val(), FolderName: $("#CMFolderName").val() };
             //var renewalData = $('#formRIMaster').serialize();
             $.ajax({
                 type: "POST",
@@ -752,7 +698,7 @@
                         var hdnID = "hdnobjJSonVal_" + i;
                         var JVal = JSON.stringify(value);
                         /*$('#tblCCMaster').append('<tr> <td>' + value.ReInsurerName + '</td>  <td>' + value.ReInsurerCode + '</td> <td>' + value.ContactPerson + '</td> <td>' + value.MobileNumber + '</td><td>' + value.EmailId + '</td> <td>' + value.Address + '</td><td>' + value.BankName + '</td><td>' + value.AccountNumber + '</td><td>' + value.IFSCCode + '</td><td>' + value.UploadKYC_01 + '</td><td class="text-center"><i class="mdi mdi-pencil text-primary mx-3" onclick="EditRIMaster(' + "'" + hdnID + "'" + ')"></i><i class="mdi mdi-delete text-danger mx-3" onclick="DeActiveRIMaster(this,' + value.ReInsurerMasterId.toString() + ');"></i><input type="hidden" id=' + hdnID + ' value=' + "'" + JVal + "'" + '></td></tr>');*/
-                        $('#tblCCMaster').append('<tr> <td>' + value.ClientCompanyName + '</td>  <td>' + value.ClientCompCode + '</td> <td>' + value.ContactPerson + '</td> <td>' + value.MobileNumber + '</td><td>' + value.EmailId + '</td> <td>' + value.Address + '</td><td class="text-center"><i class="mdi mdi-pencil text-primary mx-3" onclick="EditCCMaster(' + "'" + hdnID + "'" + ')"></i><i class="mdi mdi-delete text-danger mx-3" onclick="DeActiveCCMaster(this,' + value.ClientCompanyMasterId.toString() + ');"></i><input type="hidden" id=' + hdnID + ' value=' + "'" + JVal + "'" + '></td></tr>');
+                        $('#tblCCMaster').append('<tr> <td>' + value.ClientCompanyName + '</td>  <td>' + value.ClientCompCode + '</td> <td>' + value.ContactPerson + '</td> <td>' + value.MobileNumber + '</td><td>' + value.EmailId + '</td> <td>' + value.Address + '</td><td> <a href="' + value.KYCUploadPath + '" class="badge badge-pill badge-warning" download> Download KYC</a></td><td class="text-center"><i class="mdi mdi-pencil text-primary mx-3" onclick="EditCCMaster(' + "'" + hdnID + "'" + ')"></i><i class="mdi mdi-delete text-danger mx-3" onclick="DeActiveCCMaster(this,' + value.ClientCompanyMasterId.toString() + ');"></i><input type="hidden" id=' + hdnID + ' value=' + "'" + JVal + "'" + '></td></tr>');
 
                     })
                 }
@@ -835,8 +781,342 @@
         $("#btnClientMaster").val("Update");
 
     }
+    function GetUsers(BT) {
+        if (BT == "") {
+            $("#ProducerName").prop("disabled", true);
+            $("#ProducerName").empty();
+            return false;
+        }
+        var procemessage = "<option value='0'> Please wait...</option>";
+        $("#ProducerName").html(procemessage).show();
+        var url = "/GroupLifeInsurance/ClientMaster/GetProducerName";
 
+        $.ajax({
+            url: url,
+            data: { BusinessType: BT },
+            cache: false,
+            type: "POST",
+            success: function (data) {
+                if (data.list != null) {
+                    var lst = data.list
+                    var markup = "<option value='0'>--Select Producer--</option>";
+                    for (var x = 0; x < lst.length; x++) {
+                        markup += "<option value=" + lst[x].ProducerName + ">" + lst[x].ProducerName + "</option>";
+                    }
+                    $("#ProducerName").html(markup).show();
+                    $("#ProducerName").prop("disabled", false);
+                }
+                else {
+                    $("#ProducerName").prop("disabled", true);
+                    alert('There is no Producer against selected ProducerType')
+                }
+
+            },
+            error: function (reponse) {
+                alert("error : " + reponse);
+            }
+        });
+
+    }
+    function csvFileUpload() {
+
+        var rowCount = 0;
+        var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
+        if (regex.test($("#fileUploadCM").val().toLowerCase())) {
+
+            if (typeof (FileReader) != "undefined") {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+
+                    var rows = e.target.result.split('\r\n');
+
+                    for (var i = 0; i < rows.length; i++) {
+
+                        var cells = rows[i].split(",");
+                        var RRC = rowCount + 1;
+                        if (i == 0) {
+
+
+                            // Heater validation
+                            if (cells.length == 20) {
+
+                                if (cells[0] != "InsuranceCompanyName") {
+                                    $('#fileUploadCM').val('');
+                                    alert("Please check column name mismatch (InsuranceCompanyName).");
+                                    return false;
+                                }
+                                if (cells[1] != "ContactPerson") {
+                                    $('#fileUploadCM').val('');
+                                    alert("Please check column name mismatch (ContactPerson).");
+                                    return false;
+                                }
+                                if (cells[2] != "MobileNumber") {
+                                    $('#fileUploadCM').val('');
+                                    alert("Please check column name mismatch (MobileNumber).");
+                                    return false;
+                                }
+                                if (cells[3] != "EmailId") {
+                                    $('#fileUploadCM').val('');
+                                    alert("Please check column name mismatch (EmailID).");
+                                    return false;
+                                }
+                                if (cells[4] != "Address") {
+                                    $('#fileUploadCM').val('');
+                                    alert("Please check column name mismatch (Address).");
+                                    return false;
+                                }
+                                if (cells[5] != "City") {
+                                    $('#fileUploadCM').val('');
+                                    alert("Please check column name mismatch (City).");
+                                    return false;
+                                }
+                                if (cells[6] != "State") {
+                                    $('#fileUploadCM').val('');
+                                    alert("Please check column name mismatch (State).");
+                                    return false;
+                                }
+                                if (cells[7] != "Zipcode") {
+                                    $('#fileUploadCM').val('');
+                                    alert("Please check column name mismatch (Zipcode).");
+                                    return false;
+                                }
+                                if (cells[8] != "BankName") {
+                                    $('#fileUploadCM').val('');
+                                    alert("Please check column name mismatch (BankName).");
+                                    return false;
+                                }
+                                if (cells[9] != "AccountNumber") {
+                                    $('#fileUploadCM').val('');
+                                    alert("Please check column name mismatch (AccountNumber).");
+                                    return false;
+                                }
+                                if (cells[10] != "IFSCCode") {
+                                    $('#fileUploadCM').val('');
+                                    alert("Please check column name mismatch (IFSCCode).");
+                                    return false;
+                                }
+                                if (cells[11] != "ClientCompanyName") {
+                                    $('#fileUploadCM').val('');
+                                    alert("Please check column name mismatch (ClientCompanyName).");
+                                    return false;
+                                }
+                                if (cells[12] != "Currency") {
+                                    $('#fileUploadCM').val('');
+                                    alert("Please check column name mismatch (Currency).");
+                                    return false;
+                                }
+                                if (cells[13] != "LineofBusiness") {
+                                    $('#fileUploadCM').val('');
+                                    alert("Please check column name mismatch (Line of Business).");
+                                    return false;
+                                }
+                                if (cells[14] != "ProducerType") {
+                                    $('#fileUploadCM').val('');
+                                    alert("Please check column name mismatch (Producer Type).");
+                                    return false;
+                                }
+                                if (cells[15] != "ProducerName") {
+                                    $('#fileUploadCM').val('');
+                                    alert("Please check column name mismatch (Producer Name).");
+                                    return false;
+                                }
+                                if (cells[16] != "ProducerCommission") {
+                                    $('#fileUploadCM').val('');
+                                    alert("Please check column name mismatch (Producer Commission).");
+                                    return false;
+                                }
+                                if (cells[17] != "RIName") {
+                                    $('#fileUploadCM').val('');
+                                    alert("Please check column name mismatch (RIName).");
+                                    return false;
+                                }
+                                if (cells[18] != "RIRetention") {
+                                    $('#fileUploadCM').val('');
+                                    alert("Please check column name mismatch (RIRetention).");
+                                    return false;
+                                }
+                                if (cells[19] != "AMIRetention") {
+                                    $('#fileUploadCM').val('');
+                                    alert("Please check column name mismatch (AMIRetention).");
+                                    return false;
+                                }
+
+
+                            }
+                            else {
+                                $('#fileUploadCM').val('');
+                                alert("Upload Csv file invalid template , Please check .");
+                                return false;
+                            }
+
+                        } else {
+                            // Row validation
+                            if (cells.length == 20) {
+
+
+                                if (cells[0] == "") {
+                                    $('#fileUploadCM').val('');
+                                    alert("Please check Row NO : " + RRC + " InsuranceCompanyName  is empty");
+                                    return false;
+                                }
+
+                                if (cells[1] == "") {
+                                    $('#fileUploadCM').val('');
+                                    alert("Please check Row NO : " + RRC + " ContactPerson is empty");
+                                    return false;
+                                }
+
+                                if (cells[2] == "") {
+                                    $('#fileUploadCM').val('');
+                                    alert("Please check Row NO : " + RRC + " MobileNumber  is empty");
+                                    return false;
+                                }
+
+                                if (cells[3] == "") {
+                                    $('#fileUploadCM').val('');
+                                    alert("Please check Row NO : " + RRC + " EmailID is empty");
+                                    return false;
+                                }
+
+                                if (cells[4] == "") {
+                                    $('#fileUploadCM').val('');
+                                    alert("Please check Row NO : " + RRC + " Address is empty");
+                                    return false;
+                                }
+                                if (cells[5] == "") {
+                                    $('#fileUploadCM').val('');
+                                    alert("Please check Row NO : " + RRC + " City is empty");
+                                    return false;
+                                }
+
+                                if (cells[6] == "") {
+                                    $('#fileUploadCM').val('');
+                                    alert("Please check Row NO : " + RRC + " State is empty");
+                                    return false;
+                                }
+                                if (cells[7] == "") {
+                                    $('#fileUploadCM').val('');
+                                    alert("Please check Row NO : " + RRC + " Zipcode is empty");
+                                    return false;
+                                }
+                                if (cells[8] == "") {
+                                    $('#fileUploadCM').val('');
+                                    alert("Please check Row NO : " + RRC + " BankName is empty");
+                                    return false;
+                                }
+
+                                if (cells[9] == "") {
+                                    $('#fileUploadCM').val('');
+                                    alert("Please check Row NO : " + RRC + " AccountNumber is empty");
+                                    return false;
+                                }
+                                if (cells[10] == "") {
+                                    $('#fileUploadCM').val('');
+                                    alert("Please check Row NO : " + RRC + " IFSCCode is empty");
+                                    return false;
+                                }
+                                if (cells[11] == "") {
+                                    $('#fileUploadCM').val('');
+                                    alert("Please check Row NO : " + RRC + " ClientCompanyName is empty");
+                                    return false;
+                                }
+                                if (cells[12] == "") {
+                                    $('#fileUploadCM').val('');
+                                    alert("Please check Row NO : " + RRC + " Currency is empty");
+                                    return false;
+                                }
+                                if (cells[13] == "") {
+                                    $('#fileUploadCM').val('');
+                                    alert("Please check Row NO : " + RRC + " LineofBusiness is empty");
+                                    return false;
+                                }
+                                if (cells[14] == "") {
+                                    $('#fileUploadCM').val('');
+                                    alert("Please check Row NO : " + RRC + " ProducerType is empty");
+                                    return false;
+                                }
+                                if (cells[15] == "") {
+                                    $('#fileUploadCM').val('');
+                                    alert("Please check Row NO : " + RRC + " ProducerName is empty");
+                                    return false;
+                                }
+                                if (cells[16] == "") {
+                                    $('#fileUploadCM').val('');
+                                    alert("Please check Row NO : " + RRC + " ProducerCommission is empty");
+                                    return false;
+                                }
+                                if (cells[17] == "") {
+                                    $('#fileUploadCM').val('');
+                                    alert("Please check Row NO : " + RRC + " RIName is empty");
+                                    return false;
+                                }
+                                if (cells[18] == "") {
+                                    $('#fileUploadCM').val('');
+                                    alert("Please check Row NO : " + RRC + " RIRetention is empty");
+                                    return false;
+                                }
+                                if (cells[19] == "") {
+                                    $('#fileUploadCM').val('');
+                                    alert("Please check Row NO : " + RRC + " AMIRetention is empty");
+                                    return false;
+                                }
+
+
+
+
+                            }
+                            else {
+
+                                if (cells.length > 1) {
+                                    $('#fileUploadCM').val('');
+                                    alert("Please check Row NO : " + RRC + " This row have comma simple or invalied Column length");
+                                    return false;
+                                }
+                            }
+
+                        }
+
+                        rowCount += 1;
+
+                    }
+
+                    if (rowCount == rows.length) {
+                        $("#hdnMsgStatus").val('Y');
+                        $("#uploadFiles").click();
+
+                    }
+
+                }
+                reader.readAsText($("#fileUploadCM")[0].files[0]);
+            } else {
+                $('#fileUploadCM').val('');
+                alert("This browser does not support HTML5.");
+                return false;
+            }
+        } else {
+            $('#fileUploadCM').val('');
+            alert("Please upload a valid CSV file.");
+            return false;
+        }
+    }
 </script>
+@section scripts {
+    <script type="text/javascript">
+        Dropzone.options.Divdropzone = {
+            maxFiles: 6,
+            acceptedFiles: 'image/*',
+            maxFilesize: 2, // max file size in MB,
+            addRemoveLinks: true,
+            init: function () {
+                this.on("error", function (file, message) {
+                    alert(message + " because already reached maxmim file limt (3) or invalid file extension");
+                    this.removeFile(file);
+                });
+            },
+
+        };
+    </script>
+}
 @*<script type="text/javascript">
 
         $(function () {

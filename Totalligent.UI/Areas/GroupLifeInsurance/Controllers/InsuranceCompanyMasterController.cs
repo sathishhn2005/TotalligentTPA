@@ -116,7 +116,7 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
         public ActionResult SaveUploadedFile()
         {
             bool isSavedSuccessfully = true;
-            string FName = TempData["FolderName"].ToString();
+            string FName = TempData["ICFolderName"].ToString();
             TempData["FolderName"] = FName;
             string fName = "";
             try
@@ -171,7 +171,7 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
 
 
         [HttpPost]
-        public ActionResult BulkUpdate(HttpPostedFileBase CSVFile, string hdnMsgStatus)
+        public ActionResult BulkUpdate(HttpPostedFileBase ICMCSVFile, string hdnMsgStatus)
         {
             long returnCode = -1;
             string ICMasterJson = string.Empty;
@@ -189,21 +189,21 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
                 if (ModelState.IsValid)
                 {
 
-                    if (CSVFile.ContentLength > 0)
+                    if (ICMCSVFile.ContentLength > 0)
                     {
-                        _FileName = DateTime.Now.ToString("yyyyMMddHHmmss") + "_" + Path.GetFileName(CSVFile.FileName);
+                        _FileName = DateTime.Now.ToString("yyyyMMddHHmmss") + "_" + Path.GetFileName(ICMCSVFile.FileName);
                         var originalDirectory = new System.IO.DirectoryInfo(string.Format("{0}" + FPath, Server.MapPath(@"\")));
                         _filePath = System.IO.Path.Combine(originalDirectory.ToString(), _FileName);
-                        CSVFile.SaveAs(_filePath);
+                        ICMCSVFile.SaveAs(_filePath);
                     }
 
 
-                    List<ReInsurerMaster> lstValues = System.IO.File.ReadAllLines(_filePath)
+                    List<InsuranceCompanyMaster> lstValues = System.IO.File.ReadAllLines(_filePath)
                                               .Skip(1)
                                               .Select(v => FromCsv(v))
                                               .ToList();
 
-                    List<List<ReInsurerMaster>> lstValueList = lstValues.Select((x, i) => new { Index = i, Value = x })
+                    List<List<InsuranceCompanyMaster>> lstValueList = lstValues.Select((x, i) => new { Index = i, Value = x })
                                                                  .GroupBy(x => x.Index / 5000)
                                                                  .Select(x => x.Select(v => v.Value).ToList()).ToList();
 
@@ -250,14 +250,14 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
         }
 
 
-        public static ReInsurerMaster FromCsv(string csvLineData)
+        public static InsuranceCompanyMaster FromCsv(string csvLineData)
         {
             string[] values = csvLineData.Split(',');
 
 
-            ReInsurerMaster objCsvFileBulkUplaod = new ReInsurerMaster();
+            InsuranceCompanyMaster objCsvFileBulkUplaod = new InsuranceCompanyMaster();
 
-            objCsvFileBulkUplaod.ReInsurerName = values[0];
+            objCsvFileBulkUplaod.InsurancecompanyName = values[0];
             objCsvFileBulkUplaod.ContactPerson = values[1];
             objCsvFileBulkUplaod.MobileNumber = values[2];
             objCsvFileBulkUplaod.EmailId = values[3];
