@@ -1,16 +1,17 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.Data;
-using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
-using iTextSharp.tool.xml;
-using Totalligent.BAL;
 using Totalligent.BusinessEntities;
+using Totalligent.BAL;
+using Totalligent.UI.Models;
+using System.IO;
+using System.Configuration;
+using System.IO.Compression;
 using Totalligent.Utilities;
+using System.Data;
 
 namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
 {
@@ -23,7 +24,31 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
         }
         public ActionResult Quotation()
         {
-            return View();
+            MasterSelectedList objCCMasters = new MasterSelectedList();
+            QuotationModel obj = new QuotationModel();
+            new GLIMasterBAL().GetMasterData(out objCCMasters);
+            var selectListCCMaster = new List<SelectListItem>();
+            var selectListICM = new List<SelectListItem>();
+           
+            foreach (var element in objCCMasters.lstInsCompddl)
+            {
+                selectListICM.Add(new SelectListItem
+                {
+                    Value = element.ICMId.ToString(),
+                    Text = element.InsurancecompanyName
+                });
+                obj.lstInsuranceCompanyMaster = selectListICM;
+            }
+            foreach (var element in objCCMasters.lstCCMaster)
+            {
+                selectListCCMaster.Add(new SelectListItem
+                {
+                    Value = element.ClientCompanyMasterId.ToString(),
+                    Text = element.ClientCompanyName
+                });
+                obj.lstClientMaster = selectListCCMaster;
+            }
+            return View(obj);
         }
         public ActionResult PolicyIssuance()
         {

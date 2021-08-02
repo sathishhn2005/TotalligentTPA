@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="DBEngine.cs" />
     <Compile Include="GLIMasterDAL.cs" />
+    <Compile Include="GLIQuotationDAL.cs" />
     <Compile Include="TotalligentDALayer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TotalligentMasterDAL.cs" />

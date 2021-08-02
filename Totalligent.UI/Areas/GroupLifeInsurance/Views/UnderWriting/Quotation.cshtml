@@ -1,4 +1,8 @@
-﻿@{
+﻿
+@model Totalligent.UI.Models.QuotationModel
+@using Totalligent.BusinessEntities;
+
+@{
     ViewBag.Title = "Masters";
     Layout = "~/Areas/GroupLifeInsurance/Views/Shared/_Layout.cshtml";
 }
@@ -29,16 +33,7 @@
                                     @*$("#LifeEmgAreaCoverage").data("kendoMultiSelect").dataItems()*@
 
                                     <div class="col-md-7 demo-section k-content">
-                                        @(Html.Kendo().ComboBox()
-                                            .Name("CIInsuranceCompanyName")
-                                            .Placeholder(">> Select Insurance Company Name ")
-                                            .BindTo(new List<string>() {
-                                                "ICICI Lombard",
-                                                "HDFC Prudential",
-                                                "Bajaj Allianz Life Insurance Company",
-                                            })
-                                            .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;" })
-                                        )
+                                        @Html.DropDownList("InsuranceCompanyName", Model.lstInsuranceCompanyMaster, "-- Select Type --", new { @class = "form-control" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -46,12 +41,8 @@
                                         <label class="col-sm-12 col-form-label text-left">Client Company Name</label>
                                     </div>
                                     <div class="col-md-8 demo-section k-content">
+                                        @Html.DropDownList("ClientCompanyName", Model.lstClientMaster, "-- Select Type --", new { @class = "form-control" })
 
-                                        @(Html.Kendo().ComboBox()
-                                            .Name("CIClientCompanyName")
-                                            .Placeholder(">> Select Client Company Name ")
-                                            .HtmlAttributes(new { style = "width: 100%;font-size: 1rem;color: #5c6975;", autocomplete = "off " })
-                                        )
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -59,7 +50,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Scope of Coverage</label>
                                     </div>
                                     <div class="col-md-8 demo-section k-content">
-                                        @Html.TextBox("SCoverage", "", new { @class = "form-control w-full", @placeholder = "Enter Scope of Coverage" })
+                                        @Html.TextBox("ScopeofCoverage", "", new { @class = "form-control w-full", @placeholder = "Enter Scope of Coverage" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -100,7 +91,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Bank Name</label>
                                     </div>
                                     <div class="col-md-8 demo-section k-content">
-                                        @Html.TextBox("BANKName", "", new { @class = "form-control w-full", @placeholder = "Enter Bank Name" })
+                                        @Html.TextBox("BankName", "", new { @class = "form-control w-full", @placeholder = "Enter Bank Name" })
                                     </div>
                                 </div>
 
@@ -109,7 +100,7 @@
                                         <label class="col-sm-12 col-form-label text-left">IFSC Code</label>
                                     </div>
                                     <div class="col-md-8 demo-section k-content">
-                                        @Html.TextBox("IFSCCODE", "", new { @class = "form-control w-full", @placeholder = "Enter IFSC Code" })
+                                        @Html.TextBox("IFSCCode", "", new { @class = "form-control w-full", @placeholder = "Enter IFSC Code" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -125,7 +116,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Period of Insurance</label>
                                     </div>
                                     <div class="col-md-8 demo-section k-content">
-                                        @Html.TextBox("PeriodInsurance", "", new { @class = "form-control w-full", @placeholder = "Enter Period of Insurance" })
+                                        @Html.TextBox("PeriodofInsurance", "", new {@type="date", @class = "form-control w-full", @placeholder = "Enter Period of Insurance" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -539,7 +530,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                             </div>
                             <div class="col-12">
                                 <hr />
@@ -665,10 +656,10 @@
                                         </div>
                                     </div>
                                     <div class="row m-b-15 m-t-15">
-                                        <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#AdditionalCoverModal"><i class="mdi mdi-plus mx-2"></i>Add Additional Cover</button>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AdditionalCoverModal"><i class="mdi mdi-plus mx-2"></i>Add Additional Cover</button>
                                     </div>
                                 </div>
-                                </div>
+                            </div>
                             <div class="col-12">
                                 <hr />
                                 <h5 class="m-b-15 m-t-15 text-bold col-12 p-0">Exclusions</h5>
@@ -1115,7 +1106,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Total Employees</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        @Html.TextBox("TotalEmployeesED", "", new { @class = "form-control w-full", @placeholder = "Enter Total Employees" })
+                                        @Html.TextBox("TotalEmployees", "", new { @class = "form-control w-full", @placeholder = "Enter Total Employees" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -1179,7 +1170,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Age Limit for Dependent Spouse</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        @Html.TextBox("AgeLimitDependentSpouse", "", new { @class = "form-control w-full", @placeholder = "Enter Age Limit for Dependent Spouse 18 to 64" })
+                                        @Html.TextBox("AgeLimitforDependentSpouse", "", new { @class = "form-control w-full", @placeholder = "Enter Age Limit for Dependent Spouse 18 to 64" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -1187,7 +1178,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Age Limit for Dependent Child</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        @Html.TextBox("AgeLimitDependentChild", "", new { @class = "form-control w-full", @placeholder = "Enter Age Limit for Dependent Child 1 to 17" })
+                                        @Html.TextBox("AgeLimitforDependentChild", "", new { @class = "form-control w-full", @placeholder = "Enter Age Limit for Dependent Child 1 to 17" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -1195,7 +1186,7 @@
                                         <label class="col-sm-12 col-form-label text-left">FCL</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        @Html.TextBox("FCLED", "", new { @class = "form-control w-full", @placeholder = "Enter FCL" })
+                                        @Html.TextBox("FCL", "", new { @class = "form-control w-full", @placeholder = "Enter FCL" })
                                     </div>
                                 </div>
                             </div>
@@ -1271,10 +1262,10 @@
                                                     </tr>
                                                     <tr>
                                                         <td>Gold Member</td>
-                                                        <td>@Html.TextBox("SumAssuredGLD", "200000", new { @class = "form-control w-full", @placeholder = "Enter Sum Assured", @disabled = "disabled"})</td>
-                                                        <td>@Html.TextBox("SalaryGLD", "50,000", new { @class = "form-control w-full", @placeholder = "Enter Salary", @disabled = "disabled"})</td>
-                                                        <td>@Html.TextBox("FCLGLD", "3", new { @class = "form-control w-full", @placeholder = "Enter FCL", @disabled = "disabled"})</td>
-                                                        <td>@Html.TextBox("ClientRateGLD", "4%", new { @class = "form-control w-full", @placeholder = "Enter Client Rate", @disabled = "disabled"})</td>
+                                                        <td>@Html.TextBox("SumAssuredGLD", "200000", new { @class = "form-control w-full", @placeholder = "Enter Sum Assured", @disabled = "disabled" })</td>
+                                                        <td>@Html.TextBox("SalaryGLD", "50,000", new { @class = "form-control w-full", @placeholder = "Enter Salary", @disabled = "disabled" })</td>
+                                                        <td>@Html.TextBox("FCLGLD", "3", new { @class = "form-control w-full", @placeholder = "Enter FCL", @disabled = "disabled" })</td>
+                                                        <td>@Html.TextBox("ClientRateGLD", "4%", new { @class = "form-control w-full", @placeholder = "Enter Client Rate", @disabled = "disabled" })</td>
                                                         <td>
                                                             <i class="mdi mdi-pencil hov-pointer text-primary font-size-16 mx-2"></i>
                                                             <i class="mdi mdi-delete hov-pointer text-danger font-size-16 mx-2"></i>
@@ -1361,7 +1352,7 @@
                                                 <label class="col-sm-12 col-form-label text-left">RI Count</label>
                                             </div>
                                             <div class="col-md-7 demo-section k-content">
-                                                @Html.TextBox("RI Count", "", new { @class = "form-control w-full", @placeholder = "Enter RI Count" })
+                                                @Html.TextBox("RICount", "", new { @class = "form-control w-full", @placeholder = "Enter RI Count" })
                                             </div>
                                         </div>
                                         <div class="row m-b-15 m-t-15">
@@ -1369,7 +1360,7 @@
                                                 <label class="col-sm-12 col-form-label text-left">RI 1 in %</label>
                                             </div>
                                             <div class="col-md-7 demo-section k-content">
-                                                @Html.TextBox("RI1", "", new { @class = "form-control w-full", @placeholder = "Enter RI 1 in %" })
+                                                @Html.TextBox("RI1in_Percentage", "", new { @class = "form-control w-full", @placeholder = "Enter RI 1 in %" })
                                             </div>
                                         </div>
                                         <div class="row m-b-15 m-t-15">
@@ -1377,7 +1368,7 @@
                                                 <label class="col-sm-12 col-form-label text-left">RI 2 in %</label>
                                             </div>
                                             <div class="col-md-7 demo-section k-content">
-                                                @Html.TextBox("RI2", "", new { @class = "form-control w-full", @placeholder = "Enter RI 2 in %" })
+                                                @Html.TextBox("RI2in_Percentage", "", new { @class = "form-control w-full", @placeholder = "Enter RI 2 in %" })
                                             </div>
                                         </div>
                                         <div class="row m-b-15 m-t-15">
@@ -1385,7 +1376,7 @@
                                                 <label class="col-sm-12 col-form-label text-left">RI 3 in %</label>
                                             </div>
                                             <div class="col-md-7 demo-section k-content">
-                                                @Html.TextBox("RI3", "", new { @class = "form-control w-full", @placeholder = "Enter RI 3 in %" })
+                                                @Html.TextBox("RI3in_Percentage", "", new { @class = "form-control w-full", @placeholder = "Enter RI 3 in %" })
                                             </div>
                                         </div>
                                         <div class="row m-b-15 m-t-15">
@@ -1393,7 +1384,7 @@
                                                 <label class="col-sm-12 col-form-label text-left">RI RATE</label>
                                             </div>
                                             <div class="col-md-7 demo-section k-content">
-                                                @Html.TextBox("RIRATE", "", new { @class = "form-control w-full", @placeholder = "Enter RI RATE" })
+                                                @Html.TextBox("RIRate", "", new { @class = "form-control w-full", @placeholder = "Enter RI RATE" })
                                             </div>
                                         </div>
                                         <div class="row m-b-15 m-t-15">
@@ -1401,7 +1392,7 @@
                                                 <label class="col-sm-12 col-form-label text-left">RI RETENSION</label>
                                             </div>
                                             <div class="col-md-7 demo-section k-content">
-                                                @Html.TextBox("RIRETENSION", "", new { @class = "form-control w-full", @placeholder = "Enter RI RETENSION" })
+                                                @Html.TextBox("RIRetension", "", new { @class = "form-control w-full", @placeholder = "Enter RI RETENSION" })
                                             </div>
                                         </div>
                                         <div class="row m-b-15 m-t-15">
@@ -1409,7 +1400,7 @@
                                                 <label class="col-sm-12 col-form-label text-left">AMI RETENSION</label>
                                             </div>
                                             <div class="col-md-7 demo-section k-content">
-                                                @Html.TextBox("AMIRETENSION", "", new { @class = "form-control w-full", @placeholder = "Enter AMI RETENSION" })
+                                                @Html.TextBox("AMIRetension", "", new { @class = "form-control w-full", @placeholder = "Enter AMI RETENSION" })
                                             </div>
                                         </div>
                                         <div class="row m-b-15 m-t-15">
@@ -1467,7 +1458,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Premium (EAW * Rate)</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        @Html.TextBox("PremiumEAWRate", "", new { @class = "form-control w-full", @placeholder = "Enter Premium (EAW * Rate)" })
+                                        @Html.TextBox("Premium_EAW_Rate", "", new { @class = "form-control w-full", @placeholder = "Enter Premium (EAW * Rate)" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -1475,7 +1466,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Premium (Incl. 1.6% levy + Pol Fee RO.1)</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        @Html.TextBox("PremiumIncl", "", new { @class = "form-control w-full", @placeholder = "Enter Premium (Incl. 1.6% levy + Pol Fee RO.1)" })
+                                        @Html.TextBox("Premium_Incl_levy_PolFeeRO", "", new { @class = "form-control w-full", @placeholder = "Enter Premium (Incl. 1.6% levy + Pol Fee RO.1)" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -1483,7 +1474,7 @@
                                         <label class="col-sm-12 col-form-label text-left">5% VAT on WC premium</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        @Html.TextBox("VATWCpremium", "", new { @class = "form-control w-full", @placeholder = "Enter 5% VAT on WC premium" })
+                                        @Html.TextBox("VATonWCpremium", "", new { @class = "form-control w-full", @placeholder = "Enter 5% VAT on WC premium" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -1499,7 +1490,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Broker %</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        @Html.TextBox("BrokerPercent", "", new { @class = "form-control w-full", @placeholder = "Enter Broker %" })
+                                        @Html.TextBox("BrokerPercentage", "", new { @class = "form-control w-full", @placeholder = "Enter Broker %" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -1542,7 +1533,7 @@
                         </div>
                     </div>
                 </div>
-                </div>
+            </div>
             @*
                 <div class="modal-footer justify-content-center">
                    <button type="button" class="btn btn-secondary btn-sm waves-effect" data-dismiss="modal">Close</button>
@@ -1620,7 +1611,7 @@
         }, 1000);
 
         initStepWizard(),
-        initVerticalWizard();
+            initVerticalWizard();
         $(function () {
 
             $("#AccidentalDeath").click(function () {
@@ -1634,9 +1625,9 @@
                 }
             });
             $("#PermanentDisability").click(function () {
-                
+
                 if ($(this).is(":checked")) {
-                    
+
                     $("#PermanentDisabilityContent").slideDown();
 
                 } else {
@@ -1644,9 +1635,9 @@
                 }
             });
             $("#PermanentPartialDisability").click(function () {
-                
+
                 if ($(this).is(":checked")) {
-                    
+
                     $("#PermanentPartialDisabilityContent").slideDown();
 
                 } else {
@@ -1654,9 +1645,9 @@
                 }
             });
             $("#TotalDisability").click(function () {
-                
+
                 if ($(this).is(":checked")) {
-                    
+
                     $("#TotalDisabilityContent").slideDown();
 
                 } else {
@@ -1664,9 +1655,9 @@
                 }
             });
             $("#RepatriationBenefit").click(function () {
-                
+
                 if ($(this).is(":checked")) {
-                    
+
                     $("#RepatriationBenefitContent").slideDown();
 
                 } else {
@@ -1674,9 +1665,9 @@
                 }
             });
             $("#Sucide").click(function () {
-                
+
                 if ($(this).is(":checked")) {
-                    
+
                     $("#SucideContent").slideDown();
 
                 } else {
@@ -1684,9 +1675,9 @@
                 }
             });
             $("#PassiveWarRisk").click(function () {
-                
+
                 if ($(this).is(":checked")) {
-                    
+
                     $("#PassiveWarRiskContent").slideDown();
 
                 } else {
@@ -1694,9 +1685,9 @@
                 }
             });
             $("#HIV_AIDS").click(function () {
-                
+
                 if ($(this).is(":checked")) {
-                    
+
                     $("#HIV_AIDSContent").slideDown();
 
                 } else {
@@ -1704,9 +1695,9 @@
                 }
             });
             $("#TerminalIllness").click(function () {
-                
+
                 if ($(this).is(":checked")) {
-                    
+
                     $("#TerminalIllnessContent").slideDown();
 
                 } else {
@@ -1714,9 +1705,9 @@
                 }
             });
             $("#CriticalIllness").click(function () {
-                
+
                 if ($(this).is(":checked")) {
-                    
+
                     $("#CriticalIllnessContent").slideDown();
 
                 } else {
@@ -1724,7 +1715,7 @@
                 }
             });
             $("input[name='DCGroup']").change(function () {
-                
+
                 if ($('#DAC:checked').val() === 'on') {
                     $("#DNCContent").slideUp();
                     $("#DACContent").slideDown();
@@ -1786,7 +1777,7 @@
                 }
             });
         });
-        
+
     };
 
 
@@ -1818,7 +1809,7 @@
                 $.ajax({
 
                     type: "POST",
-                    url: "/Quotation/QuotationMaster",
+                    url: "/GroupLifeInsurance/Quotation/AddUpdateQuotationMaster",
                     dataType: "json",
                     contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                     data: quotationData,

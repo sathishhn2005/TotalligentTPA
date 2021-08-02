@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GLIMasterBAL.cs" />
+    <Compile Include="GLIQuotationBAL.cs" />
     <Compile Include="TotalligentBALayer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TotalligentMasterBAL.cs" />
