@@ -508,12 +508,7 @@
             var param = {
                 objReInsurerMaster: objRiMaster, Action: $("#btnSubmitProducerMaster").val(), FolderName: $("#FolderName").val()
             };
-            //var renewalData = $('#formRIMaster').serialize(); x-www-form-urlencoded; charset=UTF-8
-
-
-
-            // var formdata = new FormData($('formRIMaster').get(0));
-
+          
             $.ajax({
                 type: "POST",
                 url: "/GroupLifeInsurance/ReInsurenceMaster/AddUpdateRIMaster",

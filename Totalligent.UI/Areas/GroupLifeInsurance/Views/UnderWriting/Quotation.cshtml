@@ -50,7 +50,9 @@
                                         <label class="col-sm-12 col-form-label text-left">Scope of Coverage</label>
                                     </div>
                                     <div class="col-md-8 demo-section k-content">
-                                        @Html.TextBox("ScopeofCoverage", "", new { @class = "form-control w-full", @placeholder = "Enter Scope of Coverage" })
+
+                                        @Html.TextBoxFor(model => model.objQuo.ScopeofCoverage, new { @class = "form-control w-full", @placeholder = "Enter Scope of Coverage" })
+
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -58,7 +60,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Jurisdiction</label>
                                     </div>
                                     <div class="col-md-8 demo-section k-content">
-                                        @Html.TextBox("Jurisdiction", "", new { @class = "form-control w-full", @placeholder = "Enter Jurisdiction" })
+                                        @Html.TextBoxFor(model => model.objQuo.Jurisdiction, new { @class = "form-control w-full", @placeholder = "Enter Jurisdiction" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -66,7 +68,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Address</label>
                                     </div>
                                     <div class="col-md-8 demo-section k-content">
-                                        @Html.TextBox("Address", "", new { @class = "form-control w-full", @placeholder = "Enter Address" })
+                                        @Html.TextBoxFor(model => model.objQuo.Address, new { @class = "form-control w-full", @placeholder = "Enter Address" })
                                     </div>
                                 </div>
 
@@ -75,7 +77,7 @@
                                         <label class="col-sm-12 col-form-label text-left">City</label>
                                     </div>
                                     <div class="col-md-8 demo-section k-content">
-                                        @Html.TextBox("City", "", new { @class = "form-control w-full", @placeholder = "Enter City" })
+                                        @Html.TextBoxFor(model => model.objQuo.City, new { @class = "form-control w-full", @placeholder = "Enter City" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -83,7 +85,7 @@
                                         <label class="col-sm-12 col-form-label text-left">KYC Details</label>
                                     </div>
                                     <div class="col-md-8 demo-section k-content">
-                                        @Html.TextBox("KYCDetails", "", new { @class = "form-control w-full", @placeholder = "Enter KYC Details" })
+                                        @Html.TextBoxFor(model => model.objQuo.KYCDetails, new { @class = "form-control w-full", @placeholder = "Enter KYCDetails" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -91,7 +93,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Bank Name</label>
                                     </div>
                                     <div class="col-md-8 demo-section k-content">
-                                        @Html.TextBox("BankName", "", new { @class = "form-control w-full", @placeholder = "Enter Bank Name" })
+                                        @Html.TextBoxFor(model => model.objQuo.BankName, new { @class = "form-control w-full", @placeholder = "Enter BankName" })
                                     </div>
                                 </div>
 
@@ -100,7 +102,7 @@
                                         <label class="col-sm-12 col-form-label text-left">IFSC Code</label>
                                     </div>
                                     <div class="col-md-8 demo-section k-content">
-                                        @Html.TextBox("IFSCCode", "", new { @class = "form-control w-full", @placeholder = "Enter IFSC Code" })
+                                        @Html.TextBoxFor(model => model.objQuo.IFSCCode, new { @class = "form-control w-full", @placeholder = "Enter IFSCCode" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -108,7 +110,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Branch</label>
                                     </div>
                                     <div class="col-md-8 demo-section k-content">
-                                        @Html.TextBox("Branch", "", new { @class = "form-control w-full", @placeholder = "Enter Branch" })
+                                        @Html.TextBoxFor(model => model.objQuo.Branch, new { @class = "form-control w-full", @placeholder = "Enter Branch" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -116,7 +118,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Period of Insurance</label>
                                     </div>
                                     <div class="col-md-8 demo-section k-content">
-                                        @Html.TextBox("PeriodofInsurance", "", new {@type="date", @class = "form-control w-full", @placeholder = "Enter Period of Insurance" })
+                                        @Html.TextBoxFor(model => model.objQuo.PeriodofInsurance, new { @class = "form-control w-full", @placeholder = "Enter PeriodofInsurance" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -126,7 +128,7 @@
                                     <div class="col-md-8  ">
                                         <div class="row">
                                             <div class="col-md-12 d-flex">
-                                                @Html.TextBox("CategoryName", "", new { @class = "form-control w-full", @placeholder = "Enter Category Name" })
+                                                @Html.TextBoxFor(model => model.objQuo.Category, new { @class = "form-control w-full", @placeholder = "Enter Category" })
                                                 <button type="button" class="btn btn-primary ml-3"><i class="mdi mdi-check"></i></button>
                                             </div>
                                             <div class="col-md-12">
@@ -1106,7 +1108,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Total Employees</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        @Html.TextBox("TotalEmployees", "", new { @class = "form-control w-full", @placeholder = "Enter Total Employees" })
+                                        @Html.TextBoxFor(model => model.objQuo.TotalEmployees, new { @class = "form-control w-full", @placeholder = "Enter TotalEmployees" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -1114,7 +1116,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Total Dependents</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        @Html.TextBox("TotalDependents", "", new { @class = "form-control w-full", @placeholder = "Enter Total Dependents" })
+                                        @Html.TextBoxFor(model => model.objQuo.TotalDependents, new { @class = "form-control w-full", @placeholder = "Enter TotalDependents" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -1122,7 +1124,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Total Spouse dependents</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        @Html.TextBox("TotalSpousedependents", "", new { @class = "form-control w-full", @placeholder = "Enter Total Spouse dependents" })
+                                        @Html.TextBoxFor(model => model.objQuo.TotalSpousedependents, new { @class = "form-control w-full", @placeholder = "Enter TotalSpousedependents" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -1130,7 +1132,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Total Child dependents</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        @Html.TextBox("TotalChilddependents", "", new { @class = "form-control w-full", @placeholder = "Enter Total Child dependents" })
+                                        @Html.TextBoxFor(model => model.objQuo.TotalChilddependents, new { @class = "form-control w-full", @placeholder = "Enter TotalChilddependents" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -1138,7 +1140,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Policy Currency</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        @Html.TextBox("PolicyCurrency", "", new { @class = "form-control w-full", @placeholder = "Enter Policy Currency" })
+                                        @Html.TextBoxFor(model => model.objQuo.PolicyCurrency, new { @class = "form-control w-full", @placeholder = "Enter PolicyCurrency" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -1146,7 +1148,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Eligibility Criteria</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        @Html.TextBox("EligibilityCriteria", "", new { @class = "form-control w-full", @placeholder = "Enter Eligibility Criteria" })
+                                        @Html.TextBoxFor(model => model.objQuo.EligibilityCriteria, new { @class = "form-control w-full", @placeholder = "Enter EligibilityCriteria" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -1154,7 +1156,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Sum Assured (SA)</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        @Html.TextBox("SumAssured", "", new { @class = "form-control w-full", @placeholder = "Enter Sum Assured (SA)" })
+                                        @Html.TextBoxFor(model => model.objQuo.SumAssured_SA, new { @class = "form-control w-full", @placeholder = "Enter SumAssured_SA" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -1162,7 +1164,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Age Limit for Employees</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        @Html.TextBox("AgeLimitforEmployees", "", new { @class = "form-control w-full", @placeholder = "Enter Age Limit 18 to 64" })
+                                        @Html.TextBoxFor(model => model.objQuo.AgeLimitforEmployees, new { @class = "form-control w-full", @placeholder = "Enter Age Limit 18 to 64" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -1170,7 +1172,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Age Limit for Dependent Spouse</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        @Html.TextBox("AgeLimitforDependentSpouse", "", new { @class = "form-control w-full", @placeholder = "Enter Age Limit for Dependent Spouse 18 to 64" })
+                                        @Html.TextBoxFor(model => model.objQuo.AgeLimitforDependentSpouse, new { @class = "form-control w-full", @placeholder = "Enter Age Limit for Dependent Spouse 18 to 64" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -1178,7 +1180,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Age Limit for Dependent Child</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        @Html.TextBox("AgeLimitforDependentChild", "", new { @class = "form-control w-full", @placeholder = "Enter Age Limit for Dependent Child 1 to 17" })
+                                        @Html.TextBoxFor(model => model.objQuo.AgeLimitforDependentChild, new { @class = "form-control w-full", @placeholder = "Enter Age Limit for Dependent Child 1 to 17" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -1186,7 +1188,7 @@
                                         <label class="col-sm-12 col-form-label text-left">FCL</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        @Html.TextBox("FCL", "", new { @class = "form-control w-full", @placeholder = "Enter FCL" })
+                                        @Html.TextBoxFor(model => model.objQuo.FCL, new { @class = "form-control w-full", @placeholder = "Enter FCL" })
                                     </div>
                                 </div>
                             </div>
@@ -1304,7 +1306,7 @@
                                                 <label class="col-sm-12 col-form-label text-left">Client Premium</label>
                                             </div>
                                             <div class="col-md-7 demo-section k-content">
-                                                @Html.TextBox("ClientPremium", "", new { @class = "form-control w-full", @placeholder = "Enter Client Premium" })
+                                                @Html.TextBoxFor(model => model.objQuo.ClientPremium, new { @class = "form-control w-full", @placeholder = "Enter Client Premium" })
                                             </div>
                                         </div>
                                         <div class="row m-b-15 m-t-15">
@@ -1312,7 +1314,8 @@
                                                 <label class="col-sm-12 col-form-label text-left">Insurance Levy at 0.55%</label>
                                             </div>
                                             <div class="col-md-7 demo-section k-content">
-                                                @Html.TextBox("InsuranceLevy", "", new { @class = "form-control w-full", @placeholder = "Enter Insurance Levy @ 0.55%" })
+                                                @Html.TextBoxFor(model => model.objQuo.InsuranceLevy, new { @class = "form-control w-full", @placeholder = "Enter Insurance Levy @ 0.55%" })
+
                                             </div>
                                         </div>
                                         <div class="row m-b-15 m-t-15">
@@ -1320,7 +1323,7 @@
                                                 <label class="col-sm-12 col-form-label text-left">Policy Fee</label>
                                             </div>
                                             <div class="col-md-7 demo-section k-content">
-                                                @Html.TextBox("PolicyFee", "", new { @class = "form-control w-full", @placeholder = "Enter Policy Fee" })
+                                                @Html.TextBoxFor(model => model.objQuo.PolicyFee, new { @class = "form-control w-full", @placeholder = "Enter the Policy Fee" })
                                             </div>
                                         </div>
                                         <div class="row m-b-15 m-t-15">
@@ -1328,7 +1331,7 @@
                                                 <label class="col-sm-12 col-form-label text-left">Total Premium</label>
                                             </div>
                                             <div class="col-md-7 demo-section k-content">
-                                                @Html.TextBox("TotalPremium", "", new { @class = "form-control w-full", @placeholder = "Enter Total Premium" })
+                                                @Html.TextBoxFor(model => model.objQuo.TotalPremium, new { @class = "form-control w-full", @placeholder = "Enter Total Premium" })
                                             </div>
                                         </div>
                                         <div class="row m-b-15 m-t-15">
@@ -1336,7 +1339,7 @@
                                                 <label class="col-sm-12 col-form-label text-left">Broker Name</label>
                                             </div>
                                             <div class="col-md-7 demo-section k-content">
-                                                @Html.TextBox("BrokerName", "", new { @class = "form-control w-full", @placeholder = "Enter Broker Name" })
+                                                @Html.TextBoxFor(model => model.objQuo.BrokerName, new { @class = "form-control w-full", @placeholder = "Enter Broker Name" })
                                             </div>
                                         </div>
                                         <div class="row m-b-15 m-t-15">
@@ -1344,7 +1347,7 @@
                                                 <label class="col-sm-12 col-form-label text-left">Brokerage</label>
                                             </div>
                                             <div class="col-md-7 demo-section k-content">
-                                                @Html.TextBox("Brokerage", "", new { @class = "form-control w-full", @placeholder = "Enter Brokerage" })
+                                                @Html.TextBoxFor(model => model.objQuo.Brokerage, new { @class = "form-control w-full", @placeholder = "Enter Brokerage" })
                                             </div>
                                         </div>
                                         <div class="row m-b-15 m-t-15">
@@ -1352,7 +1355,7 @@
                                                 <label class="col-sm-12 col-form-label text-left">RI Count</label>
                                             </div>
                                             <div class="col-md-7 demo-section k-content">
-                                                @Html.TextBox("RICount", "", new { @class = "form-control w-full", @placeholder = "Enter RI Count" })
+                                                @Html.TextBoxFor(model => model.objQuo.RICount, new { @class = "form-control w-full", @placeholder = "Enter RICount" })
                                             </div>
                                         </div>
                                         <div class="row m-b-15 m-t-15">
@@ -1360,7 +1363,9 @@
                                                 <label class="col-sm-12 col-form-label text-left">RI 1 in %</label>
                                             </div>
                                             <div class="col-md-7 demo-section k-content">
-                                                @Html.TextBox("RI1in_Percentage", "", new { @class = "form-control w-full", @placeholder = "Enter RI 1 in %" })
+
+                                                @Html.TextBoxFor(model => model.objQuo.RI1in_Percentage, new { @class = "form-control w-full", @placeholder = "Enter RI 1 in %" })
+
                                             </div>
                                         </div>
                                         <div class="row m-b-15 m-t-15">
@@ -1368,7 +1373,9 @@
                                                 <label class="col-sm-12 col-form-label text-left">RI 2 in %</label>
                                             </div>
                                             <div class="col-md-7 demo-section k-content">
-                                                @Html.TextBox("RI2in_Percentage", "", new { @class = "form-control w-full", @placeholder = "Enter RI 2 in %" })
+                                                @Html.TextBoxFor(model => model.objQuo.RI2in_Percentage, new { @class = "form-control w-full", @placeholder = "Enter RI 2 in %" })
+
+
                                             </div>
                                         </div>
                                         <div class="row m-b-15 m-t-15">
@@ -1376,7 +1383,7 @@
                                                 <label class="col-sm-12 col-form-label text-left">RI 3 in %</label>
                                             </div>
                                             <div class="col-md-7 demo-section k-content">
-                                                @Html.TextBox("RI3in_Percentage", "", new { @class = "form-control w-full", @placeholder = "Enter RI 3 in %" })
+                                                @Html.TextBoxFor(model => model.objQuo.RI3in_Percentage, new { @class = "form-control w-full", @placeholder = "Enter RI 3 in %" })
                                             </div>
                                         </div>
                                         <div class="row m-b-15 m-t-15">
@@ -1384,7 +1391,9 @@
                                                 <label class="col-sm-12 col-form-label text-left">RI RATE</label>
                                             </div>
                                             <div class="col-md-7 demo-section k-content">
-                                                @Html.TextBox("RIRate", "", new { @class = "form-control w-full", @placeholder = "Enter RI RATE" })
+
+                                                @Html.TextBoxFor(model => model.objQuo.RIRate, new { @class = "form-control w-full", @placeholder = "Enter RI Rate" })
+
                                             </div>
                                         </div>
                                         <div class="row m-b-15 m-t-15">
@@ -1392,7 +1401,8 @@
                                                 <label class="col-sm-12 col-form-label text-left">RI RETENSION</label>
                                             </div>
                                             <div class="col-md-7 demo-section k-content">
-                                                @Html.TextBox("RIRetension", "", new { @class = "form-control w-full", @placeholder = "Enter RI RETENSION" })
+                                                @Html.TextBoxFor(model => model.objQuo.RIRetension, new { @class = "form-control w-full", @placeholder = "Enter RI Retension" })
+
                                             </div>
                                         </div>
                                         <div class="row m-b-15 m-t-15">
@@ -1400,7 +1410,8 @@
                                                 <label class="col-sm-12 col-form-label text-left">AMI RETENSION</label>
                                             </div>
                                             <div class="col-md-7 demo-section k-content">
-                                                @Html.TextBox("AMIRetension", "", new { @class = "form-control w-full", @placeholder = "Enter AMI RETENSION" })
+                                                @Html.TextBoxFor(model => model.objQuo.AMIRetension, new { @class = "form-control w-full", @placeholder = "Enter AMI Retension" })
+
                                             </div>
                                         </div>
                                         <div class="row m-b-15 m-t-15">
@@ -1408,7 +1419,7 @@
                                                 <label class="col-sm-12 col-form-label text-left">RI Premium</label>
                                             </div>
                                             <div class="col-md-7 demo-section k-content">
-                                                @Html.TextBox("RIPremium", "", new { @class = "form-control w-full", @placeholder = "Enter RI Premium" })
+                                                @Html.TextBoxFor(model => model.objQuo.RIPremium, new { @class = "form-control w-full", @placeholder = "Enter RI Premium" })
                                             </div>
                                         </div>
                                         <div class="row m-b-15 m-t-15">
@@ -1416,7 +1427,8 @@
                                                 <label class="col-sm-12 col-form-label text-left">AMI Loading</label>
                                             </div>
                                             <div class="col-md-7 demo-section k-content">
-                                                @Html.TextBox("AMILoading", "", new { @class = "form-control w-full", @placeholder = "Enter AMI Loading" })
+
+                                                @Html.TextBoxFor(model => model.objQuo.AMILoading, new { @class = "form-control w-full", @placeholder = "Enter AMI Loading" })
                                             </div>
                                         </div>
                                     </div>
@@ -1434,7 +1446,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Total Employees count</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        @Html.TextBox("TotalEmployeesCount", "", new { @class = "form-control w-full", @placeholder = "Enter Total Employees Count" })
+                                        @Html.TextBoxFor(model => model.objQuo.TotalEmployeescount, new { @class = "form-control w-full", @placeholder = "Enter Total Employees Count" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -1442,7 +1454,8 @@
                                         <label class="col-sm-12 col-form-label text-left">Estimated Annual Wages</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        @Html.TextBox("EstimatedAnnualWages", "", new { @class = "form-control w-full", @placeholder = "Enter Estimated Annual Wages" })
+                                        @Html.TextBoxFor(model => model.objQuo.EstimatedAnnualWages, new { @class = "form-control w-full", @placeholder = "Enter Estimated Annual Wages" })
+                                        
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -1450,7 +1463,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Annual Rate</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        @Html.TextBox("AnnualRate", "", new { @class = "form-control w-full", @placeholder = "Enter Annual Rate" })
+                                        @Html.TextBoxFor(model => model.objQuo.AnnualRate, new { @class = "form-control w-full", @placeholder = "Enter Annual Rate" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -1458,7 +1471,8 @@
                                         <label class="col-sm-12 col-form-label text-left">Premium (EAW * Rate)</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        @Html.TextBox("Premium_EAW_Rate", "", new { @class = "form-control w-full", @placeholder = "Enter Premium (EAW * Rate)" })
+                                        @Html.TextBoxFor(model => model.objQuo.Premium_EAW_Rate, new { @class = "form-control w-full", @placeholder = "Enter Premium (EAW * Rate)" })
+                                        
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -1466,7 +1480,8 @@
                                         <label class="col-sm-12 col-form-label text-left">Premium (Incl. 1.6% levy + Pol Fee RO.1)</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        @Html.TextBox("Premium_Incl_levy_PolFeeRO", "", new { @class = "form-control w-full", @placeholder = "Enter Premium (Incl. 1.6% levy + Pol Fee RO.1)" })
+                                        @Html.TextBoxFor(model => model.objQuo.Premium_Incl_levy_PolFeeRO, new { @class = "form-control w-full", @placeholder = "Enter Premium (Incl. 1.6% levy + Pol Fee RO.1)" })
+                                        
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -1474,7 +1489,7 @@
                                         <label class="col-sm-12 col-form-label text-left">5% VAT on WC premium</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        @Html.TextBox("VATonWCpremium", "", new { @class = "form-control w-full", @placeholder = "Enter 5% VAT on WC premium" })
+                                        @Html.TextBoxFor(model => model.objQuo.VATonWCpremium, new { @class = "form-control w-full", @placeholder = "Enter 5% VAT on WC premium" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -1482,7 +1497,8 @@
                                         <label class="col-sm-12 col-form-label text-left">Total Premium Incl. VAT</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        @Html.TextBox("TotalPremiumInclVAT", "", new { @class = "form-control w-full", @placeholder = "Enter Total Premium Incl. VAT" })
+                                        
+                                        @Html.TextBoxFor(model => model.objQuo.TotalPremiumInclVAT, new { @class = "form-control w-full", @placeholder = "Enter Total Premium Incl. VAT" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -1490,7 +1506,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Broker %</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        @Html.TextBox("BrokerPercentage", "", new { @class = "form-control w-full", @placeholder = "Enter Broker %" })
+                                        @Html.TextBoxFor(model => model.objQuo.BrokerPercentage, new { @class = "form-control w-full", @placeholder = "Enter Broker %" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -1498,7 +1514,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Broker Amount</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        @Html.TextBox("BrokerAmount", "", new { @class = "form-control w-full", @placeholder = "Enter Broker Amount" })
+                                        @Html.TextBoxFor(model => model.objQuo.BrokerAmount, new { @class = "form-control w-full", @placeholder = "Enter Broker Amount" })
                                     </div>
                                 </div>
                             </div>

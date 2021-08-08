@@ -23,7 +23,7 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
             return View();
         }
 
-        public ActionResult AddUpdateQuotationMaster(Quotation objQuotation, string Action, string FolderName)
+        public ActionResult AddUpdateQuotationMaster(QuotationModel objQuotation, string Action, string FolderName)
         {
             string msg = "";
             long QuotationId = 0;
@@ -31,7 +31,7 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
             string UserName = Session["UserName"].ToString();
             objGLIBAL = new GLIQuotationBAL();
 
-            string JParamVal = JsonConvert.SerializeObject(objQuotation);
+            string JParamVal = JsonConvert.SerializeObject(objQuotation.objQuo);
             QuotationId = objGLIBAL.DMLQuotationMaster(Action, JParamVal);
             if (QuotationId > 0)
             {

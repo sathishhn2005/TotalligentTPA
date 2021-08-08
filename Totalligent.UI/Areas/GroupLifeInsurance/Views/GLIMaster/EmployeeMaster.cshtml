@@ -5,39 +5,81 @@
     ViewBag.Title = "EmployeeMaster";
     Layout = "~/Areas/GroupLifeInsurance/Views/Shared/_Layout.cshtml";
 }
-@{ List<SelectListItem>
-            lstGender = new List<SelectListItem>
-                ();
-    lstGender.Add(new SelectListItem
+
+
+@{ List<SelectListItem> RelationList = new List<SelectListItem>();
+    RelationList.Add(new SelectListItem
+    {
+        Text = "Self",
+        Value = "Self"
+    });
+    RelationList.Add(new SelectListItem
+    {
+        Text = "Spouse",
+        Value = "Spouse"
+    });
+    RelationList.Add(new SelectListItem
+    {
+        Text = "Child",
+        Value = "Child"
+    }); }
+@{ List<SelectListItem> BankList = new List<SelectListItem>();
+    BankList.Add(new SelectListItem
+    {
+        Text = "HDFC",
+        Value = "HDFC"
+    });
+    BankList.Add(new SelectListItem
+    {
+        Text = "Kotak",
+        Value = "Kotak"
+    });
+    BankList.Add(new SelectListItem
+    {
+        Text = "Axis",
+        Value = "Axis"
+    }); }
+@{ List<SelectListItem> Gender = new List<SelectListItem>();
+    Gender.Add(new SelectListItem
     {
         Text = "Male",
         Value = "Male"
     });
-    lstGender.Add(new SelectListItem
+    Gender.Add(new SelectListItem
     {
         Text = "Female",
         Value = "Female"
     });
-
-}
-@{ List<SelectListItem>
-              lstNationlity = new List<SelectListItem>
-                  ();
-    lstNationlity.Add(new SelectListItem
+    Gender.Add(new SelectListItem
     {
-        Text = "India",
-        Value = "India"
-    });
-    lstNationlity.Add(new SelectListItem
+        Text = "Transgender",
+        Value = "Transgender"
+    }); }
+@{ List<SelectListItem> KYCList = new List<SelectListItem>();
+    KYCList.Add(new SelectListItem
     {
-        Text = "Oman",
-        Value = "Oman"
+        Text = "Passport",
+        Value = "Passport"
     });
-
-}
+    KYCList.Add(new SelectListItem
+    {
+        Text = "Aadhaar Card",
+        Value = "AadhaarCard"
+    });
+    KYCList.Add(new SelectListItem
+    {
+        Text = "PAN Card",
+        Value = "PANCard"
+    });
+    KYCList.Add(new SelectListItem
+    {
+        Text = "Ration Card",
+        Value = "RationCard",
+    }); }
 @Html.AntiForgeryToken()
-@*formEmployee*@
 
+
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
 <div class="p-t-30">
     <div class="box">
         <div class="box-header with-border">
@@ -57,200 +99,457 @@
                                 <div class="form-group m-b-15">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <h4 class="font-weight-bold text-center">Employee Basic Details</h4>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group m-b-15">
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            <label for="EmployeeName" class="col-form-label text-md-right w-full">Employee Name</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            @Html.TextBox("EmployeeName", "", new { @required = "required", @class = "form-control", placeholder = "Enter Employee Name" })
-
+                                            <h4 class="col-sm-12 font-weight-bold text-center">Employee Basic Details</h4>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group m-b-15">
                                     <div class="row">
                                         <div class="col-md-5">
-                                            <label for="EmployeeUID" class="col-form-label text-md-right w-full">Employee UID</label>
+                                            @Html.LabelFor(model => model.Relation, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+
                                         </div>
                                         <div class="col-md-6">
-                                            @Html.TextBox("EmployeeUniqueNumber", "", new { @required = "required", @class = "form-control", placeholder = "Enter Employee UID" })
-
+                                            @Html.DropDownList("RelationshipID", RelationList, new { @class = "form-control", @onchange = "callChangefunc(this.value)" })
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group m-b-15">
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            <label class="col-form-label text-md-right w-full">Client Name</label>
-
-                                        </div>
-                                        <div class="col-md-6">
-                                            @Html.DropDownList("ClientName", Model.lstClientMaster, "-- Select Client --", new { @class = "form-control" })
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group m-b-15">
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            <label class="col-form-label text-md-right w-full">Gender</label>
-
-                                        </div>
-                                        <div class="col-md-6">
-                                            @Html.DropDownList("Gender", lstGender, "-- Select Gender --", new { @class = "form-control" })
+                                <div id="EmployeeDetails">
+                                    <div class="form-group m-b-15">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                @Html.LabelFor(model => model.EmployeeName, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(model => model.EmployeeName, new { @required = "required", @class = "form-control", placeholder = "Enter Employee Name" })
+                                                @Html.ValidationMessageFor(model => model.EmployeeName, "", new { @class = "text-danger" })
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-
-                                <div class="form-group m-b-15">
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            <label for="DOB" class="col-form-label text-md-right w-full">DOB</label>
+                                    <div class="form-group m-b-15">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                @Html.LabelFor(model => model.EmployeeUniqueNumber, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(model => model.EmployeeUniqueNumber, new { @required = "required", @class = "form-control", placeholder = "Enter Employee UID" })
+                                                @Html.ValidationMessageFor(model => model.EmployeeUniqueNumber, "", new { @class = "text-danger" })
+                                            </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            @(Html.Kendo().DatePicker()
-                                        .Name("DOB")
+                                    </div>
+                                    <div class="form-group m-b-15">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <label class="col-sm-12 col-form-label text-right">Client Name</label>
+
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.DropDownList("EmployeeBankName", BankList, "-- Select Client --", new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-15">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <label class="col-sm-12 col-form-label text-right">Gender</label>
+
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.DropDownList("EmployeeGender", Gender, "-- Select Gender --", new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-15">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                @Html.LabelFor(model => model.DOB, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                            </div>
+                                            <div class="col-md-6">
+                                                @(Html.Kendo().DatePicker()
+                                        .Name("datepicker1")
                                         .Value("10/10/2011")
                                         .HtmlAttributes(new { style = "width: 100%", title = "datepicker" })
                                     )
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-15">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                @Html.LabelFor(model => model.Age, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(model => model.Age, new { @required = "required", @class = "form-control", placeholder = "Enter Age" })
+                                                @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-15">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                @Html.LabelFor(model => model.Nationality, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.DropDownList("BankName", BankList, "-- Select Nationality --", new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-15">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(model => model.Category, new { @required = "required", @class = "form-control", placeholder = "Enter Category" })
+                                                @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-15">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                @Html.LabelFor(model => model.SumAssured, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(model => model.SumAssured, new { @required = "required", @class = "form-control", placeholder = "Enter SumAssured" })
+                                                @Html.ValidationMessageFor(model => model.SumAssured, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-15">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                @Html.LabelFor(model => model.Salary, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(model => model.Salary, new { @required = "required", @class = "form-control", placeholder = "Enter Salary" })
+                                                @Html.ValidationMessageFor(model => model.Salary, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-15">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                @Html.LabelFor(model => model.EAW, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(model => model.EAW, new { @required = "required", @class = "form-control", placeholder = "Enter EAW" })
+                                                @Html.ValidationMessageFor(model => model.EAW, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-15">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                @Html.LabelFor(model => model.EffectiveDate, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                            </div>
+                                            <div class="col-md-6">
+                                                @(Html.Kendo().DatePicker()
+                                        .Name("EffectiveDate")
+                                        .Value("08/08/2021")
+                                        .HtmlAttributes(new { style = "width: 100%", title = "datepicker" })
+                                    )
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-15">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                @Html.LabelFor(model => model.Remarks, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(model => model.Remarks, new { @required = "required", @class = "form-control", placeholder = "Enter Remarks" })
+                                                @Html.ValidationMessageFor(model => model.Remarks, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-15">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <label class="col-sm-12 col-form-label text-right">Status</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(model => model.Remarks, new { @required = "required", @class = "form-control", placeholder = "Enter Status" })
+                                                @Html.ValidationMessageFor(model => model.Remarks, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-none">
+
+                                        <div class="form-group m-b-15">
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                    @Html.LabelFor(model => model.EntryType, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                </div>
+                                                <div class="col-md-6">
+                                                    @Html.TextBoxFor(model => model.EntryType, new { @required = "required", @class = "form-control", placeholder = "Enter Employee Name" })
+                                                    @Html.ValidationMessageFor(model => model.EntryType, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group m-b-15">
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            <label for="Age" class="col-form-label text-md-right w-full">Age</label>
+                                <div id="SpouseDetails" style="display: none;">
+                                    <div class="form-group m-b-15">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <label for="BankName" class="col-form-label text-md-right w-full">Spouse Name</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.TextBox("SpouseName", "", new { @required = "required", @class = "form-control", placeholder = "Enter Spouse Name" })
+                                            </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            @Html.TextBox("Age", "", new { @required = "required", @class = "form-control", placeholder = "Enter Age" })
+                                    </div>
+                                    <div class="form-group m-b-15">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <label class="col-sm-12 col-form-label text-right">Gender</label>
 
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.DropDownList("SpouseGender", Gender, "-- Select Gender --", new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-15">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                @Html.LabelFor(model => model.DOB, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                            </div>
+                                            <div class="col-md-6">
+                                                @(Html.Kendo().DatePicker()
+                                        .Name("Spousedatepicker")
+                                        .Value("10/10/2011")
+                                        .HtmlAttributes(new { style = "width: 100%", title = "datepicker" })
+                                    )
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-15">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                @Html.LabelFor(model => model.Age, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(model => model.Age, new { @required = "required", @class = "form-control", placeholder = "Enter Age" })
+                                                @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-15">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                @Html.LabelFor(model => model.Nationality, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.DropDownList("BankName", BankList, "-- Select Nationality --", new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-15">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(model => model.Category, new { @required = "required", @class = "form-control", placeholder = "Enter Category" })
+                                                @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-15">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                @Html.LabelFor(model => model.SumAssured, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(model => model.SumAssured, new { @required = "required", @class = "form-control", placeholder = "Enter SumAssured" })
+                                                @Html.ValidationMessageFor(model => model.SumAssured, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-15">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                @Html.LabelFor(model => model.Salary, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(model => model.Salary, new { @required = "required", @class = "form-control", placeholder = "Enter Salary" })
+                                                @Html.ValidationMessageFor(model => model.Salary, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-15">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                @Html.LabelFor(model => model.EffectiveDate, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(model => model.EffectiveDate, new { @required = "required", @class = "form-control", placeholder = "Enter Effective Date" })
+                                                @Html.ValidationMessageFor(model => model.EffectiveDate, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-15">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                @Html.LabelFor(model => model.Remarks, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(model => model.Remarks, new { @required = "required", @class = "form-control", placeholder = "Enter Remarks" })
+                                                @Html.ValidationMessageFor(model => model.Remarks, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-15">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <label class="col-sm-12 col-form-label text-right">Status</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(model => model.Remarks, new { @required = "required", @class = "form-control", placeholder = "Enter Status" })
+                                                @Html.ValidationMessageFor(model => model.Remarks, "", new { @class = "text-danger" })
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group m-b-15">
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            <label for="Nationality" class="col-form-label text-md-right w-full">Nationality</label>
-
+                                <div id="ChildDetails" style="display: none;">
+                                    <div class="form-group m-b-15">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <label class="col-form-label text-md-right w-full">Child Name</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(model => model.EmployeeName, new { @required = "required", @class = "form-control", placeholder = "Enter Child Name" })
+                                                @Html.ValidationMessageFor(model => model.EmployeeName, "", new { @class = "text-danger" })
+                                            </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            @Html.DropDownList("Nationality", lstNationlity, "-- Select Nationality --", new { @class = "form-control" })
+                                    </div>
+                                    <div class="form-group m-b-15">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <label class="col-sm-12 col-form-label text-right">Gender</label>
+
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.DropDownList("BankName", Gender, "-- Select Gender --", new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-15">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                @Html.LabelFor(model => model.DOB, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                            </div>
+                                            <div class="col-md-6">
+                                                @(Html.Kendo().DatePicker()
+                                        .Name("datepicker3")
+                                        .Value("10/10/2011")
+                                        .HtmlAttributes(new { style = "width: 100%", title = "datepicker" })
+                                    )
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-15">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                @Html.LabelFor(model => model.Age, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(model => model.Age, new { @required = "required", @class = "form-control", placeholder = "Enter Age" })
+                                                @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-15">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                @Html.LabelFor(model => model.Nationality, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.DropDownList("BankName", BankList, "-- Select Nationality --", new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-15">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(model => model.Category, new { @required = "required", @class = "form-control", placeholder = "Enter Category" })
+                                                @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-15">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                @Html.LabelFor(model => model.SumAssured, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(model => model.SumAssured, new { @required = "required", @class = "form-control", placeholder = "Enter SumAssured" })
+                                                @Html.ValidationMessageFor(model => model.SumAssured, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-15">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                @Html.LabelFor(model => model.Salary, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(model => model.Salary, new { @required = "required", @class = "form-control", placeholder = "Enter Salary" })
+                                                @Html.ValidationMessageFor(model => model.Salary, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-15">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                @Html.LabelFor(model => model.EffectiveDate, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(model => model.EffectiveDate, new { @required = "required", @class = "form-control", placeholder = "Enter Effective Date" })
+                                                @Html.ValidationMessageFor(model => model.EffectiveDate, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-15">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                @Html.LabelFor(model => model.Remarks, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(model => model.Remarks, new { @required = "required", @class = "form-control", placeholder = "Enter Remarks" })
+                                                @Html.ValidationMessageFor(model => model.Remarks, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-15">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <label class="col-sm-12 col-form-label text-right">Status</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.TextBoxFor(model => model.Remarks, new { @required = "required", @class = "form-control", placeholder = "Enter Status" })
+                                                @Html.ValidationMessageFor(model => model.Remarks, "", new { @class = "text-danger" })
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group m-b-15">
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            <label for="Category" class="col-form-label text-md-right w-full">Category</label>
-
-                                        </div>
-                                        <div class="col-md-6">
-                                            @Html.TextBox("Category", "", new { @required = "required", @class = "form-control", placeholder = "Enter Category" })
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group m-b-15">
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            <label for="SumAssured" class="col-form-label text-md-right w-full">Sum Assured</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            @Html.TextBox("SumAssured", "", new { @required = "required", @class = "form-control", placeholder = "Enter SumAssured" })
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group m-b-15">
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            <label for="ClientRate" class="col-form-label text-md-right w-full">Client Rate</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            @Html.TextBox("ClientRate", "", new { @required = "required", @class = "form-control", placeholder = "Enter ClientRate" })
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group m-b-15">
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            <label for="RIRate" class="col-form-label text-md-right w-full">RI Rate</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            @Html.TextBox("RIRate", "", new { @required = "required", @class = "form-control", placeholder = "Enter RIRate" })
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group m-b-15">
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            <label for="Salary" class="col-form-label text-md-right w-full">Salary</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            @Html.TextBox("Salary", "", new { @required = "required", @class = "form-control", placeholder = "Enter Salary" })
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group m-b-15">
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            <label for="EmployeeName" class="col-form-label text-md-right w-full">EAW</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            @Html.TextBox("EAW", "", new { @required = "required", @class = "form-control", placeholder = "Enter EAW" })
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group m-b-15">
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            <label for="EffectiveDate" class="col-form-label text-md-right w-full">Effective Date</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            @Html.TextBox("EffectiveDate", "", new { @required = "required", @class = "form-control", placeholder = "Enter Effective Date" })
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group m-b-15">
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            <label for="Remarks" class="col-form-label text-md-right w-full">Remarks</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            @Html.TextBox("Remarks", "", new { @required = "required", @class = "form-control", placeholder = "Enter Remarks" })
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group m-b-15">
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            <label class="col-form-label text-md-right w-full">Status</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            @Html.TextBox("Status", "", new { @required = "required", @class = "form-control", placeholder = "Enter Status" })
-
-                                        </div>
-                                    </div>
-                                </div>
-
                             </div>
                             <div class="col-12 col-md-6">
                                 <div class="form-group m-b-15">
                                     <div class="row">
                                         <div class="col-12 col-md-10">
-                                            <h4 class="font-weight-bold text-center">Employee's Account Details</h4>
+                                            <h4 class="col-sm-12 font-weight-bold text-center">Employee's Account Details</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -260,7 +559,7 @@
                                             <label for="BankName" class="col-form-label text-md-right w-full">Bank Name</label>
                                         </div>
                                         <div class="col-md-6">
-                                            @Html.DropDownList("BankName", Model.lstBankMaster, "-- Select Bank --", new { @class = "form-control" })
+                                            @Html.DropDownList("BankName", BankList, "-- Select Bank --", new { @class = "form-control" })
                                         </div>
                                     </div>
                                 </div>
@@ -319,19 +618,93 @@
 
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
-                            <div class="d-none col-12">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <div class="col-md-12 text-center">
-                                        <button class="btn btn-primary-login m-20" type="button">
+                                        <button class="btn btn-primary-login m-20" type="button" onclick="temptableAdd();">
                                             <i class="mdi mdi-plus"></i> Add Employee
                                         </button>
                                     </div>
                                 </div>
                             </div>
-
+                            <div class="col-12">
+                                <div class="box">
+                                    <div class="box-body no-padding">
+                                        <div class="table-responsive">
+                                            <table id="tempEmpDetailsTable" class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Gender</th>
+                                                        <th>Relation</th>
+                                                        <th>Client Name</th>
+                                                        <th>Age</th>
+                                                        <th>Nationality</th>
+                                                        <th>Category</th>
+                                                        <th>Salary</th>
+                                                        <th>Effective Date</th>
+                                                        <th class="text-center">Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td><a href="javascript:void(0)">Sandy</a></td>
+                                                        <td>Male</td>
+                                                        <td><span class="badge badge-pill badge-primary">Self</span></td>
+                                                        <td>HDFC Client</td>
+                                                        <td>53</td>
+                                                        <td>Indian</td>
+                                                        <td>Band A</td>
+                                                        <td>50,00,000</td>
+                                                        <td>EAW - 1</td>
+                                                        <td class="text-center"><i class="mdi mdi-pencil text-primary mx-3"></i><i class="mdi mdi-delete text-danger mx-3"></i></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><a href="javascript:void(0)">Kajal</a></td>
+                                                        <td>Female</td>
+                                                        <td><span class="badge badge-pill badge-warning">Spouse</span></td>
+                                                        <td class="text-muted">-N/A-</td>
+                                                        <td>48</td>
+                                                        <td>Indian</td>
+                                                        <td>Band A</td>
+                                                        <td>45,00,000</td>
+                                                        <td>EAW - 1</td>
+                                                        <td class="text-center"><i class="mdi mdi-pencil text-primary mx-3"></i><i class="mdi mdi-delete text-danger mx-3"></i></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><a href="javascript:void(0)">Slyvia</a></td>
+                                                        <td>Female</td>
+                                                        <td><span class="badge badge-pill badge-warning">Spouse</span></td>
+                                                        <td class="text-muted">-N/A-</td>
+                                                        <td>45</td>
+                                                        <td>Indian</td>
+                                                        <td>Band A</td>
+                                                        <td>57,00,000</td>
+                                                        <td>EAW - 1</td>
+                                                        <td class="text-center"><i class="mdi mdi-pencil text-primary mx-3"></i><i class="mdi mdi-delete text-danger mx-3"></i></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><a href="javascript:void(0)">Sam</a></td>
+                                                        <td>Male</td>
+                                                        <td><span class="badge badge-pill badge-danger">Child</span></td>
+                                                        <td class="text-muted">-N/A-</td>
+                                                        <td>10</td>
+                                                        <td>Indian</td>
+                                                        <td>Band A</td>
+                                                        <td>N/A</td>
+                                                        <td>EAW - 1</td>
+                                                        <td class="text-center"><i class="mdi mdi-pencil text-primary mx-3"></i><i class="mdi mdi-delete text-danger mx-3"></i></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <!-- /.box-body -->
+                                </div>
+                                <!-- /.box -->
+                            </div>
                             <div class="col-12">
                                 <div class="form-group">
                                     <div class="col-md-12 text-center">
@@ -994,5 +1367,35 @@
         $("#btnUpload").removeAttr("disabled", "disabled");
         //}
         //alert('The file "' + fileName + '" has been selected.');
-    });</script>*@
+    });
+    function callChangefunc(val) {
+        if (val === 'Self') {
+            $("#EmployeeDetails").show();
+            $("#SpouseDetails").hide();
+            $("#ChildDetails").hide();
+        } else if (val === 'Spouse') {
+            $("#EmployeeDetails").hide();
+            $("#SpouseDetails").show();
+            $("#ChildDetails").hide();
+        } else if (val === 'Child') {
+            $("#EmployeeDetails").hide();
+            $("#SpouseDetails").hide();
+            $("#ChildDetails").show();
+        }
+    }
+    function temptableAdd() {
+        $("#tempEmpDetailsTable tbody").append("<tr>" +
+            "<td>" + $("#EmployeeName").val() + "</td>" +
+            "<td>" + $("#EmployeeGender").val() + "</td>" +
+            "<td>" + '<span class="badge badge-pill badge-primary">' + $("#RelationshipID").val() + '</span>' + "</td>" +
+            "<td>" + $("#EmployeeBankName").val() + "</td>" +
+            "<td>" + $("#Age").val() + "</td>" +
+            "<td>" + $("#BankName").val() + "</td>" +
+            "<td>" + $("#Category").val() + "</td>" +
+            "<td>" + $("#Salary").val() + "</td>" +
+            "<td>" + $("#EffectiveDate").val() + "</td>" +
+            "<td class='text-center'>" + '<i class="mdi mdi-pencil text-primary mx-3"></i><i class="mdi mdi-delete text-danger mx-3"></i>' + "</td>" +
+            "</tr>");
+    }
+</script>*@
 

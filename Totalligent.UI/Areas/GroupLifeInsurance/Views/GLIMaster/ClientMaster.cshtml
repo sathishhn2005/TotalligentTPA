@@ -500,7 +500,7 @@
             }
             if ($.trim($('#LOBName').val()) == "") {
                 alert('Please enter LOB');
-                $('#LOB').focus();
+                $('#LOBName').focus();
                 return false;
             }
             if ($.trim($('#ProducerType').val()) == "") {
@@ -752,7 +752,7 @@
 
         var objRow = JSON.parse($("#" + JsonObj).val());
         $('#ClientCompanyName').val(objRow.ClientCompanyName);
-        $('#InsuranceCompanyId').val(objRow.InsuranceCompanyId);
+        $('#InsurancecompanyName').val(objRow.InsuranceCompanyId);
         $('#Address').val(objRow.Address);
         $('#City').val(objRow.City);
         $('#State').val(objRow.State);
@@ -761,8 +761,9 @@
         $('#MobileNumber').val(objRow.MobileNumber);
         $('#EmailId').val(objRow.EmailId);
         $('#Currency').val(objRow.Currency);
-        $('#LOB').val(objRow.LOB);
+        $('#LOBName').val(objRow.LOBName);
         $('#ProducerType').val(objRow.ProducerType);
+        GetUsers(objRow.ProducerType);
         $('#ProducerName').val(objRow.ProducerName);
         $('#ProducerCommission').val(objRow.ProducerCommission);
         $('#RINumber').val(objRow.RINumber);
@@ -776,7 +777,7 @@
         $("#AccountNumber").val(objRow.AccountNumber);
         $("#RepeatAccountNumber").val(objRow.AccountNumber);
         $("#IFSCCode").val(objRow.IFSCCode);
-        $("#hdnCCMasterID").val(objRow.ReInsurerMasterId);
+        $("#hdnCCMasterID").val(objRow.ClientCompanyMasterId);
 
         $("#btnClientMaster").val("Update");
 

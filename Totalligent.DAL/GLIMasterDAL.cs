@@ -733,28 +733,31 @@ namespace Totalligent.DAL
 
                     if (dtResult.Rows.Count > 0)
                     {
-                        lstCCMaster = dtResult.AsEnumerable().Select(U => new ClientCompanyMaster()
-                        {
-                            ClientCompanyMasterId = U.Field<long>("ClientCompanyMasterId"),
-                            ClientCompanyName = U.Field<string>("ClientCompanyName"),
-                            ClientCompCode = U.Field<string>("ClientCompCode"),
-                            ContactPerson = U.Field<string>("ContactPerson"),
-                            MobileNumber = U.Field<string>("MobileNumber"),
-                            EmailId = U.Field<string>("EmailId"),
-                            Address = U.Field<string>("Address"),
-                            City = U.Field<string>("City"),
-                            State = U.Field<string>("State"),
-                            Zipcode = U.Field<string>("Zipcode"),
-                            BankID = U.Field<int>("BankID"),
-                            IFSCCode = U.Field<string>("IFSCCode"),
-                            //BankName = U.Field<string>("BankName"),
-                            AccountNumber = U.Field<string>("AccountNumber"),
-                            UploadKYC_01 = U.Field<string>("UploadKYC_01"),
-                            KYCUploadPath = U.Field<string>("KYCUploadPath"),
+                        DTtoListConverter.ConvertTo(dtResult, out lstCCMaster);
+                        //lstCCMaster = dtResult.AsEnumerable().Select(U => new ClientCompanyMaster()
+                        //{
+                        //    ClientCompanyMasterId = U.Field<long>("ClientCompanyMasterId"),
+                        //    InsuranceCompanyId = U.Field<long>("InsuranceCompanyId"),
+                            
+                        //    ClientCompanyName = U.Field<string>("ClientCompanyName"),
+                        //    ClientCompCode = U.Field<string>("ClientCompCode"),
+                        //    ContactPerson = U.Field<string>("ContactPerson"),
+                        //    MobileNumber = U.Field<string>("MobileNumber"),
+                        //    EmailId = U.Field<string>("EmailId"),
+                        //    Address = U.Field<string>("Address"),
+                        //    City = U.Field<string>("City"),
+                        //    State = U.Field<string>("State"),
+                        //    Zipcode = U.Field<string>("Zipcode"),
+                        //    BankID = U.Field<int>("BankID"),
+                        //    IFSCCode = U.Field<string>("IFSCCode"),
+                        //    //BankName = U.Field<string>("BankName"),
+                        //    AccountNumber = U.Field<string>("AccountNumber"),
+                        //    UploadKYC_01 = U.Field<string>("UploadKYC_01"),
+                        //    KYCUploadPath = U.Field<string>("KYCUploadPath"),
 
 
 
-                        }).ToList();
+                        //}).ToList();
                     }
 
                 }

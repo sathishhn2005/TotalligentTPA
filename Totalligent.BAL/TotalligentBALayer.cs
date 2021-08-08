@@ -396,39 +396,33 @@ namespace Totalligent.BAL
         public long GetPolicyIssuance(string DraftNumber, out List<Quotation> lstQuotation)
         {
             long returnCode = -1;
-            using (TransactionScope transactionScope = new TransactionScope())
+
+            try
             {
-                try
-                {
-                    returnCode = objTotalligentDAL.GetPolicyIssuance(DraftNumber, out lstQuotation);
-                    transactionScope.Complete();
-                    transactionScope.Dispose();
-                }
-                catch (Exception ex)
-                {
-                    transactionScope.Dispose();
-                    throw ex;
-                }
+                returnCode = objTotalligentDAL.GetPolicyIssuance(DraftNumber, out lstQuotation);
+
             }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
             return returnCode;
         }
-        public long EditQutation(string UserName, int QuotationId, out Quotation lstInfo)
+        public long EditQutation(string UserName, long? QuotationId, out Quotation lstInfo)
         {
             long returnCode = -1;
-            using (TransactionScope transactionScope = new TransactionScope())
+
+            try
             {
-                try
-                {
-                    returnCode = objTotalligentDAL.EditQuotation(UserName, QuotationId, out lstInfo);
-                    transactionScope.Complete();
-                    transactionScope.Dispose();
-                }
-                catch (Exception ex)
-                {
-                    transactionScope.Dispose();
-                    throw ex;
-                }
+                returnCode = objTotalligentDAL.EditQuotation(UserName, QuotationId, out lstInfo);
             }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
             return returnCode;
         }
 
@@ -501,7 +495,7 @@ namespace Totalligent.BAL
             }
         }
 
-        public long InsertEndorsement(Endorsement obj, long EndorsementId, out List<Endorsement> lst,DataTable dtGLEndorsement, DataTable dtWLEndorsement)
+        public long InsertEndorsement(Endorsement obj, long EndorsementId, out List<Endorsement> lst, DataTable dtGLEndorsement, DataTable dtWLEndorsement)
         {
             long returnCode = -1;
             using (TransactionScope transactionScope = new TransactionScope())

@@ -13,23 +13,25 @@ using System.IO.Compression;
 using Totalligent.Utilities;
 using System.Data;
 
+
 namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
 {
     public class UnderWritingController : Controller
     {
+        readonly TotalligentBALayer objBALTot = new TotalligentBALayer();
         // GET: GroupLifeInsurance/UnderWriting
         public ActionResult Masters()
         {
             return View();
         }
-        public ActionResult Quotation()
+        public ActionResult Quotation(long? QId)
         {
             MasterSelectedList objCCMasters = new MasterSelectedList();
             QuotationModel obj = new QuotationModel();
             new GLIMasterBAL().GetMasterData(out objCCMasters);
             var selectListCCMaster = new List<SelectListItem>();
             var selectListICM = new List<SelectListItem>();
-           
+
             foreach (var element in objCCMasters.lstInsCompddl)
             {
                 selectListICM.Add(new SelectListItem
@@ -48,11 +50,35 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
                 });
                 obj.lstClientMaster = selectListCCMaster;
             }
+            if (QId > 0)
+            {
+                string name = string.Empty;
+
+                long res = objBALTot.EditQutation(name, QId, out Quotation QuoObject);
+                obj.objQuo = QuoObject;
+            }
             return View(obj);
         }
-        public ActionResult PolicyIssuance()
+        public ActionResult PolicyIssuance(string DraftNo)
         {
-            return View();
+            long returnCode = -1;
+            List<Quotation> lstQuotation = new List<Quotation>();
+            try
+            {
+
+                returnCode = objBALTot.GetPolicyIssuance(DraftNo, out lstQuotation);
+                if (lstQuotation.Count > 0)
+                {
+                    return View(lstQuotation);
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return View(lstQuotation);
         }
         public ActionResult CardIssuance()
         {

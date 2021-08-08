@@ -22,7 +22,7 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
             try
             {
                 string UserName = "Sathish";
-                //returnCode = objBALTot.GetUWDB(UserName, out obj);
+                returnCode = objBALTot.GetUWDB(UserName, out obj);
                 if (obj != null)
                 {
                     return View(obj);
