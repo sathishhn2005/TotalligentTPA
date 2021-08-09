@@ -11,12 +11,14 @@ namespace Totalligent.BusinessEntities
         public long EmployeeId { get; set; }
 
         public string EmployeeName { get; set; }
+        public string Relation { get; set; }
+        
         public string ClientName { get; set; }
 
         public string EmployeeUniqueNumber { get; set; }
         public string KYCUploadPath { get; set; }
 
-        public string Relation { get; set; }
+        public int RelationId { get; set; }
 
         public string Nationality { get; set; }
 

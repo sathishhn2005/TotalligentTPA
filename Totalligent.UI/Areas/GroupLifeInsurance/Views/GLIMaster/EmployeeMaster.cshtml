@@ -106,11 +106,12 @@
                                 <div class="form-group m-b-15">
                                     <div class="row">
                                         <div class="col-md-5">
-                                            @Html.LabelFor(model => model.Relation, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+
+                                            @Html.Label("Relationship", "Relationship", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
 
                                         </div>
                                         <div class="col-md-6">
-                                            @Html.DropDownList("RelationshipID", RelationList, new { @class = "form-control", @onchange = "callChangefunc(this.value)" })
+                                            @Html.DropDownList("RelationshipId", RelationList, new { @class = "form-control", @onchange = "callChangefunc(this.value)" })
                                         </div>
                                     </div>
                                 </div>
@@ -118,22 +119,21 @@
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.LabelFor(model => model.EmployeeName, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("EmployeeName", "EmployeeName", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBoxFor(model => model.EmployeeName, new { @required = "required", @class = "form-control", placeholder = "Enter Employee Name" })
-                                                @Html.ValidationMessageFor(model => model.EmployeeName, "", new { @class = "text-danger" })
+                                                @Html.TextBox("EmployeeName", "", new { @required = "required", @class = "form-control", placeholder = "Enter Employee Name" })
+
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.LabelFor(model => model.EmployeeUniqueNumber, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("EmployeeUniqueNumber", "EmployeeUniqueNumber", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBoxFor(model => model.EmployeeUniqueNumber, new { @required = "required", @class = "form-control", placeholder = "Enter Employee UID" })
-                                                @Html.ValidationMessageFor(model => model.EmployeeUniqueNumber, "", new { @class = "text-danger" })
+                                                @Html.TextBox("EmployeeUniqueNumber", "", new { @required = "required", @class = "form-control", placeholder = "Enter Employee UID" })
                                             </div>
                                         </div>
                                     </div>
@@ -162,106 +162,108 @@
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.LabelFor(model => model.DOB, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("DOB", "DOB", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
                                             </div>
                                             <div class="col-md-6">
-                                                @(Html.Kendo().DatePicker()
-                                        .Name("datepicker1")
-                                        .Value("10/10/2011")
-                                        .HtmlAttributes(new { style = "width: 100%", title = "datepicker" })
-                                    )
+                                                @Html.TextBox("DOB", "", new { @type = "date", @required = "required", @class = "form-control", placeholder = "Enter DOB" })
+
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.LabelFor(model => model.Age, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("Age", "Age", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBoxFor(model => model.Age, new { @required = "required", @class = "form-control", placeholder = "Enter Age" })
-                                                @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
+                                                @Html.TextBox("Age", "", new { @required = "required", @class = "form-control", placeholder = "Enter Age" })
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.LabelFor(model => model.Nationality, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("Nationality", "Nationality", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
 
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.DropDownList("BankName", BankList, "-- Select Nationality --", new { @class = "form-control" })
+                                                @Html.TextBox("Nationality", "", new { @required = "required", @class = "form-control", placeholder = "Enter Age" })
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("BankName", "BankName", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
 
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBoxFor(model => model.Category, new { @required = "required", @class = "form-control", placeholder = "Enter Category" })
-                                                @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
+                                                @Html.DropDownList("BankName", BankList, "-- Select Bank --", new { @class = "form-control" })
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.LabelFor(model => model.SumAssured, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("Category", "Category", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBoxFor(model => model.SumAssured, new { @required = "required", @class = "form-control", placeholder = "Enter SumAssured" })
-                                                @Html.ValidationMessageFor(model => model.SumAssured, "", new { @class = "text-danger" })
+                                                @Html.TextBox("Category", "", new { @required = "required", @class = "form-control", placeholder = "Enter Category" })
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.LabelFor(model => model.Salary, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("SumAssured", "SumAssured", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBoxFor(model => model.Salary, new { @required = "required", @class = "form-control", placeholder = "Enter Salary" })
-                                                @Html.ValidationMessageFor(model => model.Salary, "", new { @class = "text-danger" })
+                                                @Html.TextBox("SumAssured", "", new { @required = "required", @class = "form-control", placeholder = "Enter SumAssured" })
+
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.LabelFor(model => model.EAW, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("Salary", "Salary", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBoxFor(model => model.EAW, new { @required = "required", @class = "form-control", placeholder = "Enter EAW" })
-                                                @Html.ValidationMessageFor(model => model.EAW, "", new { @class = "text-danger" })
+                                                @Html.TextBox("Salary", "", new { @required = "required", @class = "form-control", placeholder = "Enter Salary" })
+
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.LabelFor(model => model.EffectiveDate, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("EAW", "EAW", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
                                             </div>
                                             <div class="col-md-6">
-                                                @(Html.Kendo().DatePicker()
-                                        .Name("EffectiveDate")
-                                        .Value("08/08/2021")
-                                        .HtmlAttributes(new { style = "width: 100%", title = "datepicker" })
-                                    )
+                                                @Html.TextBox("EAW", "", new { @required = "required", @class = "form-control", placeholder = "Enter EAW" })
+
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.LabelFor(model => model.Remarks, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("EffectiveDate", "EffectiveDate", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBoxFor(model => model.Remarks, new { @required = "required", @class = "form-control", placeholder = "Enter Remarks" })
-                                                @Html.ValidationMessageFor(model => model.Remarks, "", new { @class = "text-danger" })
+                                                @Html.TextBox("EffectiveDate", "", new { @type = "date", @required = "required", @class = "form-control", placeholder = "Enter EffectiveDate" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-15">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                @Html.Label("Remarks", "Remarks", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.TextBox("Remarks", "", new { @required = "required", @class = "form-control", placeholder = "Enter Remarks" })
+                                                
                                             </div>
                                         </div>
                                     </div>
@@ -271,31 +273,18 @@
                                                 <label class="col-sm-12 col-form-label text-right">Status</label>
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBoxFor(model => model.Remarks, new { @required = "required", @class = "form-control", placeholder = "Enter Status" })
-                                                @Html.ValidationMessageFor(model => model.Remarks, "", new { @class = "text-danger" })
+                                                @Html.TextBox("Status", "Status", new { @required = "required", @class = "form-control", placeholder = "Enter Status" })
+                                                
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="d-none">
-
-                                        <div class="form-group m-b-15">
-                                            <div class="row">
-                                                <div class="col-md-5">
-                                                    @Html.LabelFor(model => model.EntryType, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
-                                                </div>
-                                                <div class="col-md-6">
-                                                    @Html.TextBoxFor(model => model.EntryType, new { @required = "required", @class = "form-control", placeholder = "Enter Employee Name" })
-                                                    @Html.ValidationMessageFor(model => model.EntryType, "", new { @class = "text-danger" })
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                   
                                 </div>
                                 <div id="SpouseDetails" style="display: none;">
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                <label for="BankName" class="col-form-label text-md-right w-full">Spouse Name</label>
+                                                <label for="SpouseName" class="col-form-label text-md-right w-full">Spouse Name</label>
                                             </div>
                                             <div class="col-md-6">
                                                 @Html.TextBox("SpouseName", "", new { @required = "required", @class = "form-control", placeholder = "Enter Spouse Name" })
@@ -316,92 +305,87 @@
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.LabelFor(model => model.DOB, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                <label class="col-sm-12 col-form-label text-right">Spouse DOB</label>
                                             </div>
                                             <div class="col-md-6">
-                                                @(Html.Kendo().DatePicker()
-                                        .Name("Spousedatepicker")
-                                        .Value("10/10/2011")
-                                        .HtmlAttributes(new { style = "width: 100%", title = "datepicker" })
-                                    )
+                                                @Html.TextBox("SpouseDOB", "", new { @type = "date", @required = "required", @class = "form-control", placeholder = "Enter SpouseDOB" })
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.LabelFor(model => model.Age, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("Age", "Age", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBoxFor(model => model.Age, new { @required = "required", @class = "form-control", placeholder = "Enter Age" })
-                                                @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
+                                                @Html.TextBox("Age", "", new { @required = "required", @class = "form-control", placeholder = "Enter Age" })
+                                                
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.LabelFor(model => model.Nationality, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("Nationality", "Nationality", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
 
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.DropDownList("BankName", BankList, "-- Select Nationality --", new { @class = "form-control" })
+                                                @Html.TextBox("Nationality", "", new { @required = "required", @class = "form-control", placeholder = "Enter Nationality" })
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("Category", "Category", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
 
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBoxFor(model => model.Category, new { @required = "required", @class = "form-control", placeholder = "Enter Category" })
-                                                @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
+                                                @Html.TextBox("Category", "", new { @required = "required", @class = "form-control", placeholder = "Enter Category" })
+
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.LabelFor(model => model.SumAssured, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("SumAssured", "SumAssured", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBoxFor(model => model.SumAssured, new { @required = "required", @class = "form-control", placeholder = "Enter SumAssured" })
-                                                @Html.ValidationMessageFor(model => model.SumAssured, "", new { @class = "text-danger" })
+                                                @Html.TextBox("SumAssured", "", new { @required = "required", @class = "form-control", placeholder = "Enter SumAssured" })
+                                                
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.LabelFor(model => model.Salary, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("Salary", "Salary", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBoxFor(model => model.Salary, new { @required = "required", @class = "form-control", placeholder = "Enter Salary" })
-                                                @Html.ValidationMessageFor(model => model.Salary, "", new { @class = "text-danger" })
+                                                @Html.TextBox("Salary", "", new { @required = "required", @class = "form-control", placeholder = "Enter Salary" })
+                                                
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.LabelFor(model => model.EffectiveDate, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("EffectiveDate", "EffectiveDate", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBoxFor(model => model.EffectiveDate, new { @required = "required", @class = "form-control", placeholder = "Enter Effective Date" })
-                                                @Html.ValidationMessageFor(model => model.EffectiveDate, "", new { @class = "text-danger" })
+                                                @Html.TextBox("EffectiveDate", "", new { @type = "date", @required = "required", @class = "form-control", placeholder = "Enter EffectiveDate" })
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.LabelFor(model => model.Remarks, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("Remarks","", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBoxFor(model => model.Remarks, new { @required = "required", @class = "form-control", placeholder = "Enter Remarks" })
-                                                @Html.ValidationMessageFor(model => model.Remarks, "", new { @class = "text-danger" })
+                                                @Html.TextBox("Remarks", "", new { @required = "required", @class = "form-control", placeholder = "Enter Remarks" })
+                                                
                                             </div>
                                         </div>
                                     </div>
@@ -411,8 +395,8 @@
                                                 <label class="col-sm-12 col-form-label text-right">Status</label>
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBoxFor(model => model.Remarks, new { @required = "required", @class = "form-control", placeholder = "Enter Status" })
-                                                @Html.ValidationMessageFor(model => model.Remarks, "", new { @class = "text-danger" })
+                                                @Html.TextBox("Status", "", new { @required = "required", @class = "form-control", placeholder = "Enter Status" })
+
                                             </div>
                                         </div>
                                     </div>
@@ -424,8 +408,7 @@
                                                 <label class="col-form-label text-md-right w-full">Child Name</label>
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBoxFor(model => model.EmployeeName, new { @required = "required", @class = "form-control", placeholder = "Enter Child Name" })
-                                                @Html.ValidationMessageFor(model => model.EmployeeName, "", new { @class = "text-danger" })
+                                                @Html.TextBox("ChildName", "", new { @required = "required", @class = "form-control", placeholder = "Enter Child Name" })
                                             </div>
                                         </div>
                                     </div>
@@ -436,99 +419,95 @@
 
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.DropDownList("BankName", Gender, "-- Select Gender --", new { @class = "form-control" })
+                                                @Html.DropDownList("Gender", Gender, "-- Select Gender --", new { @class = "form-control" })
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.LabelFor(model => model.DOB, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("DOB", "DOB", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
                                             </div>
                                             <div class="col-md-6">
-                                                @(Html.Kendo().DatePicker()
-                                        .Name("datepicker3")
-                                        .Value("10/10/2011")
-                                        .HtmlAttributes(new { style = "width: 100%", title = "datepicker" })
-                                    )
+                                                @Html.TextBox("DOB", "", new { @type = "date", @required = "required", @class = "form-control", placeholder = "Enter DOB" })
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.LabelFor(model => model.Age, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("Age", "Age", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBoxFor(model => model.Age, new { @required = "required", @class = "form-control", placeholder = "Enter Age" })
-                                                @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
+                                                @Html.TextBox("Age","", new { @required = "required", @class = "form-control", placeholder = "Enter Age" })
+                                                
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.LabelFor(model => model.Nationality, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("Nationality", "Nationality", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
 
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.DropDownList("BankName", BankList, "-- Select Nationality --", new { @class = "form-control" })
+                                                @Html.TextBox("Nationality", "", new { @required = "required", @class = "form-control", placeholder = "Enter Nationality" })
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("Category", "Category", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
 
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBoxFor(model => model.Category, new { @required = "required", @class = "form-control", placeholder = "Enter Category" })
-                                                @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
+                                                @Html.TextBox("Category","", new { @required = "required", @class = "form-control", placeholder = "Enter Category" })
+                                                
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.LabelFor(model => model.SumAssured, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("SumAssured", "SumAssured", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBoxFor(model => model.SumAssured, new { @required = "required", @class = "form-control", placeholder = "Enter SumAssured" })
-                                                @Html.ValidationMessageFor(model => model.SumAssured, "", new { @class = "text-danger" })
+                                                @Html.TextBox("SumAssured","", new { @required = "required", @class = "form-control", placeholder = "Enter SumAssured" })
+                                                
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.LabelFor(model => model.Salary, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("Salary", "Salary", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBoxFor(model => model.Salary, new { @required = "required", @class = "form-control", placeholder = "Enter Salary" })
-                                                @Html.ValidationMessageFor(model => model.Salary, "", new { @class = "text-danger" })
+                                                @Html.TextBox("Salary","", new { @required = "required", @class = "form-control", placeholder = "Enter Salary" })
+                                                
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.LabelFor(model => model.EffectiveDate, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("EffectiveDate", "EffectiveDate", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBoxFor(model => model.EffectiveDate, new { @required = "required", @class = "form-control", placeholder = "Enter Effective Date" })
-                                                @Html.ValidationMessageFor(model => model.EffectiveDate, "", new { @class = "text-danger" })
+                                                @Html.TextBox("EffectiveDate", "", new { @type = "date", @required = "required", @class = "form-control", placeholder = "Enter EffectiveDate" })
+
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.LabelFor(model => model.Remarks, htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("Remarks", "Remarks", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBoxFor(model => model.Remarks, new { @required = "required", @class = "form-control", placeholder = "Enter Remarks" })
-                                                @Html.ValidationMessageFor(model => model.Remarks, "", new { @class = "text-danger" })
+                                                @Html.TextBox("Remarks", "", new { @required = "required", @class = "form-control", placeholder = "Enter Remarks" })
+
                                             </div>
                                         </div>
                                     </div>
@@ -538,8 +517,8 @@
                                                 <label class="col-sm-12 col-form-label text-right">Status</label>
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBoxFor(model => model.Remarks, new { @required = "required", @class = "form-control", placeholder = "Enter Status" })
-                                                @Html.ValidationMessageFor(model => model.Remarks, "", new { @class = "text-danger" })
+                                                @Html.TextBox("Status", "", new { @required = "required", @class = "form-control", placeholder = "Enter Status" })
+                                                
                                             </div>
                                         </div>
                                     </div>
@@ -1222,180 +1201,180 @@
     </script>
 }
 @*<script type="text/javascript">
-    $(window).on("load", function () {
-        $('#btnSubmitEmployeeMaster').on('click', function () {
-            var formData = $('#formEmployee').serialize();
-            $.ajax({
+        $(window).on("load", function () {
+            $('#btnSubmitEmployeeMaster').on('click', function () {
+                var formData = $('#formEmployee').serialize();
+                $.ajax({
 
-                type: "POST",
-                url: "/Home/InsertEmployeeMaster",
-                dataType: "json",
-                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                data: formData,
-                success: function (res) {
-                    //$("#tblMotor tr").filter(function () {
-                    //    $(this).toggle($(this).text().toLowerCase().indexOf(formData) > -1)
-                    //});
-                    if (res > 0)
-                        alert('success');
-                    else {
-                        alert('Record Not Saved.!');
+                    type: "POST",
+                    url: "/Home/InsertEmployeeMaster",
+                    dataType: "json",
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    data: formData,
+                    success: function (res) {
+                        //$("#tblMotor tr").filter(function () {
+                        //    $(this).toggle($(this).text().toLowerCase().indexOf(formData) > -1)
+                        //});
+                        if (res > 0)
+                            alert('success');
+                        else {
+                            alert('Record Not Saved.!');
+                        }
+
+                    },
+                    error: function () {
+                        alert('Error while saving the data.!');
                     }
-
-                },
-                error: function () {
-                    alert('Error while saving the data.!');
-                }
-            })
+                })
+            });
         });
-    });
-    $('#btnUpload').click(function () {
+        $('#btnUpload').click(function () {
 
-        // Checking whether FormData is available in browser
-        if (window.FormData !== undefined) {
+            // Checking whether FormData is available in browser
+            if (window.FormData !== undefined) {
 
-            var fileUpload = $("#fileUploadMotor").get(0);
-            var files = fileUpload.files;
+                var fileUpload = $("#fileUploadMotor").get(0);
+                var files = fileUpload.files;
 
-            // Create FormData object
-            var fileData = new FormData();
+                // Create FormData object
+                var fileData = new FormData();
 
-            // Looping over all files and add it to FormData object
-            for (var i = 0; i < files.length; i++) {
-                fileData.append(files[i].name, files[i]);
-            }
+                // Looping over all files and add it to FormData object
+                for (var i = 0; i < files.length; i++) {
+                    fileData.append(files[i].name, files[i]);
+                }
 
-            // Adding one more key to FormData object
-            //  fileData.append('txtMotorMaster', '1');
+                // Adding one more key to FormData object
+                //  fileData.append('txtMotorMaster', '1');
 
-            $.ajax({
-                url: '/Home/UploadFiles',
-                type: "POST",
-                contentType: false, // Not to set any content header
-                processData: false, // Not to process data
-                data: fileData,
-                success: function (result) {
+                $.ajax({
+                    url: '/Home/UploadFiles',
+                    type: "POST",
+                    contentType: false, // Not to set any content header
+                    processData: false, // Not to process data
+                    data: fileData,
+                    success: function (result) {
 
-                    if (result == 1) {
-                        alert("File Doesn't belongs to Producer Master");
-                        //Swal.fire({
-                        //    icon: 'error',
-                        //    title: 'Oops...',
-                        //    text: "File Doesn't belongs to Motor Policy",
-                        //});
-                    }
-                    else if (result == -3) {
-                        alert("File which you trying to upload is incorrect.!");
-                        //Swal.fire({
-                        //    icon: 'error',
-                        //    title: 'Oops...',
-                        //    text: "File which you trying to upload is incorrect.!",
-                        //});
-                    }
-                    else if (result == "success") {
-                        alert("File Uploaded Successfully!");
-                        //Swal.fire({
-                        //    icon: 'success',
-                        //    title: 'Success!',
-                        //    text: "File Uploaded Successfully!",
+                        if (result == 1) {
+                            alert("File Doesn't belongs to Producer Master");
+                            //Swal.fire({
+                            //    icon: 'error',
+                            //    title: 'Oops...',
+                            //    text: "File Doesn't belongs to Motor Policy",
+                            //});
+                        }
+                        else if (result == -3) {
+                            alert("File which you trying to upload is incorrect.!");
+                            //Swal.fire({
+                            //    icon: 'error',
+                            //    title: 'Oops...',
+                            //    text: "File which you trying to upload is incorrect.!",
+                            //});
+                        }
+                        else if (result == "success") {
+                            alert("File Uploaded Successfully!");
+                            //Swal.fire({
+                            //    icon: 'success',
+                            //    title: 'Success!',
+                            //    text: "File Uploaded Successfully!",
 
-                        //}).then(
-                        //    function () { window.location.href = "ProducerMaster"; });
-                    }
-                    else if (result == "same") {
-                        alert("All the Records already exists. Try uploading new data.");
-                        //Swal.fire({
-                        //    icon: 'warning',
-                        //    title: 'Warning!',
-                        //    text: "All the Records already exists. Try uploading new data.",
-                        //}).then(
-                        //    function () { window.location.href = "ProducerMaster"; });
-                    }
-                    else {
+                            //}).then(
+                            //    function () { window.location.href = "ProducerMaster"; });
+                        }
+                        else if (result == "same") {
+                            alert("All the Records already exists. Try uploading new data.");
+                            //Swal.fire({
+                            //    icon: 'warning',
+                            //    title: 'Warning!',
+                            //    text: "All the Records already exists. Try uploading new data.",
+                            //}).then(
+                            //    function () { window.location.href = "ProducerMaster"; });
+                        }
+                        else {
+                            //Swal.fire({
+                            //    icon: 'error',
+                            //    title: 'Oops...',
+                            //    text: err.statusText,
+                            //})
+                            alert('Error while uploading.');
+                        }
+                    },
+                    error: function (err) {
+                        alert('Error while uploading.');
+
                         //Swal.fire({
                         //    icon: 'error',
                         //    title: 'Oops...',
                         //    text: err.statusText,
                         //})
-                        alert('Error while uploading.');
                     }
-                },
-                error: function (err) {
-                    alert('Error while uploading.');
-
-                    //Swal.fire({
-                    //    icon: 'error',
-                    //    title: 'Oops...',
-                    //    text: err.statusText,
-                    //})
-                }
-            });
-        } else {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Oops...',
-                text: "FormData is not supported.",
-            })
-        }
-    });
-    $('.fileuploader-input').click(function () {
-        $("#fileUploadMotor").click();
-
-    });
-    $('#clearFiles').click(function () {
-        $("#fileContainer").hide();
-        $('#fileUploadMotor').val('');
-        $("#btnUpload").attr("disabled", "disabled");
-    });
-    $('#clearFiles').hover(
-        function () {
-            $('#clearFiles').removeClass("btn-success").addClass("btn-danger");
-            $('#clearFiles .fas').removeClass("fa-check").addClass("fa-trash");
-        },
-        function () {
-            $('#clearFiles').removeClass("btn-danger").addClass("btn-success");
-            $('#clearFiles .fas').removeClass("fa-trash").addClass("fa-check");
+                });
+            } else {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Oops...',
+                    text: "FormData is not supported.",
+                })
+            }
         });
-    $('#fileUploadMotor').change(function (e) {
-        var fileName = e.target.files[0].name;
-        var fileSize = e.target.files[0].size;
-        $("#fileContainer").show();
-        $("#fileName").html(fileName);
-        fileSize = (fileSize / 1024).toFixed(2);
-        $("#fileSize").html(fileSize + " KB");
-        //if (document.getElementById("fileUploadMotor").files.length == 0) {
-        $("#btnUpload").removeAttr("disabled", "disabled");
-        //}
-        //alert('The file "' + fileName + '" has been selected.');
-    });
-    function callChangefunc(val) {
-        if (val === 'Self') {
-            $("#EmployeeDetails").show();
-            $("#SpouseDetails").hide();
-            $("#ChildDetails").hide();
-        } else if (val === 'Spouse') {
-            $("#EmployeeDetails").hide();
-            $("#SpouseDetails").show();
-            $("#ChildDetails").hide();
-        } else if (val === 'Child') {
-            $("#EmployeeDetails").hide();
-            $("#SpouseDetails").hide();
-            $("#ChildDetails").show();
+        $('.fileuploader-input').click(function () {
+            $("#fileUploadMotor").click();
+
+        });
+        $('#clearFiles').click(function () {
+            $("#fileContainer").hide();
+            $('#fileUploadMotor').val('');
+            $("#btnUpload").attr("disabled", "disabled");
+        });
+        $('#clearFiles').hover(
+            function () {
+                $('#clearFiles').removeClass("btn-success").addClass("btn-danger");
+                $('#clearFiles .fas').removeClass("fa-check").addClass("fa-trash");
+            },
+            function () {
+                $('#clearFiles').removeClass("btn-danger").addClass("btn-success");
+                $('#clearFiles .fas').removeClass("fa-trash").addClass("fa-check");
+            });
+        $('#fileUploadMotor').change(function (e) {
+            var fileName = e.target.files[0].name;
+            var fileSize = e.target.files[0].size;
+            $("#fileContainer").show();
+            $("#fileName").html(fileName);
+            fileSize = (fileSize / 1024).toFixed(2);
+            $("#fileSize").html(fileSize + " KB");
+            //if (document.getElementById("fileUploadMotor").files.length == 0) {
+            $("#btnUpload").removeAttr("disabled", "disabled");
+            //}
+            //alert('The file "' + fileName + '" has been selected.');
+        });
+        function callChangefunc(val) {
+            if (val === 'Self') {
+                $("#EmployeeDetails").show();
+                $("#SpouseDetails").hide();
+                $("#ChildDetails").hide();
+            } else if (val === 'Spouse') {
+                $("#EmployeeDetails").hide();
+                $("#SpouseDetails").show();
+                $("#ChildDetails").hide();
+            } else if (val === 'Child') {
+                $("#EmployeeDetails").hide();
+                $("#SpouseDetails").hide();
+                $("#ChildDetails").show();
+            }
         }
-    }
-    function temptableAdd() {
-        $("#tempEmpDetailsTable tbody").append("<tr>" +
-            "<td>" + $("#EmployeeName").val() + "</td>" +
-            "<td>" + $("#EmployeeGender").val() + "</td>" +
-            "<td>" + '<span class="badge badge-pill badge-primary">' + $("#RelationshipID").val() + '</span>' + "</td>" +
-            "<td>" + $("#EmployeeBankName").val() + "</td>" +
-            "<td>" + $("#Age").val() + "</td>" +
-            "<td>" + $("#BankName").val() + "</td>" +
-            "<td>" + $("#Category").val() + "</td>" +
-            "<td>" + $("#Salary").val() + "</td>" +
-            "<td>" + $("#EffectiveDate").val() + "</td>" +
-            "<td class='text-center'>" + '<i class="mdi mdi-pencil text-primary mx-3"></i><i class="mdi mdi-delete text-danger mx-3"></i>' + "</td>" +
-            "</tr>");
-    }
-</script>*@
+        function temptableAdd() {
+            $("#tempEmpDetailsTable tbody").append("<tr>" +
+                "<td>" + $("#EmployeeName").val() + "</td>" +
+                "<td>" + $("#EmployeeGender").val() + "</td>" +
+                "<td>" + '<span class="badge badge-pill badge-primary">' + $("#RelationshipID").val() + '</span>' + "</td>" +
+                "<td>" + $("#EmployeeBankName").val() + "</td>" +
+                "<td>" + $("#Age").val() + "</td>" +
+                "<td>" + $("#BankName").val() + "</td>" +
+                "<td>" + $("#Category").val() + "</td>" +
+                "<td>" + $("#Salary").val() + "</td>" +
+                "<td>" + $("#EffectiveDate").val() + "</td>" +
+                "<td class='text-center'>" + '<i class="mdi mdi-pencil text-primary mx-3"></i><i class="mdi mdi-delete text-danger mx-3"></i>' + "</td>" +
+                "</tr>");
+        }
+    </script>*@
 
