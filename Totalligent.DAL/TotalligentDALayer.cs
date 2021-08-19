@@ -964,69 +964,69 @@ namespace Totalligent.DAL
                         objQuo = new Quotation
                         {
                             QuotationId = Convert.ToInt32(row["QuotationId"]),
-                            DraftNo = row["DraftNo"].ToString(),
-                            Status = row["Status"].ToString(),
-                            PolicyNo = row["PolicyNo"].ToString(),
-                            InsuranceCompanyName = row["InsuranceCompanyName"].ToString(),
-                            ClientCompanyName = row["ClientCompanyName"].ToString(),
-                            ScopeofCoverage = row["ScopeofCoverage"].ToString(),
-                            Jurisdiction = row["Jurisdiction"].ToString(),
-                            Address = row["Address"].ToString(),
-                            City = row["City"].ToString(),
-                            KYCDetails = row["KYCDetails"].ToString(),
-                            BankName = row["BankName"].ToString(),
-                            IFSCCode = row["IFSCCode"].ToString(),
-                            Branch = row["Branch"].ToString(),
+                            DraftNo = row["DraftNo"].ToString() ?? "",
+                            Status = row["Status"].ToString() ?? "",
+                            PolicyNo = row["PolicyNo"].ToString() ?? "",
+                            InsuranceCompanyName = row["InsuranceCompanyName"].ToString() ?? "",
+                            ClientCompanyName = row["ClientCompanyName"].ToString() ?? "",
+                            ScopeofCoverage = row["ScopeofCoverage"].ToString() ?? "",
+                            Jurisdiction = row["Jurisdiction"].ToString() ?? "",
+                            Address = row["Address"].ToString() ?? "",
+                            City = row["City"].ToString() ?? "",
+                            KYCDetails = row["KYCDetails"].ToString() ?? "",
+                            BankName = row["BankName"].ToString() ?? "",
+                            IFSCCode = row["IFSCCode"].ToString() ?? "",
+                            Branch = row["Branch"].ToString() ?? "",
                             PeriodofInsurance = Convert.ToDateTime(row["PeriodofInsurance"]),
-                            Category = row["Category"].ToString(),
+                            Category = row["Category"].ToString() ?? "",
 
-                            TotalEmployees = Convert.ToInt32(row["TotalEmployees"]),
-                            TotalDependents = Convert.ToInt32(row["TotalDependents"]),
-                            TotalSpousedependents = Convert.ToInt32(row["TotalSpousedependents"]),
-                            TotalChilddependents = Convert.ToInt32(row["TotalChilddependents"]),
-                            PolicyCurrency = Convert.ToInt64(row["PolicyCurrency"]),
-
-
-                            EligibilityCriteria = row["EligibilityCriteria"].ToString(),
-                            SumAssured_SA = Convert.ToDecimal(row["SumAssured_SA"]),
-                            AgeLimitforEmployees = Convert.ToInt32(row["AgeLimitforEmployees"]),
-                            AgeLimitforDependentSpouse = Convert.ToInt32(row["AgeLimitforDependentSpouse"]),
-                            AgeLimitforDependentChild = Convert.ToInt32(row["AgeLimitforDependentChild"]),
+                            TotalEmployees = Convert.ToInt32(row["TotalEmployees"] ?? 0),
+                            TotalDependents = Convert.ToInt32(row["TotalDependents"] ?? 0),
+                            TotalSpousedependents = Convert.ToInt32(row["TotalSpousedependents"] ?? 0),
+                            TotalChilddependents = Convert.ToInt32(row["TotalChilddependents"] ?? 0),
+                            PolicyCurrency = Convert.ToInt64(row["PolicyCurrency"] ?? 0),
 
 
-                            FCL = Convert.ToInt64(row["FCL"]),
-                            ClientPremium = Convert.ToDecimal(row["ClientPremium"]),
-                            InsuranceLevy = Convert.ToDecimal(row["InsuranceLevy"]),
-                            PolicyFee = Convert.ToDecimal(row["PolicyFee"]),
-                            TotalPremium = Convert.ToDecimal(row["TotalPremium"]),
+                            EligibilityCriteria = row["EligibilityCriteria"].ToString() ?? "",
+                            SumAssured_SA = Convert.ToDecimal(row["SumAssured_SA"] ?? 0.00),
+                            AgeLimitforEmployees = Convert.ToInt32(row["AgeLimitforEmployees"] ?? 0),
+                            AgeLimitforDependentSpouse = Convert.ToInt32(row["AgeLimitforDependentSpouse"] ?? 0),
+                            AgeLimitforDependentChild = Convert.ToInt32(row["AgeLimitforDependentChild"] ?? 0),
 
 
-                            BrokerName = row["BrokerName"].ToString(),
-                            Brokerage = Convert.ToDecimal(row["Brokerage"]),
-                            RICount = Convert.ToDecimal(row["RICount"]),
-
-                            RI1in_Percentage = row["RI1in_Percentage"].ToString(),
-                            RI2in_Percentage = row["RI2in_Percentage"].ToString(),
-                            RI3in_Percentage = row["RI3in_Percentage"].ToString(),
-                            RIRate = row["RIRate"].ToString(),
-                            RIRetension = row["RIRetension"].ToString(),
-                            AMIRetension = row["AMIRetension"].ToString(),
-
-                            RIPremium = Convert.ToDecimal(row["RIPremium"]),
-                            AMILoading = Convert.ToDecimal(row["AMILoading"]),
-                            TotalEmployeescount = Convert.ToInt32(row["TotalEmployeescount"]),
-                            EstimatedAnnualWages = Convert.ToDecimal(row["EstimatedAnnualWages"]),
+                            FCL = Convert.ToInt64(row["FCL"] ?? 0),
+                            ClientPremium = Convert.ToDecimal(row["ClientPremium"] ?? 0.00),
+                            InsuranceLevy = Convert.ToDecimal(row["InsuranceLevy"] ?? 0.00),
+                            PolicyFee = Convert.ToDecimal(row["PolicyFee"] ?? 0.00),
+                            TotalPremium = Convert.ToDecimal(row["TotalPremium"] ?? 0.00),
 
 
-                            AnnualRate = row["AnnualRate"].ToString(),
-                            Premium_EAW_Rate = row["Premium_EAW_Rate"].ToString(),
-                            Premium_Incl_levy_PolFeeRO = Convert.ToDecimal(row["Premium_Incl_levy_PolFeeRO"]),
-                            VATonWCpremium = Convert.ToDecimal(row["VATonWCpremium"]),
-                            TotalPremiumInclVAT = Convert.ToDecimal(row["TotalPremiumInclVAT"]),
+                            BrokerName = row["BrokerName"].ToString() ?? "",
+                            Brokerage = Convert.ToDecimal(row["Brokerage"] ?? 0.00),
+                            RICount = Convert.ToDecimal(row["RICount"] ?? 0.00),
+
+                            RI1in_Percentage = row["RI1in_Percentage"].ToString() ?? "",
+                            RI2in_Percentage = row["RI2in_Percentage"].ToString() ?? "",
+                            RI3in_Percentage = row["RI3in_Percentage"].ToString() ?? "",
+                            RIRate = row["RIRate"].ToString() ?? "",
+                            RIRetension = row["RIRetension"].ToString() ?? "",
+                            AMIRetension = row["AMIRetension"].ToString() ?? "",
+
+                            RIPremium = Convert.ToDecimal(row["RIPremium"] ?? 0.00),
+                            AMILoading = Convert.ToDecimal(row["AMILoading"] ?? 0.00),
+                            TotalEmployeescount = Convert.ToInt32(row["TotalEmployeescount"] ?? 0),
+                            EstimatedAnnualWages = Convert.ToDecimal(row["EstimatedAnnualWages"] ?? 0.00),
 
 
-                            BrokerPercentage = row["BrokerPercentage"].ToString(),
-                            BrokerAmount = Convert.ToDecimal(row["BrokerAmount"])
+                            AnnualRate = row["AnnualRate"].ToString() ?? "",
+                            Premium_EAW_Rate = row["Premium_EAW_Rate"].ToString() ?? "",
+                            Premium_Incl_levy_PolFeeRO = Convert.ToDecimal(row["Premium_Incl_levy_PolFeeRO"] ?? 0.00),
+                            VATonWCpremium = Convert.ToDecimal(row["VATonWCpremium"] ?? 0.00),
+                            TotalPremiumInclVAT = Convert.ToDecimal(row["TotalPremiumInclVAT"] ?? 0.00),
+
+
+                            BrokerPercentage = row["BrokerPercentage"].ToString() ?? "",
+                            BrokerAmount = Convert.ToDecimal(row["BrokerAmount"] ?? 0.00)
                         };
                     }
 

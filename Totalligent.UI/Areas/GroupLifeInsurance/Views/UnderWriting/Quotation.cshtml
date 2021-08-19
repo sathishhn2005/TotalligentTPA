@@ -14,6 +14,8 @@
             <!-- /.box-header -->
             <div class="box-body wizard-content">
                 <form id="formQuotation" action="#" class="tab-wizard wizard-circle">
+                    <input type="hidden" id="hdnQid" name="QuotationId" value="0" />
+
                     <!-- Step 1 -->
                     <h6>Client Information</h6>
                     <section>
@@ -33,7 +35,7 @@
                                     @*$("#LifeEmgAreaCoverage").data("kendoMultiSelect").dataItems()*@
 
                                     <div class="col-md-7 demo-section k-content">
-                                        @Html.DropDownList("InsuranceCompanyName", Model.lstInsuranceCompanyMaster, "-- Select Type --", new { @class = "form-control" })
+                                        @Html.DropDownListFor(model => model.objQuo.InsuranceCompanyName, Model.lstInsuranceCompanyMaster, "-- Select Type --", new { @class = "form-control" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -41,7 +43,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Client Company Name</label>
                                     </div>
                                     <div class="col-md-8 demo-section k-content">
-                                        @Html.DropDownList("ClientCompanyName", Model.lstClientMaster, "-- Select Type --", new { @class = "form-control" })
+                                        @Html.DropDownListFor(model => model.objQuo.ClientCompanyName, Model.lstClientMaster, "-- Select Type --", new { @class = "form-control" })
 
                                     </div>
                                 </div>
@@ -110,7 +112,8 @@
                                         <label class="col-sm-12 col-form-label text-left">Branch</label>
                                     </div>
                                     <div class="col-md-8 demo-section k-content">
-                                        @Html.TextBoxFor(model => model.objQuo.Branch, new { @class = "form-control w-full", @placeholder = "Enter Branch" })
+                                        @*@Html.TextBoxFor(model => model.objQuo.Branch, new { @class = "form-control w-full", @placeholder = "Enter Branch" })*@
+                                        @Html.DropDownListFor(model => model.objQuo.Branch, Model.lstBranchMaster, "-- Select Type --", new { @class = "form-control" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -172,7 +175,7 @@
                                 <div class="col-md-11 m-b-15 m-t-15 mx-auto">
                                     <div class="row m-b-15 m-t-15">
                                         <div class="col-md-3">
-                                            <input name="DCGroup" type="radio" id="DAC" class="with-gap radio-col-primary" />
+                                            <input name="DeathCoverType" type="radio" value="DAC" id="DAC" onclick="AssignDeathCoverValues('DAC');" class="with-gap radio-col-primary" />
                                             <label for="DAC">Death due to any cause (DAC)</label>
                                         </div>
                                         <div class="col-md-7 demo-section k-content">
@@ -181,11 +184,11 @@
                                                     <label class="text-left font-weight-bold col-3 pl-1">Annual Limit</label>
                                                     <div class="demo-radio-button d-flex justify-content-between">
                                                         <span>
-                                                            <input name="DACGroup" type="radio" id="FixedDAC" class="with-gap radio-col-primary" />
+                                                            <input name="DeathCoverAnnualLimit" type="radio" value="Fixed" id="FixedDAC" class="with-gap radio-col-primary" onclick="AssignDeathCoverValues('DACFixed');" />
                                                             <label for="FixedDAC">Fixed</label>
                                                         </span>
                                                         <span>
-                                                            <input name="DACGroup" type="radio" id="VariableDAC" class="with-gap radio-col-primary" />
+                                                            <input name="DeathCoverAnnualLimit" type="radio" value="Variable" id="VariableDAC" class="with-gap radio-col-primary" onclick="AssignDeathCoverValues('DACVariable');" />
                                                             <label for="VariableDAC">Variable</label>
                                                         </span>
                                                     </div>
@@ -199,7 +202,10 @@
                                                         <span class="input-group-prepend">
                                                             <span class="input-group-text">OMR</span>
                                                         </span>
-                                                        <input type="text" class="form-control" placeholder="Enter Sum Assured Amount">
+                                                        <input type="number" id="FixedDCSAmount" class="form-control" placeholder="Enter Sum Assured Amount" onchange="AssignDeathCoverValues('DACtxt');">
+                                                        <input type="hidden" id="hdnDeathCoverSumAssuredAmount" name="DeathCoverSumAssuredAmount" value="" />
+                                                        <input type="hidden" id="hdnDeathCoverFCL" name="DeathCoverFCL" value="" />
+                                                        <input type="hidden" id="hdnDeathCoverSumAssuredNoOfTimes" name="DeathCoverSumAssuredNoOfTimes" value="" />
                                                     </div>
                                                 </div>
                                                 <div class="row m-b-15 m-t-15" id="VariableDACContent" style="display: none;">
@@ -210,9 +216,9 @@
                                                         <span class="input-group-prepend">
                                                             <span class="input-group-text">OMR</span>
                                                         </span>
-                                                        <input type="text" class="form-control" placeholder="Enter Sum Assured Amount">
+                                                        <input type="number" id="VariableDCSAmount" class="form-control" placeholder="Enter Sum Assured Amount" onchange="AssignDeathCoverValues('DACtxt');">
                                                         <span class="input-group-text group-text-custom">*</span>
-                                                        <input type="text" class="form-control" placeholder="Enter No.of times">
+                                                        <input type="number" id="txtDeathCoverSumAssuredNoOfTimes" class="form-control" placeholder="Enter No.of times" onchange="AssignDeathCoverValues('DACtxt');">
                                                     </div>
                                                 </div>
                                                 <div class="row m-b-15 m-t-15" id="DACFCLContent" style="display: none;">
@@ -220,7 +226,7 @@
                                                         <label class="col-sm-12 col-form-label text-left pl-1">FCL</label>
                                                     </div>
                                                     <div class="col-md-7">
-                                                        <input type="text" class="form-control" placeholder="Enter FCL">
+                                                        <input type="number" id="txtDeathCoverFCL" onchange="AssignDeathCoverValues('DACtxt');" class="form-control" placeholder="Enter FCL">
                                                     </div>
                                                 </div>
                                             </div>
@@ -228,7 +234,7 @@
                                     </div>
                                     <div class="row m-b-15 m-t-15">
                                         <div class="col-md-3">
-                                            <input name="DCGroup" type="radio" id="DNC" class="with-gap radio-col-primary" />
+                                            <input name="DeathCoverType" value="DNC" onclick="AssignDeathCoverValues('DNC');" type="radio" id="DNC" class="with-gap radio-col-primary" />
                                             <label for="DNC">Death by natural cause (DNC)</label>
                                         </div>
                                         <div class="col-md-7 demo-section k-content">
@@ -237,11 +243,11 @@
                                                     <label class="text-left font-weight-bold col-3 pl-1">Annual Limit</label>
                                                     <div class="demo-radio-button d-flex justify-content-between">
                                                         <span>
-                                                            <input name="DNCGroup" type="radio" id="FixedDNC" class="with-gap radio-col-primary" />
+                                                            <input name="DNCGroup" type="radio" value="Fixed" id="FixedDNC" onclick="AssignDeathCoverValues('FixedDNC')" class="with-gap radio-col-primary" />
                                                             <label for="FixedDNC">Fixed</label>
                                                         </span>
                                                         <span>
-                                                            <input name="DNCGroup" type="radio" id="VariableDNC" class="with-gap radio-col-primary" />
+                                                            <input name="DNCGroup" type="radio" value="Variable" id="VariableDNC" onclick="AssignDeathCoverValues('VariableDNC')" class="with-gap radio-col-primary" />
                                                             <label for="VariableDNC">Variable</label>
                                                         </span>
                                                     </div>
@@ -255,7 +261,7 @@
                                                         <span class="input-group-prepend">
                                                             <span class="input-group-text">OMR</span>
                                                         </span>
-                                                        <input type="text" class="form-control" placeholder="Enter Sum Assured Amount">
+                                                        <input type="text" id="txtDNCSAA" class="form-control" placeholder="Enter Sum Assured Amount" onchange="AssignDeathCoverValues('DNCtxt');">
                                                     </div>
                                                 </div>
                                                 <div class="row m-b-15 m-t-15" id="VariableDNCContent" style="display: none;">
@@ -266,9 +272,10 @@
                                                         <span class="input-group-prepend">
                                                             <span class="input-group-text">OMR</span>
                                                         </span>
-                                                        <input type="text" class="form-control" placeholder="Enter Sum Assured Amount">
+                                                        <input type="text" class="form-control" id="txtDNCSAA01" placeholder="Enter Sum Assured Amount" onchange="AssignDeathCoverValues('DNCtxt');">
                                                         <span class="input-group-text group-text-custom">*</span>
-                                                        <input type="text" class="form-control" placeholder="Enter No.of times">
+                                                        <input type="text" id="txtEnterNooftimes" class="form-control" placeholder="Enter No.of times" onchange="AssignDeathCoverValues('DNCtxt');">
+
                                                     </div>
                                                 </div>
                                                 <div class="row m-b-15 m-t-15" id="DNCFCLContent" style="display: none;">
@@ -276,7 +283,7 @@
                                                         <label class="col-sm-12 col-form-label text-left pl-1">FCL</label>
                                                     </div>
                                                     <div class="col-md-7">
-                                                        <input type="text" class="form-control" placeholder="Enter FCL">
+                                                        <input type="number" id="txtDNCFCLContent" class="form-control" placeholder="Enter FCL" onchange="AssignDeathCoverValues('DNCtxt');">
                                                     </div>
                                                 </div>
                                             </div>
@@ -284,7 +291,7 @@
                                     </div>
                                     <div class="row m-b-15 m-t-15">
                                         <div class="col-md-3">
-                                            <input type="checkbox" id="AccidentalDeath" />
+                                            <input type="checkbox" id="AccidentalDeath" value="Y" name="AccidentalDeath" />
                                             <label for="AccidentalDeath">Accidental death</label>
                                         </div>
                                         <div class="col-md-7 demo-section k-content">
@@ -293,11 +300,12 @@
                                                     <label class="text-left font-weight-bold col-3 pl-1">Annual Limit</label>
                                                     <div class="demo-radio-button d-flex justify-content-between">
                                                         <span>
-                                                            <input name="ACDGroup" type="radio" id="FixedACD" class="with-gap radio-col-primary" />
+                                                            <input name="AccidentalAnnualLimit" value="Fixed" type="radio" id="FixedACD" onclick="AssignDeathCoverValues('FixedADC');" class="with-gap radio-col-primary" />
                                                             <label for="FixedACD">Fixed</label>
+
                                                         </span>
                                                         <span>
-                                                            <input name="ACDGroup" type="radio" id="VariableACD" class="with-gap radio-col-primary" />
+                                                            <input name="AccidentalAnnualLimit" type="radio" value="Variable" id="VariableACD" onclick="AssignDeathCoverValues('VariableADC');" class="with-gap radio-col-primary" />
                                                             <label for="VariableACD">Variable</label>
                                                         </span>
                                                     </div>
@@ -311,7 +319,9 @@
                                                         <span class="input-group-prepend">
                                                             <span class="input-group-text">OMR</span>
                                                         </span>
-                                                        <input type="text" class="form-control" placeholder="Enter Sum Assured Amount">
+                                                        <input type="number" id="txtAccidentalDeathSAM" onchange="AssignDeathCoverValues('txtACD');" class="form-control" placeholder="Enter Sum Assured Amount">
+                                                        <input type="hidden" id="hdnAccidentalSumAssuredAmount" name="AccidentalSumAssuredAmount" value="" />
+
                                                     </div>
                                                 </div>
                                                 <div class="row m-b-15 m-t-15" id="VariableACDContent" style="display: none;">
@@ -322,9 +332,9 @@
                                                         <span class="input-group-prepend">
                                                             <span class="input-group-text">OMR</span>
                                                         </span>
-                                                        <input type="text" class="form-control" placeholder="Enter Sum Assured Amount">
+                                                        <input type="number" id="txtACDSAM" onchange="AssignDeathCoverValues('txtACD');" class="form-control" placeholder="Enter Sum Assured Amount">
                                                         <span class="input-group-text group-text-custom">*</span>
-                                                        <input type="text" class="form-control" placeholder="Enter No.of times">
+                                                        <input type="number" id="txtACDNoOfTimes" name="AccidentalSumAssuredNoOfTimes" class="form-control" placeholder="Enter No.of times">
                                                     </div>
                                                 </div>
                                                 <div class="row m-b-15 m-t-15" id="ACDFCLContent" style="display: none;">
@@ -332,7 +342,7 @@
                                                         <label class="col-sm-12 col-form-label text-left pl-1">FCL</label>
                                                     </div>
                                                     <div class="col-md-7">
-                                                        <input type="text" class="form-control" placeholder="Enter FCL">
+                                                        <input type="number" id="txtAccidentalFCL" name="AccidentalFCL" class="form-control" placeholder="Enter FCL">
                                                     </div>
                                                 </div>
                                             </div>
@@ -347,18 +357,18 @@
                                 <div class="col-md-11 m-b-15 m-t-15 mx-auto">
                                     <div class="row m-b-15 m-t-15">
                                         <div class="col-md-3">
-                                            <input type="checkbox" id="PermanentDisability" />
+                                            <input type="checkbox" id="PermanentDisability" value="Y" name="PTD" />
                                             <label for="PermanentDisability">Permanent Total Disability (PTD)</label>
                                         </div>
                                         <div class="col-md-7 demo-section k-content">
                                             <div id="PermanentDisabilityContent" style="display: none;">
                                                 <div class="demo-radio-button d-flex justify-content-start">
                                                     <span>
-                                                        <input type="checkbox" id="AccidentPTD" />
+                                                        <input type="checkbox" id="AccidentPTD" name="PTDAccident" value="Y" />
                                                         <label for="AccidentPTD">Accident</label>
                                                     </span>
                                                     <span>
-                                                        <input type="checkbox" id="SicknessPTD" />
+                                                        <input type="checkbox" id="SicknessPTD" name="PTDSickness" value="Y" />
                                                         <label for="SicknessPTD">Sickness</label>
                                                     </span>
                                                 </div>
@@ -370,7 +380,7 @@
                                                         <span class="input-group-prepend">
                                                             <span class="input-group-text">OMR</span>
                                                         </span>
-                                                        <input type="text" class="form-control" placeholder="Enter Coverage Amount">
+                                                        <input type="number" class="form-control" id="txtPTDCoverageLimit" name="PTDCoverageLimit" placeholder="Enter Coverage Amount">
                                                     </div>
                                                 </div>
                                                 <div class="row m-b-15 m-t-15">
@@ -381,7 +391,7 @@
                                                         <span class="input-group-prepend">
                                                             <span class="input-group-text">OMR</span>
                                                         </span>
-                                                        <input type="text" class="form-control" placeholder="Enter Maximum Amount">
+                                                        <input type="number" class="form-control" id="txtPTDMaximumLimit" name="PTDMaximumLimit" placeholder="Enter Maximum Amount">
                                                     </div>
                                                 </div>
                                                 <div class="row m-b-15 m-t-15">
@@ -390,7 +400,7 @@
                                                     </div>
                                                     <div class="col-md-7 input-group">
 
-                                                        <input type="text" class="form-control" placeholder="Enter Coverage Amount">
+                                                        <input type="number" class="form-control" id="txtPTDWaitingYears" name="PTDWaitingYears" placeholder="Enter Coverage Amount">
                                                         <span class="input-group-append">
                                                             <span class="input-group-text">Year</span>
                                                         </span>
@@ -401,18 +411,18 @@
                                     </div>
                                     <div class="row m-b-15 m-t-15">
                                         <div class="col-md-3">
-                                            <input type="checkbox" id="PermanentPartialDisability" />
+                                            <input type="checkbox" id="PermanentPartialDisability" name="PPD" value="Y" />
                                             <label for="PermanentPartialDisability">Permanent Partial Disability (PPD)</label>
                                         </div>
                                         <div class="col-md-7 demo-section k-content">
                                             <div id="PermanentPartialDisabilityContent" style="display: none;">
                                                 <div class="demo-radio-button d-flex justify-content-start">
                                                     <span>
-                                                        <input type="checkbox" id="AccidentPPD" />
+                                                        <input type="checkbox" id="AccidentPPD" name="PPDAccident" value="Y" />
                                                         <label for="AccidentPPD">Accident</label>
                                                     </span>
                                                     <span>
-                                                        <input type="checkbox" id="SicknessPPD" />
+                                                        <input type="checkbox" id="SicknessPPD" name="PPDSickness" value="Y" />
                                                         <label for="SicknessPPD">Sickness</label>
                                                     </span>
                                                 </div>
@@ -424,7 +434,7 @@
                                                         <span class="input-group-prepend">
                                                             <span class="input-group-text">OMR</span>
                                                         </span>
-                                                        <input type="text" class="form-control" placeholder="Enter Coverage Amount">
+                                                        <input type="number" class="form-control" id="txtPPDCoverageLimit" name="PPDCoverageLimit" placeholder="Enter Coverage Amount">
                                                     </div>
                                                 </div>
                                                 <div class="row m-b-15 m-t-15">
@@ -435,7 +445,7 @@
                                                         <span class="input-group-prepend">
                                                             <span class="input-group-text">OMR</span>
                                                         </span>
-                                                        <input type="text" class="form-control" placeholder="Enter Maximum Amount">
+                                                        <input type="number" class="form-control" id="txtPPDMaximumLimit" name="PPDMaximumLimit" placeholder="Enter Maximum Amount">
                                                     </div>
                                                 </div>
                                                 <div class="row m-b-15 m-t-15">
@@ -444,7 +454,7 @@
                                                     </div>
                                                     <div class="col-md-7 input-group">
 
-                                                        <input type="text" class="form-control" placeholder="Enter Coverage Amount">
+                                                        <input type="text" class="form-control" id="txtPPDWaitingYears" name="PPDWaitingYears" placeholder="Waiting Period in Years">
                                                         <span class="input-group-append">
                                                             <span class="input-group-text">Year</span>
                                                         </span>
@@ -455,18 +465,18 @@
                                     </div>
                                     <div class="row m-b-15 m-t-15">
                                         <div class="col-md-3">
-                                            <input type="checkbox" id="TotalDisability" />
+                                            <input type="checkbox" id="TotalDisability" value="Y" name="TTD" />
                                             <label for="TotalDisability">Temporary Total Disability (TTD)</label>
                                         </div>
                                         <div class="col-md-7 demo-section k-content">
                                             <div id="TotalDisabilityContent" style="display: none;">
                                                 <div class="demo-radio-button d-flex justify-content-start">
                                                     <span>
-                                                        <input type="checkbox" id="AccidentTTD" />
+                                                        <input type="checkbox" id="AccidentTTD" name="TTDAccident" value="Y" />
                                                         <label for="AccidentTTD">Accident</label>
                                                     </span>
                                                     <span>
-                                                        <input type="checkbox" id="SicknessTTD" />
+                                                        <input type="checkbox" id="SicknessTTD" name="TTDSickness" value="Y" />
                                                         <label for="SicknessTTD">Sickness</label>
                                                     </span>
                                                 </div>
@@ -478,7 +488,7 @@
                                                         <span class="input-group-prepend">
                                                             <span class="input-group-text">OMR</span>
                                                         </span>
-                                                        <input type="text" class="form-control" placeholder="Enter Coverage Amount">
+                                                        <input type="number" class="form-control" id="txtTTDCoverageLimit" name="TTDCoverageLimit" placeholder="Enter Coverage Amount">
                                                     </div>
                                                 </div>
                                                 <div class="row m-b-15 m-t-15">
@@ -489,7 +499,7 @@
                                                         <span class="input-group-prepend">
                                                             <span class="input-group-text">OMR</span>
                                                         </span>
-                                                        <input type="text" class="form-control" placeholder="Enter Maximum Amount">
+                                                        <input type="number" class="form-control" id="txtTTDMaximumLimit" name="TTDMaximumLimit" placeholder="Enter Maximum Amount">
                                                     </div>
                                                 </div>
                                                 <div class="row m-b-15 m-t-15">
@@ -498,7 +508,7 @@
                                                     </div>
                                                     <div class="col-md-7 input-group">
 
-                                                        <input type="text" class="form-control" placeholder="Enter Coverage Amount">
+                                                        <input type="number" class="form-control" id="txtTTDWaitingYears" name="TTDWaitingYears" placeholder="Enter Coverage Amount">
                                                         <span class="input-group-append">
                                                             <span class="input-group-text">Year</span>
                                                         </span>
@@ -509,7 +519,7 @@
                                     </div>
                                     <div class="row m-b-15 m-t-15">
                                         <div class="col-md-3">
-                                            <input type="checkbox" id="RepatriationBenefit" />
+                                            <input type="checkbox" id="RepatriationBenefit" value="Y" name="RepatriationBenefit" />
                                             <label for="RepatriationBenefit">Repatriation  Benefit</label>
                                         </div>
                                         <div class="col-md-7 demo-section k-content">
@@ -525,7 +535,7 @@
                                                         <span class="input-group-prepend">
                                                             <span class="input-group-text">OMR</span>
                                                         </span>
-                                                        <input type="text" class="form-control" placeholder="Enter Coverage Amount">
+                                                        <input type="number" id="txtRBCoverageLimit" class="form-control" placeholder="Enter Coverage Amount" name="RBCoverageLimit">
                                                     </div>
                                                 </div>
                                             </div>
@@ -538,10 +548,10 @@
                                 <hr />
                                 <h5 class="m-b-15 m-t-15 text-bold col-12 p-0">Additional Cover</h5>
                                 <hr />
-                                <div class="col-md-11 m-b-15 m-t-15 mx-auto">
+                                <div id="divAdditionalCover" class="col-md-11 m-b-15 m-t-15 mx-auto">
                                     <div class="row m-b-15 m-t-15">
                                         <div class="col-md-3">
-                                            <input type="checkbox" id="PassiveWarRisk" />
+                                            <input type="checkbox" id="PassiveWarRisk" name="PassiveWarRisk" value="Y" />
                                             <label for="PassiveWarRisk">Passive War Risk</label>
                                         </div>
                                         <div class="col-md-7 demo-section k-content">
@@ -557,7 +567,7 @@
                                                         <span class="input-group-prepend">
                                                             <span class="input-group-text">OMR</span>
                                                         </span>
-                                                        <input type="text" class="form-control" placeholder="Enter Coverage Amount">
+                                                        <input type="number" id="txtPWRCoverageLimit" class="form-control" name="PWRCoverageLimit" placeholder="Enter Coverage Amount">
                                                     </div>
                                                 </div>
                                             </div>
@@ -565,7 +575,7 @@
                                     </div>
                                     <div class="row m-b-15 m-t-15">
                                         <div class="col-md-3">
-                                            <input type="checkbox" id="TerminalIllness" />
+                                            <input type="checkbox" id="TerminalIllness" name="TerminalIllness" value="Y" />
                                             <label for="TerminalIllness">Terminal Illness</label>
                                         </div>
                                         <div class="col-md-7 demo-section k-content">
@@ -581,7 +591,7 @@
                                                         <span class="input-group-prepend">
                                                             <span class="input-group-text">OMR</span>
                                                         </span>
-                                                        <input type="text" class="form-control" placeholder="Enter Coverage Amount">
+                                                        <input type="number" id="txtTLCoverageLimit" name="TLCoverageLimit" class="form-control" placeholder="Enter Coverage Amount">
                                                     </div>
                                                 </div>
                                                 <div class="row m-b-15 m-t-15">
@@ -592,7 +602,7 @@
                                                         <span class="input-group-prepend">
                                                             <span class="input-group-text">OMR</span>
                                                         </span>
-                                                        <input type="text" class="form-control" placeholder="Enter Maximum Amount">
+                                                        <input type="text" id="txtTLMaximumLimit" name="TLMaximumLimit" class="form-control" placeholder="Enter Maximum Amount">
                                                     </div>
                                                 </div>
                                                 <div class="row m-b-15 m-t-15">
@@ -601,7 +611,7 @@
                                                     </div>
                                                     <div class="col-md-7 input-group">
 
-                                                        <input type="text" class="form-control" placeholder="Enter Coverage Amount">
+                                                        <input type="text" id="txtTLWaitingYears" name="TLWaitingYears" class="form-control" placeholder="Waiting Period in Years">
                                                         <span class="input-group-append">
                                                             <span class="input-group-text">Year</span>
                                                         </span>
@@ -612,7 +622,7 @@
                                     </div>
                                     <div class="row m-b-15 m-t-15">
                                         <div class="col-md-3">
-                                            <input type="checkbox" id="CriticalIllness" />
+                                            <input type="checkbox" id="CriticalIllness" name="CriticalIllness" value="Y" />
                                             <label for="CriticalIllness">Critical Illness</label>
                                         </div>
                                         <div class="col-md-7 demo-section k-content">
@@ -628,7 +638,7 @@
                                                         <span class="input-group-prepend">
                                                             <span class="input-group-text">OMR</span>
                                                         </span>
-                                                        <input type="text" class="form-control" placeholder="Enter Coverage Amount">
+                                                        <input type="number" class="form-control" id="txtCLCoverageLimit" name="CLCoverageLimit" placeholder="Enter Coverage Amount">
                                                     </div>
                                                 </div>
                                                 <div class="row m-b-15 m-t-15">
@@ -639,7 +649,7 @@
                                                         <span class="input-group-prepend">
                                                             <span class="input-group-text">OMR</span>
                                                         </span>
-                                                        <input type="text" class="form-control" placeholder="Enter Maximum Amount">
+                                                        <input type="number" id="txtCLMaximumLimit" class="form-control" placeholder="Enter Maximum Amount" name="CLMaximumLimit">
                                                     </div>
                                                 </div>
                                                 <div class="row m-b-15 m-t-15">
@@ -648,7 +658,7 @@
                                                     </div>
                                                     <div class="col-md-7 input-group">
 
-                                                        <input type="text" class="form-control" placeholder="Enter Coverage Amount">
+                                                        <input type="text" class="form-control" id="txtCLWaitingYears" name="CLWaitingYears" placeholder="Waiting Period in Years">
                                                         <span class="input-group-append">
                                                             <span class="input-group-text">Year</span>
                                                         </span>
@@ -657,9 +667,29 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row m-b-15 m-t-15">
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AdditionalCoverModal"><i class="mdi mdi-plus mx-2"></i>Add Additional Cover</button>
+                                    <div id="divDynamicAdditionalCover">
+
+
                                     </div>
+
+                                    <div class="row m-b-15 m-t-15">
+                                        <div class="col-md-5">
+                                            @Html.TextBox("txtAdditionalCover", "", new { @class = "form-control w-full", @placeholder = "Enter Additional Cover" })
+                                        </div>
+                                        <div class="col-md-7 input-group">
+
+                                            <input type="hidden" id="hdnDynamicControl" value="1" />
+                                            @*<input type="hidden" id="hdnOtherExclusions" name="OtherExclusions" value="" />*@
+                                            <input type="hidden" id="hdnOtherAdditionalCover" name="OtherAdditionalCover" value="" />
+                                            <button type="button" class="btn btn-primary" onclick="AddDynamicControl('AdditionalCover')"><i class="mdi mdi-plus mx-2"></i>Add Additional Cover</button>
+                                        </div>
+                                    </div>
+
+
+                                    @*<div class="row m-b-15 m-t-15">
+                                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AdditionalCoverModal"><i class="mdi mdi-plus mx-2"></i>Add Additional Cover</button>
+                                        </div>*@
+
                                 </div>
                             </div>
                             <div class="col-12">
@@ -669,7 +699,7 @@
                                 <div class="col-md-11 m-b-15 m-t-15 mx-auto">
                                     <div class="row m-b-15 m-t-15">
                                         <div class="col-md-4">
-                                            <input type="checkbox" id="WarExclusion" onclick="exclusionsfn('WarExclusion','WarExclusionContent')" />
+                                            <input type="checkbox" id="WarExclusion" name="WarExclusion" value="Y" onclick="exclusionsfn('WarExclusion','WarExclusionContent')" />
                                             <label for="WarExclusion">War Exclusion</label>
                                         </div>
                                         <div class="col-md-7 demo-section k-content">
@@ -685,7 +715,7 @@
                                                         <span class="input-group-prepend">
                                                             <span class="input-group-text">OMR</span>
                                                         </span>
-                                                        <input type="text" class="form-control" placeholder="Enter Coverage Amount">
+                                                        <input type="number" class="form-control" id="txtWECoverageLimit" name="WECoverageLimit" placeholder="Enter Coverage Amount">
                                                     </div>
                                                 </div>
                                                 <div class="row m-b-15 m-t-15">
@@ -696,7 +726,7 @@
                                                         <span class="input-group-prepend">
                                                             <span class="input-group-text">OMR</span>
                                                         </span>
-                                                        <input type="text" class="form-control" placeholder="Enter Maximum Amount">
+                                                        <input type="number" id="txtWEMaximumLimit" name="WEMaximumLimit" class="form-control" placeholder="Enter Maximum Amount">
                                                     </div>
                                                 </div>
                                                 <div class="row m-b-15 m-t-15">
@@ -705,7 +735,7 @@
                                                     </div>
                                                     <div class="col-md-7 input-group">
 
-                                                        <input type="text" class="form-control" placeholder="Enter Coverage Amount">
+                                                        <input type="number" class="form-control" id="txtWEWaitingYears" name="WEWaitingYears" placeholder="Enter Coverage Amount">
                                                         <span class="input-group-append">
                                                             <span class="input-group-text">Year</span>
                                                         </span>
@@ -716,7 +746,7 @@
                                     </div>
                                     <div class="row m-b-15 m-t-15">
                                         <div class="col-md-4">
-                                            <input type="checkbox" id="AtomicExclusion" onclick="exclusionsfn('AtomicExclusion','AtomicExclusionContent')" />
+                                            <input type="checkbox" id="AtomicExclusion" name="AtomicBiologicalAndCNE" value="Y" onclick="exclusionsfn('AtomicExclusion','AtomicExclusionContent')" />
                                             <label for="AtomicExclusion">Atomic, Biological and Chemical/Nuclear Exclusion</label>
                                         </div>
                                         <div class="col-md-7 demo-section k-content">
@@ -732,7 +762,7 @@
                                                         <span class="input-group-prepend">
                                                             <span class="input-group-text">OMR</span>
                                                         </span>
-                                                        <input type="text" class="form-control" placeholder="Enter Coverage Amount">
+                                                        <input type="number" id="txtABACNECoverageLimit" name="ABACNECoverageLimit" class="form-control" placeholder="Enter Coverage Amount">
                                                     </div>
                                                 </div>
                                                 <div class="row m-b-15 m-t-15">
@@ -743,7 +773,7 @@
                                                         <span class="input-group-prepend">
                                                             <span class="input-group-text">OMR</span>
                                                         </span>
-                                                        <input type="text" class="form-control" placeholder="Enter Maximum Amount">
+                                                        <input type="number" id="txtABACNEMaximumLimit" name="ABACNEMaximumLimit" class="form-control" placeholder="Enter Maximum Amount">
                                                     </div>
                                                 </div>
                                                 <div class="row m-b-15 m-t-15">
@@ -752,7 +782,7 @@
                                                     </div>
                                                     <div class="col-md-7 input-group">
 
-                                                        <input type="text" class="form-control" placeholder="Enter Coverage Amount">
+                                                        <input type="number" class="form-control" id="txtABACNEWaitingYears" name="ABACNEWaitingYears" placeholder="Waiting Period in Years">
                                                         <span class="input-group-append">
                                                             <span class="input-group-text">Year</span>
                                                         </span>
@@ -763,13 +793,13 @@
                                     </div>
                                     <div class="row m-b-15 m-t-15">
                                         <div class="col-md-4">
-                                            <input type="checkbox" id="CriminalAct" onclick="exclusionsfn('CriminalAct','CriminalActContent')" />
+                                            <input type="checkbox" id="CriminalAct" name="CriminalActContent" value="Y" onclick="exclusionsfn('CriminalAct','CriminalActContent')" />
                                             <label for="CriminalAct">Criminal Act Exclusion</label>
                                         </div>
                                         <div class="col-md-7 demo-section k-content">
                                             <div id="CriminalActContent" style="display: none;">
                                                 <div>
-                                                    <label class="col-sm-12 col-form-label text-left pl-1 font-weight-bold">Atomic, Biological and Chemical/Nuclear Exclusion</label>
+                                                    <label class="col-sm-12 col-form-label text-left pl-1 font-weight-bold">Criminal Act Exclusion</label>
                                                 </div>
                                                 <div class="row m-b-15 m-t-15">
                                                     <div class="col-md-5">
@@ -779,7 +809,7 @@
                                                         <span class="input-group-prepend">
                                                             <span class="input-group-text">OMR</span>
                                                         </span>
-                                                        <input type="text" class="form-control" placeholder="Enter Coverage Amount">
+                                                        <input type="number" class="form-control" id="txtCACCoverageLimit" name="CACCoverageLimit" placeholder="Enter Coverage Amount">
                                                     </div>
                                                 </div>
                                                 <div class="row m-b-15 m-t-15">
@@ -790,7 +820,7 @@
                                                         <span class="input-group-prepend">
                                                             <span class="input-group-text">OMR</span>
                                                         </span>
-                                                        <input type="text" class="form-control" placeholder="Enter Maximum Amount">
+                                                        <input type="number" id="txtCACNEMaximumLimit" name="CACNEMaximumLimit" class="form-control" placeholder="Enter Maximum Amount">
                                                     </div>
                                                 </div>
                                                 <div class="row m-b-15 m-t-15">
@@ -799,7 +829,7 @@
                                                     </div>
                                                     <div class="col-md-7 input-group">
 
-                                                        <input type="text" class="form-control" placeholder="Enter Coverage Amount">
+                                                        <input type="number" id="txtCACNEWaitingYears" name="CACNEWaitingYears" class="form-control" placeholder="Waiting Period in Years">
                                                         <span class="input-group-append">
                                                             <span class="input-group-text">Year</span>
                                                         </span>
@@ -810,13 +840,13 @@
                                     </div>
                                     <div class="row m-b-15 m-t-15">
                                         <div class="col-md-4">
-                                            <input type="checkbox" id="HazardousSports" onclick="exclusionsfn('HazardousSports','HazardousSportsContent')" />
+                                            <input type="checkbox" id="HazardousSports" name="HazardousSportsExclusion" value="Y" onclick="exclusionsfn('HazardousSports','HazardousSportsContent')" />
                                             <label for="HazardousSports">Hazardous Sports Exclusion</label>
                                         </div>
                                         <div class="col-md-7 demo-section k-content">
                                             <div id="HazardousSportsContent" style="display: none;">
                                                 <div>
-                                                    <label class="col-sm-12 col-form-label text-left pl-1 font-weight-bold">Atomic, Biological and Chemical/Nuclear Exclusion</label>
+                                                    <label class="col-sm-12 col-form-label text-left pl-1 font-weight-bold">Hazardous Sports Exclusion</label>
                                                 </div>
                                                 <div class="row m-b-15 m-t-15">
                                                     <div class="col-md-5">
@@ -826,7 +856,7 @@
                                                         <span class="input-group-prepend">
                                                             <span class="input-group-text">OMR</span>
                                                         </span>
-                                                        <input type="text" class="form-control" placeholder="Enter Coverage Amount">
+                                                        <input type="number" id="txtHSECoverageLimit" name="HSECoverageLimit" class="form-control" placeholder="Enter Coverage Amount">
                                                     </div>
                                                 </div>
                                                 <div class="row m-b-15 m-t-15">
@@ -837,7 +867,7 @@
                                                         <span class="input-group-prepend">
                                                             <span class="input-group-text">OMR</span>
                                                         </span>
-                                                        <input type="text" class="form-control" placeholder="Enter Maximum Amount">
+                                                        <input type="number" id="txtHSEMaximumLimit" name="HSEMaximumLimit" class="form-control" placeholder="Enter Maximum Amount">
                                                     </div>
                                                 </div>
                                                 <div class="row m-b-15 m-t-15">
@@ -846,7 +876,7 @@
                                                     </div>
                                                     <div class="col-md-7 input-group">
 
-                                                        <input type="text" class="form-control" placeholder="Enter Coverage Amount">
+                                                        <input type="number" id="txtHSEWaitingYears" name="HSEWaitingYears" class="form-control" placeholder="Waiting Period in Years">
                                                         <span class="input-group-append">
                                                             <span class="input-group-text">Year</span>
                                                         </span>
@@ -857,13 +887,13 @@
                                     </div>
                                     <div class="row m-b-15 m-t-15">
                                         <div class="col-md-4">
-                                            <input type="checkbox" id="AviationExclusion" onclick="exclusionsfn('AviationExclusion','AviationExclusionContent')" />
+                                            <input type="checkbox" id="AviationExclusion" name="AviationExclusion" value="Y" onclick="exclusionsfn('AviationExclusion','AviationExclusionContent')" />
                                             <label for="AviationExclusion">Aviation Exclusion</label>
                                         </div>
                                         <div class="col-md-7 demo-section k-content">
                                             <div id="AviationExclusionContent" style="display: none;">
                                                 <div>
-                                                    <label class="col-sm-12 col-form-label text-left pl-1 font-weight-bold">Atomic, Biological and Chemical/Nuclear Exclusion</label>
+                                                    <label class="col-sm-12 col-form-label text-left pl-1 font-weight-bold">Aviation Exclusion</label>
                                                 </div>
                                                 <div class="row m-b-15 m-t-15">
                                                     <div class="col-md-5">
@@ -873,7 +903,7 @@
                                                         <span class="input-group-prepend">
                                                             <span class="input-group-text">OMR</span>
                                                         </span>
-                                                        <input type="text" class="form-control" placeholder="Enter Coverage Amount">
+                                                        <input type="number" id="txtAECoverageLimit" name="AECoverageLimit" class="form-control" placeholder="Enter Coverage Amount">
                                                     </div>
                                                 </div>
                                                 <div class="row m-b-15 m-t-15">
@@ -884,7 +914,7 @@
                                                         <span class="input-group-prepend">
                                                             <span class="input-group-text">OMR</span>
                                                         </span>
-                                                        <input type="text" class="form-control" placeholder="Enter Maximum Amount">
+                                                        <input type="number" id="txtAEMaximumLimit" name="AEMaximumLimit" class="form-control" placeholder="Enter Maximum Amount">
                                                     </div>
                                                 </div>
                                                 <div class="row m-b-15 m-t-15">
@@ -893,7 +923,7 @@
                                                     </div>
                                                     <div class="col-md-7 input-group">
 
-                                                        <input type="text" class="form-control" placeholder="Enter Coverage Amount">
+                                                        <input type="number" id="txtAEEWaitingYears" name="AEEWaitingYears" class="form-control" placeholder="Waiting Period in Years">
                                                         <span class="input-group-append">
                                                             <span class="input-group-text">Year</span>
                                                         </span>
@@ -904,13 +934,13 @@
                                     </div>
                                     <div class="row m-b-15 m-t-15">
                                         <div class="col-md-4">
-                                            <input type="checkbox" id="selfInflicted" onclick="exclusionsfn('selfInflicted','selfInflictedContent')" />
+                                            <input type="checkbox" id="selfInflicted" name="IntentionalSelfInflicted" value="Y" onclick="exclusionsfn('selfInflicted','selfInflictedContent')" />
                                             <label for="selfInflicted">Intentionally self-inflicted injury, suicide or attempted suicide</label>
                                         </div>
                                         <div class="col-md-7 demo-section k-content">
                                             <div id="selfInflictedContent" style="display: none;">
                                                 <div>
-                                                    <label class="col-sm-12 col-form-label text-left pl-1 font-weight-bold">Atomic, Biological and Chemical/Nuclear Exclusion</label>
+                                                    <label class="col-sm-12 col-form-label text-left pl-1 font-weight-bold">Intentionally self-inflicted injury, suicide or attempted suicide</label>
                                                 </div>
                                                 <div class="row m-b-15 m-t-15">
                                                     <div class="col-md-5">
@@ -920,7 +950,7 @@
                                                         <span class="input-group-prepend">
                                                             <span class="input-group-text">OMR</span>
                                                         </span>
-                                                        <input type="text" class="form-control" placeholder="Enter Coverage Amount">
+                                                        <input type="number" id="txtISSASCoverageLimit" name="ISSASCoverageLimit" class="form-control" placeholder="Enter Coverage Amount">
                                                     </div>
                                                 </div>
                                                 <div class="row m-b-15 m-t-15">
@@ -931,7 +961,7 @@
                                                         <span class="input-group-prepend">
                                                             <span class="input-group-text">OMR</span>
                                                         </span>
-                                                        <input type="text" class="form-control" placeholder="Enter Maximum Amount">
+                                                        <input type="number" id="txtISSASMaximumLimit" name="ISSASMaximumLimit" class="form-control" placeholder="Enter Maximum Amount">
                                                     </div>
                                                 </div>
                                                 <div class="row m-b-15 m-t-15">
@@ -940,7 +970,7 @@
                                                     </div>
                                                     <div class="col-md-7 input-group">
 
-                                                        <input type="text" class="form-control" placeholder="Enter Coverage Amount">
+                                                        <input type="number" id="txtISSASWaitingYears" name="ISSASWaitingYears" class="form-control" placeholder="Waiting Period in Years">
                                                         <span class="input-group-append">
                                                             <span class="input-group-text">Year</span>
                                                         </span>
@@ -951,13 +981,13 @@
                                     </div>
                                     <div class="row m-b-15 m-t-15">
                                         <div class="col-md-4">
-                                            <input type="checkbox" id="PandemicEpidemic" onclick="exclusionsfn('PandemicEpidemic','PandemicEpidemicContent')" />
+                                            <input type="checkbox" id="PandemicEpidemic" name="PandemicEpidemicCondition" value="Y" onclick="exclusionsfn('PandemicEpidemic','PandemicEpidemicContent')" />
                                             <label for="PandemicEpidemic">Pandemic / Epidemic Conditions</label>
                                         </div>
                                         <div class="col-md-7 demo-section k-content">
                                             <div id="PandemicEpidemicContent" style="display: none;">
                                                 <div>
-                                                    <label class="col-sm-12 col-form-label text-left pl-1 font-weight-bold">Atomic, Biological and Chemical/Nuclear Exclusion</label>
+                                                    <label class="col-sm-12 col-form-label text-left pl-1 font-weight-bold">Pandemic / Epidemic Conditions</label>
                                                 </div>
                                                 <div class="row m-b-15 m-t-15">
                                                     <div class="col-md-5">
@@ -967,7 +997,7 @@
                                                         <span class="input-group-prepend">
                                                             <span class="input-group-text">OMR</span>
                                                         </span>
-                                                        <input type="text" class="form-control" placeholder="Enter Coverage Amount">
+                                                        <input type="number" id="txtPECCoverageLimit" name="PECCoverageLimit" class="form-control" placeholder="Enter Coverage Amount">
                                                     </div>
                                                 </div>
                                                 <div class="row m-b-15 m-t-15">
@@ -978,7 +1008,7 @@
                                                         <span class="input-group-prepend">
                                                             <span class="input-group-text">OMR</span>
                                                         </span>
-                                                        <input type="text" class="form-control" placeholder="Enter Maximum Amount">
+                                                        <input type="number" id="txtPECMaximumLimit" name="PECMaximumLimit" class="form-control" placeholder="Enter Maximum Amount">
                                                     </div>
                                                 </div>
                                                 <div class="row m-b-15 m-t-15">
@@ -987,7 +1017,7 @@
                                                     </div>
                                                     <div class="col-md-7 input-group">
 
-                                                        <input type="text" class="form-control" placeholder="Enter Coverage Amount">
+                                                        <input type="number" id="txtPECWaitingYears" name="PECWaitingYears" class="form-control" placeholder="Waiting Period in Years">
                                                         <span class="input-group-append">
                                                             <span class="input-group-text">Year</span>
                                                         </span>
@@ -998,7 +1028,7 @@
                                     </div>
                                     <div class="row m-b-15 m-t-15">
                                         <div class="col-md-4">
-                                            <input type="checkbox" id="Sucide" />
+                                            <input type="checkbox" id="Sucide" name="Sucide" value="Y" />
                                             <label for="Sucide">Sucide</label>
                                         </div>
                                         <div class="col-md-7 demo-section k-content">
@@ -1014,7 +1044,7 @@
                                                         <span class="input-group-prepend">
                                                             <span class="input-group-text">OMR</span>
                                                         </span>
-                                                        <input type="text" class="form-control" placeholder="Enter Coverage Amount">
+                                                        <input type="number" id="txtSECCoverageLimit" name="SECCoverageLimit" class="form-control" placeholder="Enter Coverage Amount">
                                                     </div>
                                                 </div>
                                                 <div class="row m-b-15 m-t-15">
@@ -1025,7 +1055,7 @@
                                                         <span class="input-group-prepend">
                                                             <span class="input-group-text">OMR</span>
                                                         </span>
-                                                        <input type="text" class="form-control" placeholder="Enter Maximum Amount">
+                                                        <input type="number" id="txtSEMaximumLimit" name="SEMaximumLimit" class="form-control" placeholder="Enter Maximum Amount">
                                                     </div>
                                                 </div>
                                                 <div class="row m-b-15 m-t-15">
@@ -1034,7 +1064,7 @@
                                                     </div>
                                                     <div class="col-md-7 input-group">
 
-                                                        <input type="text" class="form-control" placeholder="Enter Coverage Amount">
+                                                        <input type="number" id="txtSEWaitingYears" name="SEWaitingYears" class="form-control" placeholder="Waiting Period in Years">
                                                         <span class="input-group-append">
                                                             <span class="input-group-text">Year</span>
                                                         </span>
@@ -1045,7 +1075,7 @@
                                     </div>
                                     <div class="row m-b-15 m-t-15">
                                         <div class="col-md-4">
-                                            <input type="checkbox" id="HIV_AIDS" />
+                                            <input type="checkbox" id="HIV_AIDS" name="HIV_AIDS" value="Y" />
                                             <label for="HIV_AIDS">HIV/AIDS or related conditions</label>
                                         </div>
                                         <div class="col-md-7 demo-section k-content">
@@ -1061,7 +1091,7 @@
                                                         <span class="input-group-prepend">
                                                             <span class="input-group-text">OMR</span>
                                                         </span>
-                                                        <input type="text" class="form-control" placeholder="Enter Coverage Amount">
+                                                        <input type="number" id="txtHIVCoverageLimit" name="HIVCoverageLimit" class="form-control" placeholder="Enter Coverage Amount">
                                                     </div>
                                                 </div>
                                                 <div class="row m-b-15 m-t-15">
@@ -1072,7 +1102,7 @@
                                                         <span class="input-group-prepend">
                                                             <span class="input-group-text">OMR</span>
                                                         </span>
-                                                        <input type="text" class="form-control" placeholder="Enter Maximum Amount">
+                                                        <input type="number" id="txtHIVMaximumLimit" name="HIVMaximumLimit" class="form-control" placeholder="Enter Maximum Amount">
                                                     </div>
                                                 </div>
                                                 <div class="row m-b-15 m-t-15">
@@ -1081,7 +1111,7 @@
                                                     </div>
                                                     <div class="col-md-7 input-group">
 
-                                                        <input type="text" class="form-control" placeholder="Enter Coverage Amount">
+                                                        <input type="number" id="txtHIVWaitingYears" name="HIVWaitingYears" class="form-control" placeholder="Waiting Period in Years">
                                                         <span class="input-group-append">
                                                             <span class="input-group-text">Year</span>
                                                         </span>
@@ -1090,9 +1120,24 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row m-b-15 m-t-15">
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ExclusionModal"><i class="mdi mdi-plus mx-2"></i>Add Exclusions</button>
+                                    <div id="divDynamicExclusionCover">
+
+
                                     </div>
+                                    <div class="row m-b-15 m-t-15">
+                                        <div class="col-md-5">
+                                            @Html.TextBox("txtExclusionCover", "", new { @class = "form-control w-full", @placeholder = "Enter New Exclusion" })
+                                        </div>
+                                        <div class="col-md-7 input-group">
+                                            <input type="hidden" id="hdnOtherExclusions" value="" />
+                                            @*<input type="hidden" id="hdnDynamicControl" value="1" />*@
+                                            <button type="button" class="btn btn-primary" onclick="AddDynamicControl('Exclusions')"><i class="mdi mdi-plus mx-2"></i>Add Exclusions</button>
+
+                                        </div>
+                                    </div>
+                                    @*<div class="row m-b-15 m-t-15">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ExclusionModal"><i class="mdi mdi-plus mx-2"></i>Add Exclusions</button>
+                                        </div>*@
                                 </div>
                             </div>
 
@@ -1306,7 +1351,7 @@
                                                 <label class="col-sm-12 col-form-label text-left">Client Premium</label>
                                             </div>
                                             <div class="col-md-7 demo-section k-content">
-                                                @Html.TextBoxFor(model => model.objQuo.ClientPremium, new { @class = "form-control w-full", @placeholder = "Enter Client Premium" })
+                                                @Html.TextBoxFor(model => model.objQuo.ClientPremium, new { @onchange = "CalcInsLevy();", @class = "form-control w-full", @placeholder = "Enter Client Premium" })
                                             </div>
                                         </div>
                                         <div class="row m-b-15 m-t-15">
@@ -1314,7 +1359,7 @@
                                                 <label class="col-sm-12 col-form-label text-left">Insurance Levy at 0.55%</label>
                                             </div>
                                             <div class="col-md-7 demo-section k-content">
-                                                @Html.TextBoxFor(model => model.objQuo.InsuranceLevy, new { @class = "form-control w-full", @placeholder = "Enter Insurance Levy @ 0.55%" })
+                                                @Html.TextBoxFor(model => model.objQuo.InsuranceLevy, new { @disabled = "disabled", @class = "form-control w-full", @placeholder = "Enter Insurance Levy @ 0.55%" })
 
                                             </div>
                                         </div>
@@ -1323,7 +1368,7 @@
                                                 <label class="col-sm-12 col-form-label text-left">Policy Fee</label>
                                             </div>
                                             <div class="col-md-7 demo-section k-content">
-                                                @Html.TextBoxFor(model => model.objQuo.PolicyFee, new { @class = "form-control w-full", @placeholder = "Enter the Policy Fee" })
+                                                @Html.TextBoxFor(model => model.objQuo.PolicyFee, new { @readonly = "readonly", @class = "form-control w-full", @placeholder = "Enter the Policy Fee@1" })
                                             </div>
                                         </div>
                                         <div class="row m-b-15 m-t-15">
@@ -1331,7 +1376,7 @@
                                                 <label class="col-sm-12 col-form-label text-left">Total Premium</label>
                                             </div>
                                             <div class="col-md-7 demo-section k-content">
-                                                @Html.TextBoxFor(model => model.objQuo.TotalPremium, new { @class = "form-control w-full", @placeholder = "Enter Total Premium" })
+                                                @Html.TextBoxFor(model => model.objQuo.TotalPremium, new { @readonly = "readonly", @class = "form-control w-full", @placeholder = "Enter Total Premium" })
                                             </div>
                                         </div>
                                         <div class="row m-b-15 m-t-15">
@@ -1455,7 +1500,7 @@
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
                                         @Html.TextBoxFor(model => model.objQuo.EstimatedAnnualWages, new { @class = "form-control w-full", @placeholder = "Enter Estimated Annual Wages" })
-                                        
+
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -1472,7 +1517,7 @@
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
                                         @Html.TextBoxFor(model => model.objQuo.Premium_EAW_Rate, new { @class = "form-control w-full", @placeholder = "Enter Premium (EAW * Rate)" })
-                                        
+
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -1481,7 +1526,7 @@
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
                                         @Html.TextBoxFor(model => model.objQuo.Premium_Incl_levy_PolFeeRO, new { @class = "form-control w-full", @placeholder = "Enter Premium (Incl. 1.6% levy + Pol Fee RO.1)" })
-                                        
+
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -1497,7 +1542,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Total Premium Incl. VAT</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        
+
                                         @Html.TextBoxFor(model => model.objQuo.TotalPremiumInclVAT, new { @class = "form-control w-full", @placeholder = "Enter Total Premium Incl. VAT" })
                                     </div>
                                 </div>
@@ -1597,6 +1642,27 @@
 </div>
 
 <script type="text/javascript">
+    function CalcInsLevy() {
+
+        var InsLevyPercentage = parseFloat("0.55").toFixed(2)
+        var PolFee = parseFloat("1").toFixed(2)
+        var t = $('#objQuo_ClientPremium').val()
+        var CP = parseFloat(t).toFixed(2);
+
+        var InsLevy = (($('#objQuo_ClientPremium').val() / 100) * InsLevyPercentage).toFixed(2);
+        //var TotalPrem = CP + PolFee + InsLevy;
+        var TotalPrem = parseFloat(CP) + parseFloat(PolFee) + parseFloat(InsLevy);
+
+        $('#objQuo_InsuranceLevy').val(InsLevy);
+        $('#objQuo_PolicyFee').val(PolFee);
+        $('#objQuo_TotalPremium').val(TotalPrem);
+
+        //InsuranceLevy objQuo_ClientPremium
+        //PolicyFee
+        //TotalPremium
+        //$('#ClientPremium').val();
+
+    }
     window.onload = function () {
 
         setTimeout(function () {
@@ -1638,6 +1704,12 @@
 
                 } else {
                     $("#ACDContent").slideUp();
+                    $("#FixedACD").prop('checked', false);
+                    $("#VariableACD").prop('checked', false);
+                    $("#txtAccidentalDeathSAM").val('');
+                    $("#txtAccidentalFCL").val('');
+                    $("#txtACDSAM").val('');
+                    $("#txtACDNoOfTimes").val('');
                 }
             });
             $("#PermanentDisability").click(function () {
@@ -1648,6 +1720,13 @@
 
                 } else {
                     $("#PermanentDisabilityContent").slideUp();
+
+                    $('#AccidentPTD').prop('checked', false);
+                    $('#SicknessPTD').prop('checked', false);
+                    $('#txtPTDCoverageLimit').val('');
+                    $('#txtPTDMaximumLimit').val('');
+                    $('#txtPTDWaitingYears').val('');
+
                 }
             });
             $("#PermanentPartialDisability").click(function () {
@@ -1658,6 +1737,12 @@
 
                 } else {
                     $("#PermanentPartialDisabilityContent").slideUp();
+
+                    $('#AccidentPPD').prop('checked', false);
+                    $('#SicknessPPD').prop('checked', false);
+                    $('#txtPPDCoverageLimit').val('');
+                    $('#txtPPDMaximumLimit').val('');
+                    $('#txtPPDWaitingYears').val('');
                 }
             });
             $("#TotalDisability").click(function () {
@@ -1668,6 +1753,13 @@
 
                 } else {
                     $("#TotalDisabilityContent").slideUp();
+
+                    $('#AccidentTTD').prop('checked', false);
+                    $('#SicknessTTD').prop('checked', false);
+                    $('#txtTTDCoverageLimit').val('');
+                    $('#txtTTDMaximumLimit').val('');
+                    $('#txtTTDWaitingYears').val('');
+
                 }
             });
             $("#RepatriationBenefit").click(function () {
@@ -1678,6 +1770,7 @@
 
                 } else {
                     $("#RepatriationBenefitContent").slideUp();
+                    $("#txtRBCoverageLimit").val('');
                 }
             });
             $("#Sucide").click(function () {
@@ -1688,6 +1781,9 @@
 
                 } else {
                     $("#SucideContent").slideUp();
+                    $("#txtSECCoverageLimit").val('');
+                    $("#txtSEMaximumLimit").val('');
+                    $("#txtSEWaitingYears").val('');
                 }
             });
             $("#PassiveWarRisk").click(function () {
@@ -1698,6 +1794,7 @@
 
                 } else {
                     $("#PassiveWarRiskContent").slideUp();
+                    $("#txtPWRCoverageLimit").val('');
                 }
             });
             $("#HIV_AIDS").click(function () {
@@ -1708,6 +1805,10 @@
 
                 } else {
                     $("#HIV_AIDSContent").slideUp();
+
+                    $("#txtHIVCoverageLimit").val('');
+                    $("#txtHIVMaximumLimit").val('');
+                    $("#txtHIVWaitingYears").val('');
                 }
             });
             $("#TerminalIllness").click(function () {
@@ -1718,6 +1819,10 @@
 
                 } else {
                     $("#TerminalIllnessContent").slideUp();
+                    $("#txtTLCoverageLimit").val('');
+                    $("#txtTLMaximumLimit").val('');
+                    $("#txtTLWaitingYears").val('');
+
                 }
             });
             $("#CriticalIllness").click(function () {
@@ -1727,54 +1832,59 @@
                     $("#CriticalIllnessContent").slideDown();
 
                 } else {
+
                     $("#CriticalIllnessContent").slideUp();
+
+                    $("#txtCLCoverageLimit").val('');
+                    $("#txtCLMaximumLimit").val('');
+                    $("#txtCLWaitingYears").val('');
                 }
             });
-            $("input[name='DCGroup']").change(function () {
+            $("input[name='DeathCoverType']").change(function () {
 
-                if ($('#DAC:checked').val() === 'on') {
+                if ($('#DAC:checked').val() === 'DAC') {
                     $("#DNCContent").slideUp();
                     $("#DACContent").slideDown();
 
-                } else if ($('#DNC:checked').val() === 'on') {
+                } else if ($('#DNC:checked').val() === 'DNC') {
                     $("#DNCContent").slideDown();
                     $("#DACContent").slideUp();
                 }
             });
             $("input[name='DNCGroup']").change(function () {
 
-                if ($('#FixedDNC:checked').val() === 'on') {
+                if ($('#FixedDNC:checked').val() === 'Fixed') {
                     $("#FixedDNCContent").show();
                     $("#VariableDNCContent").hide();
                     $("#DNCFCLContent").show();
 
-                } else if ($('#VariableDNC:checked').val() === 'on') {
+                } else if ($('#VariableDNC:checked').val() === 'Variable') {
                     $("#FixedDNCContent").hide();
                     $("#VariableDNCContent").show();
                     $("#DNCFCLContent").show();
                 }
             });
-            $("input[name='DACGroup']").change(function () {
+            $("input[name='DeathCoverAnnualLimit']").change(function () {
 
-                if ($('#FixedDAC:checked').val() === 'on') {
+                if ($('#FixedDAC:checked').val() === 'Fixed') {
                     $("#FixedDACContent").show();
                     $("#VariableDACContent").hide();
                     $("#DACFCLContent").show();
 
-                } else if ($('#VariableDAC:checked').val() === 'on') {
+                } else if ($('#VariableDAC:checked').val() === 'Variable') {
                     $("#FixedDACContent").hide();
                     $("#VariableDACContent").show();
                     $("#DACFCLContent").show();
                 }
             });
-            $("input[name='ACDGroup']").change(function () {
+            $("input[name='AccidentalAnnualLimit']").change(function () {
 
-                if ($('#FixedACD:checked').val() === 'on') {
+                if ($('#FixedACD:checked').val() === 'Fixed') {
                     $("#FixedACDContent").show();
                     $("#VariableACDContent").hide();
                     $("#ACDFCLContent").show();
 
-                } else if ($('#VariableACD:checked').val() === 'on') {
+                } else if ($('#VariableACD:checked').val() === 'Variable') {
                     $("#FixedACDContent").hide();
                     $("#VariableACDContent").show();
                     $("#ACDFCLContent").show();
@@ -1860,6 +1970,265 @@
 
         } else {
             $("#" + checkBoxContent).slideUp();
+
+            switch (checkBoxId) {
+                case "WarExclusion":
+                    $("#txtWECoverageLimit").val('');
+                    $("#txtWEMaximumLimit").val('');
+                    $("#txtWEWaitingYears").val('');
+                    break;
+                case "AtomicExclusion":
+                    $("#txtABACNECoverageLimit").val('');
+                    $("#txtABACNEMaximumLimit").val('');
+                    $("#txtABACNEWaitingYears").val('');
+                    break;
+                case "CriminalAct":
+                    $("#txtCACCoverageLimit").val('');
+                    $("#txtCACNEMaximumLimit").val('');
+                    $("#txtCACNEWaitingYears").val('');
+                    break;
+                case "HazardousSports":
+                    $("#txtHSECoverageLimit").val('');
+                    $("#txtHSEMaximumLimit").val('');
+                    $("#txtHSEWaitingYears").val('');
+                    break;
+                case "AviationExclusion":
+                    $("#txtAECoverageLimit").val('');
+                    $("#txtAEMaximumLimit").val('');
+                    $("#txtAEEWaitingYears").val('');
+                    break;
+                case "selfInflicted":
+                    $("#txtISSASCoverageLimit").val('');
+                    $("#txtISSASMaximumLimit").val('');
+                    $("#txtISSASWaitingYears").val('');
+                    break;
+                case "PandemicEpidemic":
+                    $("#txtPECCoverageLimit").val('');
+                    $("#txtPECMaximumLimit").val('');
+                    $("#txtPECWaitingYears").val('');
+                    break;
+                //case "Sucide":
+                //    $("#txtSECCoverageLimit").val('');
+                //    $("#txtSEMaximumLimit").val('');
+                //    $("#txtSEWaitingYears").val('');
+                //    break;
+                //case "HIV_AIDS":
+                //    $("#txtHIVCoverageLimit").val('');
+                //    $("#txtHIVMaximumLimit").val('');
+                //    $("#txtHIVWaitingYears").val('');
+                //    break;
+
+                default:
+                // code block
+            }
+
+
+
+
         }
     }
+
+    function AddDynamicControl(Type) {
+
+        if (Type == "AdditionalCover") {
+            if ($.trim($("#txtAdditionalCover").val()) == "") {
+                alert("Please enter Additional Cover");
+                return false;
+            }
+        }
+
+        if (Type == "Exclusions") {
+            if ($.trim($("#txtExclusionCover").val()) == "") {
+                alert("Please enter Exclusion Cover");
+                return false;
+            }
+        }
+
+        var IDNumber = $("#hdnDynamicControl").val();
+        var ControlVal = Type == "AdditionalCover" ? $("#txtAdditionalCover").val() : $("#txtExclusionCover").val();
+        var OuterDiv = Type == "AdditionalCover" ? "divDynamicAdditionalCover" : "divDynamicExclusionCover";
+
+        var Titleid = "dynTitle_" + IDNumber;
+        var Contentid = "dynContent_" + IDNumber;
+        //var MainDivID = "divDynamicAdditionalCover_" + IDNumber;
+
+        var CoverageLimitId = "CoverageLimit_" + IDNumber;
+        var MaximumLimitId = "MaximumLimit_" + IDNumber;
+        var WaitingPeriodinYearsId = "WaitingPeriodinYears_" + IDNumber;
+
+        var txtCss = Type == "AdditionalCover" ? 'form-control DynAdditionalCoverClass' : 'form-control DynExclusionsClass';
+        var cheboxCss = Type == "AdditionalCover" ? 'DynAdditionalCoverClass' : 'DynExclusionsClass';
+
+
+        $("#" + OuterDiv).append("<div  class='row m-b-15 m-t-15'><div class= 'col-md-3'><input class='" + cheboxCss + "' type = 'checkbox' id ='" + Titleid + "' value='" + ControlVal + "' name='" + Contentid + "' onclick='DynamicSlideUpDown(this)' /><label for= '" + Titleid + "' >" + ControlVal + "</label></div ><div class='col-md-7 demo-section k-content'><div id='" + Contentid + "' style='display: none;'><div><label class= 'col-sm-12 col-form-label text-left pl-1 font-weight-bold' > " + ControlVal + " Benefits</label></div><div class='row m-b-15 m-t-15'><div class='col-md-5'><label class= 'col-sm-12 col-form-label text-left pl-1' >Coverage Limit</label></div><div class='col-md-7 input-group'><span class='input-group-prepend'><span class='input-group-text'>OMR</span></span><input type='text' id='" + CoverageLimitId + "' class='" + txtCss + "' placeholder='Coverage Amount' onchange='ReadDynamicControl()'></div></div><div class='row m-b-15 m-t-15'> <div class='col-md-5'><label class='col-sm-12 col-form-label text-left pl-1'>Maximum Limit</label></div><div class='col-md-7 input-group'><span class='input-group-prepend'><span class='input-group-text'>OMR</span></span><input type = 'text' id ='" + MaximumLimitId + "' class='" + txtCss + "' placeholder='Enter Maximum Amount' onchange='ReadDynamicControl()'></div></div><div class='row m-b-15 m-t-15'><div class='col-md-5'><label class='col-sm-12 col-form-label text-left pl-1'>Waiting Period in Years</label></div><div class='col-md-7 input-group'><input type = 'text' id ='" + WaitingPeriodinYearsId + "' class='" + txtCss + "' placeholder='Enter Waiting Period in Years' onchange='ReadDynamicControl()'><span class='input-group-append'><span class='input-group-text'>Year</span>  </span></div></div></div></div></div>");
+
+        var NextID = Number(IDNumber) + 1;
+        $("#hdnDynamicControl").val(NextID);
+
+    }
+    function DynamicSlideUpDown(obj) {
+
+        var Contentid = obj.name;
+
+        if ($(obj).is(':checked')) {
+
+            $('#' + Contentid).slideDown();
+
+        } else {
+            $('#' + Contentid).slideUp();
+        }
+        ReadDynamicControl();
+    }
+    function AssignDeathCoverValues(type) {
+
+        if (type == "DACtxt") {
+
+            if ($("#FixedDAC").is(':checked')) {
+
+                $("#hdnDeathCoverSumAssuredAmount").val($("#FixedDCSAmount").val());
+                $("#hdnDeathCoverFCL").val($("#txtDeathCoverFCL").val());
+
+            } else {
+                $("#hdnDeathCoverSumAssuredAmount").val($("#VariableDCSAmount").val());
+                $("#hdnDeathCoverFCL").val($("#txtDeathCoverFCL").val());
+                $("#hdnDeathCoverSumAssuredNoOfTimes").val($("#txtDeathCoverSumAssuredNoOfTimes").val());
+
+            }
+
+        }
+        else if (type == "DACFixed") {
+            $("#FixedDCSAmount").val('');
+            $("#hdnDeathCoverSumAssuredAmount").val('');
+        }
+        else if (type == "DACVariable") {
+            $("#VariableDCSAmount").val('');
+            $("#hdnDeathCoverSumAssuredAmount").val('');
+
+
+        }
+        else if (type == "DNC") {
+
+            $("#FixedDCSAmount").val('');
+            $("#VariableDCSAmount").val('');
+            $("#txtDeathCoverFCL").val('');
+            $("#txtDeathCoverSumAssuredNoOfTimes").val('');
+            $("#hdnDeathCoverSumAssuredAmount").val('');
+            $("#hdnDeathCoverFCL").val('');
+            $("#hdnDeathCoverSumAssuredNoOfTimes").val('');
+        }
+        else if (type == "DNCtxt") {
+
+            if ($("#FixedDNC").is(':checked')) {
+
+                $("#hdnDeathCoverSumAssuredAmount").val($("#txtDNCSAA").val());
+                $("#hdnDeathCoverFCL").val($("#txtDNCFCLContent").val());
+
+            } else {
+                $("#hdnDeathCoverSumAssuredAmount").val($("#txtDNCSAA01").val());
+                $("#hdnDeathCoverFCL").val($("#txtDNCFCLContent").val());
+                $("#hdnDeathCoverSumAssuredNoOfTimes").val($("#txtEnterNooftimes").val());
+            }
+
+        }
+        else if (type == "FixedDNC") {
+
+            $("#txtDNCSAA01").val('');
+            $("#hdnDeathCoverSumAssuredAmount").val('');
+            $("#txtEnterNooftimes").val('');
+        }
+        else if (type == "VariableDNC") {
+
+            $("#txtDNCSAA").val('');
+            $("#hdnDeathCoverSumAssuredAmount").val('');
+        }
+        else if (type == "DAC") {
+
+            $("#txtDNCSAA").val('');
+            $("#txtDNCSAA01").val('');
+            $("#txtDNCFCLContent").val('');
+            $("#txtEnterNooftimes").val('');
+
+            $("#hdnDeathCoverSumAssuredAmount").val('');
+            $("#hdnDeathCoverFCL").val('');
+            $("#hdnDeathCoverSumAssuredNoOfTimes").val('');
+        }
+        else if (type == "txtACD") {
+
+            if ($("#FixedACD").is(':checked')) {
+
+                $("#hdnAccidentalSumAssuredAmount").val($("#txtAccidentalDeathSAM").val());
+
+
+            } else {
+                $("#hdnAccidentalSumAssuredAmount").val($("#txtACDSAM").val());
+
+            }
+
+        }
+        else if (type == "FixedADC") {
+
+            $("#hdnAccidentalSumAssuredAmount").val('');
+            $("#txtACDSAM").val('');
+        }
+        else if (type == "VariableADC") {
+            $("#hdnAccidentalSumAssuredAmount").val('');
+            $("#txtAccidentalDeathSAM").val('');
+        }
+        //alert($("#hdnDeathCoverSumAssuredAmount").val());
+
+    }
+
+    function ReadDynamicControl() {
+
+        var AdditionalCover = [];
+        var Exclusion = [];
+        //'DynAdditionalCoverClass' : 'DynExclusionsClass'
+        var arrAdditionContent = $(".DynAdditionalCoverClass");
+        var arrDynExclusions = $(".DynExclusionsClass");
+
+        if (arrAdditionContent.length > 0) {
+            for (var i = 0; i < arrAdditionContent.length; i++) {
+
+                var id = arrAdditionContent[i].id;
+
+                if (id.includes("dynTitle")) {
+
+                    if ($(arrAdditionContent[i]).is(':checked')) {
+                        item = {};
+                        item["Title"] = $("#" + arrAdditionContent[i].id).val();
+                        item["CoverageLimit"] = $.trim($("#" + arrAdditionContent[i].id.replace("dynTitle", "CoverageLimit")).val()) == "" ? "0" : $.trim($("#" + arrAdditionContent[i].id.replace("dynTitle", "CoverageLimit")).val());
+                        item["MaximumLimit"] = $.trim($("#" + arrAdditionContent[i].id.replace("dynTitle", "MaximumLimit")).val()) == "" ? "0" : $.trim($("#" + arrAdditionContent[i].id.replace("dynTitle", "MaximumLimit")).val());
+                        item["WaitingPeriodinYears"] = $.trim($("#" + arrAdditionContent[i].id.replace("dynTitle", "WaitingPeriodinYears")).val()) == "" ? "0" : $.trim($("#" + arrAdditionContent[i].id.replace("dynTitle", "WaitingPeriodinYears")).val());
+                        AdditionalCover.push(item);
+                    }
+
+                }
+            }
+
+            $("#hdnOtherAdditionalCover").val(JSON.stringify(AdditionalCover));
+        }
+
+        if (arrDynExclusions.length > 0) {
+            for (var i = 0; i < arrDynExclusions.length; i++) {
+
+                var id = arrDynExclusions[i].id;
+
+                if (id.includes("dynTitle")) {
+
+                    if ($(arrDynExclusions[i]).is(':checked')) {
+                        item = {};
+                        item["Title"] = $("#" + arrDynExclusions[i].id).val();
+                        item["CoverageLimit"] = $.trim($("#" + arrDynExclusions[i].id.replace("dynTitle", "CoverageLimit")).val()) == "" ? "0" : $.trim($("#" + arrDynExclusions[i].id.replace("dynTitle", "CoverageLimit")).val());
+                        item["MaximumLimit"] = $.trim($("#" + arrDynExclusions[i].id.replace("dynTitle", "MaximumLimit")).val()) == "" ? "0" : $.trim($("#" + arrDynExclusions[i].id.replace("dynTitle", "MaximumLimit")).val());
+                        item["WaitingPeriodinYears"] = $.trim($("#" + arrDynExclusions[i].id.replace("dynTitle", "WaitingPeriodinYears")).val()) == "" ? "0" : $.trim($("#" + arrDynExclusions[i].id.replace("dynTitle", "WaitingPeriodinYears")).val());
+                        Exclusion.push(item);
+                    }
+
+                }
+            }
+            $("#hdnOtherExclusions").val(JSON.stringify(Exclusion));
+        }
+
+    }
+
 </script>

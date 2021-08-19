@@ -31,6 +31,7 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
             new GLIMasterBAL().GetMasterData(out objCCMasters);
             var selectListCCMaster = new List<SelectListItem>();
             var selectListICM = new List<SelectListItem>();
+            var selectListBranchMaster = new List<SelectListItem>();
 
             foreach (var element in objCCMasters.lstInsCompddl)
             {
@@ -50,6 +51,15 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
                 });
                 obj.lstClientMaster = selectListCCMaster;
             }
+            foreach (var element in objCCMasters.lstBranchMaster)
+            {
+                selectListBranchMaster.Add(new SelectListItem
+                {
+                    Value = element.BranchCode,
+                    Text = element.BranchName
+                });
+                obj.lstBranchMaster = selectListBranchMaster;
+            }
             if (QId > 0)
             {
                 string name = string.Empty;
@@ -67,9 +77,12 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
             {
 
                 returnCode = objBALTot.GetPolicyIssuance(DraftNo, out lstQuotation);
-                if (lstQuotation.Count > 0)
+                if (lstQuotation != null)
                 {
-                    return View(lstQuotation);
+                    if (lstQuotation.Count > 0)
+                    {
+                        return View(lstQuotation);
+                    }
                 }
 
             }

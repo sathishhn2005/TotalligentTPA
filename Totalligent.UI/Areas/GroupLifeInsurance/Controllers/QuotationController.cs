@@ -30,7 +30,7 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
             string loginID = Session["Loginid"].ToString();
             string UserName = Session["UserName"].ToString();
             objGLIBAL = new GLIQuotationBAL();
-
+            objQuotation.objQuo.CreatedBy = loginID;
             string JParamVal = JsonConvert.SerializeObject(objQuotation.objQuo);
             QuotationId = objGLIBAL.DMLQuotationMaster(Action, JParamVal);
             if (QuotationId > 0)

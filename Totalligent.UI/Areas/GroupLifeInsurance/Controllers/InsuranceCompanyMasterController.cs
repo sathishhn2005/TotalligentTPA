@@ -116,7 +116,7 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
         public ActionResult SaveUploadedFile()
         {
             bool isSavedSuccessfully = true;
-            string FName = TempData["ICFolderName"].ToString();
+            string FName = TempData["ICFolderName"].ToString() ?? "";
             TempData["FolderName"] = FName;
             string fName = "";
             try

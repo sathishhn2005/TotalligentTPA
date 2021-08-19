@@ -83,6 +83,24 @@ namespace Totalligent.DAL
                         }
                         ).ToList();
                     }
+                    if (ds.Tables[5].Rows.Count > 0)
+                    {
+                        obj.lstBDTypeMaster = ds.Tables[5].AsEnumerable().Select(U => new BusinessDesignationTypeMaster()
+                        {
+                            BusinessDesignationTypeMasterID = U.Field<int>("BusinessDesignationTypeMasterID"),
+                            TypeName = U.Field<string>("TypeName")
+                        }
+                        ).ToList();
+                    }
+                    if (ds.Tables[6].Rows.Count > 0)
+                    {
+                        obj.lstBranchMaster = ds.Tables[6].AsEnumerable().Select(U => new BranchMaster()
+                        {
+                            BranchCode = U.Field<string>("BranchCode"),
+                            BranchName = U.Field<string>("BranchName")
+                        }
+                        ).ToList();
+                    }
 
                 }
 
