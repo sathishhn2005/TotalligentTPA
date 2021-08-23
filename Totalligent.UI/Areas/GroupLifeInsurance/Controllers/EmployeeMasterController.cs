@@ -116,7 +116,7 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
         {
             bool isSavedSuccessfully = true;
             string FName = TempData["EMFolderName"].ToString();
-            TempData["FolderName"] = FName;
+            TempData["EMFolderName"] = FName;
             string fName = "";
             try
             {

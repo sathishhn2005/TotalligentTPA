@@ -64,8 +64,8 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
             {
                 string name = string.Empty;
 
-                long res = objBALTot.EditQutation(name, QId, out Quotation QuoObject);
-                obj.objQuo = QuoObject;
+                long res = objBALTot.EditQutation(name, QId, out List<Quotation> lstQ);
+                obj.objQuo = lstQ[0];
             }
             return View(obj);
         }

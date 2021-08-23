@@ -88,6 +88,7 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
                 });
                 obj.lstBankMaster = selectList;
             }
+
             TempData["ICFolderName"] = DateTime.Now.ToString("ddMMyyyyHHmmss") + "_IC";
             return View(obj);
         }

@@ -58,6 +58,25 @@ namespace Totalligent.BusinessEntities
         public string UploadKYC_05 { get; set; }
 
         public string Status { get; set; }
+        public int SpouseAge { get; set; }
+        public int ChildAge { get; set; }
+        public string SpouseCategory { get; set; }
+        public string ChildCategory { get; set; }
+        public DateTime? SpouseDOB { get; set; }
+        public DateTime? ChildDOB { get; set; }
+        public DateTime? SpouseEffectiveDate { get; set; }
+        public DateTime? ChildEffectiveDate { get; set; }
+        public string SpouseNationality { get; set; }
+        public string ChildNationality { get; set; }
+        public string SpouseRemarks { get; set; }
+        public string ChildRemarks { get; set; }
+        public decimal? SpouseSalary { get; set; }
+        public decimal? ChildSalary { get; set; }
+        public string SpouseStatus { get; set; }
+        public string ChildStatus { get; set; }
+        public decimal? SpouseSumAssured { get; set; }
+        public decimal? ChildSumAssured { get; set; }
+
 
         public string CreatedBy { get; set; }
 

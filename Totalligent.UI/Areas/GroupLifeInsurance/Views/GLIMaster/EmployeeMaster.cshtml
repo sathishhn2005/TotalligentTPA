@@ -187,21 +187,11 @@
 
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBox("Nationality", "", new { @required = "required", @class = "form-control", placeholder = "Enter Age" })
+                                                @Html.TextBox("Nationality", "", new { @required = "required", @class = "form-control", placeholder = "Enter Nationality" })
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group m-b-15">
-                                        <div class="row">
-                                            <div class="col-md-5">
-                                                @Html.Label("BankName", "BankName", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
-
-                                            </div>
-                                            <div class="col-md-6">
-                                                @Html.DropDownList("BankName", BankList, "-- Select Bank --", new { @class = "form-control" })
-                                            </div>
-                                        </div>
-                                    </div>
+                                   
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
@@ -315,10 +305,10 @@
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.Label("Age", "Age", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("SpouseAge", "SpouseAge", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBox("Age", "", new { @required = "required", @class = "form-control", placeholder = "Enter Age" })
+                                                @Html.TextBox("SpouseAge", "Spouse", new { @required = "required", @class = "form-control", placeholder = "Enter Spouse Age" })
                                                 
                                             </div>
                                         </div>
@@ -326,22 +316,22 @@
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.Label("Nationality", "Nationality", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("SpouseNationality", "SpouseNationality", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
 
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBox("Nationality", "", new { @required = "required", @class = "form-control", placeholder = "Enter Nationality" })
+                                                @Html.TextBox("SpouseNationality", "", new { @required = "required", @class = "form-control", placeholder = "Enter SpouseNationality" })
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.Label("Category", "Category", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("SpouseCategory", "SpouseCategory", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
 
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBox("Category", "", new { @required = "required", @class = "form-control", placeholder = "Enter Category" })
+                                                @Html.TextBox("SpouseCategory", "", new { @required = "required", @class = "form-control", placeholder = "Enter SpouseCategory" })
 
                                             </div>
                                         </div>
@@ -349,10 +339,10 @@
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.Label("SumAssured", "SumAssured", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("SpouseSumAssured", "SpouseSumAssured", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBox("SumAssured", "", new { @required = "required", @class = "form-control", placeholder = "Enter SumAssured" })
+                                                @Html.TextBox("SpouseSumAssured", "", new { @required = "required", @class = "form-control", placeholder = "Enter SpouseSumAssured" })
                                                 
                                             </div>
                                         </div>
@@ -360,10 +350,10 @@
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.Label("Salary", "Salary", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("SpouseSalary", "SpouseSalary", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBox("Salary", "", new { @required = "required", @class = "form-control", placeholder = "Enter Salary" })
+                                                @Html.TextBox("SpouseSalary", "", new { @required = "required", @class = "form-control", placeholder = "Enter SpouseSalary" })
                                                 
                                             </div>
                                         </div>
@@ -371,20 +361,20 @@
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.Label("EffectiveDate", "EffectiveDate", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("SpouseEffectiveDate", "SpouseEffectiveDate", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBox("EffectiveDate", "", new { @type = "date", @required = "required", @class = "form-control", placeholder = "Enter EffectiveDate" })
+                                                @Html.TextBox("SpouseEffectiveDate", "", new { @type = "date", @required = "required", @class = "form-control", placeholder = "Enter SpouseEffectiveDate" })
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.Label("Remarks","", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("SpouseRemarks", "SpouseRemarks", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBox("Remarks", "", new { @required = "required", @class = "form-control", placeholder = "Enter Remarks" })
+                                                @Html.TextBox("SpouseRemarks", "", new { @required = "required", @class = "form-control", placeholder = "Enter SpouseRemarks" })
                                                 
                                             </div>
                                         </div>
@@ -392,10 +382,10 @@
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                <label class="col-sm-12 col-form-label text-right">Status</label>
+                                                <label class="col-sm-12 col-form-label text-right">Spouse Status</label>
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBox("Status", "", new { @required = "required", @class = "form-control", placeholder = "Enter Status" })
+                                                @Html.TextBox("SpouseStatus", "", new { @required = "required", @class = "form-control", placeholder = "Enter SpouseStatus" })
 
                                             </div>
                                         </div>
@@ -426,20 +416,20 @@
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.Label("DOB", "DOB", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("ChildDOB", "ChildDOB", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBox("DOB", "", new { @type = "date", @required = "required", @class = "form-control", placeholder = "Enter DOB" })
+                                                @Html.TextBox("ChildDOB", "", new { @type = "date", @required = "required", @class = "form-control", placeholder = "Enter ChildDOB" })
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.Label("Age", "Age", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("ChildAge", "ChildAge", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBox("Age","", new { @required = "required", @class = "form-control", placeholder = "Enter Age" })
+                                                @Html.TextBox("ChildAge","", new { @required = "required", @class = "form-control", placeholder = "Enter ChildAge" })
                                                 
                                             </div>
                                         </div>
@@ -447,22 +437,22 @@
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.Label("Nationality", "Nationality", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("ChildNationality", "ChildNationality", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
 
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBox("Nationality", "", new { @required = "required", @class = "form-control", placeholder = "Enter Nationality" })
+                                                @Html.TextBox("ChildNationality", "", new { @required = "required", @class = "form-control", placeholder = "Enter ChildNationality" })
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.Label("Category", "Category", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("ChildCategory", "ChildCategory", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
 
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBox("Category","", new { @required = "required", @class = "form-control", placeholder = "Enter Category" })
+                                                @Html.TextBox("ChildCategory", "", new { @required = "required", @class = "form-control", placeholder = "Enter ChildCategory" })
                                                 
                                             </div>
                                         </div>
@@ -470,10 +460,10 @@
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.Label("SumAssured", "SumAssured", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("ChildSumAssured", "ChildSumAssured", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBox("SumAssured","", new { @required = "required", @class = "form-control", placeholder = "Enter SumAssured" })
+                                                @Html.TextBox("ChildSumAssured", "", new { @required = "required", @class = "form-control", placeholder = "Enter ChildSumAssured" })
                                                 
                                             </div>
                                         </div>
@@ -481,10 +471,10 @@
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.Label("Salary", "Salary", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("ChildSalary", "ChildSalary", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBox("Salary","", new { @required = "required", @class = "form-control", placeholder = "Enter Salary" })
+                                                @Html.TextBox("ChildSalary", "", new { @required = "required", @class = "form-control", placeholder = "Enter ChildSalary" })
                                                 
                                             </div>
                                         </div>
@@ -492,10 +482,10 @@
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.Label("EffectiveDate", "EffectiveDate", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("ChildEffectiveDate", "ChildEffectiveDate", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBox("EffectiveDate", "", new { @type = "date", @required = "required", @class = "form-control", placeholder = "Enter EffectiveDate" })
+                                                @Html.TextBox("ChildEffectiveDate", "", new { @type = "date", @required = "required", @class = "form-control", placeholder = "Enter ChildEffectiveDate" })
 
                                             </div>
                                         </div>
@@ -503,10 +493,10 @@
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.Label("Remarks", "Remarks", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("ChildRemarks", "ChildRemarks", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBox("Remarks", "", new { @required = "required", @class = "form-control", placeholder = "Enter Remarks" })
+                                                @Html.TextBox("ChildRemarks", "", new { @required = "required", @class = "form-control", placeholder = "Enter ChildRemarks" })
 
                                             </div>
                                         </div>
@@ -514,10 +504,10 @@
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                <label class="col-sm-12 col-form-label text-right">Status</label>
+                                                <label class="col-sm-12 col-form-label text-right">Child Status</label>
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBox("Status", "", new { @required = "required", @class = "form-control", placeholder = "Enter Status" })
+                                                @Html.TextBox("ChildStatus", "", new { @required = "required", @class = "form-control", placeholder = "Enter ChildStatus" })
                                                 
                                             </div>
                                         </div>
@@ -628,54 +618,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td><a href="javascript:void(0)">Sandy</a></td>
-                                                        <td>Male</td>
-                                                        <td><span class="badge badge-pill badge-primary">Self</span></td>
-                                                        <td>HDFC Client</td>
-                                                        <td>53</td>
-                                                        <td>Indian</td>
-                                                        <td>Band A</td>
-                                                        <td>50,00,000</td>
-                                                        <td>EAW - 1</td>
-                                                        <td class="text-center"><i class="mdi mdi-pencil text-primary mx-3"></i><i class="mdi mdi-delete text-danger mx-3"></i></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><a href="javascript:void(0)">Kajal</a></td>
-                                                        <td>Female</td>
-                                                        <td><span class="badge badge-pill badge-warning">Spouse</span></td>
-                                                        <td class="text-muted">-N/A-</td>
-                                                        <td>48</td>
-                                                        <td>Indian</td>
-                                                        <td>Band A</td>
-                                                        <td>45,00,000</td>
-                                                        <td>EAW - 1</td>
-                                                        <td class="text-center"><i class="mdi mdi-pencil text-primary mx-3"></i><i class="mdi mdi-delete text-danger mx-3"></i></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><a href="javascript:void(0)">Slyvia</a></td>
-                                                        <td>Female</td>
-                                                        <td><span class="badge badge-pill badge-warning">Spouse</span></td>
-                                                        <td class="text-muted">-N/A-</td>
-                                                        <td>45</td>
-                                                        <td>Indian</td>
-                                                        <td>Band A</td>
-                                                        <td>57,00,000</td>
-                                                        <td>EAW - 1</td>
-                                                        <td class="text-center"><i class="mdi mdi-pencil text-primary mx-3"></i><i class="mdi mdi-delete text-danger mx-3"></i></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><a href="javascript:void(0)">Sam</a></td>
-                                                        <td>Male</td>
-                                                        <td><span class="badge badge-pill badge-danger">Child</span></td>
-                                                        <td class="text-muted">-N/A-</td>
-                                                        <td>10</td>
-                                                        <td>Indian</td>
-                                                        <td>Band A</td>
-                                                        <td>N/A</td>
-                                                        <td>EAW - 1</td>
-                                                        <td class="text-center"><i class="mdi mdi-pencil text-primary mx-3"></i><i class="mdi mdi-delete text-danger mx-3"></i></td>
-                                                    </tr>
+                                                    
                                                 </tbody>
                                             </table>
                                         </div>
@@ -758,7 +701,7 @@
                         <div class="col-10 mx-auto">
                             <div class="text-right">
 
-                                <a href="~/Masters/ProducerMaster.xlsx" class="btn btn-dark btn-sm" download>
+                                <a href="~/Masters/EmployeeMaster.csv" class="btn btn-dark btn-sm" download>
                                     <i class="fas fa-download fa-sm"></i> Download Sample format
                                 </a>
                             </div>
@@ -1040,6 +983,25 @@
             objEmpMaster.UploadKYC_05 = $('#UploadKYC_05').val();
             objEmpMaster.Status = $('#Status').val();
 
+            objEmpMaster.SpouseAge = $('#SpouseAge').val();
+            objEmpMaster.ChildAge = $('#ChildAge').val();
+            objEmpMaster.SpouseCategory = $('#SpouseCategory').val();
+            objEmpMaster.ChildCategory = $('#ChildCategory').val();
+            objEmpMaster.SpouseDOB = $('#SpouseDOB').val();
+            objEmpMaster.ChildDOB = $('#ChildDOB').val();
+            objEmpMaster.SpouseEffectiveDate = $('#SpouseEffectiveDate').val();
+            objEmpMaster.ChildEffectiveDate = $('#ChildEffectiveDate').val();
+            objEmpMaster.SpouseNationality = $('#SpouseNationality').val();
+            objEmpMaster.ChildNationality = $('#ChildNationality').val();
+            objEmpMaster.SpouseRemarks = $('#SpouseRemarks').val();
+            objEmpMaster.ChildRemarks = $('#ChildRemarks').val();
+            objEmpMaster.SpouseSalary = $('#SpouseSalary').val();
+            objEmpMaster.ChildSalary = $('#ChildSalary').val();
+            objEmpMaster.SpouseStatus = $('#SpouseStatus').val();
+            objEmpMaster.ChildStatus = $('#ChildStatus').val();
+            objEmpMaster.SpouseSumAssured = $('#SpouseSumAssured').val();
+            objEmpMaster.ChildSumAssured = $('#ChildSumAssured').val();
+
 
 
             objEmpMaster.BankName = $('#BankName :selected').text();
@@ -1118,7 +1080,20 @@
             }
         })
     });
-
+    function temptableAdd() {
+        $("#tempEmpDetailsTable tbody").append("<tr>" +
+            "<td>" + $("#EmployeeName").val() + "</td>" +
+            "<td>" + $("#EmployeeGender").val() + "</td>" +
+            "<td>" + '<span class="badge badge-pill badge-primary">' + $("#RelationshipId").val() + '</span>' + "</td>" +
+            "<td>" + $("#EmployeeBankName").val() + "</td>" +
+            "<td>" + $("#Age").val() + "</td>" +
+            "<td>" + $("#BankName").val() + "</td>" +
+            "<td>" + $("#Category").val() + "</td>" +
+            "<td>" + $("#Salary").val() + "</td>" +
+            "<td>" + $("#EffectiveDate").val() + "</td>" +
+            "<td class='text-center'>" + '<i class="mdi mdi-pencil text-primary mx-3"></i><i class="mdi mdi-delete text-danger mx-3"></i>' + "</td>" +
+            "</tr>");
+    }
     function DeActiveEmpMaster(obj, RID) {
 
         var RIDs = '' + RID;

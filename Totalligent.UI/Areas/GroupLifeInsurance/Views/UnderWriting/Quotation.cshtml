@@ -132,30 +132,14 @@
                                         <div class="row">
                                             <div class="col-md-12 d-flex">
                                                 @Html.TextBoxFor(model => model.objQuo.Category, new { @class = "form-control w-full", @placeholder = "Enter Category" })
-                                                <button type="button" class="btn btn-primary ml-3"><i class="mdi mdi-check"></i></button>
+                                                <button type="button" onclick="bindCategoryType('addCategory');" class="btn btn-primary ml-3"><i class="mdi mdi-check"></i></button>
                                             </div>
                                             <div class="col-md-12">
-                                                <div class="table-responsive">
-                                                    <table class="table table-hover table-sm">
-                                                        <tr>
-                                                            <th>Category Name</th>
-                                                            <th>Actions</th>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Gold Category</td>
-                                                            <td>
-                                                                <i class="mdi mdi-pencil hov-pointer text-primary font-size-16 mx-2"></i>
-                                                                <i class="mdi mdi-delete hov-pointer text-danger font-size-16 mx-2"></i>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Sliver Category</td>
-                                                            <td>
-                                                                <i class="mdi mdi-pencil hov-pointer text-primary font-size-16 mx-2"></i>
-                                                                <i class="mdi mdi-delete hov-pointer text-danger font-size-16 mx-2"></i>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
+
+                                                <div class="table-responsive" id="divCategoryType">
+
+                                                    <!--Rajamani-->
+
                                                 </div>
                                             </div>
                                         </div>
@@ -202,7 +186,7 @@
                                                         <span class="input-group-prepend">
                                                             <span class="input-group-text">OMR</span>
                                                         </span>
-                                                        <input type="number" id="FixedDCSAmount" class="form-control" placeholder="Enter Sum Assured Amount" onchange="AssignDeathCoverValues('DACtxt');">
+                                                        <input type="number" id="FixedDCSAmount" class="form-control" placeholder="Enter Sum Assured Amount" value="" onchange="AssignDeathCoverValues('DACtxt');">
                                                         <input type="hidden" id="hdnDeathCoverSumAssuredAmount" name="DeathCoverSumAssuredAmount" value="" />
                                                         <input type="hidden" id="hdnDeathCoverFCL" name="DeathCoverFCL" value="" />
                                                         <input type="hidden" id="hdnDeathCoverSumAssuredNoOfTimes" name="DeathCoverSumAssuredNoOfTimes" value="" />
@@ -677,9 +661,8 @@
                                             @Html.TextBox("txtAdditionalCover", "", new { @class = "form-control w-full", @placeholder = "Enter Additional Cover" })
                                         </div>
                                         <div class="col-md-7 input-group">
-
-                                            <input type="hidden" id="hdnDynamicControl" value="1" />
-                                            @*<input type="hidden" id="hdnOtherExclusions" name="OtherExclusions" value="" />*@
+                                                                                       
+                                            <input type="hidden" id="hdnOtherExclusions" name="OtherExclusions" value="" />
                                             <input type="hidden" id="hdnOtherAdditionalCover" name="OtherAdditionalCover" value="" />
                                             <button type="button" class="btn btn-primary" onclick="AddDynamicControl('AdditionalCover')"><i class="mdi mdi-plus mx-2"></i>Add Additional Cover</button>
                                         </div>
@@ -1129,8 +1112,8 @@
                                             @Html.TextBox("txtExclusionCover", "", new { @class = "form-control w-full", @placeholder = "Enter New Exclusion" })
                                         </div>
                                         <div class="col-md-7 input-group">
-                                            <input type="hidden" id="hdnOtherExclusions" value="" />
-                                            @*<input type="hidden" id="hdnDynamicControl" value="1" />*@
+                                          
+                                            <input type="hidden" id="hdnDynamicControl" value="1" />
                                             <button type="button" class="btn btn-primary" onclick="AddDynamicControl('Exclusions')"><i class="mdi mdi-plus mx-2"></i>Add Exclusions</button>
 
                                         </div>
@@ -1253,11 +1236,11 @@
                                             <label class="text-left font-weight-bold col-3 pl-1">Type of Sum Assured</label>
                                             <div class="demo-radio-button d-flex justify-content-between">
                                                 <span>
-                                                    <input name="TypeSum" type="radio" id="FixedTypeSum" checked class="with-gap radio-col-primary" />
+                                                    <input name="Premium_TypeofSumAssured" type="radio" id="FixedTypeSum" value="Fixed" checked class="with-gap radio-col-primary" />
                                                     <label for="FixedTypeSum">Fixed SA</label>
                                                 </span>
-                                                <span>
-                                                    <input name="TypeSum" type="radio" id="VariableTypeSum" class="with-gap radio-col-primary" />
+                                                <span>                                                    
+                                                    <input name="Premium_TypeofSumAssured" type="radio" id="VariableTypeSum" value="Variable" class="with-gap radio-col-primary" />
                                                     <label for="VariableTypeSum">Variable SA</label>
                                                 </span>
                                             </div>
@@ -1268,7 +1251,7 @@
                                                     <label class="col-sm-12 col-form-label text-left">Sum Assured (SA)</label>
                                                 </div>
                                                 <div class="col-md-7 demo-section k-content">
-                                                    @Html.TextBox("SumAssuredFixed", "", new { @class = "form-control w-full", @placeholder = "Enter Sum Assured (SA)" })
+                                                    @Html.TextBox("Premium_SumAssured", "", new { @class = "form-control w-full", @placeholder = "Enter Sum Assured (SA)" })
                                                 </div>
                                             </div>
                                             <div class="row m-b-15 m-t-15">
@@ -1276,7 +1259,7 @@
                                                     <label class="col-sm-12 col-form-label text-left">Salary</label>
                                                 </div>
                                                 <div class="col-md-7 demo-section k-content">
-                                                    @Html.TextBox("SalaryFixed", "", new { @class = "form-control w-full", @placeholder = "Enter Salary" })
+                                                    @Html.TextBox("Premium_Salary", "", new { @class = "form-control w-full", @placeholder = "Enter Salary" })
                                                 </div>
                                             </div>
                                             <div class="row m-b-15 m-t-15">
@@ -1284,7 +1267,7 @@
                                                     <label class="col-sm-12 col-form-label text-left">FCL</label>
                                                 </div>
                                                 <div class="col-md-7 demo-section k-content">
-                                                    @Html.TextBox("FCLFixed", "", new { @class = "form-control w-full", @placeholder = "Enter FCL" })
+                                                    @Html.TextBox("Premium_FCL", "", new { @class = "form-control w-full", @placeholder = "Enter FCL" })
                                                 </div>
                                             </div>
                                             <div class="row m-b-15 m-t-15">
@@ -1292,51 +1275,15 @@
                                                     <label class="col-sm-12 col-form-label text-left">Client Rate</label>
                                                 </div>
                                                 <div class="col-md-7 demo-section k-content">
-                                                    @Html.TextBox("ClientRateFixed", "", new { @class = "form-control w-full", @placeholder = "Enter Client Rate" })
+                                                    @Html.TextBox("Premium_ClientRate", "", new { @class = "form-control w-full", @placeholder = "Enter Client Rate" })
                                                 </div>
                                             </div>
+                                            <input type="hidden" id="hdnVariableTypeSumContent" name="Premium_VariableSADetails" value='[{"CategoryName":"Gold Member","SumAssured":"","Salary":"0","FCL":"","ClientRate":""},{"CategoryName":"Silver  Member","SumAssured":"","Salary":"0","FCL":"","ClientRate":""}]' />
                                         </div>
-                                        <div id="VariableTypeSumContent" style="display: none;" class="mt-20">
-                                            <div class="table-responsive">
-                                                <table class="table table-hover">
-                                                    <tr>
-                                                        <th>Category Name</th>
-                                                        <th>Sum Assured</th>
-                                                        <th>Salary</th>
-                                                        <th>FCL</th>
-                                                        <th>Client Rate in %</th>
-                                                        <th>Actions</th>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Gold Member</td>
-                                                        <td>@Html.TextBox("SumAssuredGLD", "200000", new { @class = "form-control w-full", @placeholder = "Enter Sum Assured", @disabled = "disabled" })</td>
-                                                        <td>@Html.TextBox("SalaryGLD", "50,000", new { @class = "form-control w-full", @placeholder = "Enter Salary", @disabled = "disabled" })</td>
-                                                        <td>@Html.TextBox("FCLGLD", "3", new { @class = "form-control w-full", @placeholder = "Enter FCL", @disabled = "disabled" })</td>
-                                                        <td>@Html.TextBox("ClientRateGLD", "4%", new { @class = "form-control w-full", @placeholder = "Enter Client Rate", @disabled = "disabled" })</td>
-                                                        <td>
-                                                            <i class="mdi mdi-pencil hov-pointer text-primary font-size-16 mx-2"></i>
-                                                            <i class="mdi mdi-delete hov-pointer text-danger font-size-16 mx-2"></i>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Silver Member</td>
-                                                        <td>@Html.TextBox("SumAssuredSLVR", "", new { @class = "form-control w-full ", @placeholder = "Enter Sum Assured" })</td>
-                                                        <td>@Html.TextBox("SalarySLVR", "", new { @class = "form-control w-full", @placeholder = "Enter Salary" })</td>
-                                                        <td>@Html.TextBox("FCLSLVR", "", new { @class = "form-control w-full", @placeholder = "Enter FCL" })</td>
-                                                        <td>@Html.TextBox("ClientRateSLVR", "", new { @class = "form-control w-full", @placeholder = "Enter Client Rate" })</td>
-                                                        <td>
-                                                            <i class="mdi mdi-check-circle hov-pointer text-primary font-size-20 mx-2"></i>
+                                        <div id="VariableTypeSumContent" style="display: none;" class="mt-20"> 
+                                          
+                                            <div id="divVariableTypeSumContent" class="table-responsive">
 
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Total </td>
-                                                        <td class="text-bold">OMR 2,00,00</td>
-                                                        <td class="text-bold">OMR 50,000</td>
-                                                        <td class="text-bold">5</td>
-                                                        <td class="text-bold">3%</td>
-                                                    </tr>
-                                                </table>
                                             </div>
                                         </div>
                                     </div>
@@ -1623,7 +1570,7 @@
                                 <label class="col-sm-12 col-form-label text-left">Enter New Exclusion</label>
                             </div>
                             <div class="col-md-7 demo-section k-content">
-                                @Html.TextBox("TotalEmployees", "", new { @class = "form-control w-full", @placeholder = "Enter Additional Cover" })
+                                @Html.TextBox("TotalEmployeesAdditional", "", new { @class = "form-control w-full", @placeholder = "Enter Additional Cover" })
                             </div>
                         </div>
                     </div>
@@ -1890,20 +1837,26 @@
                     $("#ACDFCLContent").show();
                 }
             });
-            $("input[name='TypeSum']").change(function () {
+            $("input[name='Premium_TypeofSumAssured']").change(function () {
 
-                if ($('#FixedTypeSum:checked').val() === 'on') {
+                if ($('#FixedTypeSum:checked').val() === 'Fixed') {
                     $("#FixedTypeSumContent").show();
                     $("#VariableTypeSumContent").hide();
 
-                } else if ($('#VariableTypeSum:checked').val() === 'on') {
+                } else if ($('#VariableTypeSum:checked').val() === 'Variable') {
                     $("#FixedTypeSumContent").hide();
                     $("#VariableTypeSumContent").show();
+
+                    $("#Premium_SumAssured").val("");
+                    $("#Premium_Salary").val("");
+                    $("#Premium_FCL").val("");
+                    $("#Premium_ClientRate").val("");
 
                 }
             });
         });
 
+        bindCategoryType('Page');
     };
 
 
@@ -2228,6 +2181,143 @@
             }
             $("#hdnOtherExclusions").val(JSON.stringify(Exclusion));
         }
+
+    }
+
+    function bindCategoryType(loadType) {
+
+        var arrVal = JSON.parse($("#hdnVariableTypeSumContent").val());
+        var arrCategory = arrVal.length == 0 ? [] : arrVal;
+        var txtCategoryName; 
+        if (loadType == "addCategory") {
+             txtCategoryName = $.trim($("#CategoryName").val());
+
+            if (txtCategoryName == "") {
+                alert("Please Enter CategoryName");
+                return false;
+            }
+            else {
+                arrCate = jQuery.grep(arrVal, function (val, n) {
+                    return ($.trim(val.CategoryName).toUpperCase() == $.trim(txtCategoryName).toUpperCase());
+                });
+
+                if (arrCate.length == 0) {
+                    arrCategory.push({ CategoryName: txtCategoryName, SumAssured: "", Salary: "", FCL: "", ClientRate: "" });
+                }
+                else {
+                    alert("Please Check,This CategoryName already exists");
+                    return false;
+                }
+                
+            }
+        }
+
+        $("#divCategoryType").empty();
+
+        var tbl = '<table id="tblCategoryType" class="table table-hover table-sm"><tr><th>Category Name</th><th>Actions</th> </tr>';
+        $.each(arrCategory, function (index, value) {
+            
+                tbl += '<tr><td>' + value.CategoryName + '</td><td><i class="mdi mdi-delete hov-pointer text-danger font-size-16 mx-2" onclick="DeleteCategoryType(this,' + "'" + value.CategoryName + "'" + ')"></i></td> </tr>';
+            
+        });
+
+        tbl += '</table>';
+
+        $("#divCategoryType").append(tbl);
+        $("#hdnVariableTypeSumContent").val(JSON.stringify(arrCategory));
+        $("#CategoryName").val('');
+
+        BindPremiumVariableSumAssuredTbl(arrCategory);
+    }
+    function BindPremiumVariableSumAssuredTbl(arrCategory) {
+
+        $("#divVariableTypeSumContent").empty();
+
+        var totalSA=0.00, totalSal=0.00, totalFCL=0.00;
+
+        var tbl = '<table id="tblVariableTypeSumContent" class="table table-hover"><tr><th>Category Name</th><th>Sum Assured</th><th>Salary</th><th>FCL</th><th>Client Rate in %</th></tr>';
+        $.each(arrCategory, function (index, value) {
+
+            tbl += '<tr><td>' + value.CategoryName + '</td><td><input type="number" name="SumAssured" value="' + value.SumAssured + '"  onchange="UpdateVariableSumAssured(this,' + "'" + value.CategoryName + "'" + ')" class="form-control w-full" placeholder="Enter Sum Assured" /></td><td> <input type="number" name="Salary" value="' + value.Salary + '" onchange="UpdateVariableSumAssured(this,' + "'" + value.CategoryName + "'" + ')" class="form-control w-full" placeholder = "Enter Salary" /> </td ><td> <input type="number" name="FCL" value="' + value.FCL + '" onchange="UpdateVariableSumAssured(this,' + "'" + value.CategoryName + "'" + ')" class="form-control w-full" placeholder ="Enter FCL" /> </td><td> <input type="number" name="ClientRate" value="' + value.ClientRate + '" onchange="UpdateVariableSumAssured(this,' + "'" + value.CategoryName + "'" + ')" class="form-control w-full" placeholder ="Enter Client Rate" /> </td> </tr >';
+
+            totalSA = totalSA +  Number(value.SumAssured);
+            totalSal = totalSal + Number(value.Salary);
+            totalFCL = totalFCL +  Number(value.FCL);
+
+        }); 
+     
+
+
+        tbl += '<tr><td>Total </td><td class="text-bold"><label id="lblTotSumAssured" class="col-sm-12 col-form-label text-left">OMR ' + totalSA + '</label></td> <td class="text-bold"> <label id="lblTotSalary" class="col-sm-12 col-form-label text-left">OMR ' + totalSal + '</label></td><td class="text-bold"><label id="lblTotFCL" class="col-sm-12 col-form-label text-left">' + totalFCL + '</label></td><td></td> </tr></table >';
+
+        $("#divVariableTypeSumContent").append(tbl);
+    }
+    function UpdateVariableSumAssured(obj, paramCatName) {
+
+        var arrVal = JSON.parse($("#hdnVariableTypeSumContent").val());
+        var TotSA = 0, TotSalary = 0, TotFCL = 0;
+
+        $.each(arrVal, function (i, value) {
+            if ($.trim(value.CategoryName) == $.trim(paramCatName))
+            {
+                if (obj.name == "SumAssured") {
+                    arrVal[i].SumAssured = obj.value == "" ? "0" : obj.value;
+                }
+                if (obj.name == "Salary") {
+                    arrVal[i].Salary = obj.value == "" ? "0" : obj.value;
+                }
+                if (obj.name == "FCL") {
+                    arrVal[i].FCL = obj.value == "" ? "0" : obj.value;
+                }
+                if (obj.name == "ClientRate") {
+                    arrVal[i].ClientRate = obj.value == "" ? "0" : obj.value;
+                }                 
+                               
+            }
+
+            if (obj.name == "SumAssured") {
+                TotSA = TotSA +  Number(arrVal[i].SumAssured);
+                $("#lblTotSumAssured").text("OMR "+TotSA);
+
+            }
+            if (obj.name == "Salary") {
+                TotSalary = TotSalary +  Number(arrVal[i].Salary);
+                $("#lblTotSalary").text("OMR " +TotSalary);
+            }
+            if (obj.name == "FCL") {
+                TotFCL = TotFCL +  Number(arrVal[i].FCL);
+                $("#lblTotFCL").text(TotFCL);
+            }
+            
+        });
+
+
+        $("#hdnVariableTypeSumContent").val(JSON.stringify(arrVal));
+        //alert(obj.value, paramCatName);
+    }
+
+    function DeleteCategoryType(obj, paramCategory) {
+
+        var check = confirm("Please confirm , this Category Premium Tab varible Sum Assured row and  data also removed.");
+
+        if (check == true) {
+
+            var arrVal = JSON.parse($("#hdnVariableTypeSumContent").val());
+
+            //$(obj).closest('tr').remove();   
+
+            arrCate = jQuery.grep(arrVal, function (val, n) {
+                return ($.trim(val.CategoryName) != $.trim(paramCategory));
+            });
+
+            $("#hdnVariableTypeSumContent").val(JSON.stringify(arrCate));
+
+            bindCategoryType("DeleteCategory");
+        }
+
+         //  Rebind the premium table
+
+        //alert("DeleteCategoryType");
 
     }
 

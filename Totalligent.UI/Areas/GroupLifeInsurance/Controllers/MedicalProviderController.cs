@@ -120,7 +120,7 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
         {
             bool isSavedSuccessfully = true;
             string FName = TempData["MPFolderName"].ToString();
-            TempData["FolderName"] = FName;
+            TempData["MPFolderName"] = FName;
             string fName = "";
             try
             {

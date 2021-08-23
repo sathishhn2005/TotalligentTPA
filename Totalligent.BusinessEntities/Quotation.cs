@@ -119,6 +119,13 @@ namespace Totalligent.BusinessEntities
 
         public DateTime? UpdatedAt { get; set; }
 
+        public string Premium_TypeofSumAssured { get; set; }
+        public decimal? Premium_SumAssured { get; set; }
+        public decimal? Premium_Salary { get; set; }
+        public decimal? Premium_FCL { get; set; }
+        public decimal? Premium_ClientRate { get; set; }
+        public string Premium_VariableSADetails { get; set; }
+ 
         //QuotationCoverageDetail
         public long QuotationCoverageDetailID { get; set; }
         public string DeathCoverType { get; set; }

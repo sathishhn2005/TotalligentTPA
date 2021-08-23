@@ -410,13 +410,13 @@ namespace Totalligent.BAL
 
             return returnCode;
         }
-        public long EditQutation(string UserName, long? QuotationId, out Quotation lstInfo)
+        public long EditQutation(string UserName, long? QuotationId, out List<Quotation> objQuo)
         {
             long returnCode = -1;
 
             try
             {
-                returnCode = objTotalligentDAL.EditQuotation(UserName, QuotationId, out lstInfo);
+                returnCode = objTotalligentDAL.EditQuotation(UserName, QuotationId, out objQuo);
             }
             catch (Exception ex)
             {
