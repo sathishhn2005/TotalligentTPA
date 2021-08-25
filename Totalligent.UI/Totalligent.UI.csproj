@@ -2468,6 +2468,7 @@
     <Content Include="Masters\MedicalProviderMaster.csv" />
     <Content Include="Masters\ClientMaster.csv" />
     <Content Include="Masters\DrugMaster.csv" />
+    <Content Include="Masters\EmployeeMaster.csv" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Uploads\Agentmaster.xlsx" />

@@ -282,7 +282,7 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
 
             ClientCompanyMaster objCsvFileBulkUplaod = new ClientCompanyMaster();
 
-            objCsvFileBulkUplaod.ClientCompanyName = values[0];
+            objCsvFileBulkUplaod.InsuranceCompanyName = values[0];
             objCsvFileBulkUplaod.ContactPerson = values[1];
             objCsvFileBulkUplaod.MobileNumber = values[2];
             objCsvFileBulkUplaod.EmailId = values[3];
@@ -300,7 +300,7 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
             objCsvFileBulkUplaod.ProducerType = Convert.ToInt64(values[14]);
             objCsvFileBulkUplaod.ProducerName = Convert.ToInt64(values[15]);
             objCsvFileBulkUplaod.ProducerCommission = Convert.ToDecimal(values[16]);
-            objCsvFileBulkUplaod.RIName = values[7];
+            objCsvFileBulkUplaod.RIName = values[17];
             objCsvFileBulkUplaod.RIRetention = Convert.ToInt64(values[18]);
             objCsvFileBulkUplaod.AMIRetention = Convert.ToInt64(values[19]);
             return objCsvFileBulkUplaod;

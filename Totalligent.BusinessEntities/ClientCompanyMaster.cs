@@ -14,7 +14,8 @@ namespace Totalligent.BusinessEntities
         public string KYCUploadPath { get; set; }
         
         public string Status { get; set; }
-
+        public string InsuranceCompanyName { get; set; }
+        
         public long? InsuranceCompanyId { get; set; }
 
         public string Address { get; set; }

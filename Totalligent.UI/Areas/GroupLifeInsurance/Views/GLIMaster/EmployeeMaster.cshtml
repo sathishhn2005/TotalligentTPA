@@ -23,22 +23,7 @@
         Text = "Child",
         Value = "Child"
     }); }
-@{ List<SelectListItem> BankList = new List<SelectListItem>();
-    BankList.Add(new SelectListItem
-    {
-        Text = "HDFC",
-        Value = "HDFC"
-    });
-    BankList.Add(new SelectListItem
-    {
-        Text = "Kotak",
-        Value = "Kotak"
-    });
-    BankList.Add(new SelectListItem
-    {
-        Text = "Axis",
-        Value = "Axis"
-    }); }
+
 @{ List<SelectListItem> Gender = new List<SelectListItem>();
     Gender.Add(new SelectListItem
     {
@@ -55,28 +40,7 @@
         Text = "Transgender",
         Value = "Transgender"
     }); }
-@{ List<SelectListItem> KYCList = new List<SelectListItem>();
-    KYCList.Add(new SelectListItem
-    {
-        Text = "Passport",
-        Value = "Passport"
-    });
-    KYCList.Add(new SelectListItem
-    {
-        Text = "Aadhaar Card",
-        Value = "AadhaarCard"
-    });
-    KYCList.Add(new SelectListItem
-    {
-        Text = "PAN Card",
-        Value = "PANCard"
-    });
-    KYCList.Add(new SelectListItem
-    {
-        Text = "Ration Card",
-        Value = "RationCard",
-    }); }
-@Html.AntiForgeryToken()
+
 
 
 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -92,8 +56,8 @@
             <div class="tab-content">
                 <div id="navpills2-1" class="tab-pane active">
                     <form id="formEmployee">
-                        @TempData["Alertmsg"]
-                        @{ TempData.Keep("EMFolderNam");}
+                        <h4 class="text-center text-success">@TempData["Alertmsg"]</h4>
+                        @{ TempData.Keep("EMFolderName");}
                         <div class="row">
                             <div class="col-12 col-md-6">
                                 <div class="form-group m-b-15">
@@ -144,7 +108,7 @@
 
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.DropDownList("EmployeeBankName", BankList, "-- Select Client --", new { @class = "form-control" })
+                                                @Html.DropDownList("ClientCompanyName", Model.lstClientMaster, "-- Select Client --", new { @class = "form-control" })
                                             </div>
                                         </div>
                                     </div>
@@ -191,7 +155,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                   
+
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
@@ -253,7 +217,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 @Html.TextBox("Remarks", "", new { @required = "required", @class = "form-control", placeholder = "Enter Remarks" })
-                                                
+
                                             </div>
                                         </div>
                                     </div>
@@ -263,12 +227,12 @@
                                                 <label class="col-sm-12 col-form-label text-right">Status</label>
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBox("Status", "Status", new { @required = "required", @class = "form-control", placeholder = "Enter Status" })
-                                                
+                                                @Html.TextBox("Status", "", new { @required = "required", @class = "form-control", placeholder = "Enter Status" })
+
                                             </div>
                                         </div>
                                     </div>
-                                   
+
                                 </div>
                                 <div id="SpouseDetails" style="display: none;">
                                     <div class="form-group m-b-15">
@@ -309,7 +273,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 @Html.TextBox("SpouseAge", "Spouse", new { @required = "required", @class = "form-control", placeholder = "Enter Spouse Age" })
-                                                
+
                                             </div>
                                         </div>
                                     </div>
@@ -343,7 +307,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 @Html.TextBox("SpouseSumAssured", "", new { @required = "required", @class = "form-control", placeholder = "Enter SpouseSumAssured" })
-                                                
+
                                             </div>
                                         </div>
                                     </div>
@@ -354,7 +318,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 @Html.TextBox("SpouseSalary", "", new { @required = "required", @class = "form-control", placeholder = "Enter SpouseSalary" })
-                                                
+
                                             </div>
                                         </div>
                                     </div>
@@ -375,7 +339,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 @Html.TextBox("SpouseRemarks", "", new { @required = "required", @class = "form-control", placeholder = "Enter SpouseRemarks" })
-                                                
+
                                             </div>
                                         </div>
                                     </div>
@@ -429,8 +393,8 @@
                                                 @Html.Label("ChildAge", "ChildAge", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBox("ChildAge","", new { @required = "required", @class = "form-control", placeholder = "Enter ChildAge" })
-                                                
+                                                @Html.TextBox("ChildAge", "", new { @required = "required", @class = "form-control", placeholder = "Enter ChildAge" })
+
                                             </div>
                                         </div>
                                     </div>
@@ -453,7 +417,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 @Html.TextBox("ChildCategory", "", new { @required = "required", @class = "form-control", placeholder = "Enter ChildCategory" })
-                                                
+
                                             </div>
                                         </div>
                                     </div>
@@ -464,7 +428,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 @Html.TextBox("ChildSumAssured", "", new { @required = "required", @class = "form-control", placeholder = "Enter ChildSumAssured" })
-                                                
+
                                             </div>
                                         </div>
                                     </div>
@@ -475,7 +439,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 @Html.TextBox("ChildSalary", "", new { @required = "required", @class = "form-control", placeholder = "Enter ChildSalary" })
-                                                
+
                                             </div>
                                         </div>
                                     </div>
@@ -508,7 +472,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 @Html.TextBox("ChildStatus", "", new { @required = "required", @class = "form-control", placeholder = "Enter ChildStatus" })
-                                                
+
                                             </div>
                                         </div>
                                     </div>
@@ -528,7 +492,7 @@
                                             <label for="BankName" class="col-form-label text-md-right w-full">Bank Name</label>
                                         </div>
                                         <div class="col-md-6">
-                                            @Html.DropDownList("BankName", BankList, "-- Select Bank --", new { @class = "form-control" })
+                                            @Html.DropDownList("BankName", Model.lstBankMaster, "-- Select Bank --", new { @class = "form-control" })
                                         </div>
                                     </div>
                                 </div>
@@ -618,7 +582,6 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    
                                                 </tbody>
                                             </table>
                                         </div>
@@ -1093,6 +1056,21 @@
             "<td>" + $("#EffectiveDate").val() + "</td>" +
             "<td class='text-center'>" + '<i class="mdi mdi-pencil text-primary mx-3"></i><i class="mdi mdi-delete text-danger mx-3"></i>' + "</td>" +
             "</tr>");
+    }
+    function callChangefunc(val) {
+        if (val === 'Self') {
+            $("#EmployeeDetails").show();
+            $("#SpouseDetails").hide();
+            $("#ChildDetails").hide();
+        } else if (val === 'Spouse') {
+            $("#EmployeeDetails").hide();
+            $("#SpouseDetails").show();
+            $("#ChildDetails").hide();
+        } else if (val === 'Child') {
+            $("#EmployeeDetails").hide();
+            $("#SpouseDetails").hide();
+            $("#ChildDetails").show();
+        }
     }
     function DeActiveEmpMaster(obj, RID) {
 

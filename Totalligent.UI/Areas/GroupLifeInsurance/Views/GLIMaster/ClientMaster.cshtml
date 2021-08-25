@@ -20,7 +20,7 @@
             <div class="tab-content">
                 <div id="navpills2-1" class="tab-pane active">
                     <form id="formCCMaster">
-                        <h1>@TempData["Alertmsg"]</h1>
+                        <h4 class="text-center text-success">@TempData["Alertmsg"]</h4>
                         @{ TempData.Keep("CMFolderName");}
                         <div class="row">
                             <div class="col-12 col-md-6">
@@ -200,15 +200,15 @@
                                     </div>
                                 </div>
                                 @*<div class="form-group m-b-15">
-                                        <div class="row">
-                                            <div class="col-md-5">
-                                                <label for="BankName" class="col-form-label text-md-right w-full">RI Number</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                @Html.TextBox("RINumber", "", new { @class = "form-control w-full", @placeholder = "Enter RI Retention" })
-                                            </div>
-                                        </div>
-                                    </div>*@
+                    <div class="row">
+                        <div class="col-md-5">
+                            <label for="BankName" class="col-form-label text-md-right w-full">RI Number</label>
+                        </div>
+                        <div class="col-md-6">
+                            @Html.TextBox("RINumber", "", new { @class = "form-control w-full", @placeholder = "Enter RI Retention" })
+                        </div>
+                    </div>
+                </div>*@
                                 <div class="form-group m-b-15">
                                     <div class="row">
                                         <div class="col-md-5">
