@@ -1194,7 +1194,7 @@ namespace Totalligent.DAL
                     con.Open();
                     SqlCommand cmd = new SqlCommand
                     {
-                        CommandText = "SP_GetClientCompanyMaster"
+                        CommandText = "pGetClientCompanyMaster"
                     };
 
                     cmd.CommandType = CommandType.StoredProcedure;

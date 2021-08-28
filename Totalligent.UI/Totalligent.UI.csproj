@@ -2398,13 +2398,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\GroupLifeInsurance\Data\" />
-    <Folder Include="Areas\GroupLifeInsurance\Views\BenefitsMaster\" />
-    <Folder Include="Areas\GroupLifeInsurance\Views\ClientMaster\" />
-    <Folder Include="Areas\GroupLifeInsurance\Views\DrugMaster\" />
-    <Folder Include="Areas\GroupLifeInsurance\Views\EmployeeMaster\" />
-    <Folder Include="Areas\GroupLifeInsurance\Views\InsuranceCompanyMaster\" />
-    <Folder Include="Areas\GroupLifeInsurance\Views\MedicalProvider\" />
-    <Folder Include="Areas\GroupLifeInsurance\Views\Quotation\" />
     <Folder Include="Areas\Home\Data\" />
     <Folder Include="Areas\MedicalInsurance\Data\" />
     <Folder Include="Content\vendor\js\" />

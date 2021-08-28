@@ -11,6 +11,10 @@ namespace Totalligent.BusinessEntities
         public long EmployeeId { get; set; }
 
         public string EmployeeName { get; set; }
+        public string ChildGender { get; set; }
+        public string SpouseGender { get; set; }
+        public string EmployeeGender { get; set; }
+        
         public string Relation { get; set; }
         
         public string ClientName { get; set; }

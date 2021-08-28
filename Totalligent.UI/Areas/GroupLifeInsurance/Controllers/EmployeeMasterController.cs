@@ -27,7 +27,7 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
             string msg = "";
             long EmpMasterID = 0;
             int ResultRow = 0;
-            string loginID = Session["Loginid"].ToString();
+            string loginID = Session["Loginid"].ToString() ?? "";
             string UserName = Session["UserName"].ToString();
             objGLIMasterBAL = new GLIMasterBAL();
             string FileFolderPath = GetFolderPath(FolderName);

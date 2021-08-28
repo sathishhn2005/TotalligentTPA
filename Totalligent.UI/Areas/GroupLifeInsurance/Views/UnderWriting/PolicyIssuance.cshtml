@@ -33,10 +33,11 @@
                 <table id="productOverviewMaster" class="table product-overview">
                     <thead>
                         <tr>
-                            <th>Draft No</th>
-                            <th>Policy No</th>
-                            <th>Insurance Company Name</th>
-                            <th>Client Company Name</th>
+                            <th>GLDraft No</th>
+                            <th>WLDraft No</th>
+                            @*<th>Policy No</th>*@
+                            <th>Insurance Company</th>
+                            <th>Client Company</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -50,7 +51,7 @@
                                 {
                                     <tr>
                                         <td>@Html.DisplayFor(modelItem => item.DraftNo)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.PolicyNo)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.WLDraftNo)</td>
                                         <td>@Html.DisplayFor(modelItem => item.InsuranceCompanyName)</td>
 
                                         <td>@Html.DisplayFor(modelItem => item.ClientCompanyName)</td>

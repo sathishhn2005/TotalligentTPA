@@ -23,9 +23,10 @@
                             <div class="hide">
 
                                 @if (Model != null)
-                                {@(Html.Kendo().Editor()
-                                                            .Name("QuotationId")
-                                                            .HtmlAttributes(new { style = "width: 100%; height:840px", aria_label = "editor" }))}
+                                {
+                                    @Html.TextBoxFor(model => model.objQuo.QuotationId, new { @class = "form-control w-full", @placeholder = "Enter Scope of Coverage" })
+                                    @Html.TextBoxFor(model => model.objQuo.Status, new { @class = "form-control w-full", @placeholder = "Enter Scope of Coverage" })
+                                }
                             </div>
                             <div class="col-md-10 m-b-15 m-t-15 offset-md-1">
                                 <div class="row m-b-15 m-t-15">
@@ -1638,8 +1639,15 @@
             $("#OPNursingAtHomeLimit").kendoNumericTextBox();
 
         }, 1000);
-
-        initStepWizard(),
+        var Qid = $('#objQuo_QuotationId').val();
+        if (Qid > 0) {
+            PolicyIssuancefn();
+            
+        }
+        else {
+            initStepWizard();
+        }
+        //initStepWizard();
             initVerticalWizard();
         $(function () {
 
@@ -1869,7 +1877,80 @@
             stepsOrientation: "vertical"
         });
     }
+    function PolicyIssuancefn() {
+        //$('[data-layout="sidebar-collapse"]').click();
+        $(".tab-wizard").steps({
+            headerTag: "h6",
+            bodyTag: "section",
+            transitionEffect: "none",
+            titleTemplate: '#title#',
+            enableCancelButton: true,
+            labels: {
+                finish: "Approve",
+                cancel: "Reject"
+            },
+            onFinished: function (event, currentIndex) {
+                //swal("Your Order Submitted!", "Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem. Proin ut ligula vel nunc egestas porttitor.");
 
+                var quotationData = $('#formQuotation').serialize();
+                
+                $.ajax({
+
+                    type: "POST",
+                    url: "/GroupLifeInsurance/Quotation/AddUpdateQuotationMaster",
+                    dataType: "json",
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    data: quotationData,
+                    success: function (res) {
+                        if (res.length > 0) {
+                            //Swal.fire({
+                            //    icon: 'success',
+                            //    title: '',
+                            //    text: "Data Submitted Successfully.   Draft No is '" + res + "'",
+                            //})
+                            alert('Data Submitted Successfully');
+                        }
+
+                        // $('#formRenewal').reset();
+                    },
+                    error: function () {
+                        alert('Data Submitted Successfully');
+                        // $("#lblMessage").html('Error while Registring the Company!.');
+                        $('#formRenewal').reset();
+                    }
+                })
+
+
+            },
+            onCanceled: function (event, currentIndex) {
+                alert('Rejected Clicked');
+                var quotationData = $('#formQuotation').serialize();
+                var param = { Qid: $('#objQuo_QuotationId').val(), Status: "Reject" };
+                $.ajax({
+
+                    type: "POST",
+                    url: "/GroupLifeInsurance/Quotation/RejectQuotation",
+                    dataType: "json",
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    data: param,
+                    success: function (res) {
+                        if (res.length > 0) {
+
+                            alert('Draft Rejected Successfully');
+                        }
+
+                        // $('#formRenewal').reset();
+                    },
+                    error: function () {
+                        alert('Error while rejecting the draft');
+                        // $("#lblMessage").html('Error while Registring the Company!.');
+                        $('#formRenewal').reset();
+                    }
+                });
+            }
+
+        });
+    }
     function initStepWizard() {
         //$('[data-layout="sidebar-collapse"]').click();
         $(".tab-wizard").steps({
@@ -1877,7 +1958,6 @@
             bodyTag: "section",
             transitionEffect: "none",
             titleTemplate: '#title#',
-
             labels: {
                 finish: "Submit"
             },
@@ -1912,6 +1992,9 @@
                 })
 
 
+            },
+            onCanceled: function (event, currentIndex) {
+                alert('Rejected Clicked');
             }
 
         });

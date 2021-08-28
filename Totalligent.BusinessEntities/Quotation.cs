@@ -12,6 +12,7 @@ namespace Totalligent.BusinessEntities
         public long QuotationId { get; set; }
 
         public string DraftNo { get; set; }
+        public string WLDraftNo { get; set; }
 
         public string Status { get; set; }
 

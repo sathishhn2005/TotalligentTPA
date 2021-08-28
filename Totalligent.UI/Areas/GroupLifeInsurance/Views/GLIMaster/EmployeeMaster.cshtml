@@ -272,7 +272,7 @@
                                                 @Html.Label("SpouseAge", "SpouseAge", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBox("SpouseAge", "Spouse", new { @required = "required", @class = "form-control", placeholder = "Enter Spouse Age" })
+                                                @Html.TextBox("SpouseAge", "", new { @required = "required", @class = "form-control", placeholder = "Enter Spouse Age" })
 
                                             </div>
                                         </div>
@@ -373,7 +373,7 @@
 
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.DropDownList("Gender", Gender, "-- Select Gender --", new { @class = "form-control" })
+                                                @Html.DropDownList("ChildGender", Gender, "-- Select Gender --", new { @class = "form-control" })
                                             </div>
                                         </div>
                                     </div>
@@ -937,7 +937,7 @@
             objEmpMaster.EffectiveDate = $('#EffectiveDate').val();
             objEmpMaster.Remarks = $('#Remarks').val();
             objEmpMaster.EntryType = $('#EntryType').val();
-            objEmpMaster.ClientName = $('#ClientName').val();
+            objEmpMaster.ClientCompanyName = $('#ClientCompanyName').val();
 
             objEmpMaster.UploadKYC_01 = $('#UploadKYC_01').val();
             objEmpMaster.UploadKYC_02 = $('#UploadKYC_02').val();
@@ -1028,7 +1028,7 @@
                         i++;
                         var hdnID = "hdnobjJSonVal_" + i;
                         var JVal = JSON.stringify(value);
-                        $('#tblEMaster').append('<tr> <td>' + value.EmployeeName + '</td>  <td>' + value.EmployeeUniqueNumber + '</td> <td>' + value.Nationality + '</td> <td>' + value.Category + '</td><td>' + value.Age + '</td><td> <a href="' + value.KYCUploadPath + '" class="badge badge-pill badge-warning" download> Download KYC</a></td><td class="text-center"><i class="mdi mdi-pencil text-primary mx-3" onclick="EditEmpMaster(' + "'" + hdnID + "'" + ')"></i><i class="mdi mdi-delete text-danger mx-3" onclick="DeActiveEmpMaster(this,' + value.EmployeeId.toString() + ');"></i><input type="hidden" id=' + hdnID + ' value=' + "'" + JVal + "'" + '></td></tr>');
+                        $('#tblEMaster').append('<tr> <td>' + value.EmployeeName + '</td>  <td>' + value.EmployeeUniqueNumber + '</td> <td>' + value.Nationality + '</td> <td>' + value.Category + '</td><td>' + value.Age + '</td><td> <a href="' + value.KYCUploadPath + '" class="badge badge-pill badge-warning" download> Download KYC</a></td><td class="d-none text-center"><i class="mdi mdi-pencil text-primary mx-3" onclick="EditEmpMaster(' + "'" + hdnID + "'" + ')"></i><i class="mdi mdi-delete text-danger mx-3" onclick="DeActiveEmpMaster(this,' + value.EmployeeId.toString() + ');"></i><input type="hidden" id=' + hdnID + ' value=' + "'" + JVal + "'" + '></td></tr>');
 
 
                     })
@@ -1044,18 +1044,49 @@
         })
     });
     function temptableAdd() {
-        $("#tempEmpDetailsTable tbody").append("<tr>" +
-            "<td>" + $("#EmployeeName").val() + "</td>" +
-            "<td>" + $("#EmployeeGender").val() + "</td>" +
-            "<td>" + '<span class="badge badge-pill badge-primary">' + $("#RelationshipId").val() + '</span>' + "</td>" +
-            "<td>" + $("#EmployeeBankName").val() + "</td>" +
-            "<td>" + $("#Age").val() + "</td>" +
-            "<td>" + $("#BankName").val() + "</td>" +
-            "<td>" + $("#Category").val() + "</td>" +
-            "<td>" + $("#Salary").val() + "</td>" +
-            "<td>" + $("#EffectiveDate").val() + "</td>" +
-            "<td class='text-center'>" + '<i class="mdi mdi-pencil text-primary mx-3"></i><i class="mdi mdi-delete text-danger mx-3"></i>' + "</td>" +
-            "</tr>");
+        var RelationShip = $("#RelationshipId").val();
+        if (RelationShip =="Self") {
+            $("#tempEmpDetailsTable tbody").append("<tr>" +
+                "<td>" + $("#EmployeeName").val() + "</td>" +
+                "<td>" + $("#EmployeeGender").val() + "</td>" +
+                "<td>" + '<span class="badge badge-pill badge-primary">' + $("#RelationshipId").val() + '</span>' + "</td>" +
+                "<td>" + $("#ClientCompanyName option:selected").text() + "</td>" +
+                "<td>" + $("#Age").val() + "</td>" +
+                "<td>" + $("#BankName").val() + "</td>" +
+                "<td>" + $("#Category").val() + "</td>" +
+                "<td>" + $("#Salary").val() + "</td>" +
+                "<td>" + $("#EffectiveDate").val() + "</td>" +
+                "<td class='text-center'>" + '<i class="mdi mdi-pencil text-primary mx-3"></i><i class="mdi mdi-delete text-danger mx-3"></i>' + "</td>" +
+                "</tr>");
+        }
+        if (RelationShip == "Spouse") {
+            $("#tempEmpDetailsTable tbody").append("<tr>" +
+                "<td>" + $("#SpouseName").val() + "</td>" +
+                "<td>" + $("#SpouseGender").val() + "</td>" +
+                "<td>" + '<span class="badge badge-pill badge-primary">' + $("#RelationshipId").val() + '</span>' + "</td>" +
+                "<td>" + $("#ClientCompanyName option:selected").text() + "</td>" +
+                "<td>" + $("#SpouseAge").val() + "</td>" +
+                "<td>" + $("#BankName").val() + "</td>" +
+                "<td>" + $("#SpouseCategory").val() + "</td>" +
+                "<td>" + $("#SpouseSalary").val() + "</td>" +
+                "<td>" + $("#SpouseEffectiveDate").val() + "</td>" +
+                "<td class='text-center'>" + '<i class="mdi mdi-pencil text-primary mx-3"></i><i class="mdi mdi-delete text-danger mx-3"></i>' + "</td>" +
+                "</tr>");
+        }
+        if (RelationShip == "Child") {
+            $("#tempEmpDetailsTable tbody").append("<tr>" +
+                "<td>" + $("#ChildName").val() + "</td>" +
+                "<td>" + $("#ChildGender option:selected").text() + "</td>" +
+                "<td>" + '<span class="badge badge-pill badge-primary">' + $("#RelationshipId").val() + '</span>' + "</td>" +
+                "<td>" + $("#ClientCompanyName option:selected").text() + "</td>" +
+                "<td>" + $("#ChildAge").val() + "</td>" +
+                "<td>" + $("#BankName").val() + "</td>" +
+                "<td>" + $("#ChildCategory").val() + "</td>" +
+                "<td>" + $("#ChildSalary").val() + "</td>" +
+                "<td>" + $("#ChildEffectiveDate").val() + "</td>" +
+                "<td class='text-center'>" + '<i class="mdi mdi-pencil text-primary mx-3"></i><i class="mdi mdi-delete text-danger mx-3"></i>' + "</td>" +
+                "</tr>");
+        }
     }
     function callChangefunc(val) {
         if (val === 'Self') {
