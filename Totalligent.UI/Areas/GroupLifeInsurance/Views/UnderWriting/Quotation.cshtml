@@ -15,6 +15,7 @@
             <div class="box-body wizard-content">
                 <form id="formQuotation" action="#" class="tab-wizard wizard-circle">
                     <input type="hidden" id="hdnQid" name="QuotationId" value="0" />
+                    <input type="hidden" id="objQuoJson" value="@Model.objQuoJson" />
 
                     <!-- Step 1 -->
                     <h6>Client Information</h6>
@@ -122,7 +123,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Period of Insurance</label>
                                     </div>
                                     <div class="col-md-8 demo-section k-content">
-                                        @Html.TextBoxFor(model => model.objQuo.PeriodofInsurance, new { @class = "form-control w-full", @placeholder = "Enter PeriodofInsurance" })
+                                        @Html.TextBoxFor(model => model.objQuo.PeriodofInsurance, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control w-full", @placeholder = "Enter PeriodofInsurance" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -132,14 +133,15 @@
                                     <div class="col-md-8  ">
                                         <div class="row">
                                             <div class="col-md-12 d-flex">
-                                                @Html.TextBoxFor(model => model.objQuo.Category, new { @class = "form-control w-full", @placeholder = "Enter Category" })
+
+                                                @Html.TextBoxFor(model => model.objQuo.Category, new { @id = "CategoryName", @class = "form-control w-full", @placeholder = "Enter Category" })
                                                 <button type="button" onclick="bindCategoryType('addCategory');" class="btn btn-primary ml-3"><i class="mdi mdi-check"></i></button>
                                             </div>
                                             <div class="col-md-12">
 
                                                 <div class="table-responsive" id="divCategoryType">
 
-                                                    <!--Rajamani-->
+
 
                                                 </div>
                                             </div>
@@ -160,6 +162,10 @@
                                 <div class="col-md-11 m-b-15 m-t-15 mx-auto">
                                     <div class="row m-b-15 m-t-15">
                                         <div class="col-md-3">
+                                            @*@Html.RadioButtonFor(model => model.objQuo.DeathCoverType, "DAC" ,new { @id = "DAC", @onclick = "AssignDeathCoverValues('DAC');", @class = "with-gap radio-col-primary",@text= "Death due to any cause (DAC)", @placeholder = "Enter Category" })*@
+
+
+
                                             <input name="DeathCoverType" type="radio" value="DAC" id="DAC" onclick="AssignDeathCoverValues('DAC');" class="with-gap radio-col-primary" />
                                             <label for="DAC">Death due to any cause (DAC)</label>
                                         </div>
@@ -187,7 +193,7 @@
                                                         <span class="input-group-prepend">
                                                             <span class="input-group-text">OMR</span>
                                                         </span>
-                                                        <input type="number" id="FixedDCSAmount" class="form-control" placeholder="Enter Sum Assured Amount" value="" onchange="AssignDeathCoverValues('DACtxt');">
+                                                        <input type="number" value="" id="FixedDCSAmount" class="form-control" placeholder="Enter Sum Assured Amount" onchange="AssignDeathCoverValues('DACtxt');">
                                                         <input type="hidden" id="hdnDeathCoverSumAssuredAmount" name="DeathCoverSumAssuredAmount" value="" />
                                                         <input type="hidden" id="hdnDeathCoverFCL" name="DeathCoverFCL" value="" />
                                                         <input type="hidden" id="hdnDeathCoverSumAssuredNoOfTimes" name="DeathCoverSumAssuredNoOfTimes" value="" />
@@ -662,7 +668,7 @@
                                             @Html.TextBox("txtAdditionalCover", "", new { @class = "form-control w-full", @placeholder = "Enter Additional Cover" })
                                         </div>
                                         <div class="col-md-7 input-group">
-                                                                                       
+
                                             <input type="hidden" id="hdnOtherExclusions" name="OtherExclusions" value="" />
                                             <input type="hidden" id="hdnOtherAdditionalCover" name="OtherAdditionalCover" value="" />
                                             <button type="button" class="btn btn-primary" onclick="AddDynamicControl('AdditionalCover')"><i class="mdi mdi-plus mx-2"></i>Add Additional Cover</button>
@@ -1113,7 +1119,7 @@
                                             @Html.TextBox("txtExclusionCover", "", new { @class = "form-control w-full", @placeholder = "Enter New Exclusion" })
                                         </div>
                                         <div class="col-md-7 input-group">
-                                          
+
                                             <input type="hidden" id="hdnDynamicControl" value="1" />
                                             <button type="button" class="btn btn-primary" onclick="AddDynamicControl('Exclusions')"><i class="mdi mdi-plus mx-2"></i>Add Exclusions</button>
 
@@ -1240,7 +1246,7 @@
                                                     <input name="Premium_TypeofSumAssured" type="radio" id="FixedTypeSum" value="Fixed" checked class="with-gap radio-col-primary" />
                                                     <label for="FixedTypeSum">Fixed SA</label>
                                                 </span>
-                                                <span>                                                    
+                                                <span>
                                                     <input name="Premium_TypeofSumAssured" type="radio" id="VariableTypeSum" value="Variable" class="with-gap radio-col-primary" />
                                                     <label for="VariableTypeSum">Variable SA</label>
                                                 </span>
@@ -1281,8 +1287,8 @@
                                             </div>
                                             <input type="hidden" id="hdnVariableTypeSumContent" name="Premium_VariableSADetails" value='[{"CategoryName":"Gold Member","SumAssured":"","Salary":"0","FCL":"","ClientRate":""},{"CategoryName":"Silver  Member","SumAssured":"","Salary":"0","FCL":"","ClientRate":""}]' />
                                         </div>
-                                        <div id="VariableTypeSumContent" style="display: none;" class="mt-20"> 
-                                          
+                                        <div id="VariableTypeSumContent" style="display: none;" class="mt-20">
+
                                             <div id="divVariableTypeSumContent" class="table-responsive">
 
                                             </div>
@@ -1642,13 +1648,13 @@
         var Qid = $('#objQuo_QuotationId').val();
         if (Qid > 0) {
             PolicyIssuancefn();
-            
+
         }
         else {
             initStepWizard();
         }
         //initStepWizard();
-            initVerticalWizard();
+        initVerticalWizard();
         $(function () {
 
             $("#AccidentalDeath").click(function () {
@@ -1893,7 +1899,7 @@
                 //swal("Your Order Submitted!", "Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem. Proin ut ligula vel nunc egestas porttitor.");
 
                 var quotationData = $('#formQuotation').serialize();
-                
+
                 $.ajax({
 
                     type: "POST",
@@ -1902,30 +1908,38 @@
                     contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                     data: quotationData,
                     success: function (res) {
-                        if (res.length > 0) {
-                            //Swal.fire({
-                            //    icon: 'success',
-                            //    title: '',
-                            //    text: "Data Submitted Successfully.   Draft No is '" + res + "'",
-                            //})
-                            alert('Data Submitted Successfully');
+                        if (res.QuotationId > 0) {
+                            console.log(res);
+                            Swal.fire({
+                                icon: 'success',
+                                title: '',
+                                text: "'" + res.Status + "'/n Policy No is '" + res.PolicyNo + "'/n WLPolicy No Is '" + res.WLPolicyNo + "'",
+                            });
+
+                        }
+                        else {
+                            Swal.fire({
+                                icon: 'success',
+                                title: '',
+                                text: "'" + res.Status + "'/n Draft No is '" + res.DraftNo + "'/n WLDraft No Is '" + res.WLDraftNo + "'",
+                            });
                         }
 
-                        // $('#formRenewal').reset();
+                       // $('#formQuotation').reset();
                     },
                     error: function () {
                         alert('Data Submitted Successfully');
                         // $("#lblMessage").html('Error while Registring the Company!.');
-                        $('#formRenewal').reset();
+                        //$('#formQuotation').reset();
                     }
                 })
 
 
             },
             onCanceled: function (event, currentIndex) {
-                alert('Rejected Clicked');
+
                 var quotationData = $('#formQuotation').serialize();
-                var param = { Qid: $('#objQuo_QuotationId').val(), Status: "Reject" };
+                var param = { Qid: $('#objQuo_QuotationId').val(), Action: "Reject" };
                 $.ajax({
 
                     type: "POST",
@@ -1934,17 +1948,12 @@
                     contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                     data: param,
                     success: function (res) {
-                        if (res.length > 0) {
-
-                            alert('Draft Rejected Successfully');
-                        }
-
-                        // $('#formRenewal').reset();
+                        alert(res);
                     },
                     error: function () {
                         alert('Error while rejecting the draft');
                         // $("#lblMessage").html('Error while Registring the Company!.');
-                        $('#formRenewal').reset();
+                        $('#formQuotation').reset();
                     }
                 });
             }
@@ -2116,7 +2125,7 @@
         ReadDynamicControl();
     }
     function AssignDeathCoverValues(type) {
-
+        var qidCheck = $('#objQuo_QuotationId').val();
         if (type == "DACtxt") {
 
             if ($("#FixedDAC").is(':checked')) {
@@ -2271,9 +2280,9 @@
 
         var arrVal = JSON.parse($("#hdnVariableTypeSumContent").val());
         var arrCategory = arrVal.length == 0 ? [] : arrVal;
-        var txtCategoryName; 
+        var txtCategoryName;
         if (loadType == "addCategory") {
-             txtCategoryName = $.trim($("#CategoryName").val());
+            txtCategoryName = $.trim($("#CategoryName").val());
 
             if (txtCategoryName == "") {
                 alert("Please Enter CategoryName");
@@ -2291,7 +2300,7 @@
                     alert("Please Check,This CategoryName already exists");
                     return false;
                 }
-                
+
             }
         }
 
@@ -2299,9 +2308,9 @@
 
         var tbl = '<table id="tblCategoryType" class="table table-hover table-sm"><tr><th>Category Name</th><th>Actions</th> </tr>';
         $.each(arrCategory, function (index, value) {
-            
-                tbl += '<tr><td>' + value.CategoryName + '</td><td><i class="mdi mdi-delete hov-pointer text-danger font-size-16 mx-2" onclick="DeleteCategoryType(this,' + "'" + value.CategoryName + "'" + ')"></i></td> </tr>';
-            
+
+            tbl += '<tr><td>' + value.CategoryName + '</td><td><i class="mdi mdi-delete hov-pointer text-danger font-size-16 mx-2" onclick="DeleteCategoryType(this,' + "'" + value.CategoryName + "'" + ')"></i></td> </tr>';
+
         });
 
         tbl += '</table>';
@@ -2316,19 +2325,19 @@
 
         $("#divVariableTypeSumContent").empty();
 
-        var totalSA=0.00, totalSal=0.00, totalFCL=0.00;
+        var totalSA = 0.00, totalSal = 0.00, totalFCL = 0.00;
 
         var tbl = '<table id="tblVariableTypeSumContent" class="table table-hover"><tr><th>Category Name</th><th>Sum Assured</th><th>Salary</th><th>FCL</th><th>Client Rate in %</th></tr>';
         $.each(arrCategory, function (index, value) {
 
             tbl += '<tr><td>' + value.CategoryName + '</td><td><input type="number" name="SumAssured" value="' + value.SumAssured + '"  onchange="UpdateVariableSumAssured(this,' + "'" + value.CategoryName + "'" + ')" class="form-control w-full" placeholder="Enter Sum Assured" /></td><td> <input type="number" name="Salary" value="' + value.Salary + '" onchange="UpdateVariableSumAssured(this,' + "'" + value.CategoryName + "'" + ')" class="form-control w-full" placeholder = "Enter Salary" /> </td ><td> <input type="number" name="FCL" value="' + value.FCL + '" onchange="UpdateVariableSumAssured(this,' + "'" + value.CategoryName + "'" + ')" class="form-control w-full" placeholder ="Enter FCL" /> </td><td> <input type="number" name="ClientRate" value="' + value.ClientRate + '" onchange="UpdateVariableSumAssured(this,' + "'" + value.CategoryName + "'" + ')" class="form-control w-full" placeholder ="Enter Client Rate" /> </td> </tr >';
 
-            totalSA = totalSA +  Number(value.SumAssured);
+            totalSA = totalSA + Number(value.SumAssured);
             totalSal = totalSal + Number(value.Salary);
-            totalFCL = totalFCL +  Number(value.FCL);
+            totalFCL = totalFCL + Number(value.FCL);
 
-        }); 
-     
+        });
+
 
 
         tbl += '<tr><td>Total </td><td class="text-bold"><label id="lblTotSumAssured" class="col-sm-12 col-form-label text-left">OMR ' + totalSA + '</label></td> <td class="text-bold"> <label id="lblTotSalary" class="col-sm-12 col-form-label text-left">OMR ' + totalSal + '</label></td><td class="text-bold"><label id="lblTotFCL" class="col-sm-12 col-form-label text-left">' + totalFCL + '</label></td><td></td> </tr></table >';
@@ -2341,8 +2350,7 @@
         var TotSA = 0, TotSalary = 0, TotFCL = 0;
 
         $.each(arrVal, function (i, value) {
-            if ($.trim(value.CategoryName) == $.trim(paramCatName))
-            {
+            if ($.trim(value.CategoryName) == $.trim(paramCatName)) {
                 if (obj.name == "SumAssured") {
                     arrVal[i].SumAssured = obj.value == "" ? "0" : obj.value;
                 }
@@ -2354,24 +2362,24 @@
                 }
                 if (obj.name == "ClientRate") {
                     arrVal[i].ClientRate = obj.value == "" ? "0" : obj.value;
-                }                 
-                               
+                }
+
             }
 
             if (obj.name == "SumAssured") {
-                TotSA = TotSA +  Number(arrVal[i].SumAssured);
-                $("#lblTotSumAssured").text("OMR "+TotSA);
+                TotSA = TotSA + Number(arrVal[i].SumAssured);
+                $("#lblTotSumAssured").text("OMR " + TotSA);
 
             }
             if (obj.name == "Salary") {
-                TotSalary = TotSalary +  Number(arrVal[i].Salary);
-                $("#lblTotSalary").text("OMR " +TotSalary);
+                TotSalary = TotSalary + Number(arrVal[i].Salary);
+                $("#lblTotSalary").text("OMR " + TotSalary);
             }
             if (obj.name == "FCL") {
-                TotFCL = TotFCL +  Number(arrVal[i].FCL);
+                TotFCL = TotFCL + Number(arrVal[i].FCL);
                 $("#lblTotFCL").text(TotFCL);
             }
-            
+
         });
 
 
@@ -2387,7 +2395,7 @@
 
             var arrVal = JSON.parse($("#hdnVariableTypeSumContent").val());
 
-            //$(obj).closest('tr').remove();   
+            //$(obj).closest('tr').remove();
 
             arrCate = jQuery.grep(arrVal, function (val, n) {
                 return ($.trim(val.CategoryName) != $.trim(paramCategory));
@@ -2398,10 +2406,238 @@
             bindCategoryType("DeleteCategory");
         }
 
-         //  Rebind the premium table
+        //  Rebind the premium table
 
         //alert("DeleteCategoryType");
 
     }
+    $(document).ready(function () {
+        //var responseObject = @Html.Raw(Json.Encode(Model));
+        //alert($("#objQuoJson").val());
+
+        var objQuoJson = JSON.parse($("#objQuoJson").val());
+        if (objQuoJson.QuotationId > 0) {
+            value = new Date(parseInt(objQuoJson.PeriodofInsurance.replace("/Date(", "").replace(")/", ""), 10));
+            //Fromvalue = value.toDateString()
+            Fromvalue = value.toISOString();
+
+            //var Str = (value.getFullYear() + "-" + ("00" + (value.getMonth() + 1)).slice(-2) + "-" + ("00" + value.getDate().slice(-2)) 
+            var Str = ("00" + value.getDate()).slice(-2) + "-" + ("00" + (value.getMonth() + 1)).slice(-2) + "-" + value.getFullYear();
+
+            $('#objQuo_PeriodofInsurance').val(Str);
+            console.log(objQuoJson);
+            if (objQuoJson.DeathCoverType == "DAC") {
+                $('input[name="DeathCoverType"][value="DAC"]').attr('checked', 'checked');
+                /*AssignDeathCoverValues(objQuoJson.DeathCoverType);*/
+                $("#DNCContent").slideUp();
+                $("#DACContent").slideDown();
+                if (objQuoJson.DeathCoverAnnualLimit == "Fixed") {
+                    $('input[name="DeathCoverAnnualLimit"][value="Fixed"]').attr('checked', 'checked');
+                    if ($('#FixedDAC:checked').val() === 'Fixed') {
+                        $("#FixedDACContent").show();
+
+                        $('#txtDeathCoverFCL').val(objQuoJson.DeathCoverFCL);
+                        $('#FixedDCSAmount').val(objQuoJson.DeathCoverSumAssuredAmount);
+                        $("#VariableDACContent").hide();
+                        $("#DACFCLContent").show();
+
+                    } else if ($('#VariableDAC:checked').val() === 'Variable') {
+                        $("#FixedDACContent").hide();
+                        $("#VariableDACContent").show();
+                        $("#DACFCLContent").show();
+                    }
+                }
+                if (objQuoJson.AccidentalDeath == "Y") {
+                    if (objQuoJson.AccidentalAnnualLimit = "Fixed") {
+                        $('input[name="DeathCoverAnnualLimit"][value="Fixed"]').attr('checked', 'checked');
+                        $('#AccidentalDeath').attr('checked', true);
+                        $('#FixedACD').attr('checked', true);
+                        $("#ACDContent").slideDown();
+                        $("#FixedACDContent").show();
+                        if ($("#FixedACD").is(':checked')) {
+
+                            $("#txtAccidentalDeathSAM").val(objQuoJson.AccidentalSumAssuredAmount)
+                            $("#txtAccidentalFCL").val(objQuoJson.AccidentalFCL)
+                            $("#hdnAccidentalSumAssuredAmount").val($("#txtAccidentalDeathSAM").val());
+
+
+                        } else {
+                            $("#txtACDSAM").val(objQuoJson.AccidentalSumAssuredAmount)
+                            $("#txtAccidentalFCL").val(objQuoJson.AccidentalFCL)
+                            $("#hdnAccidentalSumAssuredAmount").val($("#txtACDSAM").val());
+                        }
+                    }
+                }
+                if (objQuoJson.PTD == "Y") {
+                    $('#PermanentDisability').attr("checked", true);
+                    $("#PermanentDisabilityContent").slideDown();
+                    if (objQuoJson.PTDAccident == "Y") {
+                        $('#AccidentPTD').attr("checked", true);
+                    }
+                    if (objQuoJson.PTDSickness == "Y") {
+                        $('#SicknessPTD').attr("checked", true);
+                    }
+                    $('#txtPTDCoverageLimit').val(objQuoJson.PTDCoverageLimit);
+                    $('#txtPTDMaximumLimit').val(objQuoJson.PTDMaximumLimit);
+                    $('#txtPTDWaitingYears').val(objQuoJson.PTDWaitingYears);
+
+                }
+                if (objQuoJson.PPD == "Y") {
+
+                    $('#PermanentPartialDisability').attr("checked", true);
+                    $("#PermanentPartialDisabilityContent").slideDown();
+                    if (objQuoJson.PPDAccident == "Y") {
+                        $('#AccidentPPD').attr("checked", true);
+                    }
+                    if (objQuoJson.PPDSickness == "Y") {
+                        $('#SicknessPPD').attr("checked", true);
+                    }
+                    $('#txtPPDCoverageLimit').val(objQuoJson.PPDCoverageLimit);
+                    $('#txtPPDMaximumLimit').val(objQuoJson.PPDMaximumLimit);
+                    $('#txtPPDWaitingYears').val(objQuoJson.PPDWaitingYears);
+
+                }
+                if (objQuoJson.TTD == "Y") {
+
+                    $('#TotalDisability').attr("checked", true);
+                    $("#TotalDisabilityContent").slideDown();
+                    if (objQuoJson.TTDAccident == "Y") {
+                        $('#AccidentTTD').attr("checked", true);
+                    }
+                    if (objQuoJson.TTDSickness == "Y") {
+                        $('#SicknessTTD').attr("checked", true);
+                    }
+                    $('#txtTTDCoverageLimit').val(objQuoJson.TTDCoverageLimit);
+                    $('#txtTTDMaximumLimit').val(objQuoJson.TTDMaximumLimit);
+                    $('#txtTTDWaitingYears').val(objQuoJson.TTDWaitingYears);
+
+                }
+                if (objQuoJson.RepatriationBenefit == "Y") {
+                    $('#RepatriationBenefit').attr("checked", true);
+                    $("#RepatriationBenefitContent").slideDown();
+                    $('#txtRBCoverageLimit').val(objQuoJson.RBCoverageLimit);
+                }
+                if (objQuoJson.PassiveWarRisk == "Y") {
+                    $('#PassiveWarRisk').attr("checked", true);
+                    $("#PassiveWarRiskContent").slideDown();
+                    $('#txtPWRCoverageLimit').val(objQuoJson.PWRCoverageLimit);
+                }
+                if (objQuoJson.TerminalIllness == "Y") {
+
+                    $('#TerminalIllness').attr("checked", true);
+                    $("#TerminalIllnessContent").slideDown();
+
+                    $('#txtTLCoverageLimit').val(objQuoJson.TLCoverageLimit);
+                    $('#txtTLMaximumLimit').val(objQuoJson.TLMaximumLimit);
+                    $('#txtTLWaitingYears').val(objQuoJson.TLWaitingYears);
+
+                }
+                if (objQuoJson.CriticalIllness == "Y") {
+
+                    $('#CriticalIllness').attr("checked", true);
+                    $("#CriticalIllnessContent").slideDown();
+
+                    $('#txtCLCoverageLimit').val(objQuoJson.CLCoverageLimit);
+                    $('#txtCLMaximumLimit').val(objQuoJson.CLMaximumLimit);
+                    $('#txtCLWaitingYears').val(objQuoJson.CLWaitingYears);
+
+                }
+               // $("#hdnOtherAdditionalCover").val(JSON.parse(objQuoJson.OtherAdditionalCover));
+
+                if (objQuoJson.WarExclusion == "Y") {
+
+                    $('#WarExclusion').attr("checked", true);
+                    $("#WarExclusionContent").slideDown();
+
+                    $('#txtWECoverageLimit').val(objQuoJson.CLCoverageLimit);
+                    $('#txtWEMaximumLimit').val(objQuoJson.CLMaximumLimit);
+                    $('#txtWEWaitingYears').val(objQuoJson.CLWaitingYears);
+
+                }
+
+                if (objQuoJson.AtomicBiologicalAndCNE == "Y") {
+
+                    $('#AtomicExclusion').attr("checked", true);
+                    $("#AtomicExclusionContent").slideDown();
+
+                    $('#txtABACNECoverageLimit').val(objQuoJson.ABACNECoverageLimit);
+                    $('#txtABACNEMaximumLimit').val(objQuoJson.ABACNEMaximumLimit);
+                    $('#txtABACNEWaitingYears').val(objQuoJson.ABACNEWaitingYears);
+
+                }
+
+                if (objQuoJson.CriminalActContent == "Y") {
+
+                    $('#CriminalAct').attr("checked", true);
+                    $("#CriminalActContent").slideDown();
+
+                    $('#txtCACCoverageLimit').val(objQuoJson.CACCoverageLimit);
+                    $('#txtCACNEMaximumLimit').val(objQuoJson.CACNEMaximumLimit);
+                    $('#txtCACNEWaitingYears').val(objQuoJson.CACNEWaitingYears);
+
+                }
+
+
+                if (objQuoJson.HIV_AIDS == "Y") {
+                    $('#HIV_AIDS').attr("checked", true);
+                    $("#HIV_AIDSContent").slideDown();
+
+                    $('#txtHIVCoverageLimit').val(objQuoJson.HIVCoverageLimit);
+                    $('#txtHIVMaximumLimit').val(objQuoJson.HIVMaximumLimit);
+                    $('#txtHIVWaitingYears').val(objQuoJson.HIVWaitingYears);
+
+                }
+                if (objQuoJson.HazardousSportsExclusion == "Y") {
+
+                    $('#HazardousSports').attr("checked", true);
+                    $("#HazardousSportsContent").slideDown();
+
+                    $('#txtHSECoverageLimit').val(objQuoJson.HSECoverageLimit);
+                    $('#txtHSEMaximumLimit').val(objQuoJson.HSEMaximumLimit);
+                    $('#txtHSEWaitingYears').val(objQuoJson.HSEWaitingYears);
+
+                }
+                if (objQuoJson.AviationExclusion == "Y") {
+
+                    $('#AviationExclusion').attr("checked", true);
+                    $("#AviationExclusionContent").slideDown();
+
+                    $('#txtAECoverageLimit').val(objQuoJson.AECoverageLimit);
+                    $('#txtAEMaximumLimit').val(objQuoJson.AEMaximumLimit);
+                    $('#txtAEEWaitingYears').val(objQuoJson.AEEWaitingYears);
+
+                }
+                if (objQuoJson.IntentionalSelfInflicted == "Y") {
+
+                    $('#selfInflicted').attr("checked", true);
+                    $("#selfInflictedContent").slideDown();
+
+                    $('#txtISSASCoverageLimit').val(objQuoJson.ISSASCoverageLimit);
+                    $('#txtISSASMaximumLimit').val(objQuoJson.ISSASMaximumLimit);
+                    $('#txtISSASWaitingYears').val(objQuoJson.ISSASWaitingYears);
+
+                }
+                if (objQuoJson.PandemicEpidemicCondition == "Y") {
+
+                    $('#PandemicEpidemic').attr("checked", true);
+                    $("#PandemicEpidemicContent").slideDown();
+
+                    $('#txtPECCoverageLimit').val(objQuoJson.PECCoverageLimit);
+                    $('#txtPECMaximumLimit').val(objQuoJson.PECMaximumLimit);
+                    $('#txtPECWaitingYears').val(objQuoJson.PECWaitingYears);
+
+                }
+                if (objQuoJson.Sucide == "Y") {
+                    $('#Sucide').attr("checked", true);
+                    $("#SucideContent").slideDown();
+
+                    $('#txtSECCoverageLimit').val(objQuoJson.SECCoverageLimit);
+                    $('#txtSEMaximumLimit').val(objQuoJson.SEMaximumLimit);
+                    $('#txtSEWaitingYears').val(objQuoJson.SEWaitingYears);
+                }
+
+            }
+        }
+    });
 
 </script>

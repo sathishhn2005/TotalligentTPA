@@ -795,7 +795,7 @@ namespace Totalligent.DAL
                         con.Open();
                         SqlCommand cmd = new SqlCommand
                         {
-                            CommandText = "SP_InsertEndorsement"
+                            CommandText = "pInsertEndorsement"
                         };
 
                         cmd.CommandType = CommandType.StoredProcedure;
@@ -1222,6 +1222,46 @@ namespace Totalligent.DAL
             }
             return returnCode;
         }
+        public long GetEndorsement(out List<Endorsement> lst)
+        {
+            long returnCode = -1;
+            lst = null;
+            try
+            {
+
+                using (SqlConnection con = new SqlConnection(objUtility.GetConnectionString()))
+                {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand
+                    {
+                        CommandText = "pGetEndorsement"
+                    };
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = con;
+
+                    SqlDataAdapter sdaAdapter = new SqlDataAdapter
+                    {
+                        SelectCommand = cmd
+                    };
+                    DataSet ds = new DataSet();
+                    sdaAdapter.Fill(ds);
+
+
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        DTtoListConverter.ConvertTo(ds.Tables[0], out lst);
+                    }
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return returnCode;
+        }
         public long GetGLWLPolicy(out Endorsement objEndo, string CompanyName)
         {
             long returnCode = -1;
@@ -1234,7 +1274,7 @@ namespace Totalligent.DAL
                     con.Open();
                     SqlCommand cmd = new SqlCommand
                     {
-                        CommandText = "SP_GetGLWLPolicyNos"
+                        CommandText = "pGetGLWLPolicyNos"
                     };
 
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -1274,7 +1314,7 @@ namespace Totalligent.DAL
                     con.Open();
                     SqlCommand cmd = new SqlCommand
                     {
-                        CommandText = "PGetGLWLPDFdata"
+                        CommandText = "pGetGLWLPDFdata"
                     };
 
                     cmd.CommandType = CommandType.StoredProcedure;

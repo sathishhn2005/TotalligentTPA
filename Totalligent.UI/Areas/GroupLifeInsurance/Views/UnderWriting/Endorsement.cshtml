@@ -128,8 +128,7 @@
                             <th>GL Policy No</th>
                             <th>WC Policy No</th>
                             <th>Endorsement Date</th>
-                            <th>Description</th>
-                            <th>CreatedBy</th>
+                           
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -148,19 +147,18 @@
                                         <td>@Html.DisplayFor(modelItem => item.GLPolicyNumber)</td>
                                         <td>@Html.DisplayFor(modelItem => item.WCPolicyNumber)</td>
                                         <td>@Html.DisplayFor(modelItem => item.CreatedAt)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.ErrorDescription)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.CreatedBy)</td>
+                                        
 
                                         <td>
 
-                                            @using (Html.BeginForm("GenerateGLwLPDF", "Home", FormMethod.Post))
+                                            @using (Html.BeginForm("GenerateGLwLPDF", "UnderWriting", FormMethod.Post))
                                             {
                                                 <input type="hidden" name="EndorsementId" value="@Html.DisplayFor(modelItem => item.EndorsementId)" />
                                                 <input type="hidden" name="PdfType" value="GL" />
                                                 <input type="submit" class="btn btn-rounded btn-primary" id="btnSubmit" value="GLPdfExport" />
                                             }
 
-                                            @using (Html.BeginForm("GenerateGLwLPDF", "Home", FormMethod.Post))
+                                            @using (Html.BeginForm("GenerateGLwLPDF", "UnderWriting", FormMethod.Post))
                                             {
                                                 <input type="hidden" name="EndorsementId" value="@Html.DisplayFor(modelItem => item.EndorsementId)" />
                                                 <input type="hidden" name="PdfType" value="WL" />
@@ -168,6 +166,7 @@
                                             }
 
                                         </td>
+                                        <td></td>
 
                                     </tr>
                                 }
@@ -233,7 +232,7 @@
     $(document).ready(function () {
         $.ajax({
             type: "GET",
-            url: "/Home/GetClientMaster",
+            url: "/UnderWriting/GetClientMaster",
 
             success: function (res) {
                 //$.each(data.d, function () {

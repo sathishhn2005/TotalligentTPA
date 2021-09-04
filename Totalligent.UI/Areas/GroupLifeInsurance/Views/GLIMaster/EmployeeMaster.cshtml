@@ -602,6 +602,7 @@
                             </div>
                             <input type="hidden" id="hdnEmpMasterID" value="0">
                         </div>
+                        
                     </form>
                 </div>
                 <div id="navpills2-2" class="tab-pane ">
@@ -650,103 +651,475 @@
 
         </div>
     </div>
-    <div id="uploadBulk" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-md">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title mt-0" id="uploadBulkLabel">Upload Bulk Policies</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-10 mx-auto">
-                            <div class="text-right">
+    @using (Html.BeginForm("BulkUpdate", "EmployeeMaster", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div id="uploadBulk" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title mt-0" id="uploadBulkLabel">Upload Bulk Policies</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-10 mx-auto">
+                                <div class="text-right">
 
-                                <a href="~/Masters/EmployeeMaster.csv" class="btn btn-dark btn-sm" download>
-                                    <i class="fas fa-download fa-sm"></i> Download Sample format
-                                </a>
-                            </div>
-                            @*
-                                <form method="post" enctype="multipart/form-data">
-                            *@
-                            <div class="fileuploader fileuploader-theme-dragdrop">
-
-                                <input type="file" name="postedFile" id="fileUploadMotor" accept=".xls,.xlsx" />
-                                <input type="hidden" id="txtMotorMaster" name="txtMotorMaster" value="1">
-                                <input type="hidden" id="uploadFilesInptHdn" name="fileuploader-list-files" value="[]">
-                                <input type="file" id="uploadFilesInpt" name="files[]" multiple="multiple" style="position: absolute; z-index: -9999; height: 0px; width: 0px; padding: 0px; margin: 0px; line-height: 0; outline: 0px; border: 0px; opacity: 0;">
-                                <div class="fileuploader-input">
-                                    <div class="fileuploader-input-inner">
-                                        <div class="fileuploader-icon-main"></div>
-                                        <h3 class="fileuploader-input-caption">
-                                            <span>Drag and drop files here</span>
-                                        </h3>
-                                        <p></p>
-                                        <button type="button" class="fileuploader-input-button">
-                                            <span>Browse files</span>
-                                        </button>
+                                    <a href="~/Masters/EmployeeMaster.csv" class="btn btn-dark btn-sm" download>
+                                        <i class="mdi mdi-download"></i> Download Sample format
+                                    </a>
+                                </div>
+                                <div class="fileuploader fileuploader-theme-dragdrop">
+                                    <input type="file" name="EMPCSVFile" id="fileUploadEM" accept=".csv" />
+                                    <div class="mt-2">
+                                        <i class="fa fa-upload fa-sm btn btn-success btn-block" onclick="csvFileUpload();">
+                                            <span>Upload</span>
+                                        </i>
+                                        <button id="uploadFiles" class="btn btn-primary btn-sm mx-1 hide">Upload File</button>
                                     </div>
                                 </div>
-                                <div class="fileuploader-items">
-                                    <ul class="fileuploader-items-list">
-                                        <li class="fileuploader-item file-type-application file-ext-xlsx file-has-popup upload-successful">
-                                            <div id="fileContainer" class="columns" style="display: none;">
-                                                <div class="column-thumbnail">
-                                                    <div class="fileuploader-item-image fileuploader-no-thumbnail">
-                                                        <div style="background-color: #591605" class="fileuploader-item-icon">
-                                                            <i>xlsx</i>
-                                                        </div>
-                                                    </div>
-                                                    <span class="fileuploader-action-popup"></span>
-                                                </div>
-                                                <div class="column-title">
-                                                    <div id="fileName">SampleFile.xlsx</div>
-                                                    <span id="fileSize">0 KB</span>
-                                                </div>
-                                                <div class="column-actions">
-                                                    <button type="button" id="clearFiles" class="btn btn-success btn-sm round" title="Delete">
-                                                        <i class="fas fa-check fa-sm"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="progress-bar2" style="display: none;">
-                                                <div class="fileuploader-progressbar">
-                                                    <div class="bar" style="width: 100%;"></div>
-                                                </div>
-                                                <span>100%</span>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="mt-2">
-                                    <button id="btnUpload" type="submit" class="btn btn-success btn-block">
-                                        <i class="fas fa-upload fa-sm"></i>
-                                        <span>Upload</span>
-                                    </button>
-                                </div>
+
                             </div>
-                            @*
-                                </form>
-                            *@
                         </div>
                     </div>
+
                 </div>
-                @*
-                    <div class="modal-footer justify-content-center">
-                       <button type="button" class="btn btn-secondary btn-sm waves-effect" data-dismiss="modal">Close</button>
-                       <button type="button" class="btn btn-primary btn-sm waves-effect waves-light">Renew</button>
-                    </div>
-                *@
+                <!-- /.modal-content -->
             </div>
-            <!-- /.modal-content -->
+            <!-- /.modal-dialog -->
         </div>
-        <!-- /.modal-dialog -->
-    </div>
+    }
 </div>
 <script type="text/javascript">
-    //txtCitytxtEmpCopdetxtEmpName
+    function csvFileUpload() {
+
+        var rowCount = 0;
+        var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
+        if (regex.test($("#fileUploadEM").val().toLowerCase())) {
+
+            if (typeof (FileReader) != "undefined") {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+
+                    var rows = e.target.result.split('\r\n');
+
+                    for (var i = 0; i < rows.length; i++) {
+
+                        var cells = rows[i].split(",");
+                        var RRC = rowCount + 1;
+                        if (i == 0) {
+
+
+                            // Heater validation
+                            if (cells.length == 36) {
+                                if (cells[0] != "EmployeeName") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check column name mismatch (EmployeeName).");
+                                    return false;
+                                }
+                                if (cells[1] != "EmployeeUniqueNumber") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check column name mismatch (EmployeeUniqueNumber).");
+                                    return false;
+                                }
+                                if (cells[2] != "ClientName") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check column name mismatch (ClientName).");
+                                    return false;
+                                }
+                                if (cells[3] != "Relation") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check column name mismatch (Relation).");
+                                    return false;
+                                }
+                                if (cells[4] != "Nationality") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check column name mismatch (Nationality).");
+                                    return false;
+                                }
+                                if (cells[5] != "Category") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check column name mismatch (Category).");
+                                    return false;
+                                }
+                                if (cells[6] != "DOB") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check column name mismatch (DOB).");
+                                    return false;
+                                }
+                                if (cells[7] != "Age") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check column name mismatch (Age).");
+                                    return false;
+                                }
+                                if (cells[8] != "Salary") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check column name mismatch (Salary).");
+                                    return false;
+                                }
+                                if (cells[9] != "EAW") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check column name mismatch (EAW).");
+                                    return false;
+                                }
+                                if (cells[10] != "SumAssured") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check column name mismatch (SumAssured).");
+                                    return false;
+                                }
+                                if (cells[11] != "EffectiveDate") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check column name mismatch (EffectiveDate).");
+                                    return false;
+                                }
+                                if (cells[12] != "Remarks") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check column name mismatch (Remarks).");
+                                    return false;
+                                }
+                                if (cells[13] != "SpouseAge") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check column name mismatch (SpouseAge).");
+                                    return false;
+                                }
+                                if (cells[14] != "ChildAge") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check column name mismatch (ChildAge).");
+                                    return false;
+                                }
+                                if (cells[15] != "SpouseCategory") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check column name mismatch (SpouseCategory).");
+                                    return false;
+                                }
+                                if (cells[16] != "ChildCategory") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check column name mismatch (ChildCategory).");
+                                    return false;
+                                }
+                                if (cells[17] != "SpouseDOB") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check column name mismatch (SpouseDOB).");
+                                    return false;
+                                }
+                                if (cells[18] != "ChildDOB") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check column name mismatch (ChildDOB).");
+                                    return false;
+                                }
+                                if (cells[19] != "SpouseEffectiveDate") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check column name mismatch (SpouseEffectiveDate).");
+                                    return false;
+                                }
+                                if (cells[20] != "ChildEffectiveDate") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check column name mismatch (ChildEffectiveDate).");
+                                    return false;
+                                }
+                                if (cells[21] != "SpouseNationality") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check column name mismatch (SpouseNationality).");
+                                    return false;
+                                }
+                                if (cells[22] != "ChildNationality") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check column name mismatch (ChildNationality).");
+                                    return false;
+                                }
+                                if (cells[23] != "SpouseRemarks") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check column name mismatch (SpouseRemarks).");
+                                    return false;
+                                }
+                                if (cells[24] != "ChildRemarks") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check column name mismatch (ChildRemarks).");
+                                    return false;
+                                }
+                                if (cells[25] != "SpouseSalary") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check column name mismatch (SpouseSalary).");
+                                    return false;
+                                }
+                                if (cells[26] != "ChildSalary") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check column name mismatch (ChildSalary).");
+                                    return false;
+                                }
+                                if (cells[27] != "SpouseStatus") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check column name mismatch (SpouseStatus).");
+                                    return false;
+                                }
+                                if (cells[28] != "ChildStatus") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check column name mismatch (ChildStatus).");
+                                    return false;
+                                }
+                                if (cells[29] != "SpouseSumAssured") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check column name mismatch (SpouseSumAssured).");
+                                    return false;
+                                }
+                                if (cells[30] != "ChildSumAssured") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check column name mismatch (ChildSumAssured).");
+                                    return false;
+                                }
+                                if (cells[31] != "BankID") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check column name mismatch (BankID).");
+                                    return false;
+                                }
+                                if (cells[32] != "AccountNumber") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check column name mismatch (AccountNumber).");
+                                    return false;
+                                }
+                                if (cells[33] != "IFSCCode") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check column name mismatch (IFSCCode).");
+                                    return false;
+                                }
+                                if (cells[34] != "Status") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check column name mismatch (Status).");
+                                    return false;
+                                }
+                                if (cells[35] != "KYCUploadPath") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check column name mismatch (KYCUploadPath).");
+                                    return false;
+                                }
+
+                            }
+                            else {
+                                $('#fileUploadEM').val('');
+                                alert("Upload Csv file invalid template , Please check .");
+                                return false;
+                            }
+
+                        } else {
+                            // Row validation
+                            if (cells.length == 36) {
+                                if (cells[0] == "") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check Row NO : " + RRC + "EmployeeName  is empty");
+                                    return false;
+                                }
+                                if (cells[1] == "") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check Row NO : " + RRC + "EmployeeUniqueNumber  is empty");
+                                    return false;
+                                }
+                                if (cells[2] == "") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check Row NO : " + RRC + "ClientName  is empty");
+                                    return false;
+                                }
+                                if (cells[3] == "") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check Row NO : " + RRC + "Relation  is empty");
+                                    return false;
+                                }
+                                if (cells[4] == "") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check Row NO : " + RRC + "Nationality  is empty");
+                                    return false;
+                                }
+                                if (cells[5] == "") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check Row NO : " + RRC + "Category  is empty");
+                                    return false;
+                                }
+                                if (cells[6] == "") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check Row NO : " + RRC + "DOB  is empty");
+                                    return false;
+                                }
+                                if (cells[7] == "") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check Row NO : " + RRC + "Age  is empty");
+                                    return false;
+                                }
+                                if (cells[8] == "") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check Row NO : " + RRC + "Salary  is empty");
+                                    return false;
+                                }
+                                if (cells[9] == "") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check Row NO : " + RRC + "EAW  is empty");
+                                    return false;
+                                }
+                                if (cells[10] == "") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check Row NO : " + RRC + "SumAssured  is empty");
+                                    return false;
+                                }
+                                if (cells[11] == "") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check Row NO : " + RRC + "EffectiveDate  is empty");
+                                    return false;
+                                }
+                                if (cells[12] == "") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check Row NO : " + RRC + "Remarks  is empty");
+                                    return false;
+                                }
+                                if (cells[13] == "") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check Row NO : " + RRC + "SpouseAge  is empty");
+                                    return false;
+                                }
+                                if (cells[14] == "") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check Row NO : " + RRC + "ChildAge  is empty");
+                                    return false;
+                                }
+                                if (cells[15] == "") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check Row NO : " + RRC + "SpouseCategory  is empty");
+                                    return false;
+                                }
+                                if (cells[16] == "") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check Row NO : " + RRC + "ChildCategory  is empty");
+                                    return false;
+                                }
+                                if (cells[17] == "") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check Row NO : " + RRC + "SpouseDOB  is empty");
+                                    return false;
+                                }
+                                if (cells[18] == "") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check Row NO : " + RRC + "ChildDOB  is empty");
+                                    return false;
+                                }
+                                if (cells[19] == "") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check Row NO : " + RRC + "SpouseEffectiveDate  is empty");
+                                    return false;
+                                }
+                                if (cells[20] == "") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check Row NO : " + RRC + "ChildEffectiveDate  is empty");
+                                    return false;
+                                }
+                                if (cells[21] == "") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check Row NO : " + RRC + "SpouseNationality  is empty");
+                                    return false;
+                                }
+                                if (cells[22] == "") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check Row NO : " + RRC + "ChildNationality  is empty");
+                                    return false;
+                                }
+                                if (cells[23] == "") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check Row NO : " + RRC + "SpouseRemarks  is empty");
+                                    return false;
+                                }
+                                if (cells[24] == "") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check Row NO : " + RRC + "ChildRemarks  is empty");
+                                    return false;
+                                }
+                                if (cells[25] == "") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check Row NO : " + RRC + "SpouseSalary  is empty");
+                                    return false;
+                                }
+                                if (cells[26] == "") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check Row NO : " + RRC + "ChildSalary  is empty");
+                                    return false;
+                                }
+                                if (cells[27] == "") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check Row NO : " + RRC + "SpouseStatus  is empty");
+                                    return false;
+                                }
+                                if (cells[28] == "") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check Row NO : " + RRC + "ChildStatus  is empty");
+                                    return false;
+                                }
+                                if (cells[29] == "") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check Row NO : " + RRC + "SpouseSumAssured  is empty");
+                                    return false;
+                                }
+                                if (cells[30] == "") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check Row NO : " + RRC + "ChildSumAssured  is empty");
+                                    return false;
+                                }
+                                if (cells[31] == "") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check Row NO : " + RRC + "BankID  is empty");
+                                    return false;
+                                }
+                                if (cells[32] == "") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check Row NO : " + RRC + "AccountNumber  is empty");
+                                    return false;
+                                }
+                                if (cells[33] == "") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check Row NO : " + RRC + "IFSCCode  is empty");
+                                    return false;
+                                }
+                                if (cells[34] == "") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check Row NO : " + RRC + "Status  is empty");
+                                    return false;
+                                }
+                                if (cells[35] == "") {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check Row NO : " + RRC + "KYCUploadPath  is empty");
+                                    return false;
+                                }
+                            }
+                            else {
+
+                                if (cells.length > 1) {
+                                    $('#fileUploadEM').val('');
+                                    alert("Please check Row NO : " + RRC + " This row have comma simple or invalied Column length");
+                                    return false;
+                                }
+                            }
+
+                        }
+
+                        rowCount += 1;
+
+                    }
+
+                    if (rowCount == rows.length) {
+                        $("#hdnMsgStatus").val('Y');
+                        $("#uploadFiles").click();
+
+                    }
+
+                }
+                reader.readAsText($("#fileUploadEM")[0].files[0]);
+            } else {
+                $('#fileUploadEM').val('');
+                alert("This browser does not support HTML5.");
+                return false;
+            }
+        } else {
+            $('#fileUploadEM').val('');
+            alert("Please upload a valid CSV file.");
+            return false;
+        }
+    }
 
     $(document).ready(function () {
 
@@ -925,6 +1298,7 @@
             var objEmpMaster = new Object();
             objEmpMaster.EmployeeId = $('#hdnEmpMasterID').val();
             objEmpMaster.EmployeeName = $('#EmployeeName').val();
+            objEmpMaster.EmployeeGender = $('#EmployeeGender').val();
             objEmpMaster.EmployeeUniqueNumber = $('#EmployeeUniqueNumber').val();
             //objEmpMaster.Relation = $('#Relation').val();
             objEmpMaster.Nationality = $('#Nationality').val();
@@ -938,6 +1312,7 @@
             objEmpMaster.Remarks = $('#Remarks').val();
             objEmpMaster.EntryType = $('#EntryType').val();
             objEmpMaster.ClientCompanyName = $('#ClientCompanyName').val();
+            objEmpMaster.ClientName = $('#ClientCompanyName').val();
 
             objEmpMaster.UploadKYC_01 = $('#UploadKYC_01').val();
             objEmpMaster.UploadKYC_02 = $('#UploadKYC_02').val();
@@ -1028,7 +1403,7 @@
                         i++;
                         var hdnID = "hdnobjJSonVal_" + i;
                         var JVal = JSON.stringify(value);
-                        $('#tblEMaster').append('<tr> <td>' + value.EmployeeName + '</td>  <td>' + value.EmployeeUniqueNumber + '</td> <td>' + value.Nationality + '</td> <td>' + value.Category + '</td><td>' + value.Age + '</td><td> <a href="' + value.KYCUploadPath + '" class="badge badge-pill badge-warning" download> Download KYC</a></td><td class="d-none text-center"><i class="mdi mdi-pencil text-primary mx-3" onclick="EditEmpMaster(' + "'" + hdnID + "'" + ')"></i><i class="mdi mdi-delete text-danger mx-3" onclick="DeActiveEmpMaster(this,' + value.EmployeeId.toString() + ');"></i><input type="hidden" id=' + hdnID + ' value=' + "'" + JVal + "'" + '></td></tr>');
+                        $('#tblEMaster').append('<tr> <td>' + value.EmployeeName + '</td>  <td>' + value.EmployeeUniqueNumber + '</td> <td>' + value.Nationality + '</td> <td>' + value.Category + '</td><td>' + value.Age + '</td><td> <a href="' + value.KYCUploadPath + '" class="badge badge-pill badge-warning" download> Download KYC</a></td><td class="text-center"><i class="mdi mdi-pencil text-primary mx-3" onclick="EditEmpMaster(' + "'" + hdnID + "'" + ')"></i><i class="mdi mdi-delete text-danger mx-3" onclick="DeActiveEmpMaster(this,' + value.EmployeeId.toString() + ');"></i><input type="hidden" id=' + hdnID + ' value=' + "'" + JVal + "'" + '></td></tr>');
 
 
                     })
@@ -1045,14 +1420,14 @@
     });
     function temptableAdd() {
         var RelationShip = $("#RelationshipId").val();
-        if (RelationShip =="Self") {
+        if (RelationShip == "Self") {
             $("#tempEmpDetailsTable tbody").append("<tr>" +
                 "<td>" + $("#EmployeeName").val() + "</td>" +
                 "<td>" + $("#EmployeeGender").val() + "</td>" +
                 "<td>" + '<span class="badge badge-pill badge-primary">' + $("#RelationshipId").val() + '</span>' + "</td>" +
                 "<td>" + $("#ClientCompanyName option:selected").text() + "</td>" +
                 "<td>" + $("#Age").val() + "</td>" +
-                "<td>" + $("#BankName").val() + "</td>" +
+                "<td>" + $("#Nationality").val() + "</td>" +
                 "<td>" + $("#Category").val() + "</td>" +
                 "<td>" + $("#Salary").val() + "</td>" +
                 "<td>" + $("#EffectiveDate").val() + "</td>" +
@@ -1066,7 +1441,7 @@
                 "<td>" + '<span class="badge badge-pill badge-primary">' + $("#RelationshipId").val() + '</span>' + "</td>" +
                 "<td>" + $("#ClientCompanyName option:selected").text() + "</td>" +
                 "<td>" + $("#SpouseAge").val() + "</td>" +
-                "<td>" + $("#BankName").val() + "</td>" +
+                "<td>" + $("#SpouseNationality").val() + "</td>" +
                 "<td>" + $("#SpouseCategory").val() + "</td>" +
                 "<td>" + $("#SpouseSalary").val() + "</td>" +
                 "<td>" + $("#SpouseEffectiveDate").val() + "</td>" +
@@ -1080,7 +1455,7 @@
                 "<td>" + '<span class="badge badge-pill badge-primary">' + $("#RelationshipId").val() + '</span>' + "</td>" +
                 "<td>" + $("#ClientCompanyName option:selected").text() + "</td>" +
                 "<td>" + $("#ChildAge").val() + "</td>" +
-                "<td>" + $("#BankName").val() + "</td>" +
+                "<td>" + $("#ChildNationality").val() + "</td>" +
                 "<td>" + $("#ChildCategory").val() + "</td>" +
                 "<td>" + $("#ChildSalary").val() + "</td>" +
                 "<td>" + $("#ChildEffectiveDate").val() + "</td>" +
@@ -1135,6 +1510,9 @@
         $("#navpills2-1").addClass("active");
 
         var objRow = JSON.parse($("#" + JsonObj).val());
+        $('#Status').val(objRow.Status);
+
+        $('#ClientCompanyName').val(objRow.ClientName);
         $('#EmployeeName').val(objRow.EmployeeName);
         $('#EmployeeUniqueNumber').val(objRow.EmployeeUniqueNumber);
         //$('#Relation').val(objRow.Relation);

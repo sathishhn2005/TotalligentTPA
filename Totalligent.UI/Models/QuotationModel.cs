@@ -15,5 +15,8 @@ namespace Totalligent.UI.Models
         public IEnumerable<SelectListItem> lstBDTypeMaster { get; set; }
         public IEnumerable<SelectListItem> lstBranchMaster { get; set; }
         public Quotation objQuo { get; set; }
+        public string objQuoJson { get; set; }
+
+    
     }
 }

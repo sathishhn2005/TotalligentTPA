@@ -26,25 +26,46 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
         [HttpPost]
         public ActionResult RejectQuotation(long Qid, string Action)
         {
-            return RedirectToAction("Quotation", "UnderWriting");
+            long res = 0;
+            string msg = "";
+            objGLIBAL = new GLIQuotationBAL();
+            res = objGLIBAL.RejectDraft(Qid, Action);
+
+            string Msg = res > 0 ? "Draft Rejected Successfully.!" : "Error occured while rejecting,Contact Admin";
+            return Json(Msg, JsonRequestBehavior.AllowGet);
+            //if (QuotationId > 0)
+            //{
+            //    msg = "Updated Successfully";
+            //}
+            //else
+            //{
+            //    msg = "Error Occured, Please check it.";
+            //}
+            //TempData["Alertmsg"] = msg;
+            //return RedirectToAction("Quotation", "UnderWriting");
         }
-        public ActionResult AddUpdateQuotationMaster(QuotationModel objQuotation, string Action, string FolderName)
+        [HttpPost]
+        public JsonResult AddUpdateQuotationMaster(Quotation objQuotation, QuotationModel objQM, string Action, string FolderName)
         {
             string msg = "";
+
             long QuotationId = 0;
             string loginID = Session["Loginid"].ToString();
             string UserName = Session["UserName"].ToString();
             objGLIBAL = new GLIQuotationBAL();
-            objQuotation.objQuo.CreatedBy = loginID;
-            string JParamVal = JsonConvert.SerializeObject(objQuotation.objQuo);
-            if (objQuotation.objQuo.QuotationId > 0)
+            objQuotation.CreatedBy = loginID;
+            string JParamValQuotationDetails = JsonConvert.SerializeObject(objQM.objQuo);
+            string JParamValCoverageDetails = JsonConvert.SerializeObject(objQuotation);
+            
+            if (objQM.objQuo.QuotationId > 0)
             {
                 Action = "Update";
             }
-            QuotationId = objGLIBAL.DMLQuotationMaster(Action, JParamVal);
+            QuotationId = objGLIBAL.DMLQuotationMaster(Action, JParamValQuotationDetails, JParamValCoverageDetails, out List<Quotation> objResponse);
             if (QuotationId > 0)
             {
                 msg = "Updated Successfully";
+                return Json(objResponse[0], JsonRequestBehavior.AllowGet);
             }
             else
             {
@@ -52,7 +73,7 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
             }
             TempData["Alertmsg"] = msg;
 
-            return View();
+            return Json(objResponse[0], JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -13,6 +13,7 @@ namespace Totalligent.BusinessEntities
 
         public string DraftNo { get; set; }
         public string WLDraftNo { get; set; }
+        public string WLPolicyNo { get; set; }
 
         public string Status { get; set; }
 
@@ -40,7 +41,12 @@ namespace Totalligent.BusinessEntities
 
         public DateTime? PeriodofInsurance { get; set; }
 
-        public string Category { get; set; }
+        private string _Category = string.Empty;
+        public string Category
+        {
+            get { return _Category; }
+            set { _Category = value; }
+        }
 
         public int? TotalEmployees { get; set; }
 
@@ -227,6 +233,8 @@ namespace Totalligent.BusinessEntities
         public string OtherExclusions { get; set; }
         public long ModifiedBy { get; set; }
         public DateTime? MofifiedAt { get; set; }
+
+
 
 
     }

@@ -1251,17 +1251,18 @@ namespace Totalligent.DAL
 
                     if (dtResult.Rows.Count > 0)
                     {
-                        lstEmpMaster = dtResult.AsEnumerable().Select(U => new EmployeeMaster()
-                        {
-                            EmployeeId = U.Field<long>("EmployeeId"),
-                            EmployeeName = U.Field<string>("EmployeeName"),
-                            EmployeeUniqueNumber = U.Field<string>("EmployeeUniqueNumber"),
-                            Age = U.Field<int>("Age"),
-                            DOB = U.Field<DateTime>("DOB"),
-                            Nationality = U.Field<string>("Nationality"),
-                            Category = U.Field<string>("Category"),
-                            KYCUploadPath = U.Field<string>("KYCUploadPath"),
-                        }).ToList();
+                        DTtoListConverter.ConvertTo(dtResult, out lstEmpMaster);
+                        //lstEmpMaster = dtResult.AsEnumerable().Select(U => new EmployeeMaster()
+                        //{
+                        //    EmployeeId = U.Field<long>("EmployeeId"),
+                        //    EmployeeName = U.Field<string>("EmployeeName"),
+                        //    EmployeeUniqueNumber = U.Field<string>("EmployeeUniqueNumber"),
+                        //    Age = U.Field<int>("Age"),
+                        //    DOB = U.Field<DateTime>("DOB"),
+                        //    Nationality = U.Field<string>("Nationality"),
+                        //    Category = U.Field<string>("Category"),
+                        //    KYCUploadPath = U.Field<string>("KYCUploadPath"),
+                        //}).ToList();
                     }
 
                 }

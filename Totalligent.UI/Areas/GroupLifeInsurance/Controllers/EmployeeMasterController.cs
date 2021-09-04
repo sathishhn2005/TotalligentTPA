@@ -170,7 +170,7 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
 
 
         [HttpPost]
-        public ActionResult BulkUpdate(HttpPostedFileBase CSVFile, string hdnMsgStatus)
+        public ActionResult BulkUpdate(HttpPostedFileBase EMPCSVFile, string hdnMsgStatus)
         {
             long returnCode = -1;
             string EmpMasterJson = string.Empty;
@@ -188,12 +188,12 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
                 if (ModelState.IsValid)
                 {
 
-                    if (CSVFile.ContentLength > 0)
+                    if (EMPCSVFile.ContentLength > 0)
                     {
-                        _FileName = DateTime.Now.ToString("yyyyMMddHHmmss") + "_" + Path.GetFileName(CSVFile.FileName);
+                        _FileName = DateTime.Now.ToString("yyyyMMddHHmmss") + "_" + Path.GetFileName(EMPCSVFile.FileName);
                         var originalDirectory = new System.IO.DirectoryInfo(string.Format("{0}" + FPath, Server.MapPath(@"\")));
                         _filePath = System.IO.Path.Combine(originalDirectory.ToString(), _FileName);
-                        CSVFile.SaveAs(_filePath);
+                        EMPCSVFile.SaveAs(_filePath);
                     }
 
 
@@ -257,17 +257,41 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
             EmployeeMaster objCsvFileBulkUplaod = new EmployeeMaster();
 
             objCsvFileBulkUplaod.EmployeeName = values[0];
-            objCsvFileBulkUplaod.ClientName = values[1];
-            objCsvFileBulkUplaod.Relation = values[2];
-            objCsvFileBulkUplaod.Age = Convert.ToInt32(values[3]);
-            objCsvFileBulkUplaod.Salary = Convert.ToDecimal(values[4]);
-            objCsvFileBulkUplaod.Nationality = values[5];
-            objCsvFileBulkUplaod.Category = values[6];
-            objCsvFileBulkUplaod.Remarks = values[7];
-            objCsvFileBulkUplaod.BankName = values[8];
-            objCsvFileBulkUplaod.AccountNumber = values[9];
-            objCsvFileBulkUplaod.IFSCCode = values[10];
-
+            objCsvFileBulkUplaod.EmployeeUniqueNumber = values[1];
+            objCsvFileBulkUplaod.ClientName = values[2];
+            objCsvFileBulkUplaod.Relation = values[3];
+            objCsvFileBulkUplaod.Nationality = values[4];
+            objCsvFileBulkUplaod.Category = values[5];
+            objCsvFileBulkUplaod.DOB = Convert.ToDateTime(values[6]);
+            objCsvFileBulkUplaod.Age = Convert.ToInt32(values[7]);
+            objCsvFileBulkUplaod.Salary = Convert.ToDecimal(values[8]);
+            objCsvFileBulkUplaod.EAW = Convert.ToDecimal(values[9]);
+            objCsvFileBulkUplaod.SumAssured = Convert.ToDecimal(values[10]);
+            objCsvFileBulkUplaod.EffectiveDate = Convert.ToDateTime(values[11]);
+            objCsvFileBulkUplaod.Remarks = values[12];
+            objCsvFileBulkUplaod.SpouseAge = Convert.ToInt32(values[13]);
+            objCsvFileBulkUplaod.ChildAge = Convert.ToInt32(values[14]);
+            objCsvFileBulkUplaod.SpouseCategory = values[15];
+            objCsvFileBulkUplaod.ChildCategory = values[16];
+            objCsvFileBulkUplaod.SpouseDOB = Convert.ToDateTime(values[17]);
+            objCsvFileBulkUplaod.ChildDOB = Convert.ToDateTime(values[18]);
+            objCsvFileBulkUplaod.SpouseEffectiveDate = Convert.ToDateTime(values[19]);
+            objCsvFileBulkUplaod.ChildEffectiveDate = Convert.ToDateTime(values[20]);
+            objCsvFileBulkUplaod.SpouseNationality = values[21];
+            objCsvFileBulkUplaod.ChildNationality = values[22];
+            objCsvFileBulkUplaod.SpouseRemarks = values[23];
+            objCsvFileBulkUplaod.ChildRemarks = values[24];
+            objCsvFileBulkUplaod.SpouseSalary = Convert.ToDecimal(values[25]);
+            objCsvFileBulkUplaod.ChildSalary = Convert.ToDecimal(values[26]);
+            objCsvFileBulkUplaod.SpouseStatus = values[27];
+            objCsvFileBulkUplaod.ChildStatus = values[28];
+            objCsvFileBulkUplaod.SpouseSumAssured = Convert.ToDecimal(values[29]);
+            objCsvFileBulkUplaod.ChildSumAssured = Convert.ToDecimal(values[30]);
+            objCsvFileBulkUplaod.BankName = values[31];
+            objCsvFileBulkUplaod.AccountNumber = values[32];
+            objCsvFileBulkUplaod.IFSCCode = values[33];
+            objCsvFileBulkUplaod.Status = values[34];
+            objCsvFileBulkUplaod.KYCUploadPath = values[35];
             return objCsvFileBulkUplaod;
         }
 

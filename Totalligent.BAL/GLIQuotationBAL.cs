@@ -11,9 +11,13 @@ namespace Totalligent.BAL
 {
     public class GLIQuotationBAL
     {
-        public long DMLQuotationMaster(string Action, string JPramValue)
+        public long DMLQuotationMaster(string Action, string JParamValQuotationDetails, string JParamValCoverageDetails, out List<Quotation> objResponse)
         {
-            return new GLIQuotationDAL().DMLQuotationMaster(Action, JPramValue);
+            return new GLIQuotationDAL().DMLQuotationMaster(Action, JParamValQuotationDetails, JParamValCoverageDetails, out objResponse);
+        }
+        public long RejectDraft(long Qid, string Action)
+        {
+            return new GLIQuotationDAL().RejectDraft(Qid, Action);
         }
 
     }

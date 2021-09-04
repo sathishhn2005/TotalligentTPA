@@ -539,6 +539,26 @@ namespace Totalligent.BAL
             }
             return returnCode;
         }
+        public long GetEndorsement(out List<Endorsement> lst)
+        {
+            long returnCode = -1;
+
+            try
+            {
+                returnCode = objTotalligentDAL.GetEndorsement(out lst);
+
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+
+
+            return returnCode;
+        }
         public long GetGLWLPolicies(out Endorsement objEndor, string CompanyName)
         {
             long returnCode = -1;
