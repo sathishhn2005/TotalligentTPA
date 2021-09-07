@@ -149,22 +149,25 @@
                                         <td>@Html.DisplayFor(modelItem => item.CreatedAt)</td>
                                         
 
-                                        <td>
-
-                                            @using (Html.BeginForm("GenerateGLwLPDF", "UnderWriting", FormMethod.Post))
-                                            {
-                                                <input type="hidden" name="EndorsementId" value="@Html.DisplayFor(modelItem => item.EndorsementId)" />
-                                                <input type="hidden" name="PdfType" value="GL" />
-                                                <input type="submit" class="btn btn-rounded btn-primary" id="btnSubmit" value="GLPdfExport" />
-                                            }
-
-                                            @using (Html.BeginForm("GenerateGLwLPDF", "UnderWriting", FormMethod.Post))
-                                            {
-                                                <input type="hidden" name="EndorsementId" value="@Html.DisplayFor(modelItem => item.EndorsementId)" />
-                                                <input type="hidden" name="PdfType" value="WL" />
-                                                <input type="submit" class="btn-rounded btn-primary" id="btnSubmit" value="WLPdfExport" />
-                                            }
-
+                                        <td class="w-300">
+                                            <div class="d-flex">
+                                                <div class="flex-fill">
+                                                        @using (Html.BeginForm("GenerateGLwLPDF", "UnderWriting", FormMethod.Post))
+                                                        {
+                                                            <input type="hidden" name="EndorsementId" value="@Html.DisplayFor(modelItem => item.EndorsementId)" />
+                                                            <input type="hidden" name="PdfType" value="GL" />
+                                                            <input type="submit" class="btn btn-rounded btn-primary" id="btnSubmit" value="GLPdfExport" />
+                                                        }
+                                                </div>
+                                                <div class="flex-fill ">
+                                                    @using (Html.BeginForm("GenerateGLwLPDF", "UnderWriting", FormMethod.Post))
+                                                    {
+                                                        <input type="hidden" name="EndorsementId" value="@Html.DisplayFor(modelItem => item.EndorsementId)" />
+                                                        <input type="hidden" name="PdfType" value="WL" />
+                                                        <input type="submit" class="btn btn-rounded btn-primary" id="btnSubmit" value="WLPdfExport" />
+                                                    }
+                                                </div>
+                                            </div>
                                         </td>
                                         <td></td>
 

@@ -1982,6 +1982,7 @@
                     contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                     data: quotationData,
                     success: function (res) {
+                        alert('Data Submitted Successfully');
                         if (res.length > 0) {
                             //Swal.fire({
                             //    icon: 'success',
@@ -2421,11 +2422,57 @@
             //Fromvalue = value.toDateString()
             Fromvalue = value.toISOString();
 
-            //var Str = (value.getFullYear() + "-" + ("00" + (value.getMonth() + 1)).slice(-2) + "-" + ("00" + value.getDate().slice(-2)) 
+            //var Str = (value.getFullYear() + "-" + ("00" + (value.getMonth() + 1)).slice(-2) + "-" + ("00" + value.getDate().slice(-2))
             var Str = ("00" + value.getDate()).slice(-2) + "-" + ("00" + (value.getMonth() + 1)).slice(-2) + "-" + value.getFullYear();
 
             $('#objQuo_PeriodofInsurance').val(Str);
             console.log(objQuoJson);
+            OtherAdditionalCover: "[{\"Title\":\"Test Cover\",\"CoverageLimit\":\"10000\",\"MaximumLimit\":\"2000\",\"WaitingPeriodinYears\":\"5\"}]"
+            OtherExclusions:
+            var OAC = JSON.parse(objQuoJson.OtherAdditionalCover);
+            var OE = JSON.parse(objQuoJson.OtherExclusions);
+
+            /*Addtional Coverage*/
+            var cheboxCss = 'DynAdditionalCoverClass';
+            var txtCss = 'form-control DynAdditionalCoverClass';
+
+            var OuterDiv = "divDynamicAdditionalCover";
+            $.each(OAC, function (index, value) {
+                var Titleid = "dynTitle_" + index;
+                var Contentid = "dynContent_" + index;
+                var CoverageLimitId = "CoverageLimit_" + index;
+                var MaximumLimitId = "MaximumLimit_" + index;
+                var WaitingPeriodinYearsId = "WaitingPeriodinYears_" + index;
+                $("#" + OuterDiv).append("<div  class='row m-b-15 m-t-15'><div class= 'col-md-3'><input class='" + cheboxCss + "' checked='true' type = 'checkbox' id ='" + Titleid + "' value='" + value.Title + "' name='" + Contentid + "' onclick='DynamicSlideUpDown(this)' /><label for= '" + Titleid + "' >" + value.Title + "</label></div ><div class='col-md-7 demo-section k-content'><div id='" + Contentid + "' style='display: none;'><div><label class= 'col-sm-12 col-form-label text-left pl-1 font-weight-bold' > " + value.Title + " Benefits</label></div><div class='row m-b-15 m-t-15'><div class='col-md-5'><label class= 'col-sm-12 col-form-label text-left pl-1' >Coverage Limit</label></div><div class='col-md-7 input-group'><span class='input-group-prepend'><span class='input-group-text'>OMR</span></span><input type='text' id='" + CoverageLimitId + "' class='" + txtCss + "' placeholder='Coverage Amount' onchange='ReadDynamicControl()'></div></div><div class='row m-b-15 m-t-15'> <div class='col-md-5'><label class='col-sm-12 col-form-label text-left pl-1'>Maximum Limit</label></div><div class='col-md-7 input-group'><span class='input-group-prepend'><span class='input-group-text'>OMR</span></span><input type = 'text' id ='" + MaximumLimitId + "' class='" + txtCss + "' placeholder='Enter Maximum Amount' onchange='ReadDynamicControl()'></div></div><div class='row m-b-15 m-t-15'><div class='col-md-5'><label class='col-sm-12 col-form-label text-left pl-1'>Waiting Period in Years</label></div><div class='col-md-7 input-group'><input type = 'text' id ='" + WaitingPeriodinYearsId + "' class='" + txtCss + "' placeholder='Enter Waiting Period in Years' onchange='ReadDynamicControl()'><span class='input-group-append'><span class='input-group-text'>Year</span>  </span></div></div></div></div></div>");
+                $("#" + Contentid).show();
+                $("#" + CoverageLimitId).val(value.CoverageLimit);
+                $("#" + MaximumLimitId).val(value.MaximumLimit);
+                $("#" + WaitingPeriodinYearsId).val(value.WaitingPeriodinYears);
+
+            });
+
+        /*Addtional Exclusions Coverage*/
+
+
+
+            var EcheboxCss = 'DynExclusionsClass';
+            var EtxtCss = 'form-control DynExclusionsClass';
+
+            var OuterDiv = "divDynamicExclusionCover";
+            $.each(OAC, function (index, value) {
+                var Titleid = "dynETitle_" + index;
+                var Contentid = "dynEContent_" + index;
+                var CoverageLimitId = "ECoverageLimit_" + index;
+                var MaximumLimitId = "EMaximumLimit_" + index;
+                var WaitingPeriodinYearsId = "EWaitingPeriodinYears_" + index;
+                $("#" + OuterDiv).append("<div  class='row m-b-15 m-t-15'><div class= 'col-md-3'><input class='" + EcheboxCss + "' checked='true' type = 'checkbox' id ='" + Titleid + "' value='" + value.Title + "' name='" + Contentid + "' onclick='DynamicSlideUpDown(this)' /><label for= '" + Titleid + "' >" + value.Title + "</label></div ><div class='col-md-7 demo-section k-content'><div id='" + Contentid + "' style='display: none;'><div><label class= 'col-sm-12 col-form-label text-left pl-1 font-weight-bold' > " + value.Title + " Exclusions</label></div><div class='row m-b-15 m-t-15'><div class='col-md-5'><label class= 'col-sm-12 col-form-label text-left pl-1' >Coverage Limit</label></div><div class='col-md-7 input-group'><span class='input-group-prepend'><span class='input-group-text'>OMR</span></span><input type='text' id='" + CoverageLimitId + "' class='" + EtxtCss + "' placeholder='Coverage Amount' onchange='ReadDynamicControl()'></div></div><div class='row m-b-15 m-t-15'> <div class='col-md-5'><label class='col-sm-12 col-form-label text-left pl-1'>Maximum Limit</label></div><div class='col-md-7 input-group'><span class='input-group-prepend'><span class='input-group-text'>OMR</span></span><input type = 'text' id ='" + MaximumLimitId + "' class='" + txtCss + "' placeholder='Enter Maximum Amount' onchange='ReadDynamicControl()'></div></div><div class='row m-b-15 m-t-15'><div class='col-md-5'><label class='col-sm-12 col-form-label text-left pl-1'>Waiting Period in Years</label></div><div class='col-md-7 input-group'><input type = 'text' id ='" + WaitingPeriodinYearsId + "' class='" + txtCss + "' placeholder='Enter Waiting Period in Years' onchange='ReadDynamicControl()'><span class='input-group-append'><span class='input-group-text'>Year</span>  </span></div></div></div></div></div>");
+                $("#" + Contentid).show();
+                $("#" + CoverageLimitId).val(value.CoverageLimit);
+                $("#" + MaximumLimitId).val(value.MaximumLimit);
+                $("#" + WaitingPeriodinYearsId).val(value.WaitingPeriodinYears);
+
+            });
+
             if (objQuoJson.DeathCoverType == "DAC") {
                 $('input[name="DeathCoverType"][value="DAC"]').attr('checked', 'checked');
                 /*AssignDeathCoverValues(objQuoJson.DeathCoverType);*/
@@ -2468,175 +2515,221 @@
                         }
                     }
                 }
-                if (objQuoJson.PTD == "Y") {
-                    $('#PermanentDisability').attr("checked", true);
-                    $("#PermanentDisabilityContent").slideDown();
-                    if (objQuoJson.PTDAccident == "Y") {
-                        $('#AccidentPTD').attr("checked", true);
+            }
+            if (objQuoJson.DeathCoverType == "DNC") {
+                $('input[name="DeathCoverType"][value="DNC"]').attr('checked', 'checked');
+                /*AssignDeathCoverValues(objQuoJson.DeathCoverType);*/
+                $("#DNCContent").slideDown();
+                $("#DACContent").slideUp();
+                if (objQuoJson.DeathCoverAnnualLimit == "Fixed") {
+                    $('input[name="DeathCoverAnnualLimit"][value="Fixed"]').attr('checked', 'checked');
+                    if ($('#FixedDAC:checked').val() === 'Fixed') {
+                        $("#FixedDACContent").hide();
+                        $("#FixedDNCContent").show();
+                        
+
+                        $('#txtDeathCoverFCL').val(objQuoJson.DeathCoverFCL);
+                        $('#FixedDCSAmount').val(objQuoJson.DeathCoverSumAssuredAmount);
+                        $("#VariableDACContent").hide();
+                        $("#DACFCLContent").show();
+
+                    } else if ($('#VariableDAC:checked').val() === 'Variable') {
+                        $("#FixedDACContent").hide();
+                        $("#VariableDACContent").show();
+                        $("#DACFCLContent").show();
                     }
-                    if (objQuoJson.PTDSickness == "Y") {
-                        $('#SicknessPTD').attr("checked", true);
+                }
+                if (objQuoJson.AccidentalDeath == "Y") {
+                    if (objQuoJson.AccidentalAnnualLimit = "Fixed") {
+                        $('input[name="DeathCoverAnnualLimit"][value="Fixed"]').attr('checked', 'checked');
+                        $('#AccidentalDeath').attr('checked', true);
+                        $('#FixedACD').attr('checked', true);
+                        $("#ACDContent").slideDown();
+                        $("#FixedACDContent").show();
+                        if ($("#FixedACD").is(':checked')) {
+
+                            $("#txtAccidentalDeathSAM").val(objQuoJson.AccidentalSumAssuredAmount)
+                            $("#txtAccidentalFCL").val(objQuoJson.AccidentalFCL)
+                            $("#hdnAccidentalSumAssuredAmount").val($("#txtAccidentalDeathSAM").val());
+
+
+                        } else {
+                            $("#txtACDSAM").val(objQuoJson.AccidentalSumAssuredAmount)
+                            $("#txtAccidentalFCL").val(objQuoJson.AccidentalFCL)
+                            $("#hdnAccidentalSumAssuredAmount").val($("#txtACDSAM").val());
+                        }
                     }
-                    $('#txtPTDCoverageLimit').val(objQuoJson.PTDCoverageLimit);
-                    $('#txtPTDMaximumLimit').val(objQuoJson.PTDMaximumLimit);
-                    $('#txtPTDWaitingYears').val(objQuoJson.PTDWaitingYears);
-
                 }
-                if (objQuoJson.PPD == "Y") {
-
-                    $('#PermanentPartialDisability').attr("checked", true);
-                    $("#PermanentPartialDisabilityContent").slideDown();
-                    if (objQuoJson.PPDAccident == "Y") {
-                        $('#AccidentPPD').attr("checked", true);
-                    }
-                    if (objQuoJson.PPDSickness == "Y") {
-                        $('#SicknessPPD').attr("checked", true);
-                    }
-                    $('#txtPPDCoverageLimit').val(objQuoJson.PPDCoverageLimit);
-                    $('#txtPPDMaximumLimit').val(objQuoJson.PPDMaximumLimit);
-                    $('#txtPPDWaitingYears').val(objQuoJson.PPDWaitingYears);
-
+            }
+            if (objQuoJson.PTD == "Y") {
+                $('#PermanentDisability').attr("checked", true);
+                $("#PermanentDisabilityContent").slideDown();
+                if (objQuoJson.PTDAccident == "Y") {
+                    $('#AccidentPTD').attr("checked", true);
                 }
-                if (objQuoJson.TTD == "Y") {
-
-                    $('#TotalDisability').attr("checked", true);
-                    $("#TotalDisabilityContent").slideDown();
-                    if (objQuoJson.TTDAccident == "Y") {
-                        $('#AccidentTTD').attr("checked", true);
-                    }
-                    if (objQuoJson.TTDSickness == "Y") {
-                        $('#SicknessTTD').attr("checked", true);
-                    }
-                    $('#txtTTDCoverageLimit').val(objQuoJson.TTDCoverageLimit);
-                    $('#txtTTDMaximumLimit').val(objQuoJson.TTDMaximumLimit);
-                    $('#txtTTDWaitingYears').val(objQuoJson.TTDWaitingYears);
-
+                if (objQuoJson.PTDSickness == "Y") {
+                    $('#SicknessPTD').attr("checked", true);
                 }
-                if (objQuoJson.RepatriationBenefit == "Y") {
-                    $('#RepatriationBenefit').attr("checked", true);
-                    $("#RepatriationBenefitContent").slideDown();
-                    $('#txtRBCoverageLimit').val(objQuoJson.RBCoverageLimit);
-                }
-                if (objQuoJson.PassiveWarRisk == "Y") {
-                    $('#PassiveWarRisk').attr("checked", true);
-                    $("#PassiveWarRiskContent").slideDown();
-                    $('#txtPWRCoverageLimit').val(objQuoJson.PWRCoverageLimit);
-                }
-                if (objQuoJson.TerminalIllness == "Y") {
-
-                    $('#TerminalIllness').attr("checked", true);
-                    $("#TerminalIllnessContent").slideDown();
-
-                    $('#txtTLCoverageLimit').val(objQuoJson.TLCoverageLimit);
-                    $('#txtTLMaximumLimit').val(objQuoJson.TLMaximumLimit);
-                    $('#txtTLWaitingYears').val(objQuoJson.TLWaitingYears);
-
-                }
-                if (objQuoJson.CriticalIllness == "Y") {
-
-                    $('#CriticalIllness').attr("checked", true);
-                    $("#CriticalIllnessContent").slideDown();
-
-                    $('#txtCLCoverageLimit').val(objQuoJson.CLCoverageLimit);
-                    $('#txtCLMaximumLimit').val(objQuoJson.CLMaximumLimit);
-                    $('#txtCLWaitingYears').val(objQuoJson.CLWaitingYears);
-
-                }
-               // $("#hdnOtherAdditionalCover").val(JSON.parse(objQuoJson.OtherAdditionalCover));
-
-                if (objQuoJson.WarExclusion == "Y") {
-
-                    $('#WarExclusion').attr("checked", true);
-                    $("#WarExclusionContent").slideDown();
-
-                    $('#txtWECoverageLimit').val(objQuoJson.CLCoverageLimit);
-                    $('#txtWEMaximumLimit').val(objQuoJson.CLMaximumLimit);
-                    $('#txtWEWaitingYears').val(objQuoJson.CLWaitingYears);
-
-                }
-
-                if (objQuoJson.AtomicBiologicalAndCNE == "Y") {
-
-                    $('#AtomicExclusion').attr("checked", true);
-                    $("#AtomicExclusionContent").slideDown();
-
-                    $('#txtABACNECoverageLimit').val(objQuoJson.ABACNECoverageLimit);
-                    $('#txtABACNEMaximumLimit').val(objQuoJson.ABACNEMaximumLimit);
-                    $('#txtABACNEWaitingYears').val(objQuoJson.ABACNEWaitingYears);
-
-                }
-
-                if (objQuoJson.CriminalActContent == "Y") {
-
-                    $('#CriminalAct').attr("checked", true);
-                    $("#CriminalActContent").slideDown();
-
-                    $('#txtCACCoverageLimit').val(objQuoJson.CACCoverageLimit);
-                    $('#txtCACNEMaximumLimit').val(objQuoJson.CACNEMaximumLimit);
-                    $('#txtCACNEWaitingYears').val(objQuoJson.CACNEWaitingYears);
-
-                }
-
-
-                if (objQuoJson.HIV_AIDS == "Y") {
-                    $('#HIV_AIDS').attr("checked", true);
-                    $("#HIV_AIDSContent").slideDown();
-
-                    $('#txtHIVCoverageLimit').val(objQuoJson.HIVCoverageLimit);
-                    $('#txtHIVMaximumLimit').val(objQuoJson.HIVMaximumLimit);
-                    $('#txtHIVWaitingYears').val(objQuoJson.HIVWaitingYears);
-
-                }
-                if (objQuoJson.HazardousSportsExclusion == "Y") {
-
-                    $('#HazardousSports').attr("checked", true);
-                    $("#HazardousSportsContent").slideDown();
-
-                    $('#txtHSECoverageLimit').val(objQuoJson.HSECoverageLimit);
-                    $('#txtHSEMaximumLimit').val(objQuoJson.HSEMaximumLimit);
-                    $('#txtHSEWaitingYears').val(objQuoJson.HSEWaitingYears);
-
-                }
-                if (objQuoJson.AviationExclusion == "Y") {
-
-                    $('#AviationExclusion').attr("checked", true);
-                    $("#AviationExclusionContent").slideDown();
-
-                    $('#txtAECoverageLimit').val(objQuoJson.AECoverageLimit);
-                    $('#txtAEMaximumLimit').val(objQuoJson.AEMaximumLimit);
-                    $('#txtAEEWaitingYears').val(objQuoJson.AEEWaitingYears);
-
-                }
-                if (objQuoJson.IntentionalSelfInflicted == "Y") {
-
-                    $('#selfInflicted').attr("checked", true);
-                    $("#selfInflictedContent").slideDown();
-
-                    $('#txtISSASCoverageLimit').val(objQuoJson.ISSASCoverageLimit);
-                    $('#txtISSASMaximumLimit').val(objQuoJson.ISSASMaximumLimit);
-                    $('#txtISSASWaitingYears').val(objQuoJson.ISSASWaitingYears);
-
-                }
-                if (objQuoJson.PandemicEpidemicCondition == "Y") {
-
-                    $('#PandemicEpidemic').attr("checked", true);
-                    $("#PandemicEpidemicContent").slideDown();
-
-                    $('#txtPECCoverageLimit').val(objQuoJson.PECCoverageLimit);
-                    $('#txtPECMaximumLimit').val(objQuoJson.PECMaximumLimit);
-                    $('#txtPECWaitingYears').val(objQuoJson.PECWaitingYears);
-
-                }
-                if (objQuoJson.Sucide == "Y") {
-                    $('#Sucide').attr("checked", true);
-                    $("#SucideContent").slideDown();
-
-                    $('#txtSECCoverageLimit').val(objQuoJson.SECCoverageLimit);
-                    $('#txtSEMaximumLimit').val(objQuoJson.SEMaximumLimit);
-                    $('#txtSEWaitingYears').val(objQuoJson.SEWaitingYears);
-                }
+                $('#txtPTDCoverageLimit').val(objQuoJson.PTDCoverageLimit);
+                $('#txtPTDMaximumLimit').val(objQuoJson.PTDMaximumLimit);
+                $('#txtPTDWaitingYears').val(objQuoJson.PTDWaitingYears);
 
             }
+            if (objQuoJson.PPD == "Y") {
+
+                $('#PermanentPartialDisability').attr("checked", true);
+                $("#PermanentPartialDisabilityContent").slideDown();
+                if (objQuoJson.PPDAccident == "Y") {
+                    $('#AccidentPPD').attr("checked", true);
+                }
+                if (objQuoJson.PPDSickness == "Y") {
+                    $('#SicknessPPD').attr("checked", true);
+                }
+                $('#txtPPDCoverageLimit').val(objQuoJson.PPDCoverageLimit);
+                $('#txtPPDMaximumLimit').val(objQuoJson.PPDMaximumLimit);
+                $('#txtPPDWaitingYears').val(objQuoJson.PPDWaitingYears);
+
+            }
+            if (objQuoJson.TTD == "Y") {
+
+                $('#TotalDisability').attr("checked", true);
+                $("#TotalDisabilityContent").slideDown();
+                if (objQuoJson.TTDAccident == "Y") {
+                    $('#AccidentTTD').attr("checked", true);
+                }
+                if (objQuoJson.TTDSickness == "Y") {
+                    $('#SicknessTTD').attr("checked", true);
+                }
+                $('#txtTTDCoverageLimit').val(objQuoJson.TTDCoverageLimit);
+                $('#txtTTDMaximumLimit').val(objQuoJson.TTDMaximumLimit);
+                $('#txtTTDWaitingYears').val(objQuoJson.TTDWaitingYears);
+
+            }
+            if (objQuoJson.RepatriationBenefit == "Y") {
+                $('#RepatriationBenefit').attr("checked", true);
+                $("#RepatriationBenefitContent").slideDown();
+                $('#txtRBCoverageLimit').val(objQuoJson.RBCoverageLimit);
+            }
+            if (objQuoJson.PassiveWarRisk == "Y") {
+                $('#PassiveWarRisk').attr("checked", true);
+                $("#PassiveWarRiskContent").slideDown();
+                $('#txtPWRCoverageLimit').val(objQuoJson.PWRCoverageLimit);
+            }
+            if (objQuoJson.TerminalIllness == "Y") {
+
+                $('#TerminalIllness').attr("checked", true);
+                $("#TerminalIllnessContent").slideDown();
+
+                $('#txtTLCoverageLimit').val(objQuoJson.TLCoverageLimit);
+                $('#txtTLMaximumLimit').val(objQuoJson.TLMaximumLimit);
+                $('#txtTLWaitingYears').val(objQuoJson.TLWaitingYears);
+
+            }
+            if (objQuoJson.CriticalIllness == "Y") {
+
+                $('#CriticalIllness').attr("checked", true);
+                $("#CriticalIllnessContent").slideDown();
+
+                $('#txtCLCoverageLimit').val(objQuoJson.CLCoverageLimit);
+                $('#txtCLMaximumLimit').val(objQuoJson.CLMaximumLimit);
+                $('#txtCLWaitingYears').val(objQuoJson.CLWaitingYears);
+
+            }
+            // $("#hdnOtherAdditionalCover").val(JSON.parse(objQuoJson.OtherAdditionalCover));
+
+            if (objQuoJson.WarExclusion == "Y") {
+
+                $('#WarExclusion').attr("checked", true);
+                $("#WarExclusionContent").slideDown();
+
+                $('#txtWECoverageLimit').val(objQuoJson.CLCoverageLimit);
+                $('#txtWEMaximumLimit').val(objQuoJson.CLMaximumLimit);
+                $('#txtWEWaitingYears').val(objQuoJson.CLWaitingYears);
+
+            }
+
+            if (objQuoJson.AtomicBiologicalAndCNE == "Y") {
+
+                $('#AtomicExclusion').attr("checked", true);
+                $("#AtomicExclusionContent").slideDown();
+
+                $('#txtABACNECoverageLimit').val(objQuoJson.ABACNECoverageLimit);
+                $('#txtABACNEMaximumLimit').val(objQuoJson.ABACNEMaximumLimit);
+                $('#txtABACNEWaitingYears').val(objQuoJson.ABACNEWaitingYears);
+
+            }
+
+            if (objQuoJson.CriminalActContent == "Y") {
+
+                $('#CriminalAct').attr("checked", true);
+                $("#CriminalActContent").slideDown();
+
+                $('#txtCACCoverageLimit').val(objQuoJson.CACCoverageLimit);
+                $('#txtCACNEMaximumLimit').val(objQuoJson.CACNEMaximumLimit);
+                $('#txtCACNEWaitingYears').val(objQuoJson.CACNEWaitingYears);
+
+            }
+
+
+            if (objQuoJson.HIV_AIDS == "Y") {
+                $('#HIV_AIDS').attr("checked", true);
+                $("#HIV_AIDSContent").slideDown();
+
+                $('#txtHIVCoverageLimit').val(objQuoJson.HIVCoverageLimit);
+                $('#txtHIVMaximumLimit').val(objQuoJson.HIVMaximumLimit);
+                $('#txtHIVWaitingYears').val(objQuoJson.HIVWaitingYears);
+
+            }
+            if (objQuoJson.HazardousSportsExclusion == "Y") {
+
+                $('#HazardousSports').attr("checked", true);
+                $("#HazardousSportsContent").slideDown();
+
+                $('#txtHSECoverageLimit').val(objQuoJson.HSECoverageLimit);
+                $('#txtHSEMaximumLimit').val(objQuoJson.HSEMaximumLimit);
+                $('#txtHSEWaitingYears').val(objQuoJson.HSEWaitingYears);
+
+            }
+            if (objQuoJson.AviationExclusion == "Y") {
+
+                $('#AviationExclusion').attr("checked", true);
+                $("#AviationExclusionContent").slideDown();
+
+                $('#txtAECoverageLimit').val(objQuoJson.AECoverageLimit);
+                $('#txtAEMaximumLimit').val(objQuoJson.AEMaximumLimit);
+                $('#txtAEEWaitingYears').val(objQuoJson.AEEWaitingYears);
+
+            }
+            if (objQuoJson.IntentionalSelfInflicted == "Y") {
+
+                $('#selfInflicted').attr("checked", true);
+                $("#selfInflictedContent").slideDown();
+
+                $('#txtISSASCoverageLimit').val(objQuoJson.ISSASCoverageLimit);
+                $('#txtISSASMaximumLimit').val(objQuoJson.ISSASMaximumLimit);
+                $('#txtISSASWaitingYears').val(objQuoJson.ISSASWaitingYears);
+
+            }
+            if (objQuoJson.PandemicEpidemicCondition == "Y") {
+
+                $('#PandemicEpidemic').attr("checked", true);
+                $("#PandemicEpidemicContent").slideDown();
+
+                $('#txtPECCoverageLimit').val(objQuoJson.PECCoverageLimit);
+                $('#txtPECMaximumLimit').val(objQuoJson.PECMaximumLimit);
+                $('#txtPECWaitingYears').val(objQuoJson.PECWaitingYears);
+
+            }
+            if (objQuoJson.Sucide == "Y") {
+                $('#Sucide').attr("checked", true);
+                $("#SucideContent").slideDown();
+
+                $('#txtSECCoverageLimit').val(objQuoJson.SECCoverageLimit);
+                $('#txtSEMaximumLimit').val(objQuoJson.SEMaximumLimit);
+                $('#txtSEWaitingYears').val(objQuoJson.SEWaitingYears);
+            }
+
+
         }
     });
 

@@ -48,10 +48,25 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
         public JsonResult AddUpdateQuotationMaster(Quotation objQuotation, QuotationModel objQM, string Action, string FolderName)
         {
             string msg = "";
-
+            string loginID = string.Empty;
+            string UserName = string.Empty;
             long QuotationId = 0;
-            string loginID = Session["Loginid"].ToString();
-            string UserName = Session["UserName"].ToString();
+            if (Session["Loginid"] == null)
+            {
+                loginID = "1";
+            }
+            else
+            {
+                loginID = Session["Loginid"].ToString();
+            }
+            if (Session["UserName"] == null)
+            {
+                UserName = "admin";
+            }
+            else
+            {
+                UserName = Session["UserName"].ToString();
+            }
             objGLIBAL = new GLIQuotationBAL();
             objQuotation.CreatedBy = loginID;
             string JParamValQuotationDetails = JsonConvert.SerializeObject(objQM.objQuo);

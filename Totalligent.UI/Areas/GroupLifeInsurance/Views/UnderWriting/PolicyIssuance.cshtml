@@ -71,7 +71,7 @@
                                                 <span class="label label-info"></span>}
                                         </td>
                                         <td>
-                                            @if (item.Status.Equals("") || item.Status.Equals("Approved"))
+                                            @if (item.Status.Equals("") || !item.Status.Equals("Approved"))
                                             {
                                                 <a href="Quotation?QId=@item.QuotationId" class="text-dark pr-10" data-toggle="tooltip" title="" data-original-title="Edit">
                                                     <i class="ti-marker-alt"></i>
