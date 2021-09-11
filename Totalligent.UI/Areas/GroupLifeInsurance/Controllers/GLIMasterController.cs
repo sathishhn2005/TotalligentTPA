@@ -14,9 +14,13 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
         // GET: GroupLifeInsurance/GLIMaster
         public ActionResult ProducerMaster()
         {
+
             List<BankMaster> lstBM = null;
+            MasterSelectedList objCCMasters = new MasterSelectedList();
             ProducerMasterModel obj = new ProducerMasterModel();
+            
             new GLIMasterBAL().GetBankMasters(out lstBM);
+            
             obj.lstBankMaster = null;
 
             var lsDDLBankMaster = new List<SelectListItem>();
@@ -44,6 +48,19 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
                 });
                 obj.lstBusinessTypeMaster = lstddlBusinessType;
             }
+
+            var selectListNationlity = new List<SelectListItem>();
+            new GLIMasterBAL().GetMasterData(out objCCMasters);
+            foreach (var element in objCCMasters.lstNationlity)
+            {
+                selectListNationlity.Add(new SelectListItem
+                {
+                    Value = element.NationalityId.ToString(),
+                    Text = element.Name
+                });
+                obj.lstNationlity = selectListNationlity;
+            }
+
             TempData["PMFolderName"] = DateTime.Now.ToString("ddMMyyyyHHmmss") + "_PM";
             return View(obj);
 
@@ -65,6 +82,19 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
                     Text = element.BankName
                 });
                 obj.lstBankMaster = selectList;
+            }
+            
+            var selectListNationlity = new List<SelectListItem>();
+            MasterSelectedList objCCMasters = new MasterSelectedList();
+            new GLIMasterBAL().GetMasterData(out objCCMasters);
+            foreach (var element in objCCMasters.lstNationlity)
+            {
+                selectListNationlity.Add(new SelectListItem
+                {
+                    Value = element.NationalityId.ToString(),
+                    Text = element.Name
+                });
+                obj.lstNationlity = selectListNationlity;
             }
             TempData["FolderName"] = DateTime.Now.ToString("ddMMyyyyHHmmss") + "_RI";
             return View(obj);
@@ -89,6 +119,18 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
                 obj.lstBankMaster = selectList;
             }
 
+            var selectListNationlity = new List<SelectListItem>();
+            MasterSelectedList objCCMasters = new MasterSelectedList();
+            new GLIMasterBAL().GetMasterData(out objCCMasters);
+            foreach (var element in objCCMasters.lstNationlity)
+            {
+                selectListNationlity.Add(new SelectListItem
+                {
+                    Value = element.NationalityId.ToString(),
+                    Text = element.Name
+                });
+                obj.lstNationlity = selectListNationlity;
+            }
             TempData["ICFolderName"] = DateTime.Now.ToString("ddMMyyyyHHmmss") + "_IC";
             return View(obj);
         }
@@ -168,6 +210,17 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
                 });
                 obj.lstBusinessTypeMaster = lstddlBusinessType;
             }
+           
+            var selectListNationlity = new List<SelectListItem>();
+            foreach (var element in objCCMasters.lstNationlity)
+            {
+                selectListNationlity.Add(new SelectListItem
+                {
+                    Value = element.NationalityId.ToString(),
+                    Text = element.Name
+                });
+                obj.lstNationlity = selectListNationlity;
+            }
             TempData["CMFolderName"] = DateTime.Now.ToString("ddMMyyyyHHmmss") + "_CM";
             return View(obj);
         }
@@ -203,6 +256,17 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
                     Text = element.ClientCompanyName
                 });
                 obj.lstClientMaster = lstClientMasterdata;
+            }
+            
+            var selectListNationlity = new List<SelectListItem>();
+            foreach (var element in objCCMasters.lstNationlity)
+            {
+                selectListNationlity.Add(new SelectListItem
+                {
+                    Value = element.NationalityId.ToString(),
+                    Text = element.Name
+                });
+                obj.lstNationlity = selectListNationlity;
             }
             TempData["EMFolderName"] = DateTime.Now.ToString("ddMMyyyyHHmmss") + "_EM";
             return View(obj);

@@ -8,7 +8,7 @@
 }
 @*@Scripts.Render("~/Content/vendor/jquery-3.3.1/jquery-3.3.1.js");*@
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12 p-t-30">
         <!-- Step wizard -->
         <div class="box box-default">
             <!-- /.box-header -->
@@ -51,11 +51,11 @@
                                 </div>
                                 <div class="row m-b-15 m-t-15">
                                     <div class="col-md-4">
-                                        <label class="col-sm-12 col-form-label text-left">Scope of Coverage</label>
+                                        <label class="col-sm-12 col-form-label text-left">Area of Coverage</label>
                                     </div>
                                     <div class="col-md-8 demo-section k-content">
-
-                                        @Html.TextBoxFor(model => model.objQuo.ScopeofCoverage, new { @class = "form-control w-full", @placeholder = "Enter Scope of Coverage" })
+                                        @Html.TextBox("AreaCoverage", "", new { @class = "form-control w-full readonly", @Value = "Worldwide", @readonly = "readonly" })
+                                        @*@Html.TextBoxFor(model => model.objQuo.ScopeofCoverage, new { @class = "form-control w-full", @placeholder = "Enter Scope of Coverage" })*@
 
                                     </div>
                                 </div>
@@ -64,7 +64,8 @@
                                         <label class="col-sm-12 col-form-label text-left">Jurisdiction</label>
                                     </div>
                                     <div class="col-md-8 demo-section k-content">
-                                        @Html.TextBoxFor(model => model.objQuo.Jurisdiction, new { @class = "form-control w-full", @placeholder = "Enter Jurisdiction" })
+                                        @Html.TextBox("Jurisdiction", "", new { @class = "form-control w-full", @Value = "SULTANATE OF OMAN", @readonly = "readonly" })
+                                        @*@Html.TextBoxFor(model => model.objQuo.Jurisdiction, new { @class = "form-control w-full", @placeholder = "Enter Jurisdiction" })*@
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">

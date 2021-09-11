@@ -12,6 +12,7 @@ namespace Totalligent.BusinessEntities
         public string ProducerName { get; set; }
         public string Password { get; set; }
         public string ProducerCode { get; set; }
+        public string Nationality { get; set; }
         public string ContactPerson { get; set; }
         public string MobileNumber { get; set; }
         public string EmailId { get; set; }

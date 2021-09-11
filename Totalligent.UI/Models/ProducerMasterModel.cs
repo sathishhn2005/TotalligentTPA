@@ -13,5 +13,6 @@ namespace Totalligent.UI.Models
         public List<ProducerMaster> lstProducerMaster { get; set; }
         public IEnumerable<SelectListItem> lstBusinessTypeMaster { get; set; }
         public IEnumerable<SelectListItem> lstBankMaster { get; set; }
+        public IEnumerable<SelectListItem> lstNationlity { get; set; }
     }
 }

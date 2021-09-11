@@ -12,6 +12,7 @@ namespace Totalligent.UI.Models
         public List<EmployeeMaster> lstEMaster { get; set; }
         public IEnumerable<SelectListItem> lstBankMaster { get; set; }
         public IEnumerable<SelectListItem> lstClientMaster { get; set; }
+        public IEnumerable<SelectListItem> lstNationlity { get; set; }
 
     }
 }

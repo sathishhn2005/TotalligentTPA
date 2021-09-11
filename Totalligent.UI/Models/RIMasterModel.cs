@@ -11,5 +11,6 @@ namespace Totalligent.UI.Models
     {
         public List<ReInsurerMaster> lstRIMaster { get; set; }    
         public IEnumerable<SelectListItem> lstBankMaster { get; set; }
+        public IEnumerable<SelectListItem> lstNationlity { get; set; }
     }
 }

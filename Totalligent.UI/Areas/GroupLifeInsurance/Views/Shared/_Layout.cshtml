@@ -302,7 +302,7 @@
                             <li>
                                 <a href="/Home/Home/HomePage"> <i class="ti-home"></i> <span>Home</span> </a>
                             </li>
-                            <li class="treeview">
+                            <li class="treeview hide">
                                 <a href="#">
                                     <i class="ti-dashboard"></i>
                                     <span>Dashboard</span>
@@ -314,9 +314,12 @@
                                     <li>@*<a href="UnderWriterDashBoard"><i class="ti-more"></i>Underwriting Dashboard</a>*@</li>
                                     <li><a href="@Url.Action("UnderWriterDashBoard", "DashBoard")"><i class="ti-more"></i>Underwriting Dashboard</a></li>
 
-                                    <li><a href="@Url.Action("MISDashBoard", "DashBoard")"><i class="ti-more"></i>MIS Dashboard</a></li>
-                                    <li><a href="@Url.Action("BIDashBoard", "DashBoard")"><i class="ti-more"></i>BI Dashboard</a></li>
+                                    <li class="hide"><a href="@Url.Action("MISDashBoard", "DashBoard")"><i class="ti-more"></i>MIS Dashboard</a></li>
+                                    <li class="hide"><a href="@Url.Action("BIDashBoard", "DashBoard")"><i class="ti-more"></i>BI Dashboard</a></li>
                                 </ul>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("UnderWriterDashBoard", "DashBoard")"> <i class="ti-dashboard"></i> <span>Dashboard</span> </a>
                             </li>
                             <li class="treeview">
                                 <a href="#">
@@ -334,7 +337,7 @@
                                     <li><a href="@Url.Action("Endorsement", "UnderWriting")"> <i class="ti-stamp"></i> <span>Endorsement</span> </a></li>
                                 </ul>
                             </li>
-                            <li class="treeview">
+                            <li class="treeview hide">
                                 <a href="#">
                                     <i class="ti-dashboard"></i>
                                     <span>Claims Module</span>
@@ -351,7 +354,7 @@
                                     <li><a href="@Url.Action("PreApprovals", "Claims")"><i class="ti-more"></i>Pre-Approvals</a></li>
                                 </ul>
                             </li>
-                            <li class="treeview">
+                            <li class="treeview hide">
                                 <a href="#">
                                     <i class="ti-dashboard"></i>
                                     <span>Claims Admin</span>

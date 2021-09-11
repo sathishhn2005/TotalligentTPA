@@ -147,11 +147,10 @@
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.Label("Nationality", "Nationality", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
-
+                                                <label class="col-form-label text-md-right w-full">Nationality</label>
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBox("Nationality", "", new { @required = "required", @class = "form-control", placeholder = "Enter Nationality" })
+                                                @Html.DropDownList("Nationality", Model.lstNationlity, "-- Select Country --", new { @class = "form-control" })
                                             </div>
                                         </div>
                                     </div>
@@ -238,6 +237,16 @@
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
+                                                <label for="EmployeeUIDSpouse" class="col-form-label text-md-right w-full">Employee UID </label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.TextBox("EmployeeUIDSpouse", "", new { @required = "required", @class = "form-control", placeholder = "Enter Employee UID" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-15">
+                                        <div class="row">
+                                            <div class="col-md-5">
                                                 <label for="SpouseName" class="col-form-label text-md-right w-full">Spouse Name</label>
                                             </div>
                                             <div class="col-md-6">
@@ -277,14 +286,14 @@
                                             </div>
                                         </div>
                                     </div>
+                                   
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.Label("SpouseNationality", "SpouseNationality", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
-
+                                                <label class="col-form-label text-md-right w-full">Spouse Nationality</label>
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBox("SpouseNationality", "", new { @required = "required", @class = "form-control", placeholder = "Enter SpouseNationality" })
+                                                @Html.DropDownList("SpouseNationality", Model.lstNationlity, "-- Select Country --", new { @class = "form-control" })
                                             </div>
                                         </div>
                                     </div>
@@ -359,6 +368,26 @@
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
+                                                <label for="EmployeeUIDChild" class="col-form-label text-md-right w-full">Employee UID</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.TextBox("EmployeeUIDChild", "", new { @required = "required", @class = "form-control", placeholder = "Enter Employee UID" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-15">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <label for="EmployeesSpouse" class="col-form-label text-md-right w-full">Select Spouse</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.DropDownList("EmployeesSpouse", Gender, "-- Select Spouse --", new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-15">
+                                        <div class="row">
+                                            <div class="col-md-5">
                                                 <label class="col-form-label text-md-right w-full">Child Name</label>
                                             </div>
                                             <div class="col-md-6">
@@ -398,14 +427,14 @@
                                             </div>
                                         </div>
                                     </div>
+                                   
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.Label("ChildNationality", "ChildNationality", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
-
+                                                <label class="col-form-label text-md-right w-full">Chile Nationality</label>
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBox("ChildNationality", "", new { @required = "required", @class = "form-control", placeholder = "Enter ChildNationality" })
+                                                @Html.DropDownList("ChildNationality", Model.lstNationlity, "-- Select Country --", new { @class = "form-control" })
                                             </div>
                                         </div>
                                     </div>
@@ -562,7 +591,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12">
+                            <div class="col-12 hide">
                                 <div class="box">
                                     <div class="box-body no-padding">
                                         <div class="table-responsive">

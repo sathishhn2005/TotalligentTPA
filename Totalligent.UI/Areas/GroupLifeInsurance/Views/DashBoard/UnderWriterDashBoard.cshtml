@@ -1,16 +1,13 @@
 ﻿@model Totalligent.BusinessEntities.UnderWriter
 @{ ViewBag.Title = "UnderwritingDashboard"; }
 @Scripts.Render("~/Content/js/dashboard_main.js");
-@{
-
-    Layout = "~/Areas/GroupLifeInsurance/Views/Shared/_Layout.cshtml";
-}
+@{ Layout = "~/Areas/GroupLifeInsurance/Views/Shared/_Layout.cshtml"; }
 <div id="divDashboard">
     <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="d-flex align-items-center justify-content-between">
             <div class="mr-auto">
-                <h3 class="page-title">Claims Dashboard</h3>
+                <h3 class="page-title">Underwriting Dashboard</h3>
                 <div class="d-inline-block align-items-center">
                     <nav>
                         <ol class="breadcrumb">
@@ -37,26 +34,284 @@
     </div>
     <div class="row">
         <div class="col-xl-6 col-12">
-            <div class="row">
-                @if (Model != null)
-                {
-                    <div class="col-xl-6 col-lg-6 col-12">
-                        <div class="box bg-info">
-                            <div class="box-header with-border">
-                                <h4 class="box-title text-white">No of policies</h4>
-
-                            </div>
-                            <div class="box-body">
-                                <div class="d-flex justify-content-between">
-                                    <div>
-                                        <h2 class="mt-0">@Model.TNPYear</h2>
-                                        <small>Total Policies for year</small>
+            <div class="box">
+                <div class="box-header with-border d-flex justify-content-between">
+                    <h4 class="box-title font-weight-bold">Policy Report - <span id="currentPolicyReportMonthly">Monthly</span></h4>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-xl-6 col-12">
+                            <div id="policy-report-monthly" style="height: 250px;"></div>
+                        </div>
+                        <div class="col-xl-6 col-12">
+                            <div class="box">
+                                <div class="box-body">
+                                    <div class="bb-1 pb-5 mb-5">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <span class="mb-0">Total Available (No. of Policies)</span>
+                                            <span class="badge badge-xl badge-dot badge-primary"></span>
+                                        </div>
+                                        <div class="d-flex align-items-baseline">
+                                            <span class="mb-0 font-weight-700">1,52,117</span>
+                                            <p class="text-success mb-0 mx-15">(+5.48%)</p>
+                                            <p class="text-fade mb-0">Increased</p>
+                                        </div>
                                     </div>
-                                    <div class="font-size-50 text-white"><i class="mdi mdi-wheelchair-accessibility"></i></div>
+                                    <div class="bb-1 pb-5 mb-5">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <span class="mb-0">Renewed (No of Policies)</span>
+                                            <span class="badge badge-xl badge-dot badge-danger"></span>
+                                        </div>
+                                        <div class="d-flex align-items-baseline">
+                                            <span class="mb-0 font-weight-700">1,32,145</span>
+                                            <p class="text-success mb-0 mx-15">(-3.48%)</p>
+                                            <p class="text-fade mb-0">Decreased</p>
+                                        </div>
+                                    </div>
+                                    <div class="bb-1 pb-5 mb-5">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <span class="mb-0">Under Process (No. of Policies)</span>
+                                            <span class="badge badge-xl badge-dot badge-warning"></span>
+                                        </div>
+                                        <div class="d-flex align-items-baseline">
+                                            <span class="mb-0 font-weight-700">21.12%</span>
+                                            <p class="text-warning mb-0 mx-15">(+/- 32.48%)</p>
+                                            <p class="text-fade mb-0">Yet to Confirm</p>
+                                        </div>
+                                    </div>
+                                    <div class="mb-10">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <span class="mb-0">Lost (No. of Policies)</span>
+                                            <span class="badge badge-xl badge-dot badge-danger"></span>
+                                        </div>
+                                        <div class="d-flex align-items-baseline">
+                                            <span class="mb-0 font-weight-700">2,732</span>
+                                            <p class="text-danger mb-0 mx-15">(-12.48%)</p>
+                                            <p class="text-fade mb-0">Decreased</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-6 col-12">
+            <div class="box">
+                <div class="box-header with-border d-flex justify-content-between">
+                    <h4 class="box-title font-weight-bold">Policy Report - <span id="currentPolicyReportYearly">Yearly</span></h4>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-xl-6 col-12">
+                            <div class="box">
+                                <div class="box-body">
+                                    <div class="bb-1 pb-5 mb-5">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <span class="mb-0">Total Available (No. of Policies)</span>
+                                            <span class="badge badge-xl badge-dot badge-primary"></span>
+                                        </div>
+                                        <div class="d-flex align-items-baseline">
+                                            <span class="mb-0 font-weight-700">1,52,117</span>
+                                            <p class="text-success mb-0 mx-15">(+5.48%)</p>
+                                            <p class="text-fade mb-0">Increased</p>
+                                        </div>
+                                    </div>
+                                    <div class="bb-1 pb-5 mb-5">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <span class="mb-0">Renewed (No of Policies)</span>
+                                            <span class="badge badge-xl badge-dot badge-danger"></span>
+                                        </div>
+                                        <div class="d-flex align-items-baseline">
+                                            <span class="mb-0 font-weight-700">1,32,145</span>
+                                            <p class="text-success mb-0 mx-15">(-3.48%)</p>
+                                            <p class="text-fade mb-0">Decreased</p>
+                                        </div>
+                                    </div>
+                                    <div class="bb-1 pb-5 mb-5">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <span class="mb-0">Under Process (No. of Policies)</span>
+                                            <span class="badge badge-xl badge-dot badge-warning"></span>
+                                        </div>
+                                        <div class="d-flex align-items-baseline">
+                                            <span class="mb-0 font-weight-700">21.12%</span>
+                                            <p class="text-warning mb-0 mx-15">(+/- 32.48%)</p>
+                                            <p class="text-fade mb-0">Yet to Confirm</p>
+                                        </div>
+                                    </div>
+                                    <div class="mb-10">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <span class="mb-0">Lost (No. of Policies)</span>
+                                            <span class="badge badge-xl badge-dot badge-danger"></span>
+                                        </div>
+                                        <div class="d-flex align-items-baseline">
+                                            <span class="mb-0 font-weight-700">2,732</span>
+                                            <p class="text-danger mb-0 mx-15">(-12.48%)</p>
+                                            <p class="text-fade mb-0">Decreased</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-12">
+                            <div id="policy-report-yearly" style="height: 250px;"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-6 col-12">
+            <div class="box">
+                <div class="box-header with-border d-flex justify-content-between">
+                    <h4 class="box-title font-weight-bold">Premium Report - <span id="currentPremiumReportMonthly">Monthly</span></h4>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-xl-6 col-12">
+                            <div id="premium-report-monthly" style="height: 250px;"></div>
+                        </div>
+                        <div class="col-xl-6 col-12">
+                            <div class="box">
+                                <div class="box-body">
+                                    <div class="bb-1 pb-5 mb-5">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <span class="mb-0">Total Available (No. of Policies)</span>
+                                            <span class="badge badge-xl badge-dot badge-primary"></span>
+                                        </div>
+                                        <div class="d-flex align-items-baseline">
+                                            <span class="mb-0 font-weight-700">1,52,117</span>
+                                            <p class="text-success mb-0 mx-15">(+5.48%)</p>
+                                            <p class="text-fade mb-0">Increased</p>
+                                        </div>
+                                    </div>
+                                    <div class="bb-1 pb-5 mb-5">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <span class="mb-0">Renewed (No of Policies)</span>
+                                            <span class="badge badge-xl badge-dot badge-danger"></span>
+                                        </div>
+                                        <div class="d-flex align-items-baseline">
+                                            <span class="mb-0 font-weight-700">1,32,145</span>
+                                            <p class="text-success mb-0 mx-15">(-3.48%)</p>
+                                            <p class="text-fade mb-0">Decreased</p>
+                                        </div>
+                                    </div>
+                                    <div class="bb-1 pb-5 mb-5">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <span class="mb-0">Under Process (No. of Policies)</span>
+                                            <span class="badge badge-xl badge-dot badge-warning"></span>
+                                        </div>
+                                        <div class="d-flex align-items-baseline">
+                                            <span class="mb-0 font-weight-700">21.12%</span>
+                                            <p class="text-warning mb-0 mx-15">(+/- 32.48%)</p>
+                                            <p class="text-fade mb-0">Yet to Confirm</p>
+                                        </div>
+                                    </div>
+                                    <div class="mb-10">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <span class="mb-0">Lost (No. of Policies)</span>
+                                            <span class="badge badge-xl badge-dot badge-danger"></span>
+                                        </div>
+                                        <div class="d-flex align-items-baseline">
+                                            <span class="mb-0 font-weight-700">2,732</span>
+                                            <p class="text-danger mb-0 mx-15">(-12.48%)</p>
+                                            <p class="text-fade mb-0">Decreased</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-6 col-12">
+            <div class="box">
+                <div class="box-header with-border d-flex justify-content-between">
+                    <h4 class="box-title font-weight-bold">Premium Report - <span id="currentPremiumReportYearly">Yearly</span></h4>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-xl-6 col-12">
+                            <div class="box">
+                                <div class="box-body">
+                                    <div class="bb-1 pb-5 mb-5">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <span class="mb-0">Total Available (No. of Policies)</span>
+                                            <span class="badge badge-xl badge-dot badge-primary"></span>
+                                        </div>
+                                        <div class="d-flex align-items-baseline">
+                                            <span class="mb-0 font-weight-700">1,52,117</span>
+                                            <p class="text-success mb-0 mx-15">(+5.48%)</p>
+                                            <p class="text-fade mb-0">Increased</p>
+                                        </div>
+                                    </div>
+                                    <div class="bb-1 pb-5 mb-5">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <span class="mb-0">Renewed (No of Policies)</span>
+                                            <span class="badge badge-xl badge-dot badge-danger"></span>
+                                        </div>
+                                        <div class="d-flex align-items-baseline">
+                                            <span class="mb-0 font-weight-700">1,32,145</span>
+                                            <p class="text-success mb-0 mx-15">(-3.48%)</p>
+                                            <p class="text-fade mb-0">Decreased</p>
+                                        </div>
+                                    </div>
+                                    <div class="bb-1 pb-5 mb-5">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <span class="mb-0">Under Process (No. of Policies)</span>
+                                            <span class="badge badge-xl badge-dot badge-warning"></span>
+                                        </div>
+                                        <div class="d-flex align-items-baseline">
+                                            <span class="mb-0 font-weight-700">21.12%</span>
+                                            <p class="text-warning mb-0 mx-15">(+/- 32.48%)</p>
+                                            <p class="text-fade mb-0">Yet to Confirm</p>
+                                        </div>
+                                    </div>
+                                    <div class="mb-10">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <span class="mb-0">Lost (No. of Policies)</span>
+                                            <span class="badge badge-xl badge-dot badge-danger"></span>
+                                        </div>
+                                        <div class="d-flex align-items-baseline">
+                                            <span class="mb-0 font-weight-700">2,732</span>
+                                            <p class="text-danger mb-0 mx-15">(-12.48%)</p>
+                                            <p class="text-fade mb-0">Decreased</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-12">
+                            <div id="premium-report-yearly" style="height: 250px;"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-6 col-12">
+            <div class="row">
+                @if (Model != null)
+                {
+    <div class="col-xl-6 col-lg-6 col-12">
+        <div class="box bg-info">
+            <div class="box-header with-border">
+                <h4 class="box-title text-white">No of policies</h4>
+
+            </div>
+            <div class="box-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h2 class="mt-0">@Model.TNPYear</h2>
+                        <small>Total Policies for year</small>
+                    </div>
+                    <div class="font-size-50 text-white"><i class="mdi mdi-wheelchair-accessibility"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
                     <div class="col-xl-6 col-lg-6 col-12">
                         <div class="box bg-warning">
                             <div class="box-header with-border">
@@ -73,62 +328,61 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-6 col-lg-6 col-12">
-                        <div class="box bg-success">
-                            <div class="box-header with-border">
-                                <h4 class="box-title text-white">Policy Issued</h4>
-                            </div>
-                            <div class="box-body">
-                                <div class="d-flex justify-content-between">
-                                    <div>
-                                        <h2 class="mt-0">@Model.TotNoPolIssued</h2>
-                                        <small>Total Policies Issued for year</small>
+                                    <div class="col-xl-6 col-lg-6 col-12">
+                                        <div class="box bg-success">
+                                            <div class="box-header with-border">
+                                                <h4 class="box-title text-white">Policy Issued</h4>
+                                            </div>
+                                            <div class="box-body">
+                                                <div class="d-flex justify-content-between">
+                                                    <div>
+                                                        <h2 class="mt-0">@Model.TotNoPolIssued</h2>
+                                                        <small>Total Policies Issued for year</small>
+                                                    </div>
+                                                    <div class="font-size-50 text-white"><i class="mdi mdi-calendar"></i></div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="font-size-50 text-white"><i class="mdi mdi-calendar"></i></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-6 col-lg-6 col-12">
-                        <div class="box bg-danger">
-                            <div class="box-header with-border">
-                                <h4 class="box-title text-white">Policy Lost</h4>
-                            </div>
-                            <div class="box-body">
-                                <div class="d-flex justify-content-between">
-                                    <div>
-                                        <h2 class="mt-0">@Model.TotalNoPolRejected</h2>
-                                        <small>Total Policies Lost for year</small>
-                                    </div>
-                                    <div class="font-size-50 text-white"><i class="mdi mdi-wallet"></i></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="box">
-                            <div class="box-header">
-                                <h4 class="box-title">Revenue Report</h4>
-                            </div>
-                            <div class="box-body">
-                                <div class="flexbox align-items-center justify-content-between d-md-flex d-block">
-                                    <div>
-                                        <h4 class="font-weight-700 text-success">OMR @Model.TotalPremiumEarned</h4>
-                                        <h6 class="text-fade">Premium Earned</h6>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-weight-700 text-warning">OMR @Model.TotalPremiumPending&nbsp;</h4>
-                                        <h6 class="text-fade">Pending Premium</h6>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-weight-700 text-danger">OMR @Model.TotalPremiumRejected</h4>
-                                        <h6 class="text-fade">Premium Lost</h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
+                                                    <div class="col-xl-6 col-lg-6 col-12">
+                                                        <div class="box bg-danger">
+                                                            <div class="box-header with-border">
+                                                                <h4 class="box-title text-white">Policy Lost</h4>
+                                                            </div>
+                                                            <div class="box-body">
+                                                                <div class="d-flex justify-content-between">
+                                                                    <div>
+                                                                        <h2 class="mt-0">@Model.TotalNoPolRejected</h2>
+                                                                        <small>Total Policies Lost for year</small>
+                                                                    </div>
+                                                                    <div class="font-size-50 text-white"><i class="mdi mdi-wallet"></i></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                                    <div class="col-12">
+                                                                        <div class="box">
+                                                                            <div class="box-header">
+                                                                                <h4 class="box-title">Revenue Report</h4>
+                                                                            </div>
+                                                                            <div class="box-body">
+                                                                                <div class="flexbox align-items-center justify-content-between d-md-flex d-block">
+                                                                                    <div>
+                                                                                        <h4 class="font-weight-700 text-success">OMR @Model.TotalPremiumEarned</h4>
+                                                                                        <h6 class="text-fade">Premium Earned</h6>
+                                                                                    </div>
+                                                                                    <div>
+                                                                                        <h4 class="font-weight-700 text-warning">OMR @Model.TotalPremiumPending&nbsp;</h4>
+                                                                                        <h6 class="text-fade">Pending Premium</h6>
+                                                                                    </div>
+                                                                                    <div>
+                                                                                        <h4 class="font-weight-700 text-danger">OMR @Model.TotalPremiumRejected</h4>
+                                                                                        <h6 class="text-fade">Premium Lost</h6>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>}
             </div>
         </div>
         <div class="col-xl-6 col-12">
@@ -157,3 +411,4 @@
 </div>
 <!-- VoiceX Admin dashboard demo (This is only for demo purposes) -->
 @*<script src="~/Content/js/dashboard_main.js"></script>*@
+

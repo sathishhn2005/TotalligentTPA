@@ -119,6 +119,16 @@
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
+                                                <label class="col-form-label text-md-right w-full">Nationality</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                @Html.DropDownList("Nationality", Model.lstNationlity, "-- Select Country --", new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-15">
+                                        <div class="row">
+                                            <div class="col-md-5">
                                                 <label class="col-form-label text-md-right w-full">Zipcode</label>
                                             </div>
                                             <div class="col-md-6">
@@ -199,23 +209,38 @@
                                         </div>
                                     </div>
                                 </div>
-                                @*<div class="form-group m-b-15">
-                    <div class="row">
-                        <div class="col-md-5">
-                            <label for="BankName" class="col-form-label text-md-right w-full">RI Number</label>
-                        </div>
-                        <div class="col-md-6">
-                            @Html.TextBox("RINumber", "", new { @class = "form-control w-full", @placeholder = "Enter RI Retention" })
-                        </div>
-                    </div>
-                </div>*@
+
                                 <div class="form-group m-b-15">
                                     <div class="row">
                                         <div class="col-md-5">
                                             <label class="col-form-label text-md-right w-full">RI Retention</label>
                                         </div>
                                         <div class="col-md-6">
-                                            @Html.TextBox("RIRetention", "", new { @class = "form-control w-full", @placeholder = "Enter RI Retention" })
+                                            @Html.TextBox("RIRetention", "", new { @type = "number", @class = "form-control w-full", @placeholder = "Enter RI Retention" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group m-b-15">
+                                    <div class="row">
+                                        <div class="col-md-11 text-right">
+                                            <button type="button" id="addRIBtn" class="btn btn-primary"><i class="fa fa-plus"></i> Add RI</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group m-b-15">
+                                    <div class="row">
+                                        <div class="col-md-8 offset-md-3">
+                                            <table id="RITable" class="table table-striped table-bordered table-condensed table-hover table-sm">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">RI Name</th>
+                                                        <th scope="col">RI Retention</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
@@ -412,7 +437,7 @@
     </div>
 }
 <script type="text/javascript">
-
+    var arr = [];
     $(document).ready(function () {
 
         $("#txtCompanyName").autocomplete({
@@ -558,36 +583,7 @@
                 $('#IFSCCode').focus();
                 return false;
             }
-            //if ($.trim($('#UploadKYC_01"').val()) == "") {
-            //    alert('Please enter UploadKYC_01');
-            //    $('#UploadKYC_01').focus();
-            //    return false;
-            //}
-            //if ($.trim($('#UploadKYC_02"').val()) == "") {
-            //    alert('Please enter UploadKYC_02');
-            //    $('#UploadKYC_02').focus();
-            //    return false;
-            //}
-            //if ($.trim($('#UploadKYC_03"').val()) == "") {
-            //    alert('Please enter UploadKYC_03');
-            //    $('#UploadKYC_03').focus();
-            //    return false;
-            //}
-            //if ($.trim($('#UploadKYC_04"').val()) == "") {
-            //    alert('Please enter UploadKYC_04');
-            //    $('#UploadKYC_04').focus();
-            //    return false;
-            //}
-            //if ($.trim($('#UploadKYC_05"').val()) == "") {
-            //    alert('Please enter UploadKYC_05');
-            //    $('#UploadKYC_05').focus();
-            //    return false;
-            //}
-            //if ($.trim($('#Status"').val()) == "") {
-            //    alert('Please enter Status');
-            //    $('#Status').focus();
-            //    return false;
-            //}
+
 
             if ($.trim($("#AccountNumber").val()) != "" && $.trim($("#RepeatAccountNumber").val()) != "") {
 
@@ -616,6 +612,7 @@
             objCCMaster.City = $('#City').val();
             objCCMaster.State = $('#State').val();
             objCCMaster.Zipcode = $('#Zipcode').val();
+            objCCMaster.Nationality = $('#Nationality').val();
             objCCMaster.ContactPerson = $('#ContactPerson').val();
             objCCMaster.MobileNumber = $('#MobileNumber').val();
             objCCMaster.EmailId = $('#EmailId').val();
@@ -625,7 +622,8 @@
             objCCMaster.ProducerName = $('#ProducerName').val();
             objCCMaster.ProducerCommission = $('#ProducerCommission').val();
             objCCMaster.RINumber = $('#RINumber').val();
-            objCCMaster.RIName = $('#RIName').val();
+            objCCMaster.RIName = JSON.stringify(arr);
+            //objCCMaster.RIName = $('#RIName').val();
             objCCMaster.RIRetention = $('#RIRetention').val();
             objCCMaster.AMIRetention = $('#AMIRetention').val();
 
@@ -675,8 +673,67 @@
                 }
             })
         });
-    });
+        $('#addRIBtn').on('click', function () {
+            if (!$("#InsurancecompanyName").val() > 0) {
+                swtAlert('error', '', 'Please select Insurance Company Before adding RI');
+                return false;
+            }
+           
+            var RIName = $('#RIName option:selected').text();
+            var RIRetention = $('#RIRetention').val();
+            if (RIName == '' || RIRetention == '' || $('#RIName option:selected').val() == '') {
+                swtAlert('error', '', 'Please Enter Valid RI Name/Retention');
+                return false;
+            }
+            var totalPercent = 0;
+            var err = 0;
+           
+            if (arr.length < 5) {
+                arr.push({ "RIName": RIName, "RIRetention": RIRetention });
+                $.each(arr, function (key, value) {
+                    totalPercent += Number(value.RIRetention);
 
+                });
+                if (totalPercent <= 100) {
+                    var data = "<tr><td>" + RIName + "</td><td>" + RIRetention + "</td><td class='text-center'><button type='button' class='btn btn-sm btn-danger removeRIEntry  hov-pointer' ><i class='fa fa-trash'></i></button</td>";
+                    $('#RITable tbody').append(data);
+                }
+                else {
+                    err = 1;
+                }
+                if (err > 0) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: '',
+                        text: "Maximum RI Retention 100 !",
+                    })
+                    arr.splice(-1);
+                    return false;
+                }
+            }
+            else {
+                Swal.fire({
+                    icon: 'error',
+                    title: '',
+                    text: "Maximum RI(5) reached.!",
+                })
+                return false;
+            }
+        });
+    });
+    $(document).on('click', 'button.removeRIEntry', function (e) {
+        var rowIndex = $(this).closest('tr').index();
+        
+       // delete arr[rowIndex];
+        
+        
+        $(this).closest('tr').remove();
+        arr.splice(rowIndex, 1);
+        console.log(arr);
+        $('#RIRetention').val('');
+        $('#RIName option:contains("Select RI Name")').prop('selected', true);
+        return false;
+    });
 
     $('#btnSearch').on('click', function () {
 
@@ -1099,6 +1156,13 @@
             alert("Please upload a valid CSV file.");
             return false;
         }
+    }
+    function swtAlert(ico,tit,txt) {
+        Swal.fire({
+            icon: ico,
+            title: tit,
+            text: txt,
+        })
     }
 </script>
 @section scripts {

@@ -12,6 +12,7 @@ namespace Totalligent.BusinessEntities
         public List<ClientCompanyMaster> lstCCMaster { get; set; }
         public List<BusinessDesignationTypeMaster> lstBDTypeMaster{ get; set; }
         public List<BranchMaster> lstBranchMaster{ get; set; }
+        public List<Nationality> lstNationlity{ get; set; }
 
     }
 }

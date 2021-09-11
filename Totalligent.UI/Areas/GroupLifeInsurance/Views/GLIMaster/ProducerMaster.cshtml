@@ -38,9 +38,11 @@
                                                 Business Type
                                             </label>
                                         </div>
-                                        <div class="col-md-6">
-                                            @Html.DropDownList("MasterType", Model.lstBusinessTypeMaster, "-- Select Type --", new { @class = "form-control" })
-
+                                        <div class="col-md-6 d-flex">
+                                            <div class="flex-fill">
+                                                @Html.DropDownList("MasterType", Model.lstBusinessTypeMaster, "-- Select Type --", new { @class = "form-control" })
+                                            </div>
+                                            <button type="button" id="addRIBtn" class="btn btn-primary m-l-5" data-toggle="modal" data-target="#addBusinessType"><i class="fa fa-plus"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -111,6 +113,16 @@
                                         </div>
                                         <div class="col-md-6">
                                             @Html.TextBoxFor(model => Model.lstProducerMaster[0].State, new { @id = "txtState", @class = "form-control w-full", @placeholder = "Enter State Name", @maxlength = "255" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group m-b-15">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label class="col-form-label text-md-right w-full">Nationality</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            @Html.DropDownList("Nationality", Model.lstNationlity, "-- Select Country --", new { @class = "form-control" })
                                         </div>
                                     </div>
                                 </div>
@@ -279,45 +291,82 @@
 
 @using (Html.BeginForm("BulkUpdate", "ProducerMaster", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    <div id="uploadBulk" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-md">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title mt-0" id="uploadBulkLabel">Upload Bulk Policies</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-10 mx-auto">
-                            <div class="text-right">
+<div id="uploadBulk" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title mt-0" id="uploadBulkLabel">Upload Bulk Policies</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-10 mx-auto">
+                        <div class="text-right">
 
-                                <a href="~/Masters/ProducerMaster.csv" class="btn btn-dark btn-sm" download>
-                                    <i class="mdi mdi-download"></i> Download Sample format
-                                </a>
-                            </div>
-                            <div class="fileuploader fileuploader-theme-dragdrop">
-                                <input type="file" name="PMCSVFile" id="fileUploadPM" accept=".csv" />
-                                <div class="mt-2">
-                                    <i class="fa fa-upload fa-sm btn btn-success btn-block" onclick="csvFileUpload();">
-                                        <span>Upload</span>
-                                    </i>
-                                    <button id="uploadMotorPolicies" class="btn btn-primary btn-sm mx-1 hide">Upload File</button>
-                                </div>
-                            </div>
-
+                            <a href="~/Masters/ProducerMaster.csv" class="btn btn-dark btn-sm" download>
+                                <i class="mdi mdi-download"></i> Download Sample format
+                            </a>
                         </div>
+                        <div class="fileuploader fileuploader-theme-dragdrop">
+                            <input type="file" name="PMCSVFile" id="fileUploadPM" accept=".csv" />
+                            <div class="mt-2">
+                                <i class="fa fa-upload fa-sm btn btn-success btn-block" onclick="csvFileUpload();">
+                                    <span>Upload</span>
+                                </i>
+                                <button id="uploadMotorPolicies" class="btn btn-primary btn-sm mx-1 hide">Upload File</button>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
-
             </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
-}
 
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>}
+<div id="addBusinessType" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title mt-0" id="addBusinessLabel">Add Business Type</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12 col-md-10 offset-2">
+                        <div class="form-group m-b-15">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label class="col-form-label text-md-right w-full">
+                                        Add Business Type Name
+                                    </label>
+                                </div>
+                                <div class="col-md-6 d-flex">
+                                    <div class="flex-fill">
+                                        @Html.TextBox("txtProducerName", "", new { @class = "form-control w-full", @placeholder = "Enter an Producer Master Name" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+            <div class="modal-footer text-right">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" id="addBusinessTypeEntry" class="btn btn-primary"  data-dismiss="modal"><i class="fa fa-save m-r-10"></i>Save Business Type</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script type="text/javascript">
 
     $(document).ready(function () {

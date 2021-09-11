@@ -101,6 +101,15 @@ namespace Totalligent.DAL
                         }
                         ).ToList();
                     }
+                    if (ds.Tables[7].Rows.Count > 0)
+                    {
+                        obj.lstNationlity = ds.Tables[7].AsEnumerable().Select(U => new Nationality()
+                        {
+                            NationalityId = U.Field<int>("NationalityId"),
+                            Name = U.Field<string>("Name")
+                        }
+                        ).ToList();
+                    }
 
                 }
 
