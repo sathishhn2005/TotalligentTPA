@@ -122,7 +122,7 @@
                                                 <label class="col-form-label text-md-right w-full">Nationality</label>
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.DropDownList("Nationality", Model.lstNationlity, "-- Select Country --", new { @class = "form-control" })
+                                                @Html.DropDownList("NationalityId", Model.lstNationlity, "-- Select Country --", new { @class = "form-control" })
                                             </div>
                                         </div>
                                     </div>
@@ -195,7 +195,7 @@
                                             <label class="col-form-label text-md-right w-full">Producer Commission</label>
                                         </div>
                                         <div class="col-md-6">
-                                            @Html.TextBox("ProducerCommission", "", new { @class = "form-control w-full", @placeholder = "Enter Producer Commission" })
+                                            @Html.TextBox("ProducerCommission", "", new {@type="number", @class = "form-control w-full", @placeholder = "Enter Producer Commission" })
                                         </div>
                                     </div>
                                 </div>
@@ -612,7 +612,7 @@
             objCCMaster.City = $('#City').val();
             objCCMaster.State = $('#State').val();
             objCCMaster.Zipcode = $('#Zipcode').val();
-            objCCMaster.Nationality = $('#Nationality').val();
+            objCCMaster.NationalityId = $('#NationalityId').val();
             objCCMaster.ContactPerson = $('#ContactPerson').val();
             objCCMaster.MobileNumber = $('#MobileNumber').val();
             objCCMaster.EmailId = $('#EmailId').val();
@@ -678,7 +678,7 @@
                 swtAlert('error', '', 'Please select Insurance Company Before adding RI');
                 return false;
             }
-           
+
             var RIName = $('#RIName option:selected').text();
             var RIRetention = $('#RIRetention').val();
             if (RIName == '' || RIRetention == '' || $('#RIName option:selected').val() == '') {
@@ -687,7 +687,7 @@
             }
             var totalPercent = 0;
             var err = 0;
-           
+
             if (arr.length < 5) {
                 arr.push({ "RIName": RIName, "RIRetention": RIRetention });
                 $.each(arr, function (key, value) {
@@ -723,10 +723,10 @@
     });
     $(document).on('click', 'button.removeRIEntry', function (e) {
         var rowIndex = $(this).closest('tr').index();
-        
-       // delete arr[rowIndex];
-        
-        
+
+        // delete arr[rowIndex];
+
+
         $(this).closest('tr').remove();
         arr.splice(rowIndex, 1);
         console.log(arr);
@@ -815,15 +815,22 @@
         $('#State').val(objRow.State);
         $('#Zipcode').val(objRow.Zipcode);
         $('#ContactPerson').val(objRow.ContactPerson);
+        $('#NationalityId').val(objRow.NationalityId);
         $('#MobileNumber').val(objRow.MobileNumber);
         $('#EmailId').val(objRow.EmailId);
         $('#Currency').val(objRow.Currency);
         $('#LOBName').val(objRow.LOBName);
         $('#ProducerType').val(objRow.ProducerType);
-        GetUsers(objRow.ProducerType);
+        //GetUsers(objRow.ProducerType);
         $('#ProducerName').val(objRow.ProducerName);
         $('#ProducerCommission').val(objRow.ProducerCommission);
         $('#RINumber').val(objRow.RINumber);
+        var RIName = JSON.parse(objRow.RIName);
+        $.each(RIName, function (key, value) {
+            var data = "<tr><td>" + value.RIName + "</td><td>" + value.RIRetention + "</td><td class='text-center'><button type='button' class='btn btn-sm btn-danger removeRIEntry  hov-pointer' ><i class='fa fa-trash'></i></button</td>";
+            $('#RITable tbody').append(data);
+        });
+
         $('#RIName').val(objRow.RIName);
         $('#RIRetention').val(objRow.RIRetention);
         $('#AMIRetention').val(objRow.AMIRetention);
@@ -859,7 +866,7 @@
                     var lst = data.list
                     var markup = "<option value='0'>--Select Producer--</option>";
                     for (var x = 0; x < lst.length; x++) {
-                        markup += "<option value=" + lst[x].ProducerName + ">" + lst[x].ProducerName + "</option>";
+                        markup += "<option value=" + lst[x].ProducerMasterID + ">" + lst[x].ProducerName + "</option>";
                     }
                     $("#ProducerName").html(markup).show();
                     $("#ProducerName").prop("disabled", false);
@@ -1157,7 +1164,7 @@
             return false;
         }
     }
-    function swtAlert(ico,tit,txt) {
+    function swtAlert(ico, tit, txt) {
         Swal.fire({
             icon: ico,
             title: tit,

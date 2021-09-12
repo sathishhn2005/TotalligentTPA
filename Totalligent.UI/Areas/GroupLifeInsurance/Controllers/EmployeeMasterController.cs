@@ -260,7 +260,7 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
             objCsvFileBulkUplaod.EmployeeUniqueNumber = values[1];
             objCsvFileBulkUplaod.ClientName = values[2];
             objCsvFileBulkUplaod.Relation = values[3];
-            objCsvFileBulkUplaod.Nationality = values[4];
+            objCsvFileBulkUplaod.NationalityId = Convert.ToInt32(values[4]);
             objCsvFileBulkUplaod.Category = values[5];
             objCsvFileBulkUplaod.DOB = Convert.ToDateTime(values[6]);
             objCsvFileBulkUplaod.Age = Convert.ToInt32(values[7]);

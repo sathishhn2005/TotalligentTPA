@@ -17,14 +17,14 @@ namespace Totalligent.DAL
         DBEngine objDBEngine;
         DataTable dtResult;
         Hashtable HTOutParam = null;
-        public long DMLQuotationMaster(string Action, string JParamValQuotationDetails, string JParamValCoverageDetails,out List<Quotation> objResponse)
+        public long DMLQuotationMaster(string Action, string JParamValQuotationDetails, string JParamValCoverageDetails, out List<Quotation> objResponse)
         {
             long RIMAsterID = 0;
             objResponse = null;
             //int InsRow = 0;
             SqlCommand sqlCommand = new SqlCommand();
             DataTable dt = new DataTable();
-            
+
             dtResult = new DataTable();
             try
             {
@@ -32,7 +32,7 @@ namespace Totalligent.DAL
                                             new SqlParameter("@Action",SqlDbType.NVarChar),
                                             new SqlParameter("@JParamValQuotationDetails",SqlDbType.NVarChar),
                                             new SqlParameter("@JParamValCoverageDetails",SqlDbType.NVarChar)
-                                            
+
                                       };
                 Param[0].Value = Action;
                 Param[1].Value = JParamValQuotationDetails;
@@ -83,6 +83,80 @@ namespace Totalligent.DAL
                 throw ex;
             }
             return response;
+        }
+        public long GetSumOfSalary(string CompanyName, out decimal SumOfSalary)
+        {
+            long returnCode = -1;
+            SumOfSalary = 0;
+            try
+            {
+                using (SqlConnection con = new SqlConnection(objUtility.GetConnectionString()))
+                {
+                    con.Open();
+
+                    SqlCommand cmd;
+                    cmd = new SqlCommand
+                    {
+                        CommandText = "pGetSumOfSalary",
+                        CommandTimeout = 180,
+                        Connection = con,
+                        CommandType = CommandType.StoredProcedure
+                    };
+                    SqlParameter UDTparam = new SqlParameter
+                    {
+                        ParameterName = "@CompanyName",
+                        Size = -1,
+                        Value = CompanyName
+                    };
+                    cmd.Parameters.Add(UDTparam);
+
+                    SumOfSalary = Convert.ToDecimal(cmd.ExecuteScalar());
+
+                }
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return returnCode;
+        }
+        public long GetEmpCount(string CompanyName, out int EmpCount)
+        {
+            long returnCode = -1;
+            EmpCount = 0;
+            try
+            {
+                using (SqlConnection con = new SqlConnection(objUtility.GetConnectionString()))
+                {
+                    con.Open();
+
+                    SqlCommand cmd;
+                    cmd = new SqlCommand
+                    {
+                        CommandText = "pGetEmpCount",
+                        CommandTimeout = 180,
+                        Connection = con,
+                        CommandType = CommandType.StoredProcedure
+                    };
+                    SqlParameter UDTparam = new SqlParameter
+                    {
+                        ParameterName = "@CompanyName",
+                        Size = -1,
+                        Value = CompanyName
+                    };
+                    cmd.Parameters.Add(UDTparam);
+
+                    EmpCount = Convert.ToInt32(cmd.ExecuteScalar());
+
+                }
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return returnCode;
         }
     }
 }

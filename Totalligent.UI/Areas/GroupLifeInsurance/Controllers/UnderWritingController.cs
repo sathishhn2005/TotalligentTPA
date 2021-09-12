@@ -65,6 +65,11 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
                 });
                 obj.lstBranchMaster = selectListBranchMaster;
             }
+            obj.lstWC = new List<SelectListItem>
+            {
+                new SelectListItem() { Text = "Based On WC Rate", Selected = false, Value = "1"},
+                new SelectListItem() { Text = "Based On Perperson", Selected = false, Value = "2"}
+            };
             if (QId > 0)
             {
                 string name = string.Empty;

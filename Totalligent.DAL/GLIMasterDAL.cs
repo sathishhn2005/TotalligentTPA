@@ -455,6 +455,37 @@ namespace Totalligent.DAL
             return RIMAsterID;
         }
 
+        public long AddBusinessType(string BT)
+        {
+            long BTId = 0;
+            int InsRow = 0;
+            SqlCommand sqlCommand = new SqlCommand();
+            try
+            {
+                SqlParameter[] Param = {
+                                            new SqlParameter("@BusinessType",SqlDbType.NVarChar),
+                                            new SqlParameter("@BusinessTypeId",SqlDbType.BigInt)
+
+
+                                        };
+                Param[0].Value = BT;
+                Param[1].Direction = ParameterDirection.Output;
+
+
+                using (objDBEngine = new DBEngine())
+                {
+                    sqlCommand = objDBEngine.DMLOperationOutPutParam("pInsertBusinessType", Param, out InsRow);
+
+                }
+                BTId = (long)sqlCommand.Parameters["@BusinessTypeId"].Value;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return BTId;
+        }
+
         public int pUpdateFolderPathProducerMaster(long ProducerID, string ZipFilePath)
         {
 
@@ -558,28 +589,29 @@ namespace Totalligent.DAL
 
                     if (dtResult.Rows.Count > 0)
                     {
-                        lstPMMaster = dtResult.AsEnumerable().Select(U => new ProducerMaster()
-                        {
-                            ProducerMasterID = U.Field<long>("ProducerMasterID"),
-                            ProducerName = U.Field<string>("ProducerName"),
-                            ProducerCode = U.Field<string>("ProducerCode"),
-                            ContactPerson = U.Field<string>("ContactPerson"),
-                            MobileNumber = U.Field<string>("MobileNumber"),
-                            EmailId = U.Field<string>("EmailId"),
-                            Address = U.Field<string>("Address"),
-                            City = U.Field<string>("City"),
-                            State = U.Field<string>("State"),
-                            Zipcode = U.Field<string>("Zipcode"),
-                            BankID = U.Field<int>("BankID"),
-                            BankName = U.Field<string>("BankName"),
-                            AccountNumber = U.Field<string>("AccountNumber"),
-                            IFSCCode = U.Field<string>("IFSCCode"),
-                            KYCUploadPath = U.Field<string>("KYCUploadPath"),
-                            Status = U.Field<string>("Status"),
-                            BusinessDesignationTypeMasterID = U.Field<int>("BusinessDesignationTypeMasterID"),
-                            BusinessTypeName = U.Field<string>("BusinessTypeName"),
+                        DTtoListConverter.ConvertTo(dtResult, out lstPMMaster);
+                        //lstPMMaster = dtResult.AsEnumerable().Select(U => new ProducerMaster()
+                        //{
+                        //    ProducerMasterID = U.Field<long>("ProducerMasterID"),
+                        //    ProducerName = U.Field<string>("ProducerName"),
+                        //    ProducerCode = U.Field<string>("ProducerCode"),
+                        //    ContactPerson = U.Field<string>("ContactPerson"),
+                        //    MobileNumber = U.Field<string>("MobileNumber"),
+                        //    EmailId = U.Field<string>("EmailId"),
+                        //    Address = U.Field<string>("Address"),
+                        //    City = U.Field<string>("City"),
+                        //    State = U.Field<string>("State"),
+                        //    Zipcode = U.Field<string>("Zipcode"),
+                        //    BankID = U.Field<int>("BankID"),
+                        //    BankName = U.Field<string>("BankName"),
+                        //    AccountNumber = U.Field<string>("AccountNumber"),
+                        //    IFSCCode = U.Field<string>("IFSCCode"),
+                        //    KYCUploadPath = U.Field<string>("KYCUploadPath"),
+                        //    Status = U.Field<string>("Status"),
+                        //    BusinessDesignationTypeMasterID = U.Field<int>("BusinessDesignationTypeMasterID"),
+                        //    BusinessTypeName = U.Field<string>("BusinessTypeName"),
 
-                        }).ToList();
+                        //}).ToList();
                     }
 
                 }

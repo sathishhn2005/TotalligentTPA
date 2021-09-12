@@ -90,5 +90,35 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
 
             return Json(objResponse[0], JsonRequestBehavior.AllowGet);
         }
+        [HttpGet]
+        public JsonResult GetWCRate(string ClientCompanyName)
+        {
+           
+            long ReturnCode = 0;
+            objGLIBAL = new GLIQuotationBAL();
+           
+            ReturnCode = objGLIBAL.GetWCRate(ClientCompanyName, out Quotation objWCRate);
+            if (objWCRate == null)
+            {
+                objWCRate.Status.Equals("Not found");
+            }
+
+            return Json(objWCRate, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public JsonResult GetPerPersonRate(string ClientCompanyName)
+        {
+
+            long ReturnCode = 0;
+            objGLIBAL = new GLIQuotationBAL();
+
+            ReturnCode = objGLIBAL.GetPerPersonRate(ClientCompanyName, out Quotation objPPRate);
+            if (objPPRate == null)
+            {
+                objPPRate.Status.Equals("Not found");
+            }
+
+            return Json(objPPRate, JsonRequestBehavior.AllowGet);
+        }
     }
 }

@@ -12,7 +12,7 @@ namespace Totalligent.BusinessEntities
 
         public string EmployeeName { get; set; }
         public string ChildGender { get; set; }
-        public string Nationality { get; set; }
+        public int NationalityId { get; set; }
         public string SpouseGender { get; set; }
         public string EmployeeGender { get; set; }
         

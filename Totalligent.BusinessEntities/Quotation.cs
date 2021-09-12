@@ -10,6 +10,7 @@ namespace Totalligent.BusinessEntities
     public class Quotation
     {
         public long QuotationId { get; set; }
+        public int WCId { get; set; }
 
         public string DraftNo { get; set; }
         public string WLDraftNo { get; set; }
@@ -100,6 +101,10 @@ namespace Totalligent.BusinessEntities
 
         public decimal? AMILoading { get; set; }
 
+        public double WCRate { get; set; }
+        public decimal? SumOfSalary { get; set; }
+        public decimal? PerPerson { get; set; }
+        public decimal? NetPremium { get; set; }
         public int? TotalEmployeescount { get; set; }
 
         public decimal? EstimatedAnnualWages { get; set; }
@@ -109,6 +114,10 @@ namespace Totalligent.BusinessEntities
         public string Premium_EAW_Rate { get; set; }
 
         public decimal? Premium_Incl_levy_PolFeeRO { get; set; }
+        public decimal? GrossPremium { get; set; }
+        public int PolicyFee1_RO { get; set; }
+
+        
 
         public decimal? VATonWCpremium { get; set; }
 

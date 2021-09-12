@@ -20,6 +20,30 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public ActionResult AddBusinessType(ProducerMaster objProducerMaster)
+        {
+            string msg = "";
+            long BTId = 0;
+            objGLIMasterBAL = new GLIMasterBAL();
+            BTId = objGLIMasterBAL.AddBusinessType(objProducerMaster.BusinessTypeName);
+            if (BTId > 0)
+            {
+                msg = "Inserted Successfully";
+            }
+
+            else if(BTId.Equals(0))
+            {
+                msg = "Business Type Already Exists";
+            }
+            else 
+            {
+                msg = "Error Occured, Please check it.";
+            }
+            TempData["Alertmsg"] = msg;
+            return View();
+        }
         [HttpPost]
         public ActionResult AddUpdateProducerMaster(ProducerMaster objProducerMaster, string Action, string FolderName)
         {
@@ -148,11 +172,11 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
             List<ProducerMaster> lstPMMaster = new List<ProducerMaster>();
             int ReturnCode = 0;
 
-           objGLIMasterBAL = new GLIMasterBAL();
-           ReturnCode = objGLIMasterBAL.GetProducerMaster(PMName, PMCode, City, out lstPMMaster);
+            objGLIMasterBAL = new GLIMasterBAL();
+            ReturnCode = objGLIMasterBAL.GetProducerMaster(PMName, PMCode, City, out lstPMMaster);
             if (lstPMMaster == null)
             {
-                lstPMMaster.Add(new ProducerMaster() { ProducerName = "NoRecordsFound" }) ;
+                lstPMMaster.Add(new ProducerMaster() { ProducerName = "NoRecordsFound" });
             }
 
             return Json(lstPMMaster, JsonRequestBehavior.AllowGet);
@@ -185,7 +209,7 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
             objGLIMasterBAL = new GLIMasterBAL();
             try
             {
-                long loginID =Convert.ToInt64( Session["Loginid"].ToString());
+                long loginID = Convert.ToInt64(Session["Loginid"].ToString());
 
                 if (ModelState.IsValid)
                 {

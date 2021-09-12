@@ -389,7 +389,8 @@ namespace Totalligent.Utilities
                 _dr["EmployeeName"] = _obj.EmployeeName ?? "";
                 _dr["EmployeeUniqueNumber"] = _obj.EmployeeUniqueNumber ?? "";
                 _dr["Relation"] = _obj.Relation ?? "";
-                _dr["Nationality"] = _obj.Nationality ?? "";
+                _dr["Nationality"] = _obj.NationalityId.Equals(null) ? 0 : _obj.NationalityId;
+                
 
                 _dr["Category"] = _obj.Category ?? "";
                 _dr["DOB"] = _obj.DOB.Equals(null) ? DateTime.Now : _obj.DOB;

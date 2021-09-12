@@ -42,13 +42,13 @@
                                     </div>
                                     <div class="row m-b-15">
                                         @*@Html.LabelFor(model => model.ContactPerson, htmlAttributes: new { @class = "col-sm-4 col-form-label text-md-right w-full" })*@
-                                        <label for="ContactPerson" class="col-sm-4 col-form-label text-md-right w-full">ContactPerson</label>
+                                        <label for="Contact Person" class="col-sm-4 col-form-label text-md-right w-full">Contact Person</label>
                                         <div class="col-md-6">
                                             @Html.TextBox("ContactPerson", "", new { @required = "required", @class = "form-control", placeholder = "Enter a Contact Person Name" })
                                         </div>
                                     </div>
                                     <div class="row m-b-15">
-                                        <label for="MobileNumber" class="col-sm-4 col-form-label text-md-right w-full">MobileNumber</label>
+                                        <label for="MobileNumber" class="col-sm-4 col-form-label text-md-right w-full">Mobile Number</label>
                                         <div class="col-md-6">
                                             @Html.TextBox("MobileNumber", "", new { @required = "required", @class = "form-control", placeholder = "Enter Mobile Number" })
                                         </div>
@@ -80,7 +80,7 @@
                                     <div class="row m-b-15">
                                         <label for="Nationality" class="col-sm-4 col-form-label text-md-right w-full">Nationality</label>
                                         <div class="col-md-6">
-                                            @Html.DropDownList("Nationality", Model.lstNationlity, "-- Select Country --", new { @class = "form-control" })
+                                            @Html.DropDownList("NationalityId", Model.lstNationlity, "-- Select Country --", new { @class = "form-control" })
                                         </div>
                                     </div>
                                     <div class="row m-b-15">

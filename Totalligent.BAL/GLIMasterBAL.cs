@@ -64,6 +64,10 @@ namespace Totalligent.BAL
         {
             return new GLIMasterDAL().DMLProducerMaster(Action, JPramValue);
         }
+        public long AddBusinessType(string BT)
+        {
+            return new GLIMasterDAL().AddBusinessType(BT);
+        }
         public int pUpdateFolderPathProducerMaster(long ProducerID, string ZipFilePath)
         {
             return new GLIMasterDAL().pUpdateFolderPathProducerMaster(ProducerID, ZipFilePath);
