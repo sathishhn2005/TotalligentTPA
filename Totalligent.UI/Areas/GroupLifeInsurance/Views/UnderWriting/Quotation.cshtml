@@ -45,7 +45,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Client Company Name</label>
                                     </div>
                                     <div class="col-md-8 demo-section k-content">
-                                        @Html.DropDownListFor(model => model.objQuo.ClientCompanyName, Model.lstClientMaster, "-- Select Type --", new { @class = "form-control" })
+                                        @Html.DropDownListFor(model => model.objQuo.ClientCompanyName, Model.lstClientMaster, "-- Select Type --", new {@onchange="getReinsurerInfo()", @class = "form-control" })
 
                                     </div>
                                 </div>
@@ -1259,31 +1259,47 @@
                                                     <label class="col-sm-12 col-form-label text-left">Sum Assured (SA)</label>
                                                 </div>
                                                 <div class="col-md-7 demo-section k-content">
-                                                    @Html.TextBox("Premium_SumAssured", "", new { @class = "form-control w-full", @placeholder = "Enter Sum Assured (SA)" })
+                                                    @Html.TextBox("Premium_SumAssured", "", new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Sum Assured (SA)" })
                                                 </div>
                                             </div>
                                             <div class="row m-b-15 m-t-15">
                                                 <div class="col-md-3">
-                                                    <label class="col-sm-12 col-form-label text-left">Salary</label>
+                                                    <label class="col-sm-12 col-form-label text-left">Gross Rate%</label>
                                                 </div>
                                                 <div class="col-md-7 demo-section k-content">
-                                                    @Html.TextBox("Premium_Salary", "", new { @class = "form-control w-full", @placeholder = "Enter Salary" })
+                                                    @Html.TextBox("Premium_GrossRate", "", new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Salary" })
                                                 </div>
                                             </div>
                                             <div class="row m-b-15 m-t-15">
                                                 <div class="col-md-3">
-                                                    <label class="col-sm-12 col-form-label text-left">FCL</label>
+                                                    <label class="col-sm-12 col-form-label text-left">Net Premium</label>
                                                 </div>
                                                 <div class="col-md-7 demo-section k-content">
-                                                    @Html.TextBox("Premium_FCL", "", new { @class = "form-control w-full", @placeholder = "Enter FCL" })
+                                                    @Html.TextBox("Premium_NetPremium", "", new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter FCL" })
                                                 </div>
                                             </div>
                                             <div class="row m-b-15 m-t-15">
                                                 <div class="col-md-3">
-                                                    <label class="col-sm-12 col-form-label text-left">Client Rate</label>
+                                                    <label class="col-sm-12 col-form-label text-left">Levy 0.55%</label>
                                                 </div>
                                                 <div class="col-md-7 demo-section k-content">
-                                                    @Html.TextBox("Premium_ClientRate", "", new { @class = "form-control w-full", @placeholder = "Enter Client Rate" })
+                                                    @Html.TextBox("Premium_Levy", "", new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Client Rate" })
+                                                </div>
+                                            </div>
+                                            <div class="row m-b-15 m-t-15">
+                                                <div class="col-md-3">
+                                                    <label class="col-sm-12 col-form-label text-left">Policy Fee 1 RO</label>
+                                                </div>
+                                                <div class="col-md-7 demo-section k-content">
+                                                    @Html.TextBox("Premium_PolicyFee1_RO", "", new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Client Rate" })
+                                                </div>
+                                            </div>
+                                            <div class="row m-b-15 m-t-15">
+                                                <div class="col-md-3">
+                                                    <label class="col-sm-12 col-form-label text-left">Gross Premium</label>
+                                                </div>
+                                                <div class="col-md-7 demo-section k-content">
+                                                    @Html.TextBox("Premium_GrossPremium", "", new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter FCL" })
                                                 </div>
                                             </div>
                                             <input type="hidden" id="hdnVariableTypeSumContent" name="Premium_VariableSADetails" value='[{"CategoryName":"Gold Member","SumAssured":"","Salary":"0","FCL":"","ClientRate":""},{"CategoryName":"Silver  Member","SumAssured":"","Salary":"0","FCL":"","ClientRate":""}]' />
@@ -1298,141 +1314,59 @@
                                 </div>
                                 <div class="col-12">
                                     <hr />
-                                    <h5 class="m-b-15 m-t-15 text-bold col-12 p-0">Premium Details</h5>
+                                    <h5 class="m-b-15 m-t-15 text-bold col-12 p-0">Loadings</h5>
                                     <hr />
                                     <div class="col-md-11 m-b-15 m-t-15 mx-auto">
-                                        <div class="row m-b-15 m-t-15">
-                                            <div class="col-md-3">
-                                                <label class="col-sm-12 col-form-label text-left">Client Premium</label>
-                                            </div>
-                                            <div class="col-md-7 demo-section k-content">
-                                                @Html.TextBoxFor(model => model.objQuo.ClientPremium, new { @onchange = "CalcInsLevy();", @class = "form-control w-full", @placeholder = "Enter Client Premium" })
-                                            </div>
-                                        </div>
-                                        <div class="row m-b-15 m-t-15">
-                                            <div class="col-md-3">
-                                                <label class="col-sm-12 col-form-label text-left">Insurance Levy at 0.55%</label>
-                                            </div>
-                                            <div class="col-md-7 demo-section k-content">
-                                                @Html.TextBoxFor(model => model.objQuo.InsuranceLevy, new { @disabled = "disabled", @class = "form-control w-full", @placeholder = "Enter Insurance Levy @ 0.55%" })
 
-                                            </div>
-                                        </div>
                                         <div class="row m-b-15 m-t-15">
-                                            <div class="col-md-3">
-                                                <label class="col-sm-12 col-form-label text-left">Policy Fee</label>
-                                            </div>
-                                            <div class="col-md-7 demo-section k-content">
-                                                @Html.TextBoxFor(model => model.objQuo.PolicyFee, new { @readonly = "readonly", @class = "form-control w-full", @placeholder = "Enter the Policy Fee@1" })
-                                            </div>
-                                        </div>
-                                        <div class="row m-b-15 m-t-15">
-                                            <div class="col-md-3">
-                                                <label class="col-sm-12 col-form-label text-left">Total Premium</label>
-                                            </div>
-                                            <div class="col-md-7 demo-section k-content">
-                                                @Html.TextBoxFor(model => model.objQuo.TotalPremium, new { @readonly = "readonly", @class = "form-control w-full", @placeholder = "Enter Total Premium" })
-                                            </div>
-                                        </div>
-                                        <div class="row m-b-15 m-t-15">
-                                            <div class="col-md-3">
+                                            <div class="col-md-5">
                                                 <label class="col-sm-12 col-form-label text-left">Broker Name</label>
                                             </div>
                                             <div class="col-md-7 demo-section k-content">
-                                                @Html.TextBoxFor(model => model.objQuo.BrokerName, new { @class = "form-control w-full", @placeholder = "Enter Broker Name" })
+                                                @Html.TextBoxFor(model => model.objQuo.Premium_BrokerName, new { @class = "form-control w-full", @placeholder = "Enter Broker %" })
                                             </div>
                                         </div>
                                         <div class="row m-b-15 m-t-15">
-                                            <div class="col-md-3">
+                                            <div class="col-md-5">
+                                                <label class="col-sm-12 col-form-label text-left">Broker Commssion %</label>
+                                            </div>
+                                            <div class="col-md-7 demo-section k-content">
+                                                @Html.TextBoxFor(model => model.objQuo.Premium_BrokerCommssion, new { @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Broker %" })
+                                            </div>
+                                        </div>
+                                        <div class="row m-b-15 m-t-15">
+                                            <div class="col-md-5">
                                                 <label class="col-sm-12 col-form-label text-left">Brokerage</label>
                                             </div>
                                             <div class="col-md-7 demo-section k-content">
-                                                @Html.TextBoxFor(model => model.objQuo.Brokerage, new { @class = "form-control w-full", @placeholder = "Enter Brokerage" })
-                                            </div>
-                                        </div>
-                                        <div class="row m-b-15 m-t-15">
-                                            <div class="col-md-3">
-                                                <label class="col-sm-12 col-form-label text-left">RI Count</label>
-                                            </div>
-                                            <div class="col-md-7 demo-section k-content">
-                                                @Html.TextBoxFor(model => model.objQuo.RICount, new { @class = "form-control w-full", @placeholder = "Enter RICount" })
-                                            </div>
-                                        </div>
-                                        <div class="row m-b-15 m-t-15">
-                                            <div class="col-md-3">
-                                                <label class="col-sm-12 col-form-label text-left">RI 1 in %</label>
-                                            </div>
-                                            <div class="col-md-7 demo-section k-content">
-
-                                                @Html.TextBoxFor(model => model.objQuo.RI1in_Percentage, new { @class = "form-control w-full", @placeholder = "Enter RI 1 in %" })
-
-                                            </div>
-                                        </div>
-                                        <div class="row m-b-15 m-t-15">
-                                            <div class="col-md-3">
-                                                <label class="col-sm-12 col-form-label text-left">RI 2 in %</label>
-                                            </div>
-                                            <div class="col-md-7 demo-section k-content">
-                                                @Html.TextBoxFor(model => model.objQuo.RI2in_Percentage, new { @class = "form-control w-full", @placeholder = "Enter RI 2 in %" })
-
-
-                                            </div>
-                                        </div>
-                                        <div class="row m-b-15 m-t-15">
-                                            <div class="col-md-3">
-                                                <label class="col-sm-12 col-form-label text-left">RI 3 in %</label>
-                                            </div>
-                                            <div class="col-md-7 demo-section k-content">
-                                                @Html.TextBoxFor(model => model.objQuo.RI3in_Percentage, new { @class = "form-control w-full", @placeholder = "Enter RI 3 in %" })
-                                            </div>
-                                        </div>
-                                        <div class="row m-b-15 m-t-15">
-                                            <div class="col-md-3">
-                                                <label class="col-sm-12 col-form-label text-left">RI RATE</label>
-                                            </div>
-                                            <div class="col-md-7 demo-section k-content">
-
-                                                @Html.TextBoxFor(model => model.objQuo.RIRate, new { @class = "form-control w-full", @placeholder = "Enter RI Rate" })
-
-                                            </div>
-                                        </div>
-                                        <div class="row m-b-15 m-t-15">
-                                            <div class="col-md-3">
-                                                <label class="col-sm-12 col-form-label text-left">RI RETENSION</label>
-                                            </div>
-                                            <div class="col-md-7 demo-section k-content">
-                                                @Html.TextBoxFor(model => model.objQuo.RIRetension, new { @class = "form-control w-full", @placeholder = "Enter RI Retension" })
-
-                                            </div>
-                                        </div>
-                                        <div class="row m-b-15 m-t-15">
-                                            <div class="col-md-3">
-                                                <label class="col-sm-12 col-form-label text-left">AMI RETENSION</label>
-                                            </div>
-                                            <div class="col-md-7 demo-section k-content">
-                                                @Html.TextBoxFor(model => model.objQuo.AMIRetension, new { @class = "form-control w-full", @placeholder = "Enter AMI Retension" })
-
-                                            </div>
-                                        </div>
-                                        <div class="row m-b-15 m-t-15">
-                                            <div class="col-md-3">
-                                                <label class="col-sm-12 col-form-label text-left">RI Premium</label>
-                                            </div>
-                                            <div class="col-md-7 demo-section k-content">
-                                                @Html.TextBoxFor(model => model.objQuo.RIPremium, new { @class = "form-control w-full", @placeholder = "Enter RI Premium" })
-                                            </div>
-                                        </div>
-                                        <div class="row m-b-15 m-t-15">
-                                            <div class="col-md-3">
-                                                <label class="col-sm-12 col-form-label text-left">AMI Loading</label>
-                                            </div>
-                                            <div class="col-md-7 demo-section k-content">
-
-                                                @Html.TextBoxFor(model => model.objQuo.AMILoading, new { @class = "form-control w-full", @placeholder = "Enter AMI Loading" })
+                                                @Html.TextBoxFor(model => model.objQuo.Premium_Brokerage, new { @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Broker Amount" })
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="col-12">
+                                    <hr />
+                                    <h5 class="m-b-15 m-t-15 text-bold col-12 p-0">REInsurer</h5>
+                                    <hr />
+                                    <div class="table-responsive">
+                                        <table id="tblReinsurer" class="table table-hover">
+                                            <tr>
+                                                <th>Client Company</th>
+                                                <th>Code</th>
+                                                <th>ContactPerson</th>
+                                                <th>MobileNumber</th>
+                                                <th>EmailId</th>
+                                                <th>City</th>
+                                                <th>KYCUploadPath</th>
+                                                <th class="text-center">Actions</th>
+                                            </tr>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </section>
@@ -1456,7 +1390,7 @@
                                             <label class="col-sm-12 col-form-label text-left">Sum of Salary</label>
                                         </div>
                                         <div class="col-md-7 demo-section k-content">
-                                            @Html.TextBoxFor(model => model.objQuo.SumOfSalary, new {@readonly="readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Total Employees Count" })
+                                            @Html.TextBoxFor(model => model.objQuo.SumOfSalary, new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Total Employees Count" })
                                         </div>
                                     </div>
                                     <div class="row m-b-15 m-t-15">
@@ -1638,7 +1572,42 @@
 </div>
 
 <script type="text/javascript">
+    function getReinsurerInfo() {
+        if (!$('#objQuo_InsuranceCompanyName').val() > 0) {
+            alert('Please Select Insurance Company');
+            return false;
+        }
+        if (!$('#objQuo_ClientCompanyName').val() > 0) {
+            alert('Please Select Client Company');
+            return false;
+        }
+        var param = { InsuranceCompanyName: $('#objQuo_InsuranceCompanyName').val(), ClientCompanyName: $('#objQuo_ClientCompanyName option:selected').text()};
+        $("#tblReinsurer").find("tr:not(:first)").remove();
 
+        $.ajax({
+
+            type: "GET",
+            url: "/GroupLifeInsurance/Quotation/GetReInsurerRate",
+            dataType: "json",
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            data: param,
+            success: function (Result) {
+                if (Result.length > 0) {
+                    //Result.lstReinsurerRate
+                    //Result.objRIRateCalc
+                    $.each(Result, function (key, value) {
+                       // $('#tblReinsurer').append('<tr> <td>' + value.ClientCompanyName + '</td>  <td>' + value.ClientCompCode + '</td> <td>' + value.ContactPerson + '</td> <td>' + value.MobileNumber + '</td><td>' + value.EmailId + '</td> <td>' + value.Address + '</td><td> <a href="' + value.KYCUploadPath + '" class="badge badge-pill badge-warning" download> Download KYC</a></td><td class="text-center"><i class="mdi mdi-pencil text-primary mx-3" onclick="EditCCMaster(' + "'" + hdnID + "'" + ')"></i><i class="mdi mdi-delete text-danger mx-3" onclick="DeActiveCCMaster(this,' + value.ClientCompanyMasterId.toString() + ');"></i><input type="hidden" id=' + hdnID + ' value=' + "'" + JVal + "'" + '></td></tr>');
+                    })
+                }
+                else {
+                    $('#tblReinsurer').append('<tr> <td colspan="14" aligen="center" > No Records found </td></tr>');
+                }
+
+            },
+            error: function () {
+            }
+        })
+    }
     $(function () {
         $("#objQuo_WCId").change(function () {
             $('#divPerpersonRate input').val('');
@@ -2032,7 +2001,7 @@
                     },
                     error: function () {
                        window.location = '@Url.Action("Quotation", "UnderWriting")'
-                    }   
+                    }
                 })
 
 

@@ -195,7 +195,28 @@
                                             <label class="col-form-label text-md-right w-full">Producer Commission</label>
                                         </div>
                                         <div class="col-md-6">
-                                            @Html.TextBox("ProducerCommission", "", new {@type="number", @class = "form-control w-full", @placeholder = "Enter Producer Commission" })
+                                            @Html.TextBox("ProducerCommission", "", new { @type = "number", @class = "form-control w-full", @placeholder = "Enter Producer Commission" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group m-b-15">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <label class="col-form-label text-md-right w-full">Gross Rate</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            @Html.TextBox("GrossRate", "", new { @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Gross Rate" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group m-b-15">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <label class="col-form-label text-md-right w-full">RI Net Rate</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            @Html.TextBox("RINetRate", "", new { @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter RI Net Rate" })
                                         </div>
                                     </div>
                                 </div>
@@ -209,7 +230,18 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="form-group m-b-15">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <label class="col-form-label text-md-right w-full">AMI Retention</label>
+                                        </div>
+                                        <div class="input-group mb-3 col-md-6">
 
+                                            @Html.TextBox("AMIRetention", "20", new { @readonly = "readonly", @type = "number", @class = "form-control w-full", @placeholder = "Enter AMI Retention" })
+
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="form-group m-b-15">
                                     <div class="row">
                                         <div class="col-md-5">
@@ -244,16 +276,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group m-b-15">
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            <label class="col-form-label text-md-right w-full">AMI Retention</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            @Html.TextBox("AMIRetention", "", new { @class = "form-control w-full", @placeholder = "Enter AMI Retention" })
-                                        </div>
-                                    </div>
-                                </div>
+
                             </div>
                             <div class="col-12 col-md-6">
                                 <div class="form-group m-b-15">
@@ -639,6 +662,9 @@
             objCCMaster.BankID = $('#BankName :selected').val();
             objCCMaster.AccountNumber = $("#AccountNumber").val();
             objCCMaster.IFSCCode = $("#IFSCCode").val();
+            objCCMaster.RINetRate = $("#RINetRate").val();
+            objCCMaster.GrossRate = $("#GrossRate").val();
+
 
             var param = { objCCMaster: objCCMaster, Action: $("#btnClientMaster").val(), FolderName: $("#CMFolderName").val() };
             //var renewalData = $('#formRIMaster').serialize();
@@ -665,11 +691,13 @@
                         //alert('Please provide all mandatory fields')
                         return false;
                     }
-                    $('#formCCMaster').reset();
+                    //$('#formCCMaster').reset();
+                    $('#formCCMaster')[0].reset();
                 },
                 error: function () {
                     // $("#lblMessage").html('Error while Registring the Company!.');
-                    $('#formCCMaster').reset();
+                    //$('#formCCMaster').reset();
+                    $('#formCCMaster')[0].reset();
                 }
             })
         });
@@ -694,7 +722,7 @@
                     totalPercent += Number(value.RIRetention);
 
                 });
-                if (totalPercent <= 100) {
+                if (totalPercent <= 80) {
                     var data = "<tr><td>" + RIName + "</td><td>" + RIRetention + "</td><td class='text-center'><button type='button' class='btn btn-sm btn-danger removeRIEntry  hov-pointer' ><i class='fa fa-trash'></i></button</td>";
                     $('#RITable tbody').append(data);
                 }
@@ -705,7 +733,7 @@
                     Swal.fire({
                         icon: 'error',
                         title: '',
-                        text: "Maximum RI Retention 100 !",
+                        text: "Maximum RI Retention 100(RI Rentention(80%) + AMI Rentention(20%) !",
                     })
                     arr.splice(-1);
                     return false;
@@ -834,8 +862,11 @@
         $('#RIName').val(objRow.RIName);
         $('#RIRetention').val(objRow.RIRetention);
         $('#AMIRetention').val(objRow.AMIRetention);
+        $('#RINetRate').val(objRow.RINetRate);
+        $('#GrossRate').val(objRow.GrossRate);
 
 
+         
         //objRow.BankName = $('#BankName :selected').text();
         $('#BankName').val(objRow.BankID);
         $("#AccountNumber").val(objRow.AccountNumber);

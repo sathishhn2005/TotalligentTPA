@@ -67,5 +67,28 @@ namespace Totalligent.BAL
             }
             return returnCode;
         }
+        public long GetReinsurerRate(string InsuranceCompanyName, string ClientCompanyName, out Quotation objRIRate, out List<Quotation> lstRate)
+        {
+            long returnCode = -1;
+            //int EmpCount = 0;
+            objRIRate = new Quotation();
+            lstRate = null;
+            try
+            {
+                new GLIQuotationDAL().GetQuotationPremiumReinsurer(InsuranceCompanyName, ClientCompanyName, out lstRate);
+                //objRIRate.TotalEmployees = EmpCount;
+                //objRIRate.PerPerson = 2;
+                //objRIRate.NetPremium = (objRIRate.TotalEmployees) * Convert.ToDecimal(objRIRate.PerPerson);
+                //objRIRate.Premium_Incl_levy_PolFeeRO = objRIRate.NetPremium * Convert.ToDecimal(Levy);
+                //objRIRate.PolicyFee1_RO = 1;
+                //objRIRate.GrossPremium = objRIRate.NetPremium + objRIRate.Premium_Incl_levy_PolFeeRO + objRIRate.PolicyFee1_RO;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return returnCode;
+        }
     }
 }

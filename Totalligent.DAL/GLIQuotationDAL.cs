@@ -71,7 +71,7 @@ namespace Totalligent.DAL
                                       };
                 Param[0].Value = Action;
                 Param[1].Value = Qid;
-                Param[2].Direction = ParameterDirection.Output;
+                Param[2].Direction = ParameterDirection.Output; 
                 using (objDBEngine = new DBEngine())
                 {
                     sqlCommand = objDBEngine.DMLOperationOutPutParam("pRejectQuotation", Param, out InsRow);
@@ -157,6 +157,47 @@ namespace Totalligent.DAL
                 throw ex;
             }
             return returnCode;
+        }
+        public long GetQuotationPremiumReinsurer(string InsuranceCompanyName, string ClientCompanyName, out List<Quotation> lstRate)
+        {
+            long RIMAsterID = 0;
+            lstRate = null;
+            SqlCommand sqlCommand = new SqlCommand();
+            DataSet dt = new DataSet();
+
+           
+            try
+            {
+                SqlParameter[] Param = {
+                                            new SqlParameter("@InsuranceCompanyName",SqlDbType.NVarChar),
+                                            new SqlParameter("@ClientCompanyName",SqlDbType.NVarChar),
+                                            
+
+                                      };
+                Param[0].Value = InsuranceCompanyName;
+                Param[1].Value = ClientCompanyName;
+               
+                using (objDBEngine = new DBEngine())
+                {
+                    dt = objDBEngine.GetDataSet("pGetQuotationReinsurer", Param);
+                    if (dt.Tables[0].Rows.Count > 0)
+                    {
+
+                    }
+                    if (dt.Tables[1].Rows.Count > 0)
+                    {
+                        lstRate = new List<Quotation>();
+                        DTtoListConverter.ConvertTo(dt.Tables[1], out lstRate);
+                        RIMAsterID = 1;
+                    }
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return RIMAsterID;
         }
     }
 }

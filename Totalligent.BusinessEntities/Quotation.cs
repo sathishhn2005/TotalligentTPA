@@ -71,36 +71,6 @@ namespace Totalligent.BusinessEntities
 
         public long? FCL { get; set; }
 
-        public decimal? ClientPremium { get; set; }
-
-        public decimal? InsuranceLevy { get; set; }
-
-        public decimal? PolicyFee { get; set; }
-
-        public decimal? TotalPremium { get; set; }
-
-        public string BrokerName { get; set; }
-
-        public decimal? Brokerage { get; set; }
-
-        public decimal? RICount { get; set; }
-
-        public string RI1in_Percentage { get; set; }
-
-        public string RI2in_Percentage { get; set; }
-
-        public string RI3in_Percentage { get; set; }
-
-        public string RIRate { get; set; }
-
-        public string RIRetension { get; set; }
-
-        public string AMIRetension { get; set; }
-
-        public decimal? RIPremium { get; set; }
-
-        public decimal? AMILoading { get; set; }
-
         public double WCRate { get; set; }
         public decimal? SumOfSalary { get; set; }
         public decimal? PerPerson { get; set; }
@@ -108,12 +78,31 @@ namespace Totalligent.BusinessEntities
         public int? TotalEmployeescount { get; set; }
 
         public decimal? EstimatedAnnualWages { get; set; }
+        #region
+        /// <summary>
+        /// Premium Screen(Quotation) Entities
+        /// </summary>
+        public decimal? Premium_SumAssured { get; set; }
+        public decimal? Premium_GrossRate { get; set; }
+        public decimal? Premium_NetPremium { get; set; }
+        public decimal? Premium_Levy { get; set; }
+        public decimal? Premium_PolicyFee1RO { get; set; }
+        public decimal? Premium_GrossPremium { get; set; }
+        public string Premium_BrokerName { get; set; }
+        public decimal? Premium_BrokerCommssion { get; set; }
+        public decimal? Premium_Brokerage { get; set; }
+        public string Premium_RIName { get; set; }
+        public decimal? Premium_RInetrate { get; set; }
+        public decimal? Premium_RIPremium { get; set; }
+        public decimal? Premium_RIRetention { get; set; }
+        public decimal? Premium_InsurerRetention { get; set; }
+        public decimal? Premium_RIRetentionPremium { get; set; }
+        public decimal? Premium_InsurerRetentionPremium { get; set; }
+        public decimal? Premium_InsurerLoadingPremium { get; set; }
+        public decimal? Premium_InsurerLoading { get; set; }
 
-        public string AnnualRate { get; set; }
+#endregion
 
-        public string Premium_EAW_Rate { get; set; }
-
-        public decimal? Premium_Incl_levy_PolFeeRO { get; set; }
         public decimal? GrossPremium { get; set; }
         public int PolicyFee1_RO { get; set; }
 
@@ -132,16 +121,19 @@ namespace Totalligent.BusinessEntities
         public DateTime? CreatedAt { get; set; }
 
         public string UpdatedBy { get; set; }
+        public string BrokerName { get; set; }
 
         public DateTime? UpdatedAt { get; set; }
 
         public string Premium_TypeofSumAssured { get; set; }
-        public decimal? Premium_SumAssured { get; set; }
+        
         public decimal? Premium_Salary { get; set; }
         public decimal? Premium_FCL { get; set; }
         public decimal? Premium_ClientRate { get; set; }
+        public decimal? Premium_Incl_levy_PolFeeRO { get; set; }
         public string Premium_VariableSADetails { get; set; }
- 
+
+        
         //QuotationCoverageDetail
         public long QuotationCoverageDetailID { get; set; }
         public string DeathCoverType { get; set; }

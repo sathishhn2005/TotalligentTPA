@@ -44,6 +44,8 @@ namespace Totalligent.BusinessEntities
         public long? ProducerName { get; set; }
 
         public decimal? ProducerCommission { get; set; }
+        public decimal? RINetRate { get; set; }
+        public decimal? GrossRate { get; set; }
 
         public long? RINumber { get; set; }
 
