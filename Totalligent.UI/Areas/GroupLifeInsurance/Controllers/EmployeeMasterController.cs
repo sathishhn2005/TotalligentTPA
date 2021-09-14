@@ -22,7 +22,7 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult AddUpdateEmpMaster(EmployeeMaster objEmpMaster, string Action, string FolderName)
+        public JsonResult AddUpdateEmpMaster(EmployeeMaster objEmpMaster, string Action, string FolderName)
         {
             string msg = "";
             long EmpMasterID = 0;
@@ -69,9 +69,9 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
             {
                 msg = "Error Occured, Please check it.";
             }
-            TempData["Alertmsg"] = msg;
+            //TempData["Alertmsg"] = msg;
 
-            return View();
+            return Json(msg, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public JsonResult GetAutocompleteEmpNameId(string prefixText, string Action)

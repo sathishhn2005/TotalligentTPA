@@ -45,7 +45,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Client Company Name</label>
                                     </div>
                                     <div class="col-md-8 demo-section k-content">
-                                        @Html.DropDownListFor(model => model.objQuo.ClientCompanyName, Model.lstClientMaster, "-- Select Type --", new {@onchange="getReinsurerInfo()", @class = "form-control" })
+                                        @Html.DropDownListFor(model => model.objQuo.ClientCompanyName, Model.lstClientMaster, "-- Select Type --", new { @onchange = "getReinsurerInfo()", @class = "form-control" })
 
                                     </div>
                                 </div>
@@ -1267,7 +1267,7 @@
                                                     <label class="col-sm-12 col-form-label text-left">Gross Rate%</label>
                                                 </div>
                                                 <div class="col-md-7 demo-section k-content">
-                                                    @Html.TextBox("Premium_GrossRate", "", new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Salary" })
+                                                    @Html.TextBox("Premium_GrossRate", "", new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Gross Rate%" })
                                                 </div>
                                             </div>
                                             <div class="row m-b-15 m-t-15">
@@ -1275,7 +1275,7 @@
                                                     <label class="col-sm-12 col-form-label text-left">Net Premium</label>
                                                 </div>
                                                 <div class="col-md-7 demo-section k-content">
-                                                    @Html.TextBox("Premium_NetPremium", "", new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter FCL" })
+                                                    @Html.TextBox("Premium_NetPremium", "", new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Net Premium" })
                                                 </div>
                                             </div>
                                             <div class="row m-b-15 m-t-15">
@@ -1283,7 +1283,7 @@
                                                     <label class="col-sm-12 col-form-label text-left">Levy 0.55%</label>
                                                 </div>
                                                 <div class="col-md-7 demo-section k-content">
-                                                    @Html.TextBox("Premium_Levy", "", new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Client Rate" })
+                                                    @Html.TextBox("Premium_Levy", "", new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Levy 0.55%" })
                                                 </div>
                                             </div>
                                             <div class="row m-b-15 m-t-15">
@@ -1291,7 +1291,7 @@
                                                     <label class="col-sm-12 col-form-label text-left">Policy Fee 1 RO</label>
                                                 </div>
                                                 <div class="col-md-7 demo-section k-content">
-                                                    @Html.TextBox("Premium_PolicyFee1_RO", "", new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Client Rate" })
+                                                    @Html.TextBox("Premium_PolicyFee1_RO", "", new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "EnterPolicy Fee 1 RO" })
                                                 </div>
                                             </div>
                                             <div class="row m-b-15 m-t-15">
@@ -1299,7 +1299,7 @@
                                                     <label class="col-sm-12 col-form-label text-left">Gross Premium</label>
                                                 </div>
                                                 <div class="col-md-7 demo-section k-content">
-                                                    @Html.TextBox("Premium_GrossPremium", "", new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter FCL" })
+                                                    @Html.TextBox("Premium_GrossPremium", "", new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Gross Premium" })
                                                 </div>
                                             </div>
                                             <input type="hidden" id="hdnVariableTypeSumContent" name="Premium_VariableSADetails" value='[{"CategoryName":"Gold Member","SumAssured":"","Salary":"0","FCL":"","ClientRate":""},{"CategoryName":"Silver  Member","SumAssured":"","Salary":"0","FCL":"","ClientRate":""}]' />
@@ -1319,27 +1319,27 @@
                                     <div class="col-md-11 m-b-15 m-t-15 mx-auto">
 
                                         <div class="row m-b-15 m-t-15">
-                                            <div class="col-md-5">
+                                            <div class="col-md-3">
                                                 <label class="col-sm-12 col-form-label text-left">Broker Name</label>
                                             </div>
                                             <div class="col-md-7 demo-section k-content">
-                                                @Html.TextBoxFor(model => model.objQuo.Premium_BrokerName, new { @class = "form-control w-full", @placeholder = "Enter Broker %" })
+                                                @Html.TextBoxFor(model => model.objQuo.Premium_BrokerName, new {@readonly="readonly", @class = "form-control w-full", @placeholder = "Enter Broker Name" })
                                             </div>
                                         </div>
                                         <div class="row m-b-15 m-t-15">
-                                            <div class="col-md-5">
+                                            <div class="col-md-3">
                                                 <label class="col-sm-12 col-form-label text-left">Broker Commssion %</label>
                                             </div>
                                             <div class="col-md-7 demo-section k-content">
-                                                @Html.TextBoxFor(model => model.objQuo.Premium_BrokerCommssion, new { @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Broker %" })
+                                                @Html.TextBoxFor(model => model.objQuo.Premium_BrokerCommssion, new { @type = "number", @min = "0", @step = "0.01",@readonly="readonly", @class = "form-control w-full", @placeholder = "Enter Broker Commission%" })
                                             </div>
                                         </div>
                                         <div class="row m-b-15 m-t-15">
-                                            <div class="col-md-5">
+                                            <div class="col-md-3">
                                                 <label class="col-sm-12 col-form-label text-left">Brokerage</label>
                                             </div>
                                             <div class="col-md-7 demo-section k-content">
-                                                @Html.TextBoxFor(model => model.objQuo.Premium_Brokerage, new { @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Broker Amount" })
+                                                @Html.TextBoxFor(model => model.objQuo.Premium_Brokerage, new {@readonly="readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Broker Amount" })
                                             </div>
                                         </div>
                                     </div>
@@ -1352,14 +1352,16 @@
                                     <div class="table-responsive">
                                         <table id="tblReinsurer" class="table table-hover">
                                             <tr>
-                                                <th>Client Company</th>
-                                                <th>Code</th>
-                                                <th>ContactPerson</th>
-                                                <th>MobileNumber</th>
-                                                <th>EmailId</th>
-                                                <th>City</th>
-                                                <th>KYCUploadPath</th>
-                                                <th class="text-center">Actions</th>
+                                                <th>RI Name</th>
+                                                <th>RI net rate%</th>
+                                                <th>RI Premium</th>
+                                                <th>RI Retention %</th>
+                                                <th>Insurer Retention %</th>
+                                                <th>RI Retention Premium</th>
+                                                <th>Insurer Retention Premium</th>
+                                                <th>Insurer Loading Premium</th>
+                                                <th>Insurer Loading</th>
+
                                             </tr>
                                             <tbody>
                                             </tbody>
@@ -1455,7 +1457,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Policy Fee 1 RO</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        @Html.TextBoxFor(model => model.objQuo.PolicyFee1_RO, new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter 5% VAT on WC premium" })
+                                        @Html.TextBoxFor(model => model.objQuo.PolicyFee1_RO, new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Policy Fee 1 RO" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -1464,7 +1466,7 @@
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
 
-                                        @Html.TextBoxFor(model => model.objQuo.GrossPremium, new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Total Premium Incl. VAT" })
+                                        @Html.TextBoxFor(model => model.objQuo.GrossPremium, new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Gross Premium" })
                                     </div>
                                 </div>
                                 <h4>Loadings</h4>
@@ -1473,7 +1475,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Broker Name</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        @Html.TextBoxFor(model => model.objQuo.BrokerName, new { @class = "form-control w-full", @placeholder = "Enter Broker %" })
+                                        @Html.TextBoxFor(model => model.objQuo.BrokerName, new {@readonly="readonly", @class = "form-control w-full", @placeholder = "Enter Broker Name" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -1481,7 +1483,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Broker Commssion %</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        @Html.TextBoxFor(model => model.objQuo.BrokerPercentage, new { @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Broker %" })
+                                        @Html.TextBoxFor(model => model.objQuo.BrokerPercentage, new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Broker Commssion%" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -1489,7 +1491,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Brokerage</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        @Html.TextBoxFor(model => model.objQuo.BrokerAmount, new { @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Broker Amount" })
+                                        @Html.TextBoxFor(model => model.objQuo.BrokerAmount, new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Brokerage" })
                                     </div>
                                 </div>
                             </div>
@@ -1592,11 +1594,22 @@
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
             data: param,
             success: function (Result) {
-                if (Result.length > 0) {
+                if (Result.lstReinsurerRate.length > 0) {
                     //Result.lstReinsurerRate
                     //Result.objRIRateCalc
-                    $.each(Result, function (key, value) {
-                       // $('#tblReinsurer').append('<tr> <td>' + value.ClientCompanyName + '</td>  <td>' + value.ClientCompCode + '</td> <td>' + value.ContactPerson + '</td> <td>' + value.MobileNumber + '</td><td>' + value.EmailId + '</td> <td>' + value.Address + '</td><td> <a href="' + value.KYCUploadPath + '" class="badge badge-pill badge-warning" download> Download KYC</a></td><td class="text-center"><i class="mdi mdi-pencil text-primary mx-3" onclick="EditCCMaster(' + "'" + hdnID + "'" + ')"></i><i class="mdi mdi-delete text-danger mx-3" onclick="DeActiveCCMaster(this,' + value.ClientCompanyMasterId.toString() + ');"></i><input type="hidden" id=' + hdnID + ' value=' + "'" + JVal + "'" + '></td></tr>');
+                    var FixedSA = Result.objRIRateCalc;
+                    $('#Premium_SumAssured').val(FixedSA.Premium_SumAssured)
+                    $('#Premium_GrossRate').val(FixedSA.Premium_GrossRate)
+                    $('#Premium_NetPremium').val(FixedSA.Premium_NetPremium)
+                    $('#Premium_Levy').val(FixedSA.Premium_Levy)
+                    $('#Premium_PolicyFee1_RO').val(FixedSA.Premium_PolicyFee1RO)
+                    $('#Premium_GrossPremium').val(FixedSA.Premium_GrossPremium)
+                    $('#objQuo_Premium_BrokerName').val(FixedSA.Premium_BrokerName)
+                    $('#objQuo_Premium_BrokerCommssion').val(FixedSA.Premium_BrokerCommssion)
+                    $('#objQuo_Premium_Brokerage').val(FixedSA.Premium_Brokerage)
+
+                    $.each(Result.lstReinsurerRate, function (key, value) {
+                        $('#tblReinsurer').append('<tr> <td>' + value.Premium_RIName + '</td>  <td>' + value.Premium_RInetrate + '</td> <td>' + value.Premium_RIPremium + '</td> <td>' + value.Premium_RIRetention + '</td><td>' + value.Premium_InsurerRetention + '</td> <td>' + value.Premium_RIRetentionPremium + '</td> <td>' + value.Premium_InsurerRetentionPremium + '</td><td>' + value.Premium_InsurerLoadingPremium + '</td><td>' + value.Premium_InsurerLoading + '</td></tr>');
                     })
                 }
                 else {
@@ -1657,7 +1670,13 @@
                 $('#objQuo_NetPremium').val(Result.NetPremium);
                 $('#objQuo_PolicyFee1_RO').val(Result.PolicyFee1_RO);
                 $('#objQuo_WCRate').val(Result.WCRate);
-
+                var WC_BrokerName = $('#objQuo_Premium_BrokerName').val();
+                var WC_BrokerCommission = $('#objQuo_Premium_BrokerCommssion').val();
+                var WC_NetPremium = Result.NetPremium;
+                var WC_BrokerAmount = (parseFloat(WC_NetPremium) * parseFloat(WC_BrokerCommission)) / 100;
+                $('#objQuo_BrokerName').val(WC_BrokerName);
+                $('#objQuo_BrokerPercentage').val(WC_BrokerCommission);
+                $('#objQuo_BrokerAmount').val(WC_BrokerAmount);
             },
             error: function () {
                 // $("#lblMessage").html('Error while Registring the Company!.');
@@ -1682,7 +1701,12 @@
                 $('#objQuo_Premium_Incl_levy_PolFeeRO').val(Result.Premium_Incl_levy_PolFeeRO);
                 $('#objQuo_PolicyFee1_RO').val(Result.PolicyFee1_RO);
                 $('#objQuo_GrossPremium').val(Result.GrossPremium);
-
+                var WC_BrokerName = $('#objQuo_Premium_BrokerName').val();
+                var WC_BrokerCommission = $('#objQuo_Premium_BrokerCommssion').val();
+                var WC_BrokerAmount = (parseFloat(WC_NetPremium) * parseFloat(WC_BrokerCommission)) / 100;
+                $('#objQuo_BrokerName').val(WC_BrokerName);
+                $('#objQuo_BrokerPercentage').val(WC_BrokerCommission);
+                $('#objQuo_BrokerAmount').val(WC_BrokerAmount);
             },
             error: function () {
                 // $("#lblMessage").html('Error while Registring the Company!.');

@@ -13,6 +13,7 @@ namespace Totalligent.BAL
     {
         private const double WCRateFixed = 0.10;
         private const double Levy = 1.6;
+        private const double Premium_Levy = 0.55;
 
         public long DMLQuotationMaster(string Action, string JParamValQuotationDetails, string JParamValCoverageDetails, out List<Quotation> objResponse)
         {
@@ -33,8 +34,8 @@ namespace Totalligent.BAL
                 objWCRate.SumOfSalary = SumOfSalary;
                 objWCRate.EstimatedAnnualWages = SumOfSalary * 12;
                 objWCRate.WCRate = WCRateFixed;
-                objWCRate.NetPremium = (objWCRate.EstimatedAnnualWages) / 100 * Convert.ToDecimal(objWCRate.WCRate);
-                objWCRate.Premium_Incl_levy_PolFeeRO = objWCRate.NetPremium * Convert.ToDecimal(Levy);
+                objWCRate.NetPremium = ((objWCRate.EstimatedAnnualWages) * Convert.ToDecimal(objWCRate.WCRate)) / 100;
+                objWCRate.Premium_Incl_levy_PolFeeRO = (objWCRate.NetPremium * Convert.ToDecimal(Levy)) / 100;
                 objWCRate.PolicyFee1_RO = 1;
                 objWCRate.GrossPremium = objWCRate.NetPremium + objWCRate.Premium_Incl_levy_PolFeeRO + objWCRate.PolicyFee1_RO;
             }
@@ -56,7 +57,7 @@ namespace Totalligent.BAL
                 objPPRate.TotalEmployees = EmpCount;
                 objPPRate.PerPerson = 2;
                 objPPRate.NetPremium = (objPPRate.TotalEmployees) * Convert.ToDecimal(objPPRate.PerPerson);
-                objPPRate.Premium_Incl_levy_PolFeeRO = objPPRate.NetPremium * Convert.ToDecimal(Levy);
+                objPPRate.Premium_Incl_levy_PolFeeRO = (objPPRate.NetPremium * Convert.ToDecimal(Levy)) / 100;
                 objPPRate.PolicyFee1_RO = 1;
                 objPPRate.GrossPremium = objPPRate.NetPremium + objPPRate.Premium_Incl_levy_PolFeeRO + objPPRate.PolicyFee1_RO;
             }
@@ -75,13 +76,13 @@ namespace Totalligent.BAL
             lstRate = null;
             try
             {
-                new GLIQuotationDAL().GetQuotationPremiumReinsurer(InsuranceCompanyName, ClientCompanyName, out lstRate);
-                //objRIRate.TotalEmployees = EmpCount;
-                //objRIRate.PerPerson = 2;
-                //objRIRate.NetPremium = (objRIRate.TotalEmployees) * Convert.ToDecimal(objRIRate.PerPerson);
-                //objRIRate.Premium_Incl_levy_PolFeeRO = objRIRate.NetPremium * Convert.ToDecimal(Levy);
-                //objRIRate.PolicyFee1_RO = 1;
-                //objRIRate.GrossPremium = objRIRate.NetPremium + objRIRate.Premium_Incl_levy_PolFeeRO + objRIRate.PolicyFee1_RO;
+                new GLIQuotationDAL().GetQuotationPremiumReinsurer(InsuranceCompanyName, ClientCompanyName, out objRIRate, out lstRate);
+                
+                objRIRate.Premium_NetPremium = (objRIRate.Premium_SumAssured * objRIRate.Premium_GrossRate)/100;
+                objRIRate.Premium_Levy = (objRIRate.Premium_NetPremium * Convert.ToDecimal(Premium_Levy)) / 100;
+                objRIRate.Premium_PolicyFee1RO = 1;
+                objRIRate.Premium_GrossPremium = objRIRate.Premium_NetPremium + objRIRate.Premium_Levy + objRIRate.Premium_PolicyFee1RO;
+                objRIRate.Premium_Brokerage = (objRIRate.Premium_GrossPremium * objRIRate.Premium_BrokerCommssion) / 100;
             }
             catch (Exception ex)
             {

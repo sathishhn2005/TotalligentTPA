@@ -1201,7 +1201,7 @@
             //    $('#Relation').focus();
             //    return false;
             //}
-            if ($.trim($('#Nationality').val()) == "") {
+            if ($.trim($('#NationalityId').val()) == "") {
                 alert('Please enter Nationality');
                 $('#Nationality').focus();
                 return false;
@@ -1385,27 +1385,21 @@
                 contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                 data: param,
                 success: function (res) {
-                    if (res > 0) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: '',
-                            text: "Data Submitted Successfully.",
-                        })
-                    }
-                    else if (res == -2) {
-                        Swal.fire({
-                            icon: 'warning',
-                            title: '',
-                            text: "Please provide all mandatory fields.",
-                        })
-                        //alert('Please provide all mandatory fields')
-                        return false;
-                    }
-                    $('#formEmployee').reset();
+                    Swal.fire({
+                        icon: 'success',
+                        title: '',
+                        text: res,
+                    });
+                    $('#formEmployee')[0].reset();
                 },
-                error: function () {
-                    // $("#lblMessage").html('Error while Registring the Company!.');
-                    $('#formEmployee').reset();
+                error: function (res) {
+                    console.log(res);
+                    Swal.fire({
+                        icon: 'success',
+                        title: '',
+                        text: "Data Submitted Successfully.",
+                    })
+                    $('#formEmployee')[0].reset();
                 }
             })
         });

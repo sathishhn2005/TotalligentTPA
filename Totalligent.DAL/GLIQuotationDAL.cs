@@ -158,11 +158,12 @@ namespace Totalligent.DAL
             }
             return returnCode;
         }
-        public long GetQuotationPremiumReinsurer(string InsuranceCompanyName, string ClientCompanyName, out List<Quotation> lstRate)
+        public long GetQuotationPremiumReinsurer(string InsuranceCompanyName, string ClientCompanyName, out Quotation objRIRate, out List<Quotation> lstRate)
         {
             long RIMAsterID = 0;
             lstRate = null;
             SqlCommand sqlCommand = new SqlCommand();
+            objRIRate = null;
             DataSet dt = new DataSet();
 
            
@@ -182,7 +183,15 @@ namespace Totalligent.DAL
                     dt = objDBEngine.GetDataSet("pGetQuotationReinsurer", Param);
                     if (dt.Tables[0].Rows.Count > 0)
                     {
+                        objRIRate = new Quotation();
+                        foreach (DataRow dr in dt.Tables[0].Rows)
+                        {
 
+                            objRIRate.Premium_SumAssured = Convert.ToDecimal(dr["Premium_SumAssured"]);
+                            objRIRate.Premium_GrossRate = Convert.ToDecimal(dr["Premium_GrossRate"]);
+                            objRIRate.Premium_BrokerName = Convert.ToString(dr["Premium_BrokerName"]);
+                            objRIRate.Premium_BrokerCommssion = Convert.ToDecimal(dr["Premium_BrokerCommssion"]);
+                        }
                     }
                     if (dt.Tables[1].Rows.Count > 0)
                     {
