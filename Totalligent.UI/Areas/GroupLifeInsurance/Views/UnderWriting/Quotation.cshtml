@@ -164,9 +164,6 @@
                                     <div class="row m-b-15 m-t-15">
                                         <div class="col-md-3">
                                             @*@Html.RadioButtonFor(model => model.objQuo.DeathCoverType, "DAC" ,new { @id = "DAC", @onclick = "AssignDeathCoverValues('DAC');", @class = "with-gap radio-col-primary",@text= "Death due to any cause (DAC)", @placeholder = "Enter Category" })*@
-
-
-
                                             <input name="DeathCoverType" type="radio" value="DAC" id="DAC" onclick="AssignDeathCoverValues('DAC');" class="with-gap radio-col-primary" />
                                             <label for="DAC">Death due to any cause (DAC)</label>
                                         </div>
@@ -366,16 +363,16 @@
                                                 </div>
                                                 <div class="row m-b-15 m-t-15">
                                                     <div class="col-md-5">
-                                                        <label class="col-sm-12 col-form-label text-left pl-1">Coverage Limit</label>
+                                                        <label class="col-sm-12 col-form-label text-left pl-1">Sum Assured</label>
                                                     </div>
                                                     <div class="col-md-7 input-group">
                                                         <span class="input-group-prepend">
                                                             <span class="input-group-text">OMR</span>
                                                         </span>
-                                                        <input type="number" class="form-control" id="txtPTDCoverageLimit" name="PTDCoverageLimit" placeholder="Enter Coverage Amount">
+                                                        <input type="number" class="form-control" id="txtPTDCoverageLimit" name="PTDCoverageLimit" placeholder="Enter Sum Assured">
                                                     </div>
                                                 </div>
-                                                <div class="row m-b-15 m-t-15">
+                                                <div class="row m-b-15 m-t-15 d-none">
                                                     <div class="col-md-5">
                                                         <label class="col-sm-12 col-form-label text-left pl-1">Maximum Limit</label>
                                                     </div>
@@ -420,16 +417,16 @@
                                                 </div>
                                                 <div class="row m-b-15 m-t-15">
                                                     <div class="col-md-5">
-                                                        <label class="col-sm-12 col-form-label text-left pl-1">Coverage Limit</label>
+                                                        <label class="col-sm-12 col-form-label text-left pl-1">Sum Assured</label>
                                                     </div>
                                                     <div class="col-md-7 input-group">
                                                         <span class="input-group-prepend">
                                                             <span class="input-group-text">OMR</span>
                                                         </span>
-                                                        <input type="number" class="form-control" id="txtPPDCoverageLimit" name="PPDCoverageLimit" placeholder="Enter Coverage Amount">
+                                                        <input type="number" class="form-control" id="txtPPDCoverageLimit" name="PPDCoverageLimit" placeholder="Enter Sum Assured">
                                                     </div>
                                                 </div>
-                                                <div class="row m-b-15 m-t-15">
+                                                <div class="row m-b-15 m-t-15 d-none">
                                                     <div class="col-md-5">
                                                         <label class="col-sm-12 col-form-label text-left pl-1">Maximum Limit</label>
                                                     </div>
@@ -474,16 +471,16 @@
                                                 </div>
                                                 <div class="row m-b-15 m-t-15">
                                                     <div class="col-md-5">
-                                                        <label class="col-sm-12 col-form-label text-left pl-1">Coverage Limit</label>
+                                                        <label class="col-sm-12 col-form-label text-left pl-1">Sum Assured</label>
                                                     </div>
                                                     <div class="col-md-7 input-group">
                                                         <span class="input-group-prepend">
                                                             <span class="input-group-text">OMR</span>
                                                         </span>
-                                                        <input type="number" class="form-control" id="txtTTDCoverageLimit" name="TTDCoverageLimit" placeholder="Enter Coverage Amount">
+                                                        <input type="number" class="form-control" id="txtTTDCoverageLimit" name="TTDCoverageLimit" placeholder="Enter Sum Assured">
                                                     </div>
                                                 </div>
-                                                <div class="row m-b-15 m-t-15">
+                                                <div class="row m-b-15 m-t-15 d-none">
                                                     <div class="col-md-5">
                                                         <label class="col-sm-12 col-form-label text-left pl-1">Maximum Limit</label>
                                                     </div>
