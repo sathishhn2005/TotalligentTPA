@@ -71,7 +71,7 @@
                                     <div class="row">
                                         <div class="col-md-5">
 
-                                            @Html.Label("Relationship", "Relationship", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                            @Html.Label("Relationship", "Relationship", htmlAttributes: new { @class = "col-form-label text-md-right w-full" })
 
                                         </div>
                                         <div class="col-md-6">
@@ -83,7 +83,7 @@
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.Label("EmployeeName", "EmployeeName", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("EmployeeName", "Employee Name", htmlAttributes: new { @class = "col-form-label text-md-right w-full" })
                                             </div>
                                             <div class="col-md-6">
                                                 @Html.TextBox("EmployeeName", "", new { @required = "required", @class = "form-control", placeholder = "Enter Employee Name" })
@@ -94,7 +94,7 @@
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.Label("EmployeeUniqueNumber", "EmployeeUniqueNumber", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("EmployeeUniqueNumber", "Employee Unique Number", htmlAttributes: new { @class = "col-form-label text-md-right w-full" })
                                             </div>
                                             <div class="col-md-6">
                                                 @Html.TextBox("EmployeeUniqueNumber", "", new { @required = "required", @class = "form-control", placeholder = "Enter Employee UID" })
@@ -104,7 +104,7 @@
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                <label class="col-sm-12 col-form-label text-right">Client Name</label>
+                                                <label class="col-form-label text-md-right w-full">Client Name</label>
 
                                             </div>
                                             <div class="col-md-6">
@@ -115,18 +115,18 @@
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                <label class="col-sm-12 col-form-label text-right">Gender</label>
+                                                <label class="col-form-label text-md-right w-full">Gender</label>
 
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.DropDownList("EmployeeGender", Gender, "-- Select Gender --", new { @class = "form-control" })
+                                                @Html.DropDownList("Gender", Gender, "-- Select Gender --", new { @class = "form-control" })
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.Label("DOB", "DOB", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("DOB", "DOB", htmlAttributes: new { @class = "col-form-label text-md-right w-full" })
                                             </div>
                                             <div class="col-md-6">
                                                 @Html.TextBox("DOB", "", new { @type = "date", @required = "required", @class = "form-control", placeholder = "Enter DOB" })
@@ -137,7 +137,7 @@
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.Label("Age", "Age", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("Age", "Age", htmlAttributes: new { @class = "col-form-label text-md-right w-full" })
                                             </div>
                                             <div class="col-md-6">
                                                 @Html.TextBox("Age", "", new { @required = "required", @class = "form-control", placeholder = "Enter Age" })
@@ -150,7 +150,7 @@
                                                 <label class="col-form-label text-md-right w-full">Nationality</label>
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.DropDownList("NationalityId", Model.lstNationlity, "-- Select Country --", new { @class = "form-control" })
+                                                @Html.DropDownList("NationlityId", Model.lstNationlity, "-- Select Country --", new { @class = "form-control" })
                                             </div>
                                         </div>
                                     </div>
@@ -158,7 +158,7 @@
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.Label("Category", "Category", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("Category", "Category", htmlAttributes: new { @class = "col-form-label text-md-right w-full" })
 
                                             </div>
                                             <div class="col-md-6">
@@ -169,7 +169,7 @@
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.Label("SumAssured", "SumAssured", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("SumAssured", "SumAssured", htmlAttributes: new { @class = "col-form-label text-md-right w-full" })
                                             </div>
                                             <div class="col-md-6">
                                                 @Html.TextBox("SumAssured", "", new { @required = "required", @class = "form-control", placeholder = "Enter SumAssured" })
@@ -180,7 +180,7 @@
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.Label("Salary", "Salary", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("Salary", "Salary", htmlAttributes: new { @class = "col-form-label text-md-right w-full" })
                                             </div>
                                             <div class="col-md-6">
                                                 @Html.TextBox("Salary", "", new { @required = "required", @class = "form-control", placeholder = "Enter Salary" })
@@ -188,10 +188,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group m-b-15">
+                                    <div class="form-group m-b-15 d-none">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.Label("EAW", "EAW", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("EAW", "EAW", htmlAttributes: new { @class = "col-form-label text-md-right w-full" })
                                             </div>
                                             <div class="col-md-6">
                                                 @Html.TextBox("EAW", "", new { @required = "required", @class = "form-control", placeholder = "Enter EAW" })
@@ -202,7 +202,7 @@
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.Label("EffectiveDate", "EffectiveDate", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("EffectiveDate", "EffectiveDate", htmlAttributes: new { @class = "col-form-label text-md-right w-full" })
                                             </div>
                                             <div class="col-md-6">
                                                 @Html.TextBox("EffectiveDate", "", new { @type = "date", @required = "required", @class = "form-control", placeholder = "Enter EffectiveDate" })
@@ -212,7 +212,7 @@
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.Label("Remarks", "Remarks", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("Remarks", "Remarks", htmlAttributes: new { @class = "col-form-label text-md-right w-full" })
                                             </div>
                                             <div class="col-md-6">
                                                 @Html.TextBox("Remarks", "", new { @required = "required", @class = "form-control", placeholder = "Enter Remarks" })
@@ -223,11 +223,16 @@
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                <label class="col-sm-12 col-form-label text-right">Status</label>
+                                                <label class="col-form-label text-md-right w-full">Status</label>
                                             </div>
-                                            <div class="col-md-6">
-                                                @Html.TextBox("Status", "", new { @required = "required", @class = "form-control", placeholder = "Enter Status" })
-
+                                            <div class="col-md-6 d-flex align-items-center">
+                                                <div class="checkbox switcher">
+                                                    <label for="switchStatus" class="mb-0">
+                                                        <input type="checkbox" id="switchStatus" checked="checked" value="">
+                                                        <span><small></small></span>
+                                                        @*<small>Currently Disabled</small>*@
+                                                    </label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -240,7 +245,7 @@
                                                 <label for="EmployeeUIDSpouse" class="col-form-label text-md-right w-full">Employee UID </label>
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBox("EmployeeUIDSpouse", "", new { @required = "required", @class = "form-control", placeholder = "Enter Employee UID" })
+                                                @Html.TextBox("EmployeeUniqueNo", "", new { @required = "required", @class = "form-control", placeholder = "Enter Employee UID" })
                                             </div>
                                         </div>
                                     </div>
@@ -257,7 +262,7 @@
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                <label class="col-sm-12 col-form-label text-right">Gender</label>
+                                                <label class="col-form-label text-md-right w-full">Gender</label>
 
                                             </div>
                                             <div class="col-md-6">
@@ -268,17 +273,17 @@
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                <label class="col-sm-12 col-form-label text-right">Spouse DOB</label>
+                                                <label class="col-form-label text-md-right w-full">Spouse DOB</label>
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBox("SpouseDOB", "", new { @type = "date", @required = "required", @class = "form-control", placeholder = "Enter SpouseDOB" })
+                                                @Html.TextBox("SpouseAgeDOB", "", new { @type = "date", @required = "required", @class = "form-control", placeholder = "Enter SpouseDOB" })
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.Label("SpouseAge", "SpouseAge", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("SpouseAge", "Spouse Age", htmlAttributes: new { @class = "col-form-label text-md-right w-full" })
                                             </div>
                                             <div class="col-md-6">
                                                 @Html.TextBox("SpouseAge", "", new { @required = "required", @class = "form-control", placeholder = "Enter Spouse Age" })
@@ -286,21 +291,21 @@
                                             </div>
                                         </div>
                                     </div>
-                                   
+
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
                                                 <label class="col-form-label text-md-right w-full">Spouse Nationality</label>
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.DropDownList("SpouseNationality", Model.lstNationlity, "-- Select Country --", new { @class = "form-control" })
+                                                @Html.DropDownList("SpouseNationlityId", Model.lstNationlity, "-- Select Country --", new { @class = "form-control" })
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.Label("SpouseCategory", "SpouseCategory", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("SpouseCategory", "Spouse Category", htmlAttributes: new { @class = "col-form-label text-md-right w-full" })
 
                                             </div>
                                             <div class="col-md-6">
@@ -312,7 +317,7 @@
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.Label("SpouseSumAssured", "SpouseSumAssured", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("SpouseSumAssured", "Spouse SumAssured", htmlAttributes: new { @class = "col-form-label text-md-right w-full" })
                                             </div>
                                             <div class="col-md-6">
                                                 @Html.TextBox("SpouseSumAssured", "", new { @required = "required", @class = "form-control", placeholder = "Enter SpouseSumAssured" })
@@ -320,49 +325,19 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group m-b-15">
-                                        <div class="row">
-                                            <div class="col-md-5">
-                                                @Html.Label("SpouseSalary", "SpouseSalary", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
-                                            </div>
-                                            <div class="col-md-6">
-                                                @Html.TextBox("SpouseSalary", "", new { @required = "required", @class = "form-control", placeholder = "Enter SpouseSalary" })
 
-                                            </div>
-                                        </div>
-                                    </div>
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.Label("SpouseEffectiveDate", "SpouseEffectiveDate", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("SpouseEffectiveDate", "Spouse EffectiveDate", htmlAttributes: new { @class = "col-form-label text-md-right w-full" })
                                             </div>
                                             <div class="col-md-6">
                                                 @Html.TextBox("SpouseEffectiveDate", "", new { @type = "date", @required = "required", @class = "form-control", placeholder = "Enter SpouseEffectiveDate" })
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group m-b-15">
-                                        <div class="row">
-                                            <div class="col-md-5">
-                                                @Html.Label("SpouseRemarks", "SpouseRemarks", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
-                                            </div>
-                                            <div class="col-md-6">
-                                                @Html.TextBox("SpouseRemarks", "", new { @required = "required", @class = "form-control", placeholder = "Enter SpouseRemarks" })
 
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group m-b-15">
-                                        <div class="row">
-                                            <div class="col-md-5">
-                                                <label class="col-sm-12 col-form-label text-right">Spouse Status</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                @Html.TextBox("SpouseStatus", "", new { @required = "required", @class = "form-control", placeholder = "Enter SpouseStatus" })
 
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                                 <div id="ChildDetails" style="display: none;">
                                     <div class="form-group m-b-15">
@@ -371,20 +346,31 @@
                                                 <label for="EmployeeUIDChild" class="col-form-label text-md-right w-full">Employee UID</label>
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.TextBox("EmployeeUIDChild", "", new { @required = "required", @class = "form-control", placeholder = "Enter Employee UID" })
+                                                @Html.TextBox("EmployeeChildUniqueNumber", "", new { @required = "required", @class = "form-control", placeholder = "Enter Employee UID", @onblur = "javascript:GetSpouse(this.value);" })
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                <label for="EmployeesSpouse" class="col-form-label text-md-right w-full">Select Spouse</label>
+                                                <label for="EmpSpouse" class="col-form-label text-md-right w-full">Select Spouse</label>
                                             </div>
                                             <div class="col-md-6">
-                                                @Html.DropDownList("EmployeesSpouse", Gender, "-- Select Spouse --", new { @class = "form-control" })
+                                                <select class="form-control" disabled id="EmployeeSpouseNames" name="EmployeeSpouseNames"></select>
+                                                @* @Html.DropDownList("Name", Model.lstProducerMaster, "-- Producer Name --", new { @class = "form-control" })*@
                                             </div>
                                         </div>
                                     </div>
+                                    @*<div class="form-group m-b-15">
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                    <label for="EmployeesSpouse" class="col-form-label text-md-right w-full">Select Spouse</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    @Html.DropDownList("EmployeesSpouse", Gender, "-- Select Spouse --", new { @class = "form-control" })
+                                                </div>
+                                            </div>
+                                        </div>*@
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
@@ -398,7 +384,7 @@
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                <label class="col-sm-12 col-form-label text-right">Gender</label>
+                                                <label class="col-form-label text-md-right w-full">Gender</label>
 
                                             </div>
                                             <div class="col-md-6">
@@ -409,7 +395,7 @@
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.Label("ChildDOB", "ChildDOB", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("ChildDOB", "Child DOB", htmlAttributes: new { @class = "col-form-label text-md-right w-full" })
                                             </div>
                                             <div class="col-md-6">
                                                 @Html.TextBox("ChildDOB", "", new { @type = "date", @required = "required", @class = "form-control", placeholder = "Enter ChildDOB" })
@@ -419,7 +405,7 @@
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.Label("ChildAge", "ChildAge", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("ChildAge", "Child Age", htmlAttributes: new { @class = "col-form-label text-md-right w-full" })
                                             </div>
                                             <div class="col-md-6">
                                                 @Html.TextBox("ChildAge", "", new { @required = "required", @class = "form-control", placeholder = "Enter ChildAge" })
@@ -427,11 +413,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                   
+
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                <label class="col-form-label text-md-right w-full">Chile Nationality</label>
+                                                <label class="col-form-label text-md-right w-full">Child Nationality</label>
                                             </div>
                                             <div class="col-md-6">
                                                 @Html.DropDownList("ChildNationality", Model.lstNationlity, "-- Select Country --", new { @class = "form-control" })
@@ -441,7 +427,7 @@
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.Label("ChildCategory", "ChildCategory", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("ChildCategory", "Child Category", htmlAttributes: new { @class = "col-form-label text-md-right w-full" })
 
                                             </div>
                                             <div class="col-md-6">
@@ -453,7 +439,7 @@
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.Label("ChildSumAssured", "ChildSumAssured", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("ChildSumAssured", "Child SumAssured", htmlAttributes: new { @class = "col-form-label text-md-right w-full" })
                                             </div>
                                             <div class="col-md-6">
                                                 @Html.TextBox("ChildSumAssured", "", new { @required = "required", @class = "form-control", placeholder = "Enter ChildSumAssured" })
@@ -461,21 +447,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group m-b-15">
-                                        <div class="row">
-                                            <div class="col-md-5">
-                                                @Html.Label("ChildSalary", "ChildSalary", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
-                                            </div>
-                                            <div class="col-md-6">
-                                                @Html.TextBox("ChildSalary", "", new { @required = "required", @class = "form-control", placeholder = "Enter ChildSalary" })
 
-                                            </div>
-                                        </div>
-                                    </div>
                                     <div class="form-group m-b-15">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                @Html.Label("ChildEffectiveDate", "ChildEffectiveDate", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
+                                                @Html.Label("ChildEffectiveDate", "Child EffectiveDate", htmlAttributes: new { @class = "col-form-label text-md-right w-full" })
                                             </div>
                                             <div class="col-md-6">
                                                 @Html.TextBox("ChildEffectiveDate", "", new { @type = "date", @required = "required", @class = "form-control", placeholder = "Enter ChildEffectiveDate" })
@@ -483,28 +459,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group m-b-15">
-                                        <div class="row">
-                                            <div class="col-md-5">
-                                                @Html.Label("ChildRemarks", "ChildRemarks", htmlAttributes: new { @class = "col-sm-12 col-form-label text-right" })
-                                            </div>
-                                            <div class="col-md-6">
-                                                @Html.TextBox("ChildRemarks", "", new { @required = "required", @class = "form-control", placeholder = "Enter ChildRemarks" })
 
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group m-b-15">
-                                        <div class="row">
-                                            <div class="col-md-5">
-                                                <label class="col-sm-12 col-form-label text-right">Child Status</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                @Html.TextBox("ChildStatus", "", new { @required = "required", @class = "form-control", placeholder = "Enter ChildStatus" })
 
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                             <div class="col-12 col-md-6">
@@ -582,7 +538,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12">
+                            <div class="col-12 d-none">
                                 <div class="form-group">
                                     <div class="col-md-12 text-center">
                                         <button class="btn btn-primary-login m-20" type="button" onclick="temptableAdd();">
@@ -631,7 +587,7 @@
                             </div>
                             <input type="hidden" id="hdnEmpMasterID" value="0">
                         </div>
-                        
+
                     </form>
                 </div>
                 <div id="navpills2-2" class="tab-pane ">
@@ -722,6 +678,48 @@
     }
 </div>
 <script type="text/javascript">
+    function GetSpouse(EmpUnqNo) {
+        if (EmpUnqNo == "") {
+            $("#EmployeeSpouseNames").prop("disabled", true);
+            $("#EmployeeSpouseNames").empty();
+            return false;
+        }
+        var procemessage = "<option value='0'> Please wait...</option>";
+        $("#EmployeeSpouseNames").html(procemessage).show();
+        var url = "/GroupLifeInsurance/EmployeeMaster/GetSpouseList";
+
+        $.ajax({
+            url: url,
+            data: { EmployeeUniqueNumber: EmpUnqNo },
+            cache: false,
+            type: "POST",
+            success: function (data) {
+                if (data.list != null) {
+                    var lst = data.list
+                    var markup = "<option value='0'>--Select Producer--</option>";
+                    for (var x = 0; x < lst.length; x++) {
+                        markup += "<option value=" + lst[x].EmployeeId + ">" + lst[x].EmployeeName + "</option>";
+                    }
+                    $("#EmployeeSpouseNames").html(markup).show();
+                    $("#EmployeeSpouseNames").prop("disabled", false);
+                }
+                else {
+                    $("#EmployeeSpouseNames").prop("disabled", true);
+
+                    Swal.fire({
+                        icon: 'info',
+                        title: '',
+                        text: 'There is no spouse against selected Employee',
+                    });
+                }
+
+            },
+            error: function (reponse) {
+                alert("error : " + reponse);
+            }
+        });
+
+    }
     function csvFileUpload() {
 
         var rowCount = 0;
@@ -1190,62 +1188,58 @@
         $('#btnSubmitEmployeeMaster').on('click', function () {
 
 
-            if ($.trim($('#EmployeeName').val()) == "") {
-                alert('Please enter EmployeeName');
-                $('#EmployeeName').focus();
-                return false;
-            }
+            //if ($.trim($('#EmployeeName').val()) == "") {
+            //    alert('Please enter EmployeeName');
+            //    $('#EmployeeName').focus();
+            //    return false;
+            //}
 
             //if ($.trim($('#Relation').val()) == "") {
             //    alert('Please enter Relation');
             //    $('#Relation').focus();
             //    return false;
             //}
-            if ($.trim($('#NationalityId').val()) == "") {
-                alert('Please enter Nationality');
-                $('#Nationality').focus();
-                return false;
-            }
-            if ($.trim($('#Category').val()) == "") {
-                alert('Please enter Category');
-                $('#Category').focus();
-                return false;
-            }
-            if ($.trim($('#DOB').val()) == "") {
-                alert('Please enter DOB');
-                $('#DOB').focus();
-                return false;
-            }
-            if ($.trim($('#Age').val()) == "") {
-                alert('Please enter Age');
-                $('#Age').focus();
-                return false;
-            }
-            if ($.trim($('#Salary').val()) == "") {
-                alert('Please enter Salary');
-                $('#Salary').focus();
-                return false;
-            }
-            if ($.trim($('#EAW').val()) == "") {
-                alert('Please enter EAW');
-                $('#EAW').focus();
-                return false;
-            }
-            if ($.trim($('#SumAssured').val()) == "") {
-                alert('Please enter SumAssured');
-                $('#SumAssured').focus();
-                return false;
-            }
-            if ($.trim($('#EffectiveDate').val()) == "") {
-                alert('Please enter EffectiveDate');
-                $('#EffectiveDate').focus();
-                return false;
-            }
-            if ($.trim($('#Remarks').val()) == "") {
-                alert('Please enter Remarks');
-                $('#Remarks').focus();
-                return false;
-            }
+            //if ($.trim($('#NationlityId').val()) == "") {
+            //    alert('Please enter Nationality');
+            //    $('#Nationality').focus();
+            //    return false;
+            //}
+            //if ($.trim($('#Category').val()) == "") {
+            //    alert('Please enter Category');
+            //    $('#Category').focus();
+            //    return false;
+            //}
+            //if ($.trim($('#DOB').val()) == "") {
+            //    alert('Please enter DOB');
+            //    $('#DOB').focus();
+            //    return false;
+            //}
+            //if ($.trim($('#Age').val()) == "") {
+            //    alert('Please enter Age');
+            //    $('#Age').focus();
+            //    return false;
+            //}
+            //if ($.trim($('#Salary').val()) == "") {
+            //    alert('Please enter Salary');
+            //    $('#Salary').focus();
+            //    return false;
+            //}
+
+            //if ($.trim($('#SumAssured').val()) == "") {
+            //    alert('Please enter SumAssured');
+            //    $('#SumAssured').focus();
+            //    return false;
+            //}
+            //if ($.trim($('#EffectiveDate').val()) == "") {
+            //    alert('Please enter EffectiveDate');
+            //    $('#EffectiveDate').focus();
+            //    return false;
+            //}
+            //if ($.trim($('#Remarks').val()) == "") {
+            //    alert('Please enter Remarks');
+            //    $('#Remarks').focus();
+            //    return false;
+            //}
             //if ($.trim($('#EntryType').val()) == "") {
             //    alert('Please enter EntryType');
             //    $('#EntryType').focus();
@@ -1323,52 +1317,73 @@
                 $("#IFSCCode").focus();
                 return false;
             }
+            if ($('#RelationshipId').val() == 'Self') {
+                var objEmpMaster = new Object();
+                objEmpMaster.EmployeeId = $('#hdnEmpMasterID').val();
+                objEmpMaster.EmployeeName = $('#EmployeeName').val();
+                objEmpMaster.Gender = $('#Gender :selected').text();
 
-            var objEmpMaster = new Object();
-            objEmpMaster.EmployeeId = $('#hdnEmpMasterID').val();
-            objEmpMaster.EmployeeName = $('#EmployeeName').val();
-            objEmpMaster.EmployeeGender = $('#EmployeeGender').val();
-            objEmpMaster.EmployeeUniqueNumber = $('#EmployeeUniqueNumber').val();
-            //objEmpMaster.Relation = $('#Relation').val();
-            objEmpMaster.Nationality = $('#Nationality').val();
-            objEmpMaster.Category = $('#Category').val();
-            objEmpMaster.DOB = $('#DOB').val();
-            objEmpMaster.Age = $('#Age').val();
-            objEmpMaster.Salary = $('#Salary').val();
-            objEmpMaster.EAW = $('#EAW').val();
-            objEmpMaster.SumAssured = $('#SumAssured').val();
-            objEmpMaster.EffectiveDate = $('#EffectiveDate').val();
-            objEmpMaster.Remarks = $('#Remarks').val();
-            objEmpMaster.EntryType = $('#EntryType').val();
-            objEmpMaster.ClientCompanyName = $('#ClientCompanyName').val();
-            objEmpMaster.ClientName = $('#ClientCompanyName').val();
+                objEmpMaster.EmployeeUniqueNumber = $('#EmployeeUniqueNumber').val();
+                objEmpMaster.RelationType = $('#RelationshipId').text();
+                objEmpMaster.NationlityId = $('#NationlityId').val();
+                objEmpMaster.Category = $('#Category').val();
+                objEmpMaster.DOB = $('#DOB').val();
+                objEmpMaster.Age = $('#Age').val();
+                objEmpMaster.Salary = $('#Salary').val();
 
-            objEmpMaster.UploadKYC_01 = $('#UploadKYC_01').val();
-            objEmpMaster.UploadKYC_02 = $('#UploadKYC_02').val();
-            objEmpMaster.UploadKYC_03 = $('#UploadKYC_03').val();
-            objEmpMaster.UploadKYC_04 = $('#UploadKYC_04').val();
-            objEmpMaster.UploadKYC_05 = $('#UploadKYC_05').val();
-            objEmpMaster.Status = $('#Status').val();
+                objEmpMaster.SumAssured = $('#SumAssured').val();
+                objEmpMaster.EffectiveDate = $('#EffectiveDate').val();
+                objEmpMaster.Remarks = $('#Remarks').val();
+                objEmpMaster.EntryType = $('#EntryType').val();
 
-            objEmpMaster.SpouseAge = $('#SpouseAge').val();
-            objEmpMaster.ChildAge = $('#ChildAge').val();
-            objEmpMaster.SpouseCategory = $('#SpouseCategory').val();
-            objEmpMaster.ChildCategory = $('#ChildCategory').val();
-            objEmpMaster.SpouseDOB = $('#SpouseDOB').val();
-            objEmpMaster.ChildDOB = $('#ChildDOB').val();
-            objEmpMaster.SpouseEffectiveDate = $('#SpouseEffectiveDate').val();
-            objEmpMaster.ChildEffectiveDate = $('#ChildEffectiveDate').val();
-            objEmpMaster.SpouseNationality = $('#SpouseNationality').val();
-            objEmpMaster.ChildNationality = $('#ChildNationality').val();
-            objEmpMaster.SpouseRemarks = $('#SpouseRemarks').val();
-            objEmpMaster.ChildRemarks = $('#ChildRemarks').val();
-            objEmpMaster.SpouseSalary = $('#SpouseSalary').val();
-            objEmpMaster.ChildSalary = $('#ChildSalary').val();
-            objEmpMaster.SpouseStatus = $('#SpouseStatus').val();
-            objEmpMaster.ChildStatus = $('#ChildStatus').val();
-            objEmpMaster.SpouseSumAssured = $('#SpouseSumAssured').val();
-            objEmpMaster.ChildSumAssured = $('#ChildSumAssured').val();
+                objEmpMaster.ClientName = $('#ClientCompanyName').val();
 
+                var status = "";
+                if ($('input:checkbox[id=switchStatus]').is(':checked') == true) {
+                    status = 'A';
+                }
+                else { status = 'D' };
+
+                objEmpMaster.Status = status;
+
+            }
+            if ($('#RelationshipId').val() == 'Spouse') {
+                var objEmpMaster = new Object();
+                objEmpMaster.EmployeeId = $('#hdnEmpMasterID').val();
+                objEmpMaster.EmployeeName = $('#SpouseName').val();
+                objEmpMaster.Gender = $('#SpouseGender :selected').text();
+
+                objEmpMaster.EmployeeUniqueNumber = $('#EmployeeUniqueNo').val();
+                objEmpMaster.RelationType = $('#RelationshipId').text();
+                objEmpMaster.NationlityId = $('#SpouseNationlityId').val();
+                objEmpMaster.Category = $('#SpouseCategory').val();
+                objEmpMaster.DOB = $('#SpouseAgeDOB').val();
+                objEmpMaster.Age = $('#SpouseAge').val();
+                objEmpMaster.Salary = $('#Salary').val();
+
+                objEmpMaster.SumAssured = $('#SpouseSumAssured').val();
+                objEmpMaster.EffectiveDate = $('#SpouseEffectiveDate').val();
+
+            }
+            if ($('#RelationshipId').val() == 'Child') {
+                var objEmpMaster = new Object();
+                objEmpMaster.EmployeeId = $('#hdnEmpMasterID').val();
+                objEmpMaster.RelationType = $('#RelationshipId').text();
+                objEmpMaster.EmployeeUniqueNumber = $('#EmployeeChildUniqueNumber').val();
+                objEmpMaster.ParentSpouseId = $('#EmployeeSpouseNames :selected').val();
+                objEmpMaster.EmployeeName = $('#ChildName').val();
+                objEmpMaster.Gender = $('#ChildGender :selected').text();
+                objEmpMaster.DOB = $('#ChildDOB').val();
+                objEmpMaster.Age = $('#ChildAge').val();
+                
+                
+                objEmpMaster.NationlityId = $('#ChildNationality').val();
+                objEmpMaster.Category = $('#ChildCategory').val();
+                
+                objEmpMaster.SumAssured = $('#ChildSumAssured').val();
+                objEmpMaster.EffectiveDate = $('#ChildEffectiveDate').val();
+              
+            }
 
 
             objEmpMaster.BankName = $('#BankName :selected').text();
@@ -1395,9 +1410,9 @@
                 error: function (res) {
                     console.log(res);
                     Swal.fire({
-                        icon: 'success',
+                        icon: 'error',
                         title: '',
-                        text: "Data Submitted Successfully.",
+                        text: "Data is not Submitted Successfully.",
                     })
                     $('#formEmployee')[0].reset();
                 }
@@ -1561,7 +1576,12 @@
         $("#RepeatAccountNumber").val(objRow.AccountNumber);
         $("#IFSCCode").val(objRow.IFSCCode);
         $("#hdnEmpMasterID").val(objRow.EmployeeId);
-
+        if (objRow.Status == "A") {
+            $("#switchStatus").prop('checked', true);
+        }
+        else {
+            $("#switchStatus").prop('checked', false);
+        }
 
         $("#btnSubmitEmployeeMaster").val("Update");
 

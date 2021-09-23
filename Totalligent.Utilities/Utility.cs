@@ -388,15 +388,15 @@ namespace Totalligent.Utilities
                 _dr["EmployeeId"] = _obj.EmployeeId.Equals(null) ? 0 : _obj.EmployeeId;
                 _dr["EmployeeName"] = _obj.EmployeeName ?? "";
                 _dr["EmployeeUniqueNumber"] = _obj.EmployeeUniqueNumber ?? "";
-                _dr["Relation"] = _obj.Relation ?? "";
-                _dr["Nationality"] = _obj.NationalityId.Equals(null) ? 0 : _obj.NationalityId;
+                _dr["Relation"] = _obj.RelationType?? "";
+                _dr["Nationality"] = _obj.NationlityId.Equals(null) ? 0 : _obj.NationlityId;
                 
 
                 _dr["Category"] = _obj.Category ?? "";
                 _dr["DOB"] = _obj.DOB.Equals(null) ? DateTime.Now : _obj.DOB;
                 _dr["Age"] = _obj.Age.Equals(null) ? 0 : _obj.Age;
                 _dr["Salary"] = _obj.Salary.Equals(null) ? 0 : _obj.Salary;
-                _dr["EAW"] = _obj.EAW.Equals(null) ? 0 : _obj.EAW;
+                
 
                 _dr["SumAssured"] = _obj.SumAssured.Equals(null) ? 0 : _obj.SumAssured;
                 _dr["EffectiveDate"] = _obj.EffectiveDate.Equals(null) ? DateTime.Now : _obj.EffectiveDate;

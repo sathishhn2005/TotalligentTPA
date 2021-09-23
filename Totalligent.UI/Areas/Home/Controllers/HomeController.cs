@@ -338,7 +338,7 @@ namespace Totalligent.UI.Areas.Home.Controllers
                     UN = TempData["u"].ToString() ?? "";
 
                 }
-                model.CreatedBy = UN;
+                model.CreatedBy = UN.ToString();
                 returnCode = objBALTot.InsertEM(model);
                 //if (model.ID > 0 && returnCode > 0)
                 //{

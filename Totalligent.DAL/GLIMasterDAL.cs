@@ -1399,6 +1399,44 @@ namespace Totalligent.DAL
             }
             return InsRow;
         }
+
+        public int GetSpouseList(string EmployeeUniqueNumber, out List<EmployeeMaster> lstEmpMaster)
+        {
+            int ReturnCode = 0;
+            DataTable dt = new DataTable();
+            lstEmpMaster = null;
+            dtResult = new DataTable();
+            try
+            {
+                //SqlParameter[] Param = null;
+                objDBEngine = new DBEngine();
+                SqlParameter[] Param = {
+                                            new SqlParameter("@EmployeeUniqueNumber",SqlDbType.NVarChar),
+
+
+                                      };
+
+                Param[0].Value = EmployeeUniqueNumber;
+
+                using (objDBEngine = new DBEngine())
+                {
+                    dtResult = objDBEngine.GetDataTable("pGetEmpSpouses", Param);
+                    //List<DataRow> obj = dtResult.AsEnumerable().ToList();                  
+                    if (dtResult.Rows.Count > 0)
+                    {
+                        DTtoListConverter.ConvertTo(dtResult, out lstEmpMaster);
+                    }
+
+                }
+
+                ReturnCode = 1;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return ReturnCode;
+        }
         #endregion
 
         #region MedicalProviderMaster  

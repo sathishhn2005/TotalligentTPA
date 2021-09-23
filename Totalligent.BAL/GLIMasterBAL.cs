@@ -185,6 +185,10 @@ namespace Totalligent.BAL
         {
             return new GLIMasterDAL().BulkInsertEmpMaster(Action, JPramValue, Createdby, out Msg);
         }
+        public int GetSpouses(string EmployeeUniqueNumber, out List<EmployeeMaster> lstEmpMaster)
+        {
+            return new GLIMasterDAL().GetSpouseList(EmployeeUniqueNumber, out lstEmpMaster);
+        }
         #endregion
 
         #region MedicalProviderMaster  
