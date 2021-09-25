@@ -49,7 +49,7 @@ namespace Totalligent.BAL
         public long GetPerPersonRate(string ClientCompanyName, out Quotation objPPRate)
         {
             long returnCode = -1;
-            int EmpCount= 0;
+            int EmpCount = 0;
             objPPRate = new Quotation();
             try
             {
@@ -68,7 +68,7 @@ namespace Totalligent.BAL
             }
             return returnCode;
         }
-        public long GetReinsurerRate(string InsuranceCompanyName, string ClientCompanyName, out Quotation objRIRate, out List<Quotation> lstRate)
+        public long GetReinsurerRate(string InsuranceCompanyName, string ClientCompanyName, out QuotationKYCDetails QKYCDetails, out Quotation objRIRate, out List<Quotation> lstRate)
         {
             long returnCode = -1;
             //int EmpCount = 0;
@@ -76,13 +76,15 @@ namespace Totalligent.BAL
             lstRate = null;
             try
             {
-                new GLIQuotationDAL().GetQuotationPremiumReinsurer(InsuranceCompanyName, ClientCompanyName, out objRIRate, out lstRate);
-                
-                objRIRate.Premium_NetPremium = (objRIRate.Premium_SumAssured * objRIRate.Premium_GrossRate)/100;
-                objRIRate.Premium_Levy = (objRIRate.Premium_NetPremium * Convert.ToDecimal(Premium_Levy)) / 100;
-                objRIRate.Premium_PolicyFee1RO = 1;
-                objRIRate.Premium_GrossPremium = objRIRate.Premium_NetPremium + objRIRate.Premium_Levy + objRIRate.Premium_PolicyFee1RO;
-                objRIRate.Premium_Brokerage = (objRIRate.Premium_GrossPremium * objRIRate.Premium_BrokerCommssion) / 100;
+                new GLIQuotationDAL().GetQuotationPremiumReinsurer(InsuranceCompanyName, ClientCompanyName, out QKYCDetails,out objRIRate, out lstRate);
+                if (objRIRate != null && lstRate.Count > 0)
+                {
+                    objRIRate.Premium_NetPremium = (objRIRate.Premium_SumAssured * objRIRate.Premium_GrossRate) / 100;
+                    objRIRate.Premium_Levy = (objRIRate.Premium_NetPremium * Convert.ToDecimal(Premium_Levy)) / 100;
+                    objRIRate.Premium_PolicyFee1RO = 1;
+                    objRIRate.Premium_GrossPremium = objRIRate.Premium_NetPremium + objRIRate.Premium_Levy + objRIRate.Premium_PolicyFee1RO;
+                    objRIRate.Premium_Brokerage = (objRIRate.Premium_GrossPremium * objRIRate.Premium_BrokerCommssion) / 100;
+                }
             }
             catch (Exception ex)
             {

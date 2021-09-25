@@ -73,7 +73,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Address</label>
                                     </div>
                                     <div class="col-md-8 demo-section k-content">
-                                        @Html.TextBoxFor(model => model.objQuo.Address, new { @class = "form-control w-full", @placeholder = "Enter Address" })
+                                        @Html.TextBoxFor(model => model.objQuo.Address, new { @readonly = "readonly", @class = "form-control w-full", @placeholder = "Enter Address" })
                                     </div>
                                 </div>
 
@@ -82,7 +82,7 @@
                                         <label class="col-sm-12 col-form-label text-left">City</label>
                                     </div>
                                     <div class="col-md-8 demo-section k-content">
-                                        @Html.TextBoxFor(model => model.objQuo.City, new { @class = "form-control w-full", @placeholder = "Enter City" })
+                                        @Html.TextBoxFor(model => model.objQuo.City, new { @readonly = "readonly", @class = "form-control w-full", @placeholder = "Enter City" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -90,7 +90,10 @@
                                         <label class="col-sm-12 col-form-label text-left">KYC Details</label>
                                     </div>
                                     <div class="col-md-8 demo-section k-content">
-                                        @Html.TextBoxFor(model => model.objQuo.KYCDetails, new { @class = "form-control w-full", @placeholder = "Enter KYCDetails" })
+                                        @Html.TextBoxFor(model => model.objQuo.KYCDetails, new { @readonly = "readonly", @class = "form-control w-full", @placeholder = "Enter KYCDetails" })
+                                        @*<a href="' + value.KYCUploadPath + '" class="badge badge-pill badge-warning" download> Download KYC</a>*@
+                                        @*<a href="<%=Url.Action("Subcategory", "Category" , new { categoryID=parent.ID }) %>#section12">link text</a>*@
+
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -98,7 +101,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Bank Name</label>
                                     </div>
                                     <div class="col-md-8 demo-section k-content">
-                                        @Html.TextBoxFor(model => model.objQuo.BankName, new { @class = "form-control w-full", @placeholder = "Enter BankName" })
+                                        @Html.TextBoxFor(model => model.objQuo.BankName, new { @readonly = "readonly", @class = "form-control w-full", @placeholder = "Enter BankName" })
                                     </div>
                                 </div>
 
@@ -107,7 +110,7 @@
                                         <label class="col-sm-12 col-form-label text-left">IFSC Code</label>
                                     </div>
                                     <div class="col-md-8 demo-section k-content">
-                                        @Html.TextBoxFor(model => model.objQuo.IFSCCode, new { @class = "form-control w-full", @placeholder = "Enter IFSCCode" })
+                                        @Html.TextBoxFor(model => model.objQuo.IFSCCode, new { @readonly = "readonly", @class = "form-control w-full", @placeholder = "Enter IFSCCode" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -1299,12 +1302,44 @@
                                                     @Html.TextBox("Premium_GrossPremium", "", new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Gross Premium" })
                                                 </div>
                                             </div>
-                                            <input type="hidden" id="hdnVariableTypeSumContent" name="Premium_VariableSADetails" value='[{"CategoryName":"Gold Member","SumAssured":"","Salary":"0","FCL":"","ClientRate":""},{"CategoryName":"Silver  Member","SumAssured":"","Salary":"0","FCL":"","ClientRate":""}]' />
+                                            <input type="hidden" id="hdnVariableTypeSumContent" name="Premium_VariableSADetails" value='[{"CategoryName":"Gold Member","Salary":"0.00","NoOfTimes":"0.00","SumAssured":"0.00","NetPremium":"0.00","ClientRate":"0.00"},{"CategoryName":"Silver  Member","Salary":"0.00","NoOfTimes":"0","SumAssured":"0.00","NetPremium":"0.00","ClientRate":"0.00"}]' />
                                         </div>
                                         <div id="VariableTypeSumContent" style="display: none;" class="mt-20">
 
                                             <div id="divVariableTypeSumContent" class="table-responsive">
 
+                                            </div>
+                                            <div class="row m-b-15 m-t-15">
+                                                <div class="col-md-3">
+                                                    <label class="col-sm-12 col-form-label text-left">Net Premium</label>
+                                                </div>
+                                                <div class="col-md-7 demo-section k-content">
+                                                    @Html.TextBox("Premium_VariableNetPremium", "", new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Net Premium" })
+                                                </div>
+                                            </div>
+                                            <div class="row m-b-15 m-t-15">
+                                                <div class="col-md-3">
+                                                    <label class="col-sm-12 col-form-label text-left">Levy 0.55%</label>
+                                                </div>
+                                                <div class="col-md-7 demo-section k-content">
+                                                    @Html.TextBox("Premium_VariableLevy", "", new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Levy 0.55%" })
+                                                </div>
+                                            </div>
+                                            <div class="row m-b-15 m-t-15">
+                                                <div class="col-md-3">
+                                                    <label class="col-sm-12 col-form-label text-left">Policy Fee 1 RO</label>
+                                                </div>
+                                                <div class="col-md-7 demo-section k-content">
+                                                    @Html.TextBox("Premium_VariablePolicyFee1_RO", "", new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "EnterPolicy Fee 1 RO" })
+                                                </div>
+                                            </div>
+                                            <div class="row m-b-15 m-t-15">
+                                                <div class="col-md-3">
+                                                    <label class="col-sm-12 col-form-label text-left">Gross Premium</label>
+                                                </div>
+                                                <div class="col-md-7 demo-section k-content">
+                                                    @Html.TextBox("Premium_VariableGrossPremium", "", new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Gross Premium" })
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -1320,7 +1355,7 @@
                                                 <label class="col-sm-12 col-form-label text-left">Broker Name</label>
                                             </div>
                                             <div class="col-md-7 demo-section k-content">
-                                                @Html.TextBoxFor(model => model.objQuo.Premium_BrokerName, new {@readonly="readonly", @class = "form-control w-full", @placeholder = "Enter Broker Name" })
+                                                @Html.TextBoxFor(model => model.objQuo.Premium_BrokerName, new { @readonly = "readonly", @class = "form-control w-full", @placeholder = "Enter Broker Name" })
                                             </div>
                                         </div>
                                         <div class="row m-b-15 m-t-15">
@@ -1328,7 +1363,7 @@
                                                 <label class="col-sm-12 col-form-label text-left">Broker Commssion %</label>
                                             </div>
                                             <div class="col-md-7 demo-section k-content">
-                                                @Html.TextBoxFor(model => model.objQuo.Premium_BrokerCommssion, new { @type = "number", @min = "0", @step = "0.01",@readonly="readonly", @class = "form-control w-full", @placeholder = "Enter Broker Commission%" })
+                                                @Html.TextBoxFor(model => model.objQuo.Premium_BrokerCommssion, new { @type = "number", @min = "0", @step = "0.01", @readonly = "readonly", @class = "form-control w-full", @placeholder = "Enter Broker Commission%" })
                                             </div>
                                         </div>
                                         <div class="row m-b-15 m-t-15">
@@ -1336,7 +1371,7 @@
                                                 <label class="col-sm-12 col-form-label text-left">Brokerage</label>
                                             </div>
                                             <div class="col-md-7 demo-section k-content">
-                                                @Html.TextBoxFor(model => model.objQuo.Premium_Brokerage, new {@readonly="readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Broker Amount" })
+                                                @Html.TextBoxFor(model => model.objQuo.Premium_Brokerage, new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Broker Amount" })
                                             </div>
                                         </div>
                                     </div>
@@ -1472,7 +1507,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Broker Name</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        @Html.TextBoxFor(model => model.objQuo.BrokerName, new {@readonly="readonly", @class = "form-control w-full", @placeholder = "Enter Broker Name" })
+                                        @Html.TextBoxFor(model => model.objQuo.BrokerName, new { @readonly = "readonly", @class = "form-control w-full", @placeholder = "Enter Broker Name" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -1569,7 +1604,348 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
+<!-- Modal -->
+<div id="previewQuotationModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="m-b-50 m-t-50 ">
+                    <div class="d-flex justify-content-center">
+                        <h3 class="modal-title mt-0 font-weight-700">Preview Drafted Quotation</h3>
+                    </div>
+                </div>
+                @*Client Details*@
+                <div>
+                    <div class="previewHeader">
+                        <h4 class="mb-0 font-weight-bold">CLIENT DETAILS</h4>
+                    </div>
+                    <div class="previewContent">
+                        <div class="d-table ml-100 mt-25">
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Insurance Company Name</div>
+                                <div class="d-table-cell">Al Madina Insurance Company</div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Client Company Name</div>
+                                <div class="d-table-cell">Axis Bank</div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Area of Coverage</div>
+                                <div class="d-table-cell">Worldwide</div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Jurisdiction</div>
+                                <div class="d-table-cell">SULTANATE OF OMAN</div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Address</div>
+                                <div class="d-table-cell">No: 2/186N, 3rd Street,Injambakkam</div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">City</div>
+                                <div class="d-table-cell">Chennai</div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Nationality</div>
+                                <div class="d-table-cell">Indian</div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">KYC Details</div>
+                                <div class="d-table-cell">Aadhaar</div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Bank Name</div>
+                                <div class="d-table-cell">HDFC Bank</div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">IFSC Code</div>
+                                <div class="d-table-cell">HDFC00324</div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Branch</div>
+                                <div class="d-table-cell">Injambakkam</div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Period of Insurance</div>
+                                <div class="d-table-cell">2 Years</div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Category</div>
+                                <div class="d-table-cell">
+                                    <table class="table table-hover table-sm table-bordered">
+                                        <tbody>
+                                            <tr>
+                                                <th>Category Name</th>
+                                            </tr>
+                                            <tr>
+                                                <td>Gold Member</td>
 
+                                            </tr>
+                                            <tr>
+                                                <td>Silver  Member</td>
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*End of Client Details*@
+                @*Coverage Details*@
+                <div>
+                    <div class="previewHeader">
+                        <h4 class="mb-0 font-weight-bold">COVERAGE DETAILS</h4>
+                    </div>
+                    <div class="previewContent">
+                        <div class=" mt-25">
+                            <hr />
+                            <h5 class="m-b-15 m-t-15 text-bold col-12 p-0">Death Cover</h5>
+                            <hr />
+                        </div>
+                        <div class="ml-50 mt-20">
+                            <h5 class="font-weight-900">Death due to any cause (DAC)</h5>
+                        </div>
+                        <div class="d-table ml-100">
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Annual Limit</div>
+                                <div class="d-table-cell">Fixed</div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Sum Assured</div>
+                                <div class="d-table-cell">OMR 5,50,000</div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">FCL</div>
+                                <div class="d-table-cell">6000</div>
+                            </div>
+                        </div>
+                        <div class="ml-50 mt-20">
+                            <h5 class="font-weight-900">Accidental death</h5>
+                        </div>
+                        <div class="d-table ml-100">
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Annual Limit</div>
+                                <div class="d-table-cell">Variable</div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Sum Assured</div>
+                                <div class="d-table-cell">OMR 6,20,000</div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">FCL</div>
+                                <div class="d-table-cell">5250</div>
+                            </div>
+                        </div>
+                        <div class=" mt-25">
+                            <hr />
+                            <h5 class="m-b-15 m-t-15 text-bold col-12 p-0">Benefits</h5>
+                            <hr />
+                        </div>
+                        <div class="ml-50 mt-20">
+                            <h5 class="font-weight-900">Permanent Total Disability (PTD)</h5>
+                        </div>
+                        <div class="d-table ml-100  m-b-25">
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">PTD Optional Benefits</div>
+                                <div class="d-table-cell">Accident / Sickness</div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Coverage Limit</div>
+                                <div class="d-table-cell">OMR 5,00,000</div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Maximum Limit</div>
+                                <div class="d-table-cell">OMR 3,50,000</div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Waiting Period in Days</div>
+                                <div class="d-table-cell">120</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*Coverage Details*@
+                @*Employee Details*@
+                <div>
+                    <div class="previewHeader">
+                        <h4 class="mb-0 font-weight-bold">Employee Details</h4>
+                    </div>
+                    <div class="previewContent">
+                        <div class="d-table ml-100 mt-25 mb-25">
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Total Employees</div>
+                                <div class="d-table-cell">2500</div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Total Dependents</div>
+                                <div class="d-table-cell">1550</div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Total Spouse dependents</div>
+                                <div class="d-table-cell">1250</div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Total Child dependents</div>
+                                <div class="d-table-cell">3000</div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Policy Currency</div>
+                                <div class="d-table-cell">OMR</div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Eligibility Criteria</div>
+                                <div class="d-table-cell">AGE</div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Sum Assured (SA)</div>
+                                <div class="d-table-cell">350,000</div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Age Limit for Employees</div>
+                                <div class="d-table-cell">58</div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Age Limit for Dependent Spouse</div>
+                                <div class="d-table-cell">58</div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">
+                                    Age Limit for Dependent Child
+                                </div>
+                                <div class="d-table-cell">60</div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">FCL</div>
+                                <div class="d-table-cell">35,000</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*End of Client Details*@
+                @*Coverage Details*@
+                <div>
+                    <div class="previewHeader">
+                        <h4 class="mb-0 font-weight-bold">PREMIUM DETAILS</h4>
+                    </div>
+                    <div class="previewContent">
+                        <div class=" mt-25">
+                            <hr />
+                            <h5 class="m-b-15 m-t-15 text-bold col-12 p-0">Fixed Sum Assured</h5>
+                            <hr />
+                        </div>
+                        <div class="d-table ml-100">
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Type of Sum Assured</div>
+                                <div class="d-table-cell">Fixed SA</div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Sum Assured (SA)</div>
+                                <div class="d-table-cell">OMR 5,50,000</div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Gross Rate in %</div>
+                                <div class="d-table-cell">6</div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Net Premium</div>
+                                <div class="d-table-cell">OMR 2,50,000</div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Levy 0.55%</div>
+                                <div class="d-table-cell">OMR 5,50,000</div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Policy Fee 1 RO</div>
+                                <div class="d-table-cell">OMR 500</div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Gross Premium</div>
+                                <div class="d-table-cell">3,00,000</div>
+                            </div>
+                        </div>
+                        <div class=" mt-25">
+                            <hr />
+                            <h5 class="m-b-15 m-t-15 text-bold col-12 p-0">Loadings</h5>
+                            <hr />
+                        </div>
+                        <div class="d-table ml-100 m-b-25">
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Broker Name</div>
+                                <div class="d-table-cell">VISO</div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Broker Commssion %</div>
+                                <div class="d-table-cell">5%</div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Brokerage</div>
+                                <div class="d-table-cell">25,400</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*Coverage Details*@
+                @*WORKMEN COMPENSATION*@
+                <div>
+                    <div class="previewHeader">
+                        <h4 class="mb-0 font-weight-bold">WORKMEN COMPENSATION</h4>
+                    </div>
+                    <div class="previewContent">
+                        <div class="d-table ml-100 m-t-25">
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Estimated Annual Wages</div>
+                                <div class="d-table-cell">Fixed SA</div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Net Premium</div>
+                                <div class="d-table-cell">OMR 5,50,000</div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Levy 1.6 %</div>
+                                <div class="d-table-cell">6</div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Policy Fee 1 RO</div>
+                                <div class="d-table-cell">OMR 2,50,000</div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Gross Premium</div>
+                                <div class="d-table-cell">OMR 5,50,000</div>
+                            </div>
+                        </div>
+                        <div class=" mt-25">
+                            <hr />
+                            <h5 class="m-b-15 m-t-15 text-bold col-12 p-0">Loadings</h5>
+                            <hr />
+                        </div>
+                        <div class="d-table ml-100 m-b-25">
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Broker Name</div>
+                                <div class="d-table-cell">VISO</div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Broker Commssion %</div>
+                                <div class="d-table-cell">5%</div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Brokerage</div>
+                                <div class="d-table-cell">25,400</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*Coverage Details*@
+            </div>
+            <div class="modal-footer text-right">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                <button class="btn btn-primary" onclick="saveQuotationForm()">Save & Submit Quotation</button>
+            </div>
+        </div>
+    </div>
+</div>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#previewQuotationModal"><i class="mdi mdi-plus mx-2"></i>Preview Form</button>
 <script type="text/javascript">
     function getReinsurerInfo() {
         if (!$('#objQuo_InsuranceCompanyName').val() > 0) {
@@ -1604,6 +1980,14 @@
                     $('#objQuo_Premium_BrokerName').val(FixedSA.Premium_BrokerName)
                     $('#objQuo_Premium_BrokerCommssion').val(FixedSA.Premium_BrokerCommssion)
                     $('#objQuo_Premium_Brokerage').val(FixedSA.Premium_Brokerage)
+
+                    var KYCDetails = Result.objKYCDetails;
+                    $('#objQuo_Address').val(KYCDetails.Address)
+                    $('#objQuo_City').val(KYCDetails.City)
+                    $('#objQuo_KYCUploadPath').val(KYCDetails.KYCUploadPath)
+                    $('#objQuo_BankName').val(KYCDetails.BankName)
+                    $('#objQuo_IFSCCode').val(KYCDetails.IFSCCode)
+                    
 
                     $.each(Result.lstReinsurerRate, function (key, value) {
                         $('#tblReinsurer').append('<tr> <td>' + value.Premium_RIName + '</td>  <td>' + value.Premium_RInetrate + '</td> <td>' + value.Premium_RIPremium + '</td> <td>' + value.Premium_RIRetention + '</td><td>' + value.Premium_InsurerRetention + '</td> <td>' + value.Premium_RIRetentionPremium + '</td> <td>' + value.Premium_InsurerRetentionPremium + '</td><td>' + value.Premium_InsurerLoadingPremium + '</td><td>' + value.Premium_InsurerLoading + '</td></tr>');
@@ -2055,6 +2439,40 @@
 
         });
     }
+    function saveQuotationForm() {
+        var quotationData = $('#formQuotation').serialize();
+
+        $.ajax({
+
+            type: "POST",
+            url: "/GroupLifeInsurance/Quotation/AddUpdateQuotationMaster",
+            dataType: "json",
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            data: quotationData,
+            success: function (res) {
+
+                alert('Data Submitted Successfully');
+                if (res.length > 0) {
+                    //Swal.fire({
+                    //    icon: 'success',
+                    //    title: '',
+                    //    text: "Data Submitted Successfully.   Draft No is '" + res + "'",
+                    //})
+                    alert('Data Submitted Successfully');
+                }
+                window.location = '@Url.Action("Quotation", "UnderWriting")'
+
+                // $('#formRenewal').reset();
+            },
+            error: function () {
+                alert('Data Submitteds Successfully');
+                window.location = '@Url.Action("Quotation", "UnderWriting")'
+
+                // $("#lblMessage").html('Error while Registring the Company!.');
+                $('#formRenewal').reset();
+            }
+        });
+    }
     function initStepWizard() {
         //$('[data-layout="sidebar-collapse"]').click();
         $(".tab-wizard").steps({
@@ -2063,43 +2481,11 @@
             transitionEffect: "none",
             titleTemplate: '#title#',
             labels: {
-                finish: "Submit"
+                finish: "Preview & Submit"
             },
             onFinished: function (event, currentIndex) {
                 //swal("Your Order Submitted!", "Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem. Proin ut ligula vel nunc egestas porttitor.");
-
-                var quotationData = $('#formQuotation').serialize();
-                $.ajax({
-
-                    type: "POST",
-                    url: "/GroupLifeInsurance/Quotation/AddUpdateQuotationMaster",
-                    dataType: "json",
-                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                    data: quotationData,
-                    success: function (res) {
-                        alert('Data Submitted Successfully');
-                        if (res.length > 0) {
-                            //Swal.fire({
-                            //    icon: 'success',
-                            //    title: '',
-                            //    text: "Data Submitted Successfully.   Draft No is '" + res + "'",
-                            //})
-                            alert('Data Submitted Successfully');
-                        }
-                       window.location = '@Url.Action("Quotation", "UnderWriting")'
-
-                        // $('#formRenewal').reset();
-                    },
-                    error: function () {
-                        alert('Data Submitted Successfully');
-                        window.location = '@Url.Action("Quotation", "UnderWriting")'
-
-                        // $("#lblMessage").html('Error while Registring the Company!.');
-                        $('#formRenewal').reset();
-                    }
-                })
-
-
+                $('#myModal').modal('show');
             },
             onCanceled: function (event, currentIndex) {
                 alert('Rejected Clicked');
@@ -2393,7 +2779,7 @@
                 });
 
                 if (arrCate.length == 0) {
-                    arrCategory.push({ CategoryName: txtCategoryName, SumAssured: "", Salary: "", FCL: "", ClientRate: "" });
+                    arrCategory.push({ CategoryName: txtCategoryName, Salary: "0.00", NoOfTimes: "0.00", SumAssured: "0.00", ClientRate: "0.00", NetPremium: "0.00" });
                 }
                 else {
                     alert("Please Check,This CategoryName already exists");
@@ -2424,62 +2810,92 @@
 
         $("#divVariableTypeSumContent").empty();
 
-        var totalSA = 0.00, totalSal = 0.00, totalFCL = 0.00;
+        var totalNoOfTimes = 0.00, totalSal = 0.00, totalSA = 0.00, totalClientRate = 0.00; totalNetPremium = 0.00;
 
-        var tbl = '<table id="tblVariableTypeSumContent" class="table table-hover"><tr><th>Category Name</th><th>Sum Assured</th><th>Salary</th><th>FCL</th><th>Client Rate in %</th></tr>';
+        var tbl = '<table id="tblVariableTypeSumContent" class="table table-hover"><tr><th>Category Name</th><th>Salary</th><th>No.of times</th><th>Sum Assured</th><th>Client Rate in %</th><th>Net Premium</th></tr>';
         $.each(arrCategory, function (index, value) {
 
-            tbl += '<tr><td>' + value.CategoryName + '</td><td><input type="number" name="SumAssured" value="' + value.SumAssured + '"  onchange="UpdateVariableSumAssured(this,' + "'" + value.CategoryName + "'" + ')" class="form-control w-full" placeholder="Enter Sum Assured" /></td><td> <input type="number" name="Salary" value="' + value.Salary + '" onchange="UpdateVariableSumAssured(this,' + "'" + value.CategoryName + "'" + ')" class="form-control w-full" placeholder = "Enter Salary" /> </td ><td> <input type="number" name="FCL" value="' + value.FCL + '" onchange="UpdateVariableSumAssured(this,' + "'" + value.CategoryName + "'" + ')" class="form-control w-full" placeholder ="Enter FCL" /> </td><td> <input type="number" name="ClientRate" value="' + value.ClientRate + '" onchange="UpdateVariableSumAssured(this,' + "'" + value.CategoryName + "'" + ')" class="form-control w-full" placeholder ="Enter Client Rate" /> </td> </tr >';
+            tbl += '<tr><td>' + value.CategoryName + '</td><td> <input type="number" name="Salary" value="' + value.Salary + '" onblur="UpdateVariableSumAssured(this,' + "'" + value.CategoryName + "'" + ')" class="form-control w-full" placeholder = "Enter Salary" /> </td ><td><input type="number" name="NoOfTimes" value="' + value.NoOfTimes + '"  onblur="UpdateVariableSumAssured(this,' + "'" + value.CategoryName + "'" + ')" class="form-control w-full" placeholder="Enter NoOfTimes" /></td><td><input readonly type="number" name="SumAssured" id="txtSumAssured_' + index + '"  value="' + value.SumAssured + '"   class="form-control w-full"" /></td><td> <input type="number" name="ClientRate" value="' + value.ClientRate + '" onchange="UpdateVariableSumAssured(this,' + "'" + value.CategoryName + "'" + ')" class="form-control w-full" placeholder ="Enter ClientRate" /> </td><td> <input type="number" readonly id="txtNetPremium_' + index +'" name="NetPremium" value="' + value.NetPremium + '" onchange="UpdateVariableSumAssured(this,' + "'" + value.CategoryName + "'" + ')" class="form-control w-full" placeholder ="Enter Client Rate" /> </td> </tr >';
 
-            totalSA = totalSA + Number(value.SumAssured);
+            totalNoOfTimes = totalNoOfTimes + Number(value.NoOfTimes);
             totalSal = totalSal + Number(value.Salary);
-            totalFCL = totalFCL + Number(value.FCL);
+            totalSA = totalSA + Number(value.SumAssured);
+            totalClientRate = totalClientRate + Number(value.ClientRate);
+            totalNetPremium = totalNetPremium + Number(value.NetPremium);
 
         });
 
 
 
-        tbl += '<tr><td>Total </td><td class="text-bold"><label id="lblTotSumAssured" class="col-sm-12 col-form-label text-left">OMR ' + totalSA + '</label></td> <td class="text-bold"> <label id="lblTotSalary" class="col-sm-12 col-form-label text-left">OMR ' + totalSal + '</label></td><td class="text-bold"><label id="lblTotFCL" class="col-sm-12 col-form-label text-left">' + totalFCL + '</label></td><td></td> </tr></table >';
+        tbl += '<tr><td>Total </td> <td class="text-bold"> <label id="lblTotSalary" class="col-sm-12 col-form-label text-left">OMR ' + totalSal + '</label></td><td class="text-bold" > <label id="lblNoOfTimes" class="col-sm-12 col-form-label text-left">OMR ' + totalNoOfTimes + '</label></td ><td class="text-bold" > <label id="lbltotalSA" class="col-sm-12 col-form-label text-left">OMR ' + totalSA + '</label></td >            <td class="text-bold"><label id="lblClientRate" class="col-sm-12 col-form-label text-left">' + totalClientRate + '</label></td><td><label id="lbltotalNetPremium" class="col-sm-12 col-form-label text-left">' + totalNetPremium + '</label></td> </tr></table>';
 
         $("#divVariableTypeSumContent").append(tbl);
     }
     function UpdateVariableSumAssured(obj, paramCatName) {
 
         var arrVal = JSON.parse($("#hdnVariableTypeSumContent").val());
-        var TotSA = 0, TotSalary = 0, TotFCL = 0;
+        var TotNoOfTimes = 0, TotSalary = 0, TotSA = 0, TotClientRate = 0; TotNetPremium = 0;
 
         $.each(arrVal, function (i, value) {
             if ($.trim(value.CategoryName) == $.trim(paramCatName)) {
-                if (obj.name == "SumAssured") {
-                    arrVal[i].SumAssured = obj.value == "" ? "0" : obj.value;
-                }
                 if (obj.name == "Salary") {
                     arrVal[i].Salary = obj.value == "" ? "0" : obj.value;
                 }
-                if (obj.name == "FCL") {
-                    arrVal[i].FCL = obj.value == "" ? "0" : obj.value;
+                if (obj.name == "NoOfTimes") {
+                    arrVal[i].NoOfTimes = obj.value == "" ? "0" : obj.value;
+                    arrVal[i].SumAssured = obj.value == "" ? "0" : arrVal[i].Salary * arrVal[i].NoOfTimes;
+                    $("#txtSumAssured_" + i).val(arrVal[i].SumAssured);
                 }
                 if (obj.name == "ClientRate") {
                     arrVal[i].ClientRate = obj.value == "" ? "0" : obj.value;
-                }
+                    arrVal[i].NetPremium = obj.value == "" ? "0" : (arrVal[i].ClientRate * arrVal[i].SumAssured) / 100;;
+                    $("#txtNetPremium_" + i).val(arrVal[i].NetPremium);
 
+                }
+                if (obj.name == "NetPremium") {
+                    arrVal[i].NetPremium = obj.value == "" ? "0" : obj.value;
+                }
             }
 
-            if (obj.name == "SumAssured") {
+            if (obj.name == "NoOfTimes") {
+                TotNoOfTimes = TotNoOfTimes + Number(arrVal[i].NoOfTimes);
+                $("#lblNoOfTimes").text("OMR " + TotNoOfTimes);
                 TotSA = TotSA + Number(arrVal[i].SumAssured);
-                $("#lblTotSumAssured").text("OMR " + TotSA);
+                $("#lbltotalSA").text("OMR " + TotSA);
 
             }
             if (obj.name == "Salary") {
                 TotSalary = TotSalary + Number(arrVal[i].Salary);
                 $("#lblTotSalary").text("OMR " + TotSalary);
             }
-            if (obj.name == "FCL") {
-                TotFCL = TotFCL + Number(arrVal[i].FCL);
-                $("#lblTotFCL").text(TotFCL);
+
+            if (obj.name == "ClientRate") {
+                TotClientRate = TotClientRate + Number(arrVal[i].ClientRate);
+                $("#lblClientRate").text(TotClientRate.toFixed(3));
+                TotNetPremium = TotNetPremium + (Number(arrVal[i].ClientRate) * Number(arrVal[i].SumAssured) / 100);
+
+                $("#lbltotalNetPremium").text(TotNetPremium.toFixed(3));
+                $("#Premium_VariableNetPremium").val(TotNetPremium.toFixed(3));
+
+                var Premium_VariableLevy = (TotNetPremium * Number(0.55)) / 100;
+                $("#Premium_VariableLevy").val(Premium_VariableLevy.toFixed(3));
+
+
+                var Premium_VariablePolicyFee1_RO = 1;
+                $("#Premium_VariablePolicyFee1_RO").val(Premium_VariablePolicyFee1_RO.toFixed(3));
+                
+
+                var Premium_VariableGrossPremium = Number(TotNetPremium) + Number(Premium_VariableLevy) + Number(Premium_VariablePolicyFee1_RO);
+                $("#Premium_VariableGrossPremium").val(Premium_VariableGrossPremium.toFixed(3));
+
+                //objRIRate.Premium_Levy = (objRIRate.Premium_NetPremium * Convert.ToDecimal(Premium_Levy)) / 100;
+                //objRIRate.Premium_PolicyFee1RO = 1;
+                //objRIRate.Premium_GrossPremium = objRIRate.Premium_NetPremium + objRIRate.Premium_Levy + objRIRate.Premium_PolicyFee1RO;
             }
 
+
         });
+
 
 
         $("#hdnVariableTypeSumContent").val(JSON.stringify(arrVal));

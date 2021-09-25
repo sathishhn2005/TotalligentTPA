@@ -127,12 +127,13 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
             long ReturnCode = 0;
             objGLIBAL = new GLIQuotationBAL();
 
-            ReturnCode = objGLIBAL.GetReinsurerRate(objReinsurer.InsuranceCompanyName, objReinsurer.ClientCompanyName, out Quotation objRIRate, out List<Quotation> lstRate);
+            ReturnCode = objGLIBAL.GetReinsurerRate(objReinsurer.InsuranceCompanyName, objReinsurer.ClientCompanyName,out QuotationKYCDetails QKYCDetails, out Quotation objRIRate, out List<Quotation> lstRate);
            
             return Json(new
             {
                 lstReinsurerRate = lstRate,
                 objRIRateCalc = objRIRate,
+                objKYCDetails = QKYCDetails,
             }, JsonRequestBehavior.AllowGet);
         }
         

@@ -34,8 +34,9 @@
                     <thead>
                         <tr>
                             <th>GLDraft No</th>
-                            <th>WLDraft No</th>
-                            @*<th>Policy No</th>*@
+                            <th>WC Draft No</th>
+                            <th>GL Policy No</th>
+                            <th>WC Policy No</th>
                             <th>Insurance Company</th>
                             <th>Client Company</th>
                             <th>Status</th>
@@ -52,6 +53,8 @@
                                     <tr>
                                         <td>@Html.DisplayFor(modelItem => item.DraftNo)</td>
                                         <td>@Html.DisplayFor(modelItem => item.WLDraftNo)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.PolicyNo)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.WLPolicyNo)</td>
                                         <td>@Html.DisplayFor(modelItem => item.InsuranceCompanyName)</td>
 
                                         <td>@Html.DisplayFor(modelItem => item.ClientCompanyName)</td>

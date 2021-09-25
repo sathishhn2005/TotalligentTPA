@@ -267,7 +267,7 @@
                         <table id="tblRIMaster" class="table table-hover">
                             <tr>
                                 <th>RIName</th>
-                                <th>RICode</th>
+                                
                                 <th>ContactPerson</th>
                                 <th>MobileNumber</th>
                                 <th>EmailId</th>
@@ -438,22 +438,22 @@
                 $("#EmailID").focus();
                 return false;
             }
-            if ($.trim($("#TAddress").val()) == "") {
+            if ($.trim($("#Address").val()) == "") {
                 alert("Please enter Address");
-                $("#TAddress").focus();
+                $("#Address").focus();
                 return false;
             }
-            if ($.trim($("#TCity").val()) == "") {
+            if ($.trim($("#City").val()) == "") {
                 alert("Please enter City");
-                $("#TCity").focus();
+                $("#City").focus();
                 return false;
             }
-            if ($.trim($("#TState").val()) == "") {
+            if ($.trim($("#State").val()) == "") {
                 alert("Please enter State");
-                $("#TState").focus();
+                $("#State").focus();
                 return false;
             }
-            if ($.trim($("#TZipcode").val()) == "") {
+            if ($.trim($("#Zipcode").val()) == "") {
                 alert("Please enter Zipcode");
                 return false;
             }
@@ -504,10 +504,12 @@
             objRiMaster.ContactPerson = $("#ContactName").val();
             objRiMaster.MobileNumber = $("#MobileNumber").val();
             objRiMaster.EmailId = $("#EmailID").val();
-            objRiMaster.Address = $("#TAddress").val();
-            objRiMaster.City = $("#TCity").val();
-            objRiMaster.State = $("#TState").val();
-            objRiMaster.Zipcode = $("#TZipcode").val();
+            objRiMaster.Address = $("#Address").val();
+            objRiMaster.City = $("#City").val();
+            objRiMaster.State = $("#State").val();
+            objRiMaster.Zipcode = $("#Zipcode").val();
+            
+            $('#NationalityId').val(objRow.NationalityId);
 
             objRiMaster.BankName = $('#BankName :selected').text();
             objRiMaster.BankID = $('#BankName :selected').val();
@@ -518,7 +520,7 @@
             var param = {
                 objReInsurerMaster: objRiMaster, Action: $("#btnSubmitProducerMaster").val(), FolderName: $("#FolderName").val()
             };
-          
+
             $.ajax({
                 type: "POST",
                 url: "/GroupLifeInsurance/ReInsurenceMaster/AddUpdateRIMaster",
@@ -544,10 +546,12 @@
                         return false;
                     }
                     $('#formRenewal').reset();
+                    window.location.href = "@Url.Action("RIMaster", "GLIMaster")";
                 },
                 error: function () {
                     // $("#lblMessage").html('Error while Registring the Company!.');
                     $('#formRIMaster').reset();
+                    window.location.href = "@Url.Action("RIMaster", "GLIMaster")";
                 }
             })
         });
@@ -572,7 +576,7 @@
                         i++;
                         var hdnID = "hdnobjJSonVal_" + i;
                         var JVal = JSON.stringify(value);
-                        $('#tblRIMaster').append('<tr> <td>' + value.ReInsurerName + '</td>  <td>' + value.ReInsurerCode + '</td> <td>' + value.ContactPerson + '</td> <td>' + value.MobileNumber + '</td><td>' + value.EmailId + '</td> <td>' + value.Address + '</td> <td>' + value.City + '</td><td>' + value.State + '</td><td>' + value.Zipcode + '</td><td>' + value.BankName + '</td><td>' + value.AccountNumber + '</td><td>' + value.IFSCCode + '</td><td> <a href="' + value.KYCUploadPath + '" class="badge badge-pill badge-warning" download> Download KYC</a></td><td class="text-center"><i class="mdi mdi-pencil text-primary mx-3" onclick="EditRIMaster(' + "'" + hdnID + "'" + ')"></i><i class="mdi mdi-delete text-danger mx-3" onclick="DeActiveRIMaster(this,' + value.ReInsurerMasterId.toString() + ');"></i><input type="hidden" id=' + hdnID + ' value=' + "'" + JVal + "'" + '></td></tr>');
+                        $('#tblRIMaster').append('<tr> <td>' + value.ReInsurerName + '</td> <td>' + value.ContactPerson + '</td> <td>' + value.MobileNumber + '</td><td>' + value.EmailId + '</td> <td>' + value.Address + '</td> <td>' + value.City + '</td><td>' + value.State + '</td><td>' + value.Zipcode + '</td><td>' + value.BankName + '</td><td>' + value.AccountNumber + '</td><td>' + value.IFSCCode + '</td><td> <a href="' + value.KYCUploadPath + '" class="badge badge-pill badge-warning" download> Download KYC</a></td><td class="text-center"><i class="mdi mdi-pencil text-primary mx-3" onclick="EditRIMaster(' + "'" + hdnID + "'" + ')"></i><i class="mdi mdi-delete text-danger mx-3" onclick="DeActiveRIMaster(this,' + value.ReInsurerMasterId.toString() + ');"></i><input type="hidden" id=' + hdnID + ' value=' + "'" + JVal + "'" + '></td></tr>');
 
 
                     })
@@ -631,10 +635,10 @@
         $("#ContactName").val(objRow.ContactPerson);
         $("#MobileNumber").val(objRow.MobileNumber);
         $("#EmailID").val(objRow.EmailId);
-        $("#TAddress").val(objRow.Address);
-        $("#TCity").val(objRow.City);
-        $("#TState").val(objRow.State);
-        $("#TZipcode").val(objRow.Zipcode);
+        $("#Address").val(objRow.Address);
+        $("#City").val(objRow.City);
+        $("#State").val(objRow.State);
+        $("#Zipcode").val(objRow.Zipcode);
 
         //objRow.BankName = $('#BankName :selected').text();
         $('#BankName').val(objRow.BankID);

@@ -295,23 +295,23 @@
             <div class="row">
                 @if (Model != null)
                 {
-    <div class="col-xl-6 col-lg-6 col-12">
-        <div class="box bg-info">
-            <div class="box-header with-border">
-                <h4 class="box-title text-white">No of policies</h4>
+                    <div class="col-xl-6 col-lg-6 col-12">
+                        <div class="box bg-info">
+                            <div class="box-header with-border">
+                                <h4 class="box-title text-white">No of policies</h4>
 
-            </div>
-            <div class="box-body">
-                <div class="d-flex justify-content-between">
-                    <div>
-                        <h2 class="mt-0">@Model.TNPYear</h2>
-                        <small>Total Policies for year</small>
+                            </div>
+                            <div class="box-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <h2 class="mt-0">@Model.TNPYear</h2>
+                                        <small>Total Policies for year</small>
+                                    </div>
+                                    <div class="font-size-50 text-white"><i class="mdi mdi-wheelchair-accessibility"></i></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="font-size-50 text-white"><i class="mdi mdi-wheelchair-accessibility"></i></div>
-                </div>
-            </div>
-        </div>
-    </div>
                     <div class="col-xl-6 col-lg-6 col-12">
                         <div class="box bg-warning">
                             <div class="box-header with-border">
@@ -328,70 +328,90 @@
                             </div>
                         </div>
                     </div>
-                                    <div class="col-xl-6 col-lg-6 col-12">
-                                        <div class="box bg-success">
-                                            <div class="box-header with-border">
-                                                <h4 class="box-title text-white">Policy Issued</h4>
-                                            </div>
-                                            <div class="box-body">
-                                                <div class="d-flex justify-content-between">
-                                                    <div>
-                                                        <h2 class="mt-0">@Model.TotNoPolIssued</h2>
-                                                        <small>Total Policies Issued for year</small>
-                                                    </div>
-                                                    <div class="font-size-50 text-white"><i class="mdi mdi-calendar"></i></div>
-                                                </div>
-                                            </div>
-                                        </div>
+                    <div class="col-xl-6 col-lg-6 col-12">
+                        <div class="box bg-success">
+                            <div class="box-header with-border">
+                                <h4 class="box-title text-white">Policy Issued</h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <h2 class="mt-0">@Model.TotNoPolIssued</h2>
+                                        <small>Total Policies Issued for year</small>
                                     </div>
-                                                    <div class="col-xl-6 col-lg-6 col-12">
-                                                        <div class="box bg-danger">
-                                                            <div class="box-header with-border">
-                                                                <h4 class="box-title text-white">Policy Lost</h4>
-                                                            </div>
-                                                            <div class="box-body">
-                                                                <div class="d-flex justify-content-between">
-                                                                    <div>
-                                                                        <h2 class="mt-0">@Model.TotalNoPolRejected</h2>
-                                                                        <small>Total Policies Lost for year</small>
-                                                                    </div>
-                                                                    <div class="font-size-50 text-white"><i class="mdi mdi-wallet"></i></div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                                    <div class="col-12">
-                                                                        <div class="box">
-                                                                            <div class="box-header">
-                                                                                <h4 class="box-title">Revenue Report</h4>
-                                                                            </div>
-                                                                            <div class="box-body">
-                                                                                <div class="flexbox align-items-center justify-content-between d-md-flex d-block">
-                                                                                    <div>
-                                                                                        <h4 class="font-weight-700 text-success">OMR @Model.TotalPremiumEarned</h4>
-                                                                                        <h6 class="text-fade">Premium Earned</h6>
-                                                                                    </div>
-                                                                                    <div>
-                                                                                        <h4 class="font-weight-700 text-warning">OMR @Model.TotalPremiumPending&nbsp;</h4>
-                                                                                        <h6 class="text-fade">Pending Premium</h6>
-                                                                                    </div>
-                                                                                    <div>
-                                                                                        <h4 class="font-weight-700 text-danger">OMR @Model.TotalPremiumRejected</h4>
-                                                                                        <h6 class="text-fade">Premium Lost</h6>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>}
+                                    <div class="font-size-50 text-white"><i class="mdi mdi-calendar"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-12">
+                        <div class="box bg-danger">
+                            <div class="box-header with-border">
+                                <h4 class="box-title text-white">Policy Lost</h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <h2 class="mt-0">@Model.TotalNoPolRejected</h2>
+                                        <small>Total Policies Lost for year</small>
+                                    </div>
+                                    <div class="font-size-50 text-white"><i class="mdi mdi-wallet"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="box">
+                            <div class="box-header">
+                                <h4 class="box-title">Revenue Report</h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="flexbox align-items-center justify-content-between d-md-flex d-block">
+                                    <div>
+                                        <h4 class="font-weight-700 text-success">OMR @Model.TotalPremiumEarned</h4>
+                                        <h6 class="text-fade">Premium Earned</h6>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-weight-700 text-warning">OMR @Model.TotalPremiumPending&nbsp;</h4>
+                                        <h6 class="text-fade">Pending Premium</h6>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-weight-700 text-danger">OMR @Model.TotalPremiumRejected</h4>
+                                        <h6 class="text-fade">Premium Lost</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>}
             </div>
         </div>
         <div class="col-xl-6 col-12">
             <div class="box">
                 <div class="box-header with-border">
-                    <h4 class="box-title">Premium Overview</h4>
+                    <h4 class="box-title">Policy Monthly Report</h4>
                 </div>
                 <div class="box-body">
-                    <div id="uni-attendance"></div>
+                    <div id="policyMonthlyBar"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-6 col-12">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h4 class="box-title">New Policy Vs Renewal Policy</h4>
+                </div>
+                <div class="box-body">
+                    <div id="newRenewalPolicy"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-6 col-12">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h4 class="box-title">Lost Policies</h4>
+                </div>
+                <div class="box-body">
+                    <div id="LostPolicy"></div>
                 </div>
             </div>
         </div>

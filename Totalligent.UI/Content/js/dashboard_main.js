@@ -12,10 +12,115 @@ $(function () {
     var UWApproved = [];
     var UWRejected = [];
     'use strict';
+    /**************** PIE CHART *******************/
+    var piedata = [
+        { label: "Total Policies", data: [[1, 50]], color: '#38649f' },
+        { label: "Renewed Policies", data: [[1, 30]], color: '#389f99' },
+        { label: "Under Process Policies", data: [[1, 90]], color: '#689f38' },
+        { label: "Lost Policies", data: [[1, 70]], color: '#ff8f00' }
+    ];
+    $.plot('#policy-report-monthly', piedata, {
+        series: {
+            pie: {
+                show: true,
+                radius: 1,
+                innerRadius: 0.5,
+                label: {
+                    show: true,
+                    radius: 2 / 3,
+                    formatter: labelFormatter,
+                    threshold: 0.1
+                },
+            },
+        },
+        grid: {
+            hoverable: true,
+            clickable: true
+        }
+    });
+    $.plot('#policy-report-yearly', piedata, {
+        series: {
+            pie: {
+                show: true,
+                radius: 1,
+                innerRadius: 0.5,
+                label: {
+                    show: true,
+                    radius: 2 / 3,
+                    formatter: labelFormatter,
+                    threshold: 0.1
+                },
+            },
+        },
+        grid: {
+            hoverable: true,
+            clickable: true
+        }
+    });
+    $.plot('#premium-report-monthly', piedata, {
+        series: {
+            pie: {
+                show: true,
+                radius: 1,
+                innerRadius: 0.5,
+                label: {
+                    show: true,
+                    radius: 2 / 3,
+                    formatter: labelFormatter,
+                    threshold: 0.1
+                },
+                legend: {
+                    position: "ne"
+                }
+            },
+        },
+        grid: {
+            hoverable: true,
+            clickable: true
+        }
+    });
+    $.plot('#premium-report-yearly', piedata, {
+        series: {
+            pie: {
+                show: true,
+                radius: 1,
+                innerRadius: 0.5,
+                label: {
+                    show: true,
+                    radius: 2 / 3,
+                    formatter: labelFormatter,
+                    threshold: 0.1
+                },
+                legend: {
+                    position: "ne"
+                }
+            },
+        },
+        grid: {
+            hoverable: true,
+            clickable: true
+        }
+    });
+    function labelFormatter(label, series) {
+        return "<div style='font-size:8pt; text-align:center; padding:2px; color:white;'>" + label + "<br/>" + Math.round(series.percent) + "%</div>";
+    }
+    $("#togglePolicyReport").on("click", function () {
+        if ($('#currentPolicyReport').text() === 'Yearly')
+            $('#currentPolicyReport').text('Monthly')
+        else
+            $('#currentPolicyReport').text('Yearly')
+    });
+    $("#togglePremiumReport").on("click", function () {
+        if ($('#currentPremiumReport').text() === 'Yearly')
+            $('#currentPremiumReport').text('Monthly')
+        else
+            $('#currentPremiumReport').text('Yearly')
+    });
     $.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
-        url: "GetLineChart",
+        //url: "GetLineChart",
+                url: "",
         data: "{}",
         dataType: "json",
         success: function (Result) {
@@ -113,7 +218,8 @@ $(function () {
     $.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
-        url: "GetRevenueByYear",
+      //  url: "GetRevenueByYear",
+url: "",
         data: "{}",
         dataType: "json",
         success: function (Result) {
@@ -140,72 +246,183 @@ $(function () {
     });
     var options = {
         chart: {
-            height: 470,
+            height: 350,
             type: 'bar',
-            stacked: true,
-            shadow: {
-                enabled: true,
-                color: '#000',
-                top: 18,
-                left: 7,
-                blur: 10,
-                opacity: 1
-            },
-            toolbar: {
-                show: false
-            }
         },
-        colors: ['#ee1044', '#38649f'],
+        plotOptions: {
+            bar: {
+                horizontal: false,
+                columnWidth: '70%',
+                endingShape: 'rounded'
+            },
+        },
         dataLabels: {
-            enabled: true,
+            enabled: false
         },
+        colors: ["#ff8f00", '#38649f', '#ee1044'],
         stroke: {
-            curve: 'smooth'
+            show: true,
+            width: 2,
+            colors: ['transparent']
         },
-
         series: [{
-            name: "Total Premium Earned",
-            data: UnderWriterResultTPE
-        },
-        {
-            name: "Total Premium Lost",
-            data: UnderWriterResultTPL
-        }
-        ],
-        // series: chartData,
-        grid: {
-            borderColor: '#e7e7e7',
-            row: {
-                colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
-                opacity: 0.5
-            },
-        },
-        markers: {
-
-            size: 4
-        },
+            name: 'Policies Quoted',
+            data: [44, 55, 57, 56, 61, 58]
+        }, {
+            name: 'Policies Renewed',
+            data: [76, 85, 101, 98, 87, 105]
+        }, {
+            name: 'Policies Lost',
+            data: [35, 41, 36, 26, 45, 48]
+        }],
         xaxis: {
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
-            title: {
-                text: 'Month'
-            }
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'Jun', 'Jul'],
         },
         yaxis: {
             title: {
-                text: 'Amount'
-            },
+                text: 'Rs. (thousands)'
+            }
+        },
+        fill: {
+            opacity: 1
+
         },
         legend: {
             position: 'top',
-            horizontalAlign: 'right',
-            floating: true,
+            horizontalAlign: 'left'
+        },
+        tooltip: {
+            y: {
+                formatter: function (val) {
+                    return "$ " + val + " thousands"
+                }
+            }
         }
     }
+
     var chart2 = new ApexCharts(
-        document.querySelector("#uni-attendance"),
+        document.querySelector("#policyMonthlyBar"),
         options
     );
-    
+    var options = {
+        chart: {
+            height: 285,
+            type: 'bar',
+        },
+        plotOptions: {
+            bar: {
+                horizontal: false,
+                columnWidth: '55%'
+            },
+        },
+        dataLabels: {
+            enabled: false
+        },
+        colors: ["#ff8f00", '#ee1044'],
+        stroke: {
+            show: true,
+            width: 2,
+            colors: ['transparent']
+        },
+        series: [{
+            name: 'Inquery',
+            data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
+        }, {
+            name: 'Conform',
+            data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
+        }],
+        xaxis: {
+            categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+        },
+        fill: {
+            opacity: 1
+
+        },
+        legend: {
+            position: 'top',
+            horizontalAlign: 'left'
+        },
+        tooltip: {
+            y: {
+                formatter: function (val) {
+                    return "$ " + val + " thousands"
+                }
+            }
+        }
+    }
+
+    var chart3 = new ApexCharts(
+        document.querySelector("#newRenewalPolicy"),
+        options
+    );
+    var options = {
+        series: [
+            {
+                name: "Download Speed",
+                data: [15, 22, 35, 49, 50, 12, 28, 20, 33, 39, 85, 98]
+            },
+            {
+                name: "Upload Speed",
+                data: [5, 15, 25, 30, 25, 8, 18, 21, 32, 39, 62, 72]
+            },
+        ],
+        chart: {
+            height: 358,
+            type: 'bar',
+            zoom: {
+                enabled: false
+            },
+            toolbar: {
+                show: false,
+            },
+        },
+        dataLabels: {
+            enabled: false
+        },
+        colors: ['#673ab7', '#3da643'],
+        grid: {
+            show: true,
+        },
+
+        stroke: {
+            show: true,
+            width: 3,
+            colors: ['transparent']
+        },
+        plotOptions: {
+            bar: {
+                horizontal: false,
+                columnWidth: '40%',
+                endingShape: 'rounded',
+            },
+        },
+
+        legend: {
+            show: true,
+            position: 'top',
+            horizontalAlign: 'left',
+        },
+        xaxis: {
+            categories: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
+            labels: {
+                show: true,
+            },
+            axisBorder: {
+                show: true,
+            },
+            axisTicks: {
+                show: true,
+            },
+        },
+
+        yaxis: {
+            labels: {
+                show: true,
+            }
+        },
+    };
+
+    var chart4 = new ApexCharts(document.querySelector("#LostPolicy"), options);
 
 
     window.Apex = {
@@ -294,6 +511,8 @@ $(function () {
     setTimeout(function () {
         chart1.render();
         chart2.render();
+        chart3.render();
+        chart4.render();
     }, 1000);
 
 

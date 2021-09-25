@@ -158,12 +158,13 @@ namespace Totalligent.DAL
             }
             return returnCode;
         }
-        public long GetQuotationPremiumReinsurer(string InsuranceCompanyName, string ClientCompanyName, out Quotation objRIRate, out List<Quotation> lstRate)
+        public long GetQuotationPremiumReinsurer(string InsuranceCompanyName, string ClientCompanyName,out QuotationKYCDetails QKYCDetails, out Quotation objRIRate, out List<Quotation> lstRate)
         {
             long RIMAsterID = 0;
             lstRate = null;
-            SqlCommand sqlCommand = new SqlCommand();
+            QKYCDetails = null;
             objRIRate = null;
+            SqlCommand sqlCommand = new SqlCommand();
             DataSet dt = new DataSet();
 
            
@@ -198,6 +199,19 @@ namespace Totalligent.DAL
                         lstRate = new List<Quotation>();
                         DTtoListConverter.ConvertTo(dt.Tables[1], out lstRate);
                         RIMAsterID = 1;
+                    }
+                    if (dt.Tables[2].Rows.Count > 0)
+                    {
+                        QKYCDetails = new QuotationKYCDetails();
+                        foreach (DataRow dr in dt.Tables[2].Rows)
+                        {
+
+                            QKYCDetails.Address = Convert.ToString(dr["Address"]);
+                            QKYCDetails.City= Convert.ToString(dr["City"]);
+                            QKYCDetails.KYCUploadPath = Convert.ToString(dr["KYCUploadPath"]);
+                            QKYCDetails.BankName = Convert.ToString(dr["BankName"]);
+                            QKYCDetails.IFSCCode = Convert.ToString(dr["IFSCCode"]);
+                        }
                     }
                 }
                 

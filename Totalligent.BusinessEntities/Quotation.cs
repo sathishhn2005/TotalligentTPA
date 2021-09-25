@@ -131,8 +131,12 @@ namespace Totalligent.BusinessEntities
         public decimal? Premium_FCL { get; set; }
         public decimal? Premium_ClientRate { get; set; }
         public decimal? Premium_Incl_levy_PolFeeRO { get; set; }
-        public string Premium_VariableSADetails { get; set; }
+        public decimal? Premium_VariableNetPremium { get; set; }
+        public decimal? Premium_VariableLevy { get; set; }
+        public decimal? Premium_VariablePolicyFee1_RO { get; set; }
+        public decimal? Premium_VariableGrossPremium { get; set; }
 
+        public string Premium_VariableSADetails { get; set; }
         
         //QuotationCoverageDetail
         public long QuotationCoverageDetailID { get; set; }
@@ -234,9 +238,14 @@ namespace Totalligent.BusinessEntities
         public string OtherExclusions { get; set; }
         public long ModifiedBy { get; set; }
         public DateTime? MofifiedAt { get; set; }
-
-
-
-
+        
+    }
+    public class QuotationKYCDetails
+    {
+        public string Address { get; set; }
+        public string City { get; set; }
+        public string KYCUploadPath { get; set; }
+        public string BankName { get; set; }
+        public string IFSCCode { get; set; }
     }
 }

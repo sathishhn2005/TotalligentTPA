@@ -618,10 +618,10 @@
                     <div class="table-responsive">
                         <table id="tblEMaster" class="table table-hover">
                             <tr>
-                                <th>EmployeeName</th>
+                                <th>Name</th>
                                 <th>EmpUniqueNumber</th>
 
-                                <th>Nationality</th>
+                                <th>RelationType</th>
                                 <th>Category</th>
                                 <th>Age</th>
                                 <th>KYCUploadPath</th>
@@ -696,7 +696,7 @@
             success: function (data) {
                 if (data.list != null) {
                     var lst = data.list
-                    var markup = "<option value='0'>--Select Producer--</option>";
+                    var markup = "<option value='0'>--Select Spouse--</option>";
                     for (var x = 0; x < lst.length; x++) {
                         markup += "<option value=" + lst[x].EmployeeId + ">" + lst[x].EmployeeName + "</option>";
                     }
@@ -1324,7 +1324,7 @@
                 objEmpMaster.Gender = $('#Gender :selected').text();
 
                 objEmpMaster.EmployeeUniqueNumber = $('#EmployeeUniqueNumber').val();
-                objEmpMaster.RelationType = $('#RelationshipId').text();
+                objEmpMaster.RelationType = $('#RelationshipId').val();
                 objEmpMaster.NationlityId = $('#NationlityId').val();
                 objEmpMaster.Category = $('#Category').val();
                 objEmpMaster.DOB = $('#DOB').val();
@@ -1354,7 +1354,7 @@
                 objEmpMaster.Gender = $('#SpouseGender :selected').text();
 
                 objEmpMaster.EmployeeUniqueNumber = $('#EmployeeUniqueNo').val();
-                objEmpMaster.RelationType = $('#RelationshipId').text();
+                objEmpMaster.RelationType = $('#RelationshipId').val();
                 objEmpMaster.NationlityId = $('#SpouseNationlityId').val();
                 objEmpMaster.Category = $('#SpouseCategory').val();
                 objEmpMaster.DOB = $('#SpouseAgeDOB').val();
@@ -1368,21 +1368,21 @@
             if ($('#RelationshipId').val() == 'Child') {
                 var objEmpMaster = new Object();
                 objEmpMaster.EmployeeId = $('#hdnEmpMasterID').val();
-                objEmpMaster.RelationType = $('#RelationshipId').text();
+                objEmpMaster.RelationType = $('#RelationshipId').val();
                 objEmpMaster.EmployeeUniqueNumber = $('#EmployeeChildUniqueNumber').val();
                 objEmpMaster.ParentSpouseId = $('#EmployeeSpouseNames :selected').val();
                 objEmpMaster.EmployeeName = $('#ChildName').val();
                 objEmpMaster.Gender = $('#ChildGender :selected').text();
                 objEmpMaster.DOB = $('#ChildDOB').val();
                 objEmpMaster.Age = $('#ChildAge').val();
-                
-                
+
+
                 objEmpMaster.NationlityId = $('#ChildNationality').val();
                 objEmpMaster.Category = $('#ChildCategory').val();
-                
+
                 objEmpMaster.SumAssured = $('#ChildSumAssured').val();
                 objEmpMaster.EffectiveDate = $('#ChildEffectiveDate').val();
-              
+
             }
 
 
@@ -1406,6 +1406,7 @@
                         text: res,
                     });
                     $('#formEmployee')[0].reset();
+                    window.location.href = "@Url.Action("EmployeeMaster", "GLIMaster")";
                 },
                 error: function (res) {
                     console.log(res);
@@ -1414,7 +1415,7 @@
                         title: '',
                         text: "Data is not Submitted Successfully.",
                     })
-                    $('#formEmployee')[0].reset();
+                    window.location.href = "@Url.Action("EmployeeMaster", "GLIMaster")";
                 }
             })
         });
@@ -1441,7 +1442,7 @@
                         i++;
                         var hdnID = "hdnobjJSonVal_" + i;
                         var JVal = JSON.stringify(value);
-                        $('#tblEMaster').append('<tr> <td>' + value.EmployeeName + '</td>  <td>' + value.EmployeeUniqueNumber + '</td> <td>' + value.Nationality + '</td> <td>' + value.Category + '</td><td>' + value.Age + '</td><td> <a href="' + value.KYCUploadPath + '" class="badge badge-pill badge-warning" download> Download KYC</a></td><td class="text-center"><i class="mdi mdi-pencil text-primary mx-3" onclick="EditEmpMaster(' + "'" + hdnID + "'" + ')"></i><i class="mdi mdi-delete text-danger mx-3" onclick="DeActiveEmpMaster(this,' + value.EmployeeId.toString() + ');"></i><input type="hidden" id=' + hdnID + ' value=' + "'" + JVal + "'" + '></td></tr>');
+                        $('#tblEMaster').append('<tr> <td>' + value.EmployeeName + '</td>  <td>' + value.EmployeeUniqueNumber + '</td> <td>' + value.RelationType + '</td> <td>' + value.Category + '</td><td>' + value.Age + '</td><td> <a href="' + value.KYCUploadPath + '" class="badge badge-pill badge-warning" download> Download KYC</a></td><td class="text-center"><i class="mdi mdi-pencil text-primary mx-3" onclick="EditEmpMaster(' + "'" + hdnID + "'" + ')"></i><i class="mdi mdi-delete text-danger mx-3" onclick="DeActiveEmpMaster(this,' + value.EmployeeId.toString() + ');"></i><input type="hidden" id=' + hdnID + ' value=' + "'" + JVal + "'" + '></td></tr>');
 
 
                     })
@@ -1554,16 +1555,33 @@
         $('#EmployeeName').val(objRow.EmployeeName);
         $('#EmployeeUniqueNumber').val(objRow.EmployeeUniqueNumber);
         //$('#Relation').val(objRow.Relation);
-        $('#Nationality').val(objRow.Nationality);
+        $('#NationlityId').val(objRow.NationlityId);
         $('#Category').val(objRow.Category);
-        $('#DOB').val(objRow.DOB);
+       // $('#DOB').val(objRow.DOB);
         $('#Age').val(objRow.Age);
         $('#Salary').val(objRow.Salary);
         $('#EAW').val(objRow.EAW);
         $('#SumAssured').val(objRow.SumAssured);
-        $('#EffectiveDate').val(objRow.EffectiveDate);
+       // $('#EffectiveDate').val(objRow.EffectiveDate);
         $('#Remarks').val(objRow.Remarks);
         $('#EntryType').val(objRow.EntryType);
+        $('#Gender').val(objRow.Gender);
+
+        value = new Date(parseInt(objRow.DOB.replace("/Date(", "").replace(")/", ""), 10));
+        Fromvalue = value.toDateString()
+        //Fromvalue = value.toISOString();
+
+        //var Str = (value.getFullYear() + "-" + ("00" + (value.getMonth() + 1)).slice(-2) + "-" + ("00" + value.getDate().slice(-2))
+        var DOBStr = ("00" + value.getDate()).slice(-2) + "-" + ("00" + (value.getMonth() + 1)).slice(-2) + "-" + value.getFullYear();
+        $('#DOB').val(DOBStr);
+
+        value = new Date(parseInt(objRow.EffectiveDate.replace("/Date(", "").replace(")/", ""), 10));
+        Fromvalue = value.toDateString()
+      //  Fromvalue = value.toISOString();
+
+        //var Str = (value.getFullYear() + "-" + ("00" + (value.getMonth() + 1)).slice(-2) + "-" + ("00" + value.getDate().slice(-2))
+        var EffectiveDateStr = ("00" + value.getDate()).slice(-2) + "-" + ("00" + (value.getMonth() + 1)).slice(-2) + "-" + value.getFullYear();
+        $('#EffectiveDate').val(EffectiveDateStr);
 
         $('#UploadKYC_01').val(objRow.UploadKYC_01);
         $('#UploadKYC_02').val(objRow.UploadKYC_02);

@@ -31375,7 +31375,8 @@ button.btn.dropdown-toggle:after {
 .k-numerictextbox.w-full {
     width: 100%;
 }
-.spinner-bg{
+
+.spinner-bg {
     background: #fff0;
     position: absolute;
     height: 100%;
@@ -31383,6 +31384,7 @@ button.btn.dropdown-toggle:after {
     z-index: 9999;
     margin-top: 30px;
 }
+
 .spinner {
     position: absolute;
     left: 43%;
@@ -31403,20 +31405,43 @@ button.btn.dropdown-toggle:after {
 }
 
 @-webkit-keyframes rotation {
-   from {-webkit-transform: rotate(0deg);}
-   to {-webkit-transform: rotate(359deg);}
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+
+    to {
+        -webkit-transform: rotate(359deg);
+    }
 }
+
 @-moz-keyframes rotation {
-   from {-moz-transform: rotate(0deg);}
-   to {-moz-transform: rotate(359deg);}
+    from {
+        -moz-transform: rotate(0deg);
+    }
+
+    to {
+        -moz-transform: rotate(359deg);
+    }
 }
+
 @-o-keyframes rotation {
-   from {-o-transform: rotate(0deg);}
-   to {-o-transform: rotate(359deg);}
+    from {
+        -o-transform: rotate(0deg);
+    }
+
+    to {
+        -o-transform: rotate(359deg);
+    }
 }
+
 @keyframes rotation {
-   from {transform: rotate(0deg);}
-   to {transform: rotate(359deg);}
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(359deg);
+    }
 }
 
 .invoces-Complogo {
@@ -31430,13 +31455,16 @@ button.btn.dropdown-toggle:after {
     float: right;
     text-align: right;
 }
+
 .box-shadow {
     -webkit-box-shadow: 0 2px 28px rgb(0 0 0 / 10%);
     box-shadow: 0 2px 28px rgb(0 0 0 / 10%);
 }
+
 .lh40 {
     line-height: 40px;
 }
+
 .nav-link span.noti-dot::after {
     content: '';
     position: absolute;
@@ -31454,6 +31482,7 @@ button.btn.dropdown-toggle:after {
 .font-size-20 {
     font-size: 20px !important;
 }
+
 .avatar .avatar-title {
     background: #d7d7d7;
     width: 100%;
@@ -31800,6 +31829,7 @@ div.radio.switcher label {
     border-left: 0;
     border-right: 0;
 }
+
 .ui-autocomplete {
     max-height: 100px;
     overflow-y: auto;
@@ -31817,4 +31847,19 @@ div.radio.switcher label {
     padding: 1px;
     max-height: 200px;
     overflow: auto;
+}
+
+.previewHeader {
+    background: #673AB7;
+    padding: 15px;
+    color: #fff;
+}
+
+.previewContent .d-table .d-table-row {
+    line-height: 2.5;
+}
+
+.previewContent .d-table .d-table-cell {
+    padding-right: 25px;
+    font-size: 1.1rem;
 }
