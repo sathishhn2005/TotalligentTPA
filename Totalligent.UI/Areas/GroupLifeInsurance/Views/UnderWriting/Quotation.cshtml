@@ -194,7 +194,7 @@
                                                         <span class="input-group-prepend">
                                                             <span class="input-group-text">OMR</span>
                                                         </span>
-                                                        <input type="number" value="" id="FixedDCSAmount" class="form-control" placeholder="Enter Sum Assured Amount" onchange="AssignDeathCoverValues('DACtxt');">
+                                                        <input type="number" value="" id="FixedDCSAmount" class="form-control" placeholder="Enter SA" onchange="AssignDeathCoverValues('DACtxt');">
                                                         <input type="hidden" id="hdnDeathCoverSumAssuredAmount" name="DeathCoverSumAssuredAmount" value="" />
                                                         <input type="hidden" id="hdnDeathCoverFCL" name="DeathCoverFCL" value="" />
                                                         <input type="hidden" id="hdnDeathCoverSumAssuredNoOfTimes" name="DeathCoverSumAssuredNoOfTimes" value="" />
@@ -210,7 +210,9 @@
                                                         </span>
                                                         <input type="number" id="VariableDCSAmount" class="form-control" placeholder="Enter Sum Assured Amount" onchange="AssignDeathCoverValues('DACtxt');">
                                                         <span class="input-group-text group-text-custom">*</span>
-                                                        <input type="number" id="txtDeathCoverSumAssuredNoOfTimes" class="form-control" placeholder="Enter No.of times" onchange="AssignDeathCoverValues('DACtxt');">
+                                                        <input type="number" id="txtDeathCoverSumAssuredNoOfTimes" class="form-control" placeholder="Nooftimes" onchange="AssignDeathCoverValues('DACtxt');">
+                                                        <span class="input-group-text group-text-custom">*</span>
+                                                        <input type="number" id="txtDeathCoverTotalAmt" class="form-control" placeholder="Total" readonly>
                                                     </div>
                                                 </div>
                                                 <div class="row m-b-15 m-t-15" id="DACFCLContent" style="display: none;">
@@ -267,7 +269,9 @@
                                                         <input type="text" class="form-control" id="txtDNCSAA01" placeholder="Enter Sum Assured Amount" onchange="AssignDeathCoverValues('DNCtxt');">
                                                         <span class="input-group-text group-text-custom">*</span>
                                                         <input type="text" id="txtEnterNooftimes" class="form-control" placeholder="Enter No.of times" onchange="AssignDeathCoverValues('DNCtxt');">
-
+                                                        <span class="input-group-text group-text-custom">*</span>
+                                                        <input type="text" id="txtDeathCoverDNCTotalAmt" readonly class="form-control" placeholder="total" >
+                                                        
                                                     </div>
                                                 </div>
                                                 <div class="row m-b-15 m-t-15" id="DNCFCLContent" style="display: none;">
@@ -326,7 +330,9 @@
                                                         </span>
                                                         <input type="number" id="txtACDSAM" onchange="AssignDeathCoverValues('txtACD');" class="form-control" placeholder="Enter Sum Assured Amount">
                                                         <span class="input-group-text group-text-custom">*</span>
-                                                        <input type="number" id="txtACDNoOfTimes" name="AccidentalSumAssuredNoOfTimes" class="form-control" placeholder="Enter No.of times">
+                                                        <input type="number" id="txtACDNoOfTimes" onchange="AssignDeathCoverValues('txtNoOfTimesACD');" name="AccidentalSumAssuredNoOfTimes" class="form-control" placeholder="Enter No.of times">
+                                                        <span class="input-group-text group-text-custom">*</span>
+                                                        <input type="number" id="txtACDTotal" name="TotalAccidentalSumAssuredNoOfTimes" class="form-control" readonly>
                                                     </div>
                                                 </div>
                                                 <div class="row m-b-15 m-t-15" id="ACDFCLContent" style="display: none;">
@@ -1984,10 +1990,10 @@
                     var KYCDetails = Result.objKYCDetails;
                     $('#objQuo_Address').val(KYCDetails.Address)
                     $('#objQuo_City').val(KYCDetails.City)
-                    $('#objQuo_KYCUploadPath').val(KYCDetails.KYCUploadPath)
+                    $('#objQuo_KYCDetails').val(KYCDetails.KYCUploadPath)
                     $('#objQuo_BankName').val(KYCDetails.BankName)
                     $('#objQuo_IFSCCode').val(KYCDetails.IFSCCode)
-                    
+
 
                     $.each(Result.lstReinsurerRate, function (key, value) {
                         $('#tblReinsurer').append('<tr> <td>' + value.Premium_RIName + '</td>  <td>' + value.Premium_RInetrate + '</td> <td>' + value.Premium_RIPremium + '</td> <td>' + value.Premium_RIRetention + '</td><td>' + value.Premium_InsurerRetention + '</td> <td>' + value.Premium_RIRetentionPremium + '</td> <td>' + value.Premium_InsurerRetentionPremium + '</td><td>' + value.Premium_InsurerLoadingPremium + '</td><td>' + value.Premium_InsurerLoading + '</td></tr>');
@@ -2084,7 +2090,7 @@
                 $('#objQuo_GrossPremium').val(Result.GrossPremium);
                 var WC_BrokerName = $('#objQuo_Premium_BrokerName').val();
                 var WC_BrokerCommission = $('#objQuo_Premium_BrokerCommssion').val();
-                var WC_BrokerAmount = (parseFloat(WC_NetPremium) * parseFloat(WC_BrokerCommission)) / 100;
+                var WC_BrokerAmount = (parseFloat(Result.NetPremium) * parseFloat(WC_BrokerCommission)) / 100;
                 $('#objQuo_BrokerName').val(WC_BrokerName);
                 $('#objQuo_BrokerPercentage').val(WC_BrokerCommission);
                 $('#objQuo_BrokerAmount').val(WC_BrokerAmount);
@@ -2147,6 +2153,8 @@
                     $("#txtAccidentalFCL").val('');
                     $("#txtACDSAM").val('');
                     $("#txtACDNoOfTimes").val('');
+                    $("#txtACDTotal").val('');
+
                 }
             });
             $("#PermanentDisability").click(function () {
@@ -2450,22 +2458,31 @@
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
             data: quotationData,
             success: function (res) {
-
-                alert('Data Submitted Successfully');
-                if (res.length > 0) {
-                    //Swal.fire({
-                    //    icon: 'success',
-                    //    title: '',
-                    //    text: "Data Submitted Successfully.   Draft No is '" + res + "'",
-                    //})
-                    alert('Data Submitted Successfully');
+                if (res.Status == 'Quotation Already Drafted for this Client.!') {
+                    Swal.fire({
+                        icon: 'info',
+                        title: '',
+                        text: "'" + res.Status + "'/n Draft No is '" + res.DraftNo + "'/n WLDraft No Is '" + res.WLDraftNo + "'",
+                    });
                 }
+                else {
+                    Swal.fire({
+                        icon: 'success',
+                        title: '',
+                        text: "'" + res.Status + "'/n Draft No is '" + res.DraftNo + "'/n WLDraft No Is '" + res.WLDraftNo + "'",
+                    });
+                }
+               
                 window.location = '@Url.Action("Quotation", "UnderWriting")'
 
                 // $('#formRenewal').reset();
             },
             error: function () {
-                alert('Data Submitteds Successfully');
+                Swal.fire({
+                    icon: 'success',
+                    title: '',
+                    text: "Saved successfully.!",
+                });
                 window.location = '@Url.Action("Quotation", "UnderWriting")'
 
                 // $("#lblMessage").html('Error while Registring the Company!.');
@@ -2611,6 +2628,7 @@
     }
     function AssignDeathCoverValues(type) {
         var qidCheck = $('#objQuo_QuotationId').val();
+
         if (type == "DACtxt") {
 
             if ($("#FixedDAC").is(':checked')) {
@@ -2622,6 +2640,8 @@
                 $("#hdnDeathCoverSumAssuredAmount").val($("#VariableDCSAmount").val());
                 $("#hdnDeathCoverFCL").val($("#txtDeathCoverFCL").val());
                 $("#hdnDeathCoverSumAssuredNoOfTimes").val($("#txtDeathCoverSumAssuredNoOfTimes").val());
+                var TotalAmt = $("#VariableDCSAmount").val() * $("#txtDeathCoverSumAssuredNoOfTimes").val()
+                $("#txtDeathCoverTotalAmt").val(TotalAmt);
 
             }
 
@@ -2657,6 +2677,8 @@
                 $("#hdnDeathCoverSumAssuredAmount").val($("#txtDNCSAA01").val());
                 $("#hdnDeathCoverFCL").val($("#txtDNCFCLContent").val());
                 $("#hdnDeathCoverSumAssuredNoOfTimes").val($("#txtEnterNooftimes").val());
+                var TotalAmt = $("#txtDNCSAA01").val() * $("#txtEnterNooftimes").val()
+                $("#txtDeathCoverDNCTotalAmt").val(TotalAmt);
             }
 
         }
@@ -2677,6 +2699,9 @@
             $("#txtDNCSAA01").val('');
             $("#txtDNCFCLContent").val('');
             $("#txtEnterNooftimes").val('');
+            $("#txtDeathCoverDNCTotalAmt").val('');
+            $("#txtDeathCoverTotalAmt").val('');
+
 
             $("#hdnDeathCoverSumAssuredAmount").val('');
             $("#hdnDeathCoverFCL").val('');
@@ -2699,10 +2724,19 @@
 
             $("#hdnAccidentalSumAssuredAmount").val('');
             $("#txtACDSAM").val('');
+            $("#txtACDTotal").val('');
         }
         else if (type == "VariableADC") {
             $("#hdnAccidentalSumAssuredAmount").val('');
             $("#txtAccidentalDeathSAM").val('');
+        }
+        else if (type =="txtNoOfTimesACD") {
+            var SA = $("#txtACDSAM").val();
+            var NoOfTimes = $("#txtACDNoOfTimes").val();
+            $("#txtACDTotal").val(SA * NoOfTimes);
+
+
+
         }
         //alert($("#hdnDeathCoverSumAssuredAmount").val());
 
@@ -2883,7 +2917,7 @@
 
                 var Premium_VariablePolicyFee1_RO = 1;
                 $("#Premium_VariablePolicyFee1_RO").val(Premium_VariablePolicyFee1_RO.toFixed(3));
-                
+
 
                 var Premium_VariableGrossPremium = Number(TotNetPremium) + Number(Premium_VariableLevy) + Number(Premium_VariablePolicyFee1_RO);
                 $("#Premium_VariableGrossPremium").val(Premium_VariableGrossPremium.toFixed(3));
@@ -3153,6 +3187,9 @@
 
             }
             // $("#hdnOtherAdditionalCover").val(JSON.parse(objQuoJson.OtherAdditionalCover));
+            $("#hdnVariableTypeSumContent").val(objQuoJson.Premium_VariableSADetails);
+            bindCategoryType('Page');
+            
 
             if (objQuoJson.WarExclusion == "Y") {
 
