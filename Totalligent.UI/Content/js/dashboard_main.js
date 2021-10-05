@@ -14,10 +14,10 @@ $(function () {
     'use strict';
     /**************** PIE CHART *******************/
     var piedata = [
-        { label: "Total Policies", data: [[1, 50]], color: '#38649f' },
-        { label: "Renewed Policies", data: [[1, 30]], color: '#389f99' },
-        { label: "Under Process Policies", data: [[1, 90]], color: '#689f38' },
-        { label: "Lost Policies", data: [[1, 70]], color: '#ff8f00' }
+        { label: "Total Policies", data: [[0, 25]], color: '#38649f' },
+        { label: "Renewed Policies", data: [[1, 25]], color: '#389f99' },
+        { label: "Under Process Policies", data: [[1, 10]], color: '#689f38' },
+        { label: "Lost Policies", data: [[1, 40]], color: '#ff8f00' }
     ];
     $.plot('#policy-report-monthly', piedata, {
         series: {
@@ -30,12 +30,15 @@ $(function () {
                     radius: 2 / 3,
                     formatter: labelFormatter,
                     threshold: 0.1
-                },
+                }
             },
         },
         grid: {
             hoverable: true,
             clickable: true
+        },
+        legend: {
+            show: false
         }
     });
     $.plot('#policy-report-yearly', piedata, {
@@ -55,6 +58,9 @@ $(function () {
         grid: {
             hoverable: true,
             clickable: true
+        },
+        legend: {
+            show: false
         }
     });
     $.plot('#premium-report-monthly', piedata, {
@@ -77,6 +83,9 @@ $(function () {
         grid: {
             hoverable: true,
             clickable: true
+        },
+        legend: {
+            show: false
         }
     });
     $.plot('#premium-report-yearly', piedata, {
@@ -99,6 +108,9 @@ $(function () {
         grid: {
             hoverable: true,
             clickable: true
+        },
+        legend: {
+            show: false
         }
     });
     function labelFormatter(label, series) {
@@ -116,38 +128,39 @@ $(function () {
         else
             $('#currentPremiumReport').text('Yearly')
     });
-    $.ajax({
-        type: "GET",
-        contentType: "application/json; charset=utf-8",
-        //url: "GetLineChart",
-                url: "",
-        data: "{}",
-        dataType: "json",
-        success: function (Result) {
 
-            chartDataLineBar = Result.list;
+    $(document).ready(function () { 
+        $.ajax({
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            url: "/DashBoard/GetLineChart",
+            data: "{}",
+            dataType: "json",
+            success: function (Result) {
 
-            jQuery.each(chartDataLineBar, function (key, value) {
+                chartDataLineBar = Result.list;
 
-                UWPending.push(value.a);
-                UWApproved.push(value.b);
-                UWRejected.push(value.c);
-                UWTotal.push(value.d);
+                jQuery.each(chartDataLineBar, function (key, value) {
+
+                    UWPending.push(value.a);
+                    UWApproved.push(value.b);
+                    UWRejected.push(value.c);
+                    UWTotal.push(value.d);
 
 
-            });
-            //jQuery.each(chartDataLineBar, function (key, value) {
+                });
+                //jQuery.each(chartDataLineBar, function (key, value) {
 
-            //	UnderWriterResultTPL.push(value.b);
+                //	UnderWriterResultTPL.push(value.b);
 
-            //});
+                //});
 
-        },
-        error: function (Result) {
-            //alert("Error");
-        }
+            },
+            error: function (Result) {
+                //alert("Error");
+            }
+        });
     });
-
     var options = {
         chart: {
             height: 350,
@@ -213,13 +226,12 @@ $(function () {
     );
     var UnderWriterResultTPE = [];
     var UnderWriterResultTPL = [];
-    
-    
+
+
     $.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
-      //  url: "GetRevenueByYear",
-url: "",
+        url: "",
         data: "{}",
         dataType: "json",
         success: function (Result) {
@@ -241,7 +253,7 @@ url: "",
 
         },
         error: function (Result) {
-           // alert("Error");
+            // alert("Error");
         }
     });
     var options = {
@@ -294,7 +306,7 @@ url: "",
         tooltip: {
             y: {
                 formatter: function (val) {
-                    return "$ " + val + " thousands"
+                    return val;
                 }
             }
         }
@@ -325,10 +337,10 @@ url: "",
             colors: ['transparent']
         },
         series: [{
-            name: 'Inquery',
+            name: 'New Policy',
             data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
         }, {
-            name: 'Conform',
+                name: 'Renew Policy',
             data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
         }],
         xaxis: {
@@ -345,7 +357,7 @@ url: "",
         tooltip: {
             y: {
                 formatter: function (val) {
-                    return "$ " + val + " thousands"
+                    return val;
                 }
             }
         }
@@ -358,16 +370,16 @@ url: "",
     var options = {
         series: [
             {
-                name: "Download Speed",
+                name: "Prospect Lost",
                 data: [15, 22, 35, 49, 50, 12, 28, 20, 33, 39, 85, 98]
             },
             {
-                name: "Upload Speed",
+                name: "Renewal Policies Lost",
                 data: [5, 15, 25, 30, 25, 8, 18, 21, 32, 39, 62, 72]
             },
         ],
         chart: {
-            height: 358,
+            height: 285,
             type: 'bar',
             zoom: {
                 enabled: false
@@ -403,7 +415,7 @@ url: "",
             horizontalAlign: 'left',
         },
         xaxis: {
-            categories: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
+            categories: ['2021', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
             labels: {
                 show: true,
             },
@@ -496,8 +508,19 @@ url: "",
             e = moment(),
             t = moment();
         n.daterangepicker({
-            startDate: e, endDate: t, opens: "left", ranges: {
-                Today: [moment(), moment()], Yesterday: [moment().subtract(1, "days"), moment().subtract(1, "days")], "Last 7 Days": [moment().subtract(6, "days"), moment()], "Last 30 Days": [moment().subtract(29, "days"), moment()], "This Month": [moment().startOf("month"), moment().endOf("month")], "Last Month": [moment().subtract(1, "month").startOf("month"), moment().subtract(1, "month").endOf("month")]
+            startDate: e,
+            endDate: t,
+            maxDate: new Date(),
+            opens: "left",
+            ranges: {
+                "This Month": [moment().startOf("month"), moment().endOf("month")],
+                "Last Month": [moment().subtract(1, "month").startOf("month"), moment().subtract(1, "month").endOf("month")],
+                "Last 3 Months": [moment().subtract(2, "month").startOf("month"), moment().endOf("month")],
+                "This Year": [moment().startOf("year").startOf("month"), moment().endOf("month")],
+                "Last Year": [moment().subtract(1, "year").startOf("year"), moment().subtract(1, "year").endOf("year")],
+                "Last 3 Years": [moment().subtract(2, "year").startOf("year"), moment().endOf("month")],
+                
+                
             }
         }
             , a),
@@ -506,8 +529,14 @@ url: "",
     function a(e, t, a) {
         var r = "",
             o = "";
-        t - e < 100 || "Today" == a ? (r = "Today:", o = e.format("MMM D")) : "Yesterday" == a ? (r = "Yesterday:", o = e.format("MMM D")) : o = e.format("MMM D") + " - " + t.format("MMM D"), n.find(".subheader_daterange-date").html(o), n.find(".subheader_daterange-title").html(r)
+        t - e < 100 || "Today" == a ? (r = "Today:", o = e.format("MMM D")) : "Yesterday" == a ? (r = "Yesterday:", o = e.format("MMM D")) : o = e.format("MMM D YYYY") + " - " + t.format("MMM D YYYY"), n.find(".subheader_daterange-date").html(o), n.find(".subheader_daterange-title").html(r)
+        //alert(e.format("MMM D YYYY") + " - " + t.format("MMM D YYYY"));
+        
     }
+    $('#dashboard_daterangepicker').on('apply.daterangepicker', function (ev, picker) {
+        console.log("Start Date: " + picker.startDate.format('DD-MM-YYYY'));
+        console.log("End Date: " + picker.endDate.format('DD-MM-YYYY'));
+    });
     setTimeout(function () {
         chart1.render();
         chart2.render();

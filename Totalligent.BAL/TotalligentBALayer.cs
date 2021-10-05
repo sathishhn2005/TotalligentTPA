@@ -374,23 +374,21 @@ namespace Totalligent.BAL
             }
             return returnCode;
         }
-        public long GetUWDB(string UserName, out UnderWriter lstInfo)
+        public long GetUWDB(string UserName, DateTime StartDate, DateTime EndDate, out List<UnderWriter> lstUW)
         {
             long returnCode = -1;
-            using (TransactionScope transactionScope = new TransactionScope())
+
+            try
             {
-                try
-                {
-                    returnCode = objTotalligentDAL.GetUWDashBoardDetails(UserName, out lstInfo);
-                    transactionScope.Complete();
-                    transactionScope.Dispose();
-                }
-                catch (Exception ex)
-                {
-                    transactionScope.Dispose();
-                    throw ex;
-                }
+                returnCode = objTotalligentDAL.GetUWDashBoardDetails(UserName, StartDate, EndDate, out lstUW);
+
             }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
             return returnCode;
         }
         public long GetPolicyIssuance(string DraftNumber, out List<Quotation> lstQuotation)
@@ -428,26 +426,16 @@ namespace Totalligent.BAL
 
         public List<DataPoint> GetLinechartUW(int flag, string uname)
         {
-
             List<DataPoint> lst = new List<DataPoint>();
-            using (TransactionScope transactionScope = new TransactionScope())
+            try
             {
-                try
-                {
-                    lst = objTotalligentDAL.GetLinechartUWriter(flag, uname);
-
-                    transactionScope.Complete();
-                    transactionScope.Dispose();
-
-                }
-                catch (Exception ex)
-                {
-                    transactionScope.Dispose();
-                    //  throw ex;
-                }
-
-                return lst;
+                lst = objTotalligentDAL.GetLinechartUWriter(flag, uname);
             }
+            catch (Exception ex)
+            {
+                 throw ex;
+            }
+            return lst;
         }
         public List<DataPoint> GetBarChartUnderWriter(int flag, string uname)
         {

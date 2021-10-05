@@ -22,7 +22,12 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
             try
             {
                 string UserName = "Sathish";
-                returnCode = objBALTot.GetUWDB(UserName, out obj);
+                DateTime StartDate = DateTime.Now;
+                DateTime EndDate = DateTime.Now;
+                List<UnderWriter> lstUW = null;
+                //string UserName, DateTime StartDate, DateTime EndDate, out List<UnderWriter> lstUW
+                returnCode = objBALTot.GetUWDB(UserName, StartDate,EndDate, out lstUW);
+                obj = lstUW[0];
                 if (obj != null)
                 {
                     return View(obj);
@@ -34,6 +39,30 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
                 throw ex;
             }
             return View(obj);
+        }
+        [HttpGet]
+        public JsonResult GetLineChart()
+        {
+            List<DataPoint> dataPoints = new List<DataPoint>();
+            try
+            {
+
+                dataPoints = objBALTot.GetLinechartUW(1, "admin");
+                //  ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            return Json(new
+            {
+                list = dataPoints
+            }, JsonRequestBehavior.AllowGet);
+
+
         }
         public ActionResult MISDashBoard()
         {

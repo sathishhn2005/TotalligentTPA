@@ -1246,6 +1246,7 @@
                                     <h5 class="m-b-15 m-t-15 text-bold col-12 p-0">Fixed Sum Assured</h5>
                                     <hr />
                                     <div class="col-md-11 m-b-15 m-t-15 mx-auto">
+                                        <input type="hidden" id="hdnlstReinsurerRate" value="" />
                                         <div class="d-flex">
                                             <label class="text-left font-weight-bold col-3 pl-1">Type of Sum Assured</label>
                                             <div class="demo-radio-button d-flex justify-content-between">
@@ -1629,70 +1630,70 @@
                         <div class="d-table ml-100 mt-25">
                             <div class="d-table-row">
                                 <div class="d-table-cell font-weight-bold">Insurance Company Name</div>
-                                <div class="d-table-cell">Al Madina Insurance Company</div>
+                                <div class="d-table-cell" id="divInsuranceCompanyName"></div>
                             </div>
                             <div class="d-table-row">
                                 <div class="d-table-cell font-weight-bold">Client Company Name</div>
-                                <div class="d-table-cell">Axis Bank</div>
+                                <div class="d-table-cell" id="divClientCompanyName"></div>
                             </div>
                             <div class="d-table-row">
                                 <div class="d-table-cell font-weight-bold">Area of Coverage</div>
-                                <div class="d-table-cell">Worldwide</div>
+                                <div class="d-table-cell" id="divAreaofCoverage"></div>
                             </div>
                             <div class="d-table-row">
                                 <div class="d-table-cell font-weight-bold">Jurisdiction</div>
-                                <div class="d-table-cell">SULTANATE OF OMAN</div>
+                                <div class="d-table-cell" id="divJurisdiction"></div>
                             </div>
                             <div class="d-table-row">
                                 <div class="d-table-cell font-weight-bold">Address</div>
-                                <div class="d-table-cell">No: 2/186N, 3rd Street,Injambakkam</div>
+                                <div class="d-table-cell" id="divAddress"></div>
                             </div>
                             <div class="d-table-row">
                                 <div class="d-table-cell font-weight-bold">City</div>
-                                <div class="d-table-cell">Chennai</div>
+                                <div class="d-table-cell" id="divCity"></div>
                             </div>
                             <div class="d-table-row">
                                 <div class="d-table-cell font-weight-bold">Nationality</div>
-                                <div class="d-table-cell">Indian</div>
+                                <div class="d-table-cell" id="divNationality"></div>
                             </div>
                             <div class="d-table-row">
                                 <div class="d-table-cell font-weight-bold">KYC Details</div>
-                                <div class="d-table-cell">Aadhaar</div>
+                                <div class="d-table-cell" id="divKYCDetails"></div>
                             </div>
                             <div class="d-table-row">
                                 <div class="d-table-cell font-weight-bold">Bank Name</div>
-                                <div class="d-table-cell">HDFC Bank</div>
+                                <div class="d-table-cell" id="divBankName"></div>
                             </div>
                             <div class="d-table-row">
                                 <div class="d-table-cell font-weight-bold">IFSC Code</div>
-                                <div class="d-table-cell">HDFC00324</div>
+                                <div class="d-table-cell" id="divIFSCCode"></div>
                             </div>
                             <div class="d-table-row">
                                 <div class="d-table-cell font-weight-bold">Branch</div>
-                                <div class="d-table-cell">Injambakkam</div>
+                                <div class="d-table-cell" id="divBranch"></div>
                             </div>
                             <div class="d-table-row">
                                 <div class="d-table-cell font-weight-bold">Period of Insurance</div>
-                                <div class="d-table-cell">2 Years</div>
+                                <div class="d-table-cell" id="divPeriodofInsurance"></div>
                             </div>
                             <div class="d-table-row">
                                 <div class="d-table-cell font-weight-bold">Category</div>
-                                <div class="d-table-cell">
-                                    <table class="table table-hover table-sm table-bordered">
-                                        <tbody>
-                                            <tr>
-                                                <th>Category Name</th>
-                                            </tr>
-                                            <tr>
-                                                <td>Gold Member</td>
+                                <div class="d-table-cell" id="divtblCategory">
+                                    @*<table class="table table-hover table-sm table-bordered" id="tblCategory">
+                                                            <tbody>
+                                <tr>
+                                    <th>Category Name</th>
+                                </tr>
+                                <tr>
+                                    <td>Gold Member</td>
 
-                                            </tr>
-                                            <tr>
-                                                <td>Silver  Member</td>
+                                </tr>
+                                <tr>
+                                    <td>Silver  Member</td>
 
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                </tr>
+                            </tbody>
+                                                        </table>*@
                                 </div>
                             </div>
                         </div>
@@ -1710,21 +1711,21 @@
                             <h5 class="m-b-15 m-t-15 text-bold col-12 p-0">Death Cover</h5>
                             <hr />
                         </div>
-                        <div class="ml-50 mt-20">
-                            <h5 class="font-weight-900">Death due to any cause (DAC)</h5>
+                        <div class="ml-50 mt-20" id="divDeathCover">
+
                         </div>
                         <div class="d-table ml-100">
                             <div class="d-table-row">
                                 <div class="d-table-cell font-weight-bold">Annual Limit</div>
-                                <div class="d-table-cell">Fixed</div>
+                                <div class="d-table-cell" id="divPreAnnualLimit">Fixed</div>
                             </div>
                             <div class="d-table-row">
                                 <div class="d-table-cell font-weight-bold">Sum Assured</div>
-                                <div class="d-table-cell">OMR 5,50,000</div>
+                                <div class="d-table-cell" id="divPreSumAssured"></div>
                             </div>
                             <div class="d-table-row">
                                 <div class="d-table-cell font-weight-bold">FCL</div>
-                                <div class="d-table-cell">6000</div>
+                                <div class="d-table-cell" id="divPreFCL"></div>
                             </div>
                         </div>
                         <div class="ml-50 mt-20">
@@ -1733,17 +1734,18 @@
                         <div class="d-table ml-100">
                             <div class="d-table-row">
                                 <div class="d-table-cell font-weight-bold">Annual Limit</div>
-                                <div class="d-table-cell">Variable</div>
+                                <div class="d-table-cell" id="divPreACAnnualLimit"></div>
                             </div>
                             <div class="d-table-row">
                                 <div class="d-table-cell font-weight-bold">Sum Assured</div>
-                                <div class="d-table-cell">OMR 6,20,000</div>
+                                <div class="d-table-cell" id="divPreACSumAssured"></div>
                             </div>
                             <div class="d-table-row">
                                 <div class="d-table-cell font-weight-bold">FCL</div>
-                                <div class="d-table-cell">5250</div>
+                                <div class="d-table-cell" id="divPreACFCL"></div>
                             </div>
                         </div>
+
                         <div class=" mt-25">
                             <hr />
                             <h5 class="m-b-15 m-t-15 text-bold col-12 p-0">Benefits</h5>
@@ -1755,21 +1757,294 @@
                         <div class="d-table ml-100  m-b-25">
                             <div class="d-table-row">
                                 <div class="d-table-cell font-weight-bold">PTD Optional Benefits</div>
-                                <div class="d-table-cell">Accident / Sickness</div>
+                                <div class="d-table-cell" id="divPTDOptionalBenefits"></div>
                             </div>
                             <div class="d-table-row">
                                 <div class="d-table-cell font-weight-bold">Coverage Limit</div>
-                                <div class="d-table-cell">OMR 5,00,000</div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Maximum Limit</div>
-                                <div class="d-table-cell">OMR 3,50,000</div>
+                                <div class="d-table-cell" id="divPTDOptionalBenefitsCL"></div>
                             </div>
                             <div class="d-table-row">
                                 <div class="d-table-cell font-weight-bold">Waiting Period in Days</div>
-                                <div class="d-table-cell">120</div>
+                                <div class="d-table-cell" id="divPTDOptionalBenefitsWPD">120</div>
                             </div>
                         </div>
+
+                        <div class="ml-50 mt-20">
+                            <h5 class="font-weight-900">Permanent Partial Disability (PPD)</h5>
+                        </div>
+                        <div class="d-table ml-100  m-b-25">
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">PPD Benefits</div>
+                                <div class="d-table-cell" id="divPPDBenefits"></div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Coverage Limit</div>
+                                <div class="d-table-cell" id="divPPDCL"></div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Waiting Period in Days</div>
+                                <div class="d-table-cell" id="divPPDWPD"></div>
+                            </div>
+                        </div>
+
+                        <div class="ml-50 mt-20">
+                            <h5 class="font-weight-900">Temporary Total Disability (TTD)</h5>
+                        </div>
+                        <div class="d-table ml-100  m-b-25">
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">TTD Benefits</div>
+                                <div class="d-table-cell" id="divTTDBenefits"></div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Coverage Limit</div>
+                                <div class="d-table-cell" id="divTTDCL"></div>
+                            </div>
+
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Waiting Period in Days</div>
+                                <div class="d-table-cell" id="divTTDWPD"></div>
+                            </div>
+                        </div>
+
+                        <div class="ml-50 mt-20">
+                            <h5 class="font-weight-900">Repatriation  Benefit</h5>
+                        </div>
+                        <div class="d-table ml-100  m-b-25">
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Coverage Limit</div>
+                                <div class="d-table-cell" id="divRBCL"></div>
+                            </div>
+
+                        </div>
+
+                        <div class="ml-50 mt-20">
+                            <h5 class="font-weight-900">Additional Cover</h5>
+                        </div>
+                        <div class="ml-50 mt-20">
+                            <h5 class="font-weight-900">Passive War Risk Benefits</h5>
+                        </div>
+                        <div class="d-table ml-100  m-b-25">
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Coverage Limit</div>
+                                <div class="d-table-cell" id="divPWRB"></div>
+                            </div>
+                        </div>
+
+                        <div class="ml-50 mt-20">
+                            <h5 class="font-weight-900">Terminal Illness Benefits</h5>
+                        </div>
+                        <div class="d-table ml-100  m-b-25">
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Coverage Limit</div>
+                                <div class="d-table-cell" id="divTIBCL"></div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Maximum Limit</div>
+                                <div class="d-table-cell" id="divTIPML"></div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Waiting Period in Days</div>
+                                <div class="d-table-cell" id="divTIPWPD"></div>
+                            </div>
+                        </div>
+
+
+                        <div class="ml-50 mt-20">
+                            <h5 class="font-weight-900"> Critical Illness Benefits</h5>
+                        </div>
+                        <div class="d-table ml-100  m-b-25">
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Coverage Limit</div>
+                                <div class="d-table-cell" id="divCIBCL"></div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Maximum Limit</div>
+                                <div class="d-table-cell" id="divCIBML"></div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Waiting Period in Days</div>
+                                <div class="d-table-cell" id="divCIBWPD"></div>
+                            </div>
+                        </div>
+
+                        <div id="divDyAddCover">
+
+                        </div>
+
+                        <div class="ml-50 mt-20">
+                            <h5 class="font-weight-900">Exclusions</h5>
+                        </div>
+
+                        <div class="ml-50 mt-20">
+                            <h5 class="font-weight-900">  War Exclusion Benefits</h5>
+                        </div>
+                        <div class="d-table ml-100  m-b-25">
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Coverage Limit</div>
+                                <div class="d-table-cell" id="divWEBCL"></div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Maximum Limit</div>
+                                <div class="d-table-cell" id="divWEBML"></div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Waiting Period in Days</div>
+                                <div class="d-table-cell" id="divWEBWPD"></div>
+                            </div>
+                        </div>
+
+
+                        <div class="ml-50 mt-20">
+                            <h5 class="font-weight-900"> Atomic, Biological and Chemical/Nuclear Exclusion</h5>
+                        </div>
+                        <div class="d-table ml-100  m-b-25">
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Coverage Limit</div>
+                                <div class="d-table-cell" id="divABCECL"></div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Maximum Limit</div>
+                                <div class="d-table-cell" id="divABCEML"></div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Waiting Period in Days</div>
+                                <div class="d-table-cell" id="divABCEWPD"></div>
+                            </div>
+                        </div>
+
+                        <div class="ml-50 mt-20">
+                            <h5 class="font-weight-900"> Criminal Act Exclusion</h5>
+                        </div>
+                        <div class="d-table ml-100  m-b-25">
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Coverage Limit</div>
+                                <div class="d-table-cell" id="divCAECL"></div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Maximum Limit</div>
+                                <div class="d-table-cell" id="divCAEML"></div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Waiting Period in Days</div>
+                                <div class="d-table-cell" id="divCAEWPD"></div>
+                            </div>
+                        </div>
+
+                        <div class="ml-50 mt-20">
+                            <h5 class="font-weight-900"> Hazardous Sports Exclusion</h5>
+                        </div>
+                        <div class="d-table ml-100  m-b-25">
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Coverage Limit</div>
+                                <div class="d-table-cell" id="divHSECL"></div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Maximum Limit</div>
+                                <div class="d-table-cell" id="divHSEML"></div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Waiting Period in Days</div>
+                                <div class="d-table-cell" id="divHSEWPD"></div>
+                            </div>
+                        </div>
+
+                        <div class="ml-50 mt-20">
+                            <h5 class="font-weight-900"> Aviation Exclusion</h5>
+                        </div>
+                        <div class="d-table ml-100  m-b-25">
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Coverage Limit</div>
+                                <div class="d-table-cell" id="divAECL"></div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Maximum Limit</div>
+                                <div class="d-table-cell" id="divAEML"></div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Waiting Period in Days</div>
+                                <div class="d-table-cell" id="divAEWPD"></div>
+                            </div>
+                        </div>
+
+
+                        <div class="ml-50 mt-20">
+                            <h5 class="font-weight-900"> Intentionally self - inflicted injury, suicide or attempted suicide</h5>
+                        </div>
+                        <div class="d-table ml-100  m-b-25">
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Coverage Limit</div>
+                                <div class="d-table-cell" id="divISISCL"></div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Maximum Limit</div>
+                                <div class="d-table-cell" id="divISISML"></div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Waiting Period in Days</div>
+                                <div class="d-table-cell" id="divISISWPD"></div>
+                            </div>
+                        </div>
+
+                        <div class="ml-50 mt-20">
+                            <h5 class="font-weight-900"> Pandemic / Epidemic Conditions</h5>
+                        </div>
+                        <div class="d-table ml-100  m-b-25">
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Coverage Limit</div>
+                                <div class="d-table-cell" id="divPECCL"></div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Maximum Limit</div>
+                                <div class="d-table-cell" id="divPECML"></div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Waiting Period in Days</div>
+                                <div class="d-table-cell" id="divPECWPD"></div>
+                            </div>
+                        </div>
+
+
+                        <div class="ml-50 mt-20">
+                            <h5 class="font-weight-900"> Sucide Benefits</h5>
+                        </div>
+                        <div class="d-table ml-100  m-b-25">
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Coverage Limit</div>
+                                <div class="d-table-cell" id="divSBBCL"></div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Maximum Limit</div>
+                                <div class="d-table-cell" id="divSBBML"></div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Waiting Period in Days</div>
+                                <div class="d-table-cell" id="divSBBPD"></div>
+                            </div>
+                        </div>
+
+
+                        <div class="ml-50 mt-20">
+                            <h5 class="font-weight-900">   HIV / AIDS or related conditions</h5>
+                        </div>
+                        <div class="d-table ml-100  m-b-25">
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Coverage Limit</div>
+                                <div class="d-table-cell" id="divHIVACL"></div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Maximum Limit</div>
+                                <div class="d-table-cell" id="divHIVAML"></div>
+                            </div>
+                            <div class="d-table-row">
+                                <div class="d-table-cell font-weight-bold">Waiting Period in Days</div>
+                                <div class="d-table-cell" id="divHIVAPD"></div>
+                            </div>
+                        </div>
+
+                        <div id="divDyExclusion">
+
+                        </div>
+
                     </div>
                 </div>
                 @*Coverage Details*@
@@ -1782,49 +2057,49 @@
                         <div class="d-table ml-100 mt-25 mb-25">
                             <div class="d-table-row">
                                 <div class="d-table-cell font-weight-bold">Total Employees</div>
-                                <div class="d-table-cell">2500</div>
+                                <div class="d-table-cell" id="divPreTE"></div>
                             </div>
                             <div class="d-table-row">
                                 <div class="d-table-cell font-weight-bold">Total Dependents</div>
-                                <div class="d-table-cell">1550</div>
+                                <div class="d-table-cell" id="divPreTD"></div>
                             </div>
                             <div class="d-table-row">
                                 <div class="d-table-cell font-weight-bold">Total Spouse dependents</div>
-                                <div class="d-table-cell">1250</div>
+                                <div class="d-table-cell" id="divPreTSD"></div>
                             </div>
                             <div class="d-table-row">
                                 <div class="d-table-cell font-weight-bold">Total Child dependents</div>
-                                <div class="d-table-cell">3000</div>
+                                <div class="d-table-cell" id="divPreTCD"></div>
                             </div>
                             <div class="d-table-row">
                                 <div class="d-table-cell font-weight-bold">Policy Currency</div>
-                                <div class="d-table-cell">OMR</div>
+                                <div class="d-table-cell" id="divPrePC"></div>
                             </div>
                             <div class="d-table-row">
                                 <div class="d-table-cell font-weight-bold">Eligibility Criteria</div>
-                                <div class="d-table-cell">AGE</div>
+                                <div class="d-table-cell" id="divPreEC"></div>
                             </div>
                             <div class="d-table-row">
                                 <div class="d-table-cell font-weight-bold">Sum Assured (SA)</div>
-                                <div class="d-table-cell">350,000</div>
+                                <div class="d-table-cell" id="divPreSA"></div>
                             </div>
                             <div class="d-table-row">
                                 <div class="d-table-cell font-weight-bold">Age Limit for Employees</div>
-                                <div class="d-table-cell">58</div>
+                                <div class="d-table-cell" id="divALFE"></div>
                             </div>
                             <div class="d-table-row">
                                 <div class="d-table-cell font-weight-bold">Age Limit for Dependent Spouse</div>
-                                <div class="d-table-cell">58</div>
+                                <div class="d-table-cell" id="divPreALDS"></div>
                             </div>
                             <div class="d-table-row">
                                 <div class="d-table-cell font-weight-bold">
                                     Age Limit for Dependent Child
                                 </div>
-                                <div class="d-table-cell">60</div>
+                                <div class="d-table-cell" id="divALDC"></div>
                             </div>
                             <div class="d-table-row">
                                 <div class="d-table-cell font-weight-bold">FCL</div>
-                                <div class="d-table-cell">35,000</div>
+                                <div class="d-table-cell" id="divpreEDFCL"></div>
                             </div>
                         </div>
                     </div>
@@ -1844,31 +2119,35 @@
                         <div class="d-table ml-100">
                             <div class="d-table-row">
                                 <div class="d-table-cell font-weight-bold">Type of Sum Assured</div>
-                                <div class="d-table-cell">Fixed SA</div>
+                                <div class="d-table-cell" id="divTypeSA"></div>
                             </div>
-                            <div class="d-table-row">
+                            <div class="table-responsive" id="divPreViewVariableSA">
+
+                            </div>                           
+                            <div class="d-table-row" id="divSumSAFixed">
                                 <div class="d-table-cell font-weight-bold">Sum Assured (SA)</div>
-                                <div class="d-table-cell">OMR 5,50,000</div>
+                                <div class="d-table-cell" id="divPDSumAssured"></div>
                             </div>
-                            <div class="d-table-row">
+                            <div class="d-table-row" id="divGRateFixed">
                                 <div class="d-table-cell font-weight-bold">Gross Rate in %</div>
-                                <div class="d-table-cell">6</div>
+                                <div class="d-table-cell" id="divPDGR"></div>
                             </div>
                             <div class="d-table-row">
                                 <div class="d-table-cell font-weight-bold">Net Premium</div>
-                                <div class="d-table-cell">OMR 2,50,000</div>
+                                <div class="d-table-cell" id="divPDNP"></div>
                             </div>
                             <div class="d-table-row">
                                 <div class="d-table-cell font-weight-bold">Levy 0.55%</div>
-                                <div class="d-table-cell">OMR 5,50,000</div>
+                                <div class="d-table-cell" id="divPDLevy"></div>
                             </div>
+
                             <div class="d-table-row">
                                 <div class="d-table-cell font-weight-bold">Policy Fee 1 RO</div>
-                                <div class="d-table-cell">OMR 500</div>
+                                <div class="d-table-cell" id="divPDPF">OMR 500</div>
                             </div>
                             <div class="d-table-row">
                                 <div class="d-table-cell font-weight-bold">Gross Premium</div>
-                                <div class="d-table-cell">3,00,000</div>
+                                <div class="d-table-cell" id="divPDGP"></div>
                             </div>
                         </div>
                         <div class=" mt-25">
@@ -1876,20 +2155,32 @@
                             <h5 class="m-b-15 m-t-15 text-bold col-12 p-0">Loadings</h5>
                             <hr />
                         </div>
+
                         <div class="d-table ml-100 m-b-25">
                             <div class="d-table-row">
                                 <div class="d-table-cell font-weight-bold">Broker Name</div>
-                                <div class="d-table-cell">VISO</div>
+                                <div class="d-table-cell" id="divPDBN"></div>
                             </div>
                             <div class="d-table-row">
                                 <div class="d-table-cell font-weight-bold">Broker Commssion %</div>
-                                <div class="d-table-cell">5%</div>
+                                <div class="d-table-cell" id="divPDBD"></div>
                             </div>
                             <div class="d-table-row">
                                 <div class="d-table-cell font-weight-bold">Brokerage</div>
-                                <div class="d-table-cell">25,400</div>
+                                <div class="d-table-cell" id="divPDBroker"></div>
                             </div>
                         </div>
+
+
+                        <div class="col-12">
+                            <hr />
+                            <h5 class="m-b-15 m-t-15 text-bold col-12 p-0">REInsurer</h5>
+                            <hr />
+                            <div class="table-responsive" id="preViewtblReinsurer">
+                                
+                            </div>
+                        </div>
+
                     </div>
                 </div>
                 @*Coverage Details*@
@@ -1902,23 +2193,24 @@
                         <div class="d-table ml-100 m-t-25">
                             <div class="d-table-row">
                                 <div class="d-table-cell font-weight-bold">Estimated Annual Wages</div>
-                                <div class="d-table-cell">Fixed SA</div>
+                                <div class="d-table-cell" id="divWcEAW"></div>
                             </div>
+
                             <div class="d-table-row">
                                 <div class="d-table-cell font-weight-bold">Net Premium</div>
-                                <div class="d-table-cell">OMR 5,50,000</div>
+                                <div class="d-table-cell" id="divWCNp"></div>
                             </div>
                             <div class="d-table-row">
                                 <div class="d-table-cell font-weight-bold">Levy 1.6 %</div>
-                                <div class="d-table-cell">6</div>
+                                <div class="d-table-cell" id="divWCLevy"></div>
                             </div>
                             <div class="d-table-row">
                                 <div class="d-table-cell font-weight-bold">Policy Fee 1 RO</div>
-                                <div class="d-table-cell">OMR 2,50,000</div>
+                                <div class="d-table-cell" id="divWcPF"></div>
                             </div>
                             <div class="d-table-row">
                                 <div class="d-table-cell font-weight-bold">Gross Premium</div>
-                                <div class="d-table-cell">OMR 5,50,000</div>
+                                <div class="d-table-cell" id="divWcGP"></div>
                             </div>
                         </div>
                         <div class=" mt-25">
@@ -1929,15 +2221,15 @@
                         <div class="d-table ml-100 m-b-25">
                             <div class="d-table-row">
                                 <div class="d-table-cell font-weight-bold">Broker Name</div>
-                                <div class="d-table-cell">VISO</div>
+                                <div class="d-table-cell" id="divWcBN">VISO</div>
                             </div>
                             <div class="d-table-row">
                                 <div class="d-table-cell font-weight-bold">Broker Commssion %</div>
-                                <div class="d-table-cell">5%</div>
+                                <div class="d-table-cell" id="divWcBC"></div>
                             </div>
                             <div class="d-table-row">
                                 <div class="d-table-cell font-weight-bold">Brokerage</div>
-                                <div class="d-table-cell">25,400</div>
+                                <div class="d-table-cell" id="divWCB">25,400</div>
                             </div>
                         </div>
                     </div>
@@ -1951,8 +2243,24 @@
         </div>
     </div>
 </div>
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#previewQuotationModal"><i class="mdi mdi-plus mx-2"></i>Preview Form</button>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#previewQuotationModal" onclick="PreView()"><i class="mdi mdi-plus mx-2"></i>Preview Form</button>
 <script type="text/javascript">
+    $("#VariableTypeSum").click(function () {
+
+        if ($(this).is(":checked")) {
+            var Gross = $("#Premium_VariableGrossPremium").val();
+            $("#Premium_GrossPremium").val(Gross);
+        }
+        
+    });
+    $("#FixedTypeSum").click(function () {
+
+        if ($(this).is(":checked")) {
+            var Gross = $("#Premium_GrossPremium").val();
+            $("#Premium_GrossPremium").val(Gross);
+        }
+
+    });
     function getReinsurerInfo() {
         if (!$('#objQuo_InsuranceCompanyName').val() > 0) {
             alert('Please Select Insurance Company');
@@ -1994,7 +2302,7 @@
                     $('#objQuo_BankName').val(KYCDetails.BankName)
                     $('#objQuo_IFSCCode').val(KYCDetails.IFSCCode)
 
-
+                    $("#hdnlstReinsurerRate").val(JSON.stringify(Result.lstReinsurerRate));
                     $.each(Result.lstReinsurerRate, function (key, value) {
                         $('#tblReinsurer').append('<tr> <td>' + value.Premium_RIName + '</td>  <td>' + value.Premium_RInetrate + '</td> <td>' + value.Premium_RIPremium + '</td> <td>' + value.Premium_RIRetention + '</td><td>' + value.Premium_InsurerRetention + '</td> <td>' + value.Premium_RIRetentionPremium + '</td> <td>' + value.Premium_InsurerRetentionPremium + '</td><td>' + value.Premium_InsurerLoadingPremium + '</td><td>' + value.Premium_InsurerLoading + '</td></tr>');
                     })
@@ -2472,7 +2780,7 @@
                         text: "'" + res.Status + "'/n Draft No is '" + res.DraftNo + "'/n WLDraft No Is '" + res.WLDraftNo + "'",
                     });
                 }
-               
+
                 window.location = '@Url.Action("Quotation", "UnderWriting")'
 
                 // $('#formRenewal').reset();
@@ -2644,7 +2952,6 @@
                 $("#txtDeathCoverTotalAmt").val(TotalAmt);
 
             }
-
         }
         else if (type == "DACFixed") {
             $("#FixedDCSAmount").val('');
@@ -3189,7 +3496,7 @@
             // $("#hdnOtherAdditionalCover").val(JSON.parse(objQuoJson.OtherAdditionalCover));
             $("#hdnVariableTypeSumContent").val(objQuoJson.Premium_VariableSADetails);
             bindCategoryType('Page');
-            
+
 
             if (objQuoJson.WarExclusion == "Y") {
 
@@ -3288,5 +3595,443 @@
 
         }
     });
+
+    function PreView() {
+            getClientDetails();
+            getCoverageDetails();
+            getEmployeeDetails();
+            getPremiumDetails();
+            pgetWorkmenCompensation();
+    }
+
+    function getClientDetails() {
+        // CLIENT DETAILS Start
+        $("#divInsuranceCompanyName").html($("#objQuo_InsuranceCompanyName option:selected").text());
+        $("#divClientCompanyName").html($("#objQuo_ClientCompanyName option:selected").text());
+        $("#divAreaofCoverage").html($("#AreaCoverage").val());
+        $("#divJurisdiction").html($("#Jurisdiction").val());
+        $("#divAddress").html($("#objQuo_Address").val());
+        $("#divCity").html($("#objQuo_City").val());
+        $("#divKYCDetails").html($("#objQuo_KYCDetails").val());
+        $("#divBankName").html($("#objQuo_BankName").val());
+        $("#divIFSCCode").html($("#objQuo_IFSCCode").val());
+        $("#divBranch").html($("#objQuo_Branch option:selected").text());
+        $("#divPeriodofInsurance").html($("#objQuo_PeriodofInsurance").val());
+
+        var arrVal = JSON.parse($("#hdnVariableTypeSumContent").val());
+        var arrCategory = arrVal.length == 0 ? [] : arrVal;
+        $("#divtblCategory").empty();
+        var tbl = '<table class="table table-hover table-sm table-bordered" ><tr><th> Category Name</th></tr >';
+        $.each(arrCategory, function (index, value) {
+            tbl += '<tr><td>' + value.CategoryName + '</td></tr>';
+        });
+        tbl += '</table>';
+        $("#divtblCategory").append(tbl);
+            //divNationality  -> no control
+        // CLIENT DETAILS End
+    }
+    function getCoverageDetails() {
+
+        if ($("#DAC").is(':checked')) {
+
+            $("#divDeathCover").html('<h5 class="font - weight - 900" >Death due to any cause (DAC)</h5>');
+            var DeathCoverAnnualLimit = $("input[name='DeathCoverAnnualLimit']:checked").val();
+            $("#divPreAnnualLimit").html(DeathCoverAnnualLimit);
+            $("#divPreFCL").html($("#txtDeathCoverFCL").val());
+
+            if (DeathCoverAnnualLimit === 'Fixed') {
+                $("#divPreSumAssured").html($("#FixedDCSAmount").val());
+            }
+            else if (DeathCoverAnnualLimit === 'Variable') {
+                $("#divPreSumAssured").html('OMR : ' + $("#VariableDCSAmount").val() + '    No Of Times: ' + $("#txtDeathCoverSumAssuredNoOfTimes").val() + '   Total : ' + $("#txtDeathCoverTotalAmt").val());
+
+            }
+
+        }
+        else if ($("#DNC").is(':checked')) {
+            $("#divDeathCover").html('<h5 class="font - weight - 900" >Death by natural cause (DNC)</h5>');
+
+            var DNCGroup = $("input[name='DNCGroup']:checked").val();
+
+            $("#divPreAnnualLimit").html(DNCGroup);
+            $("#divPreFCL").html($("#txtDNCFCLContent").val());
+
+            if (DNCGroup === 'Fixed') {
+                $("#divPreSumAssured").html($("#txtDNCSAA").val());
+            }
+            else if (DNCGroup === 'Variable') {
+                $("#divPreSumAssured").html('OMR : ' + $("#txtDNCSAA01").val() + '    No Of Times: ' + $("#txtEnterNooftimes").val() + '   Total : ' + $("#txtDeathCoverDNCTotalAmt").val());
+
+            }
+
+        }
+        else {
+            $("#divDeathCover").html('<h5 class="font - weight - 900" > Nil </h5>');
+            $("#divPreAnnualLimit").html("Nil");
+            $("#divPreFCL").html("Nil");
+            $("#divPreSumAssured").html("Nil");
+        }
+
+        if ($("#AccidentalDeath").is(':checked')) {
+
+            var AccidentalAnnualLimit = $("input[name='AccidentalAnnualLimit']:checked").val();
+            $("#divPreACAnnualLimit").html(AccidentalAnnualLimit);
+            $("#divPreACFCL").html($("#txtAccidentalFCL").val());
+
+            if (AccidentalAnnualLimit === 'Fixed') {
+                $("#divPreACSumAssured").html($("#txtAccidentalDeathSAM").val());
+            }
+            else if (AccidentalAnnualLimit == 'Variable') {
+                $("#divPreACSumAssured").html('OMR : ' + $("#txtACDSAM").val() + '    No Of Times: ' + $("#txtACDNoOfTimes").val() + '   Total : ' + $("#txtACDTotal").val());
+
+            }
+
+        }
+        else {
+            $("#divPreACFCL").html("Nil");
+            $("#divPreACAnnualLimit").html("Nil");
+            $("#divPreACSumAssured").html("Nil");
+        }
+
+
+        if ($("#PermanentDisability").is(':checked')) {
+            if ($("#AccidentPTD").is(':checked') && $("#SicknessPTD").is(':checked')) {
+                $("#divPTDOptionalBenefits").html($(':checkbox[name=PTDAccident]').next('label').text() + " / " + $(':checkbox[name=PTDSickness]').next('label').text());
+
+            }
+            else if ($("#AccidentPTD").is(':checked')) {
+                $("#divPTDOptionalBenefits").html($(':checkbox[name=PTDAccident]').next('label').text());
+            }
+            else if ($("#SicknessPTD").is(':checked')) {
+                $("#divPTDOptionalBenefits").html($(':checkbox[name=PTDSickness]').next('label').text());
+            }
+            else { $("#divPTDOptionalBenefits").html("Nil"); }
+
+            $.trim($("#txtPTDCoverageLimit").val()) != "" ? $("#divPTDOptionalBenefitsCL").html("OMR : " + $("#txtPTDCoverageLimit").val()) : $("#divPTDOptionalBenefitsCL").html("Nil");
+            $.trim($("#txtPTDWaitingYears").val()) != "" ? $("#divPTDOptionalBenefitsWPD").html($("#txtPTDWaitingYears").val()) : $("#divPTDOptionalBenefitsWPD").html("Nil");
+
+        }
+        else {
+            $("#divPTDOptionalBenefits").html("Nil");
+            $("#divPTDOptionalBenefitsCL").html("Nil");
+            $("#divPTDOptionalBenefitsWPD").html("Nil");
+        }
+
+
+        if ($("#PermanentPartialDisability").is(':checked')) {
+            if ($("#AccidentPPD").is(':checked') && $("#SicknessPPD").is(':checked')) {
+                $("#divPPDBenefits").html($(':checkbox[name=PPDAccident]').next('label').text() + " / " + $(':checkbox[name=PPDSickness]').next('label').text());
+
+            }
+            else if ($("#AccidentPPD").is(':checked')) {
+                $("#divPPDBenefits").html($(':checkbox[name=PTDAccident]').next('label').text());
+            }
+            else if ($("#SicknessPPD").is(':checked')) {
+                $("#divPPDBenefits").html($(':checkbox[name=PTDSickness]').next('label').text());
+            }
+            else { $("#divPPDBenefits").html("Nil"); }
+
+            $.trim($("#txtPPDCoverageLimit").val()) != "" ? $("#divPPDCL").html("OMR : " + $("#txtPPDCoverageLimit").val()) : $("#divPPDCL").html("Nil");
+            $.trim($("#txtPPDWaitingYears").val()) != "" ? $("#divPPDWPD").html($("#txtPPDWaitingYears").val()) : $("#divPPDWPD").html("Nil");
+        }
+        else {
+            $("#divPPDBenefits").html("Nil");
+            $("#divPPDCL").html("Nil");
+            $("#divPPDWPD").html("Nil");
+        }
+
+
+
+        if ($("#TotalDisability").is(':checked')) {
+            if ($("#AccidentTTD").is(':checked') && $("#SicknessTTD").is(':checked')) {
+                $("#divTTDBenefits").html($(':checkbox[name=TTDAccident]').next('label').text() + " / " + $(':checkbox[name=TTDSickness]').next('label').text());
+
+            }
+            else if ($("#AccidentTTD").is(':checked')) {
+                $("#divTTDBenefits").html($(':checkbox[name=TTDAccident]').next('label').text());
+            }
+            else if ($("#SicknessTTD").is(':checked')) {
+                $("#divTTDBenefits").html($(':checkbox[name=TTDSickness]').next('label').text());
+            }
+            else { $("#divTTDBenefits").html("Nil"); }
+
+            $.trim($("#txtTTDCoverageLimit").val()) != "" ? $("#divTTDCL").html("OMR : " + $("#txtTTDCoverageLimit").val()) : $("#divTTDCL").html("Nil");
+            $.trim($("#txtTTDWaitingYears").val()) != "" ? $("#divTTDWPD").html($("#txtTTDWaitingYears").val()) : $("#divTTDWPD").html("Nil");
+        }
+        else {
+            $("#divTTDBenefits").html("Nil");
+            $("#divTTDCL").html("Nil");
+            $("#divTTDWPD").html("Nil");
+        }
+
+
+        if ($("#RepatriationBenefit").is(':checked')) {
+            $.trim($("#txtRBCoverageLimit").val()) != "" ? $("#divRBCL").html("OMR : " + $("#txtRBCoverageLimit").val()) : $("#divRBCL").html("Nil");
+        }
+        else {
+            $("#divRBCL").html("Nil");
+        }
+
+        // Additional Cover
+
+        if ($("#PassiveWarRisk").is(':checked')) {
+            $.trim($("#txtPWRCoverageLimit").val()) != "" ? $("#divPWRB").html("OMR : " + $("#txtPWRCoverageLimit").val()) : $("#divPWRB").html("Nil");
+        }
+        else {
+            $("#divPWRB").html("Nil");
+        }
+
+
+        if ($("#TerminalIllness").is(':checked')) {
+            $.trim($("#txtTLCoverageLimit").val()) != "" ? $("#divTIBCL").html("OMR : " + $("#txtTLCoverageLimit").val()) : $("#divTIBCL").html("Nil");
+            $.trim($("#txtTLMaximumLimit").val()) != "" ? $("#divTIPML").html("OMR : " + $("#txtTLMaximumLimit").val()) : $("#divTIPML").html("Nil");
+            $.trim($("#txtTLWaitingYears").val()) != "" ? $("#divTIPWPD").html( $("#txtTLWaitingYears").val()) : $("#divTIPWPD").html("Nil");
+        }
+        else {
+            $("#divTIBCL").html("Nil");
+            $("#divTIPML").html("Nil");
+            $("#divTIPWPD").html("Nil");
+        }
+
+        if ($("#CriticalIllness").is(':checked')) {
+            $.trim($("#txtCLCoverageLimit").val()) != "" ? $("#divCIBCL").html("OMR : " + $("#txtCLCoverageLimit").val()) : $("#divCIBCL").html("Nil");
+            $.trim($("#txtCLMaximumLimit").val()) != "" ? $("#divCIBML").html("OMR : " + $("#txtCLMaximumLimit").val()) : $("#divCIBML").html("Nil");
+            $.trim($("#txtCLWaitingYears").val()) != "" ? $("#divCIBWPD").html( $("#txtCLWaitingYears").val()) : $("#divCIBWPD").html("Nil");
+        }
+        else {
+            $("#divCIBCL").html("Nil");
+            $("#divCIBML").html("Nil");
+            $("#divCIBWPD").html("Nil");
+        }
+
+        var DyAdd = "";
+        var arrAdditionalCover = $.trim($("#hdnOtherAdditionalCover").val())!=''? JSON.parse($("#hdnOtherAdditionalCover").val()):[];
+        $("#divDyAddCover").empty();
+        
+        $.each(arrAdditionalCover, function (index, value) {
+            DyAdd +='  <div class="ml-50 mt-20"><h5 class="font-weight-900" >' +value.Title+'</h5>  </div><div class="d-table ml-100  m-b-25"> <div class="d-table-row"><div class="d-table-cell font-weight-bold">Coverage Limit</div><div class="d-table-cell" id="divCIBCL">'+value.CoverageLimit+'</div> </div> <div class="d-table-row"> <div class="d-table-cell font-weight-bold">Maximum Limit</div><div class="d-table-cell" id="divCIBML">'+value.MaximumLimit+'</div> </div><div class="d-table-row"> <div class="d-table-cell font-weight-bold">Waiting Period in Days</div> <div class="d-table-cell" id="divCIBWPD">'+value.WaitingPeriodinYears+'</div></div></div>';
+        });
+        $("#divDyAddCover").append(DyAdd);
+
+        //Exclusions 
+        if ($("#WarExclusion").is(':checked')) {
+            $.trim($("#txtWECoverageLimit").val()) != "" ? $("#divWEBCL").html("OMR : " + $("#txtWECoverageLimit").val()) : $("#divWEBCL").html("Nil");
+            $.trim($("#txtWEMaximumLimit").val()) != "" ? $("#divWEBML").html("OMR : " + $("#txtWEMaximumLimit").val()) : $("#divWEBML").html("Nil");
+            $.trim($("#txtWEWaitingYears").val()) != "" ? $("#divWEBWPD").html($("#txtWEWaitingYears").val()) : $("#divWEBWPD").html("Nil");
+        }
+        else {
+            $("#divWEBCL").html("Nil");
+            $("#divWEBML").html("Nil");
+            $("#divWEBWPD").html("Nil");
+        }
+
+        if ($("#AtomicExclusion").is(':checked')) {
+            $.trim($("#txtABACNECoverageLimit").val()) != "" ? $("#divABCECL").html("OMR : " + $("#txtABACNECoverageLimit").val()) : $("#divABCECL").html("Nil");
+            $.trim($("#txtABACNEMaximumLimit").val()) != "" ? $("#divABCEML").html("OMR : " + $("#txtABACNEMaximumLimit").val()) : $("#divABCEML").html("Nil");
+            $.trim($("#txtABACNEWaitingYears").val()) != "" ? $("#divABCEWPD").html($("#txtABACNEWaitingYears").val()) : $("#divABCEWPD").html("Nil");
+        }
+        else {
+            $("#divABCECL").html("Nil");
+            $("#divABCEML").html("Nil");
+            $("#divABCEWPD").html("Nil");
+        }
+        if ($("#CriminalAct").is(':checked')) {
+            $.trim($("#txtCACCoverageLimit").val()) != "" ? $("#divCAECL").html("OMR : " + $("#txtCACCoverageLimit").val()) : $("#divCAECL").html("Nil");
+            $.trim($("#txtCACNEMaximumLimit").val()) != "" ? $("#divCAEML").html("OMR : " + $("#txtCACNEMaximumLimit").val()) : $("#divCAEML").html("Nil");
+            $.trim($("#txtCACNEWaitingYears").val()) != "" ? $("#divCAEWPD").html($("#txtCACNEWaitingYears").val()) : $("#divCAEWPD").html("Nil");
+        }
+        else {
+            $("#divCAECL").html("Nil");
+            $("#divCAEML").html("Nil");
+            $("#divCAEWPD").html("Nil");
+        }
+
+        if ($("#HazardousSports").is(':checked')) {
+            $.trim($("#txtHSECoverageLimit").val()) != "" ? $("#divHSECL").html("OMR : " + $("#txtHSECoverageLimit").val()) : $("#divHSECL").html("Nil");
+            $.trim($("#txtHSEMaximumLimit").val()) != "" ? $("#divHSEML").html("OMR : " + $("#txtHSEMaximumLimit").val()) : $("#divHSEML").html("Nil");
+            $.trim($("#txtHSEWaitingYears").val()) != "" ? $("#divHSEWPD").html($("#txtHSEWaitingYears").val()) : $("#divHSEWPD").html("Nil");
+        }
+        else {
+            $("#divHSECL").html("Nil");
+            $("#divHSEML").html("Nil");
+            $("#divHSEWPD").html("Nil");
+        }
+
+        if ($("#AviationExclusion").is(':checked')) {
+            $.trim($("#txtAECoverageLimit").val()) != "" ? $("#divAECL").html("OMR : " + $("#txtAECoverageLimit").val()) : $("#divAECL").html("Nil");
+            $.trim($("#txtAEMaximumLimit").val()) != "" ? $("#divAEML").html("OMR : " + $("#txtAEMaximumLimit").val()) : $("#divAEML").html("Nil");
+            $.trim($("#txtAEEWaitingYears").val()) != "" ? $("#divAEWPD").html($("#txtAEEWaitingYears").val()) : $("#divAEWPD").html("Nil");
+        }
+        else {
+            $("#divAECL").html("Nil");
+            $("#divAEML").html("Nil");
+            $("#divAEWPD").html("Nil");
+        }
+
+
+        if ($("#selfInflicted").is(':checked')) {
+            $.trim($("#txtISSASCoverageLimit").val()) != "" ? $("#divISISCL").html("OMR : " + $("#txtISSASCoverageLimit").val()) : $("#divISISCL").html("Nil");
+            $.trim($("#txtISSASMaximumLimit").val()) != "" ? $("#divISISML").html("OMR : " + $("#txtISSASMaximumLimit").val()) : $("#divISISML").html("Nil");
+            $.trim($("#txtISSASWaitingYears").val()) != "" ? $("#divISISWPD").html($("#txtISSASWaitingYears").val()) : $("#divISISWPD").html("Nil");
+        }
+        else {
+            $("#divISISCL").html("Nil");
+            $("#divISISML").html("Nil");
+            $("#divISISWPD").html("Nil");
+        }
+
+
+        if ($("#PandemicEpidemic").is(':checked')) {
+            $.trim($("#txtPECCoverageLimit").val()) != "" ? $("#divPECCL").html("OMR : " + $("#txtPECCoverageLimit").val()) : $("#divPECCL").html("Nil");
+            $.trim($("#txtPECMaximumLimit").val()) != "" ? $("#divPECML").html("OMR : " + $("#txtPECMaximumLimit").val()) : $("#divPECML").html("Nil");
+            $.trim($("#txtPECWaitingYears").val()) != "" ? $("#divPECWPD").html($("#txtPECWaitingYears").val()) : $("#divPECWPD").html("Nil");
+        }
+        else {
+            $("#divPECCL").html("Nil");
+            $("#divPECML").html("Nil");
+            $("#divPECWPD").html("Nil");
+        }
+
+        if ($("#Sucide").is(':checked')) {
+            $.trim($("#txtSECCoverageLimit").val()) != "" ? $("#divSBBCL").html("OMR : " + $("#txtSECCoverageLimit").val()) : $("#divSBBCL").html("Nil");
+            $.trim($("#txtSEMaximumLimit").val()) != "" ? $("#divSBBML").html("OMR : " + $("#txtSEMaximumLimit").val()) : $("#divSBBML").html("Nil");
+            $.trim($("#txtSEWaitingYears").val()) != "" ? $("#divSBBPD").html($("#txtSEWaitingYears").val()) : $("#divSBBPD").html("Nil");
+        }
+        else {
+            $("#divSBBCL").html("Nil");
+            $("#divSBBML").html("Nil");
+            $("#divSBBPD").html("Nil");
+        }
+
+        if ($("#HIV_AIDS").is(':checked')) {
+            $.trim($("#txtHIVCoverageLimit").val()) != "" ? $("#divHIVACL").html("OMR : " + $("#txtHIVCoverageLimit").val()) : $("#divHIVACL").html("Nil");
+            $.trim($("#txtHIVMaximumLimit").val()) != "" ? $("#divHIVAML").html("OMR : " + $("#txtHIVMaximumLimit").val()) : $("#divHIVAML").html("Nil");
+            $.trim($("#txtHIVWaitingYears").val()) != "" ? $("#divHIVAPD").html($("#txtHIVWaitingYears").val()) : $("#divHIVAPD").html("Nil");
+        }
+        else {
+            $("#divHIVACL").html("Nil");
+            $("#divHIVAML").html("Nil");
+            $("#divHIVAPD").html("Nil");
+        }
+  
+        // divDyExclusion
+
+        var DyAdd = "";
+        var arrExclusion = $.trim($("#hdnOtherExclusions").val()) != '' ? JSON.parse($("#hdnOtherExclusions").val()) : [];
+        $("#divDyExclusion").empty();
+
+        $.each(arrExclusion, function (index, value) {
+            DyAdd += '  <div class="ml-50 mt-20"><h5 class="font-weight-900" >' + value.Title + '</h5>  </div><div class="d-table ml-100  m-b-25"> <div class="d-table-row"><div class="d-table-cell font-weight-bold">Coverage Limit</div><div class="d-table-cell" id="divCIBCL">' + value.CoverageLimit + '</div> </div> <div class="d-table-row"> <div class="d-table-cell font-weight-bold">Maximum Limit</div><div class="d-table-cell" id="divCIBML">' + value.MaximumLimit + '</div> </div><div class="d-table-row"> <div class="d-table-cell font-weight-bold">Waiting Period in Days</div> <div class="d-table-cell" id="divCIBWPD">' + value.WaitingPeriodinYears + '</div></div></div>';
+        });
+        $("#divDyExclusion").append(DyAdd);
+
+    
+    }
+    function getEmployeeDetails() {
+
+        $.trim($("#objQuo_TotalEmployees").val()) != "" ? $("#divPreTE").html($("#objQuo_TotalEmployees").val()) : $("#divPreTE").html("Nil");
+        $.trim($("#objQuo_TotalDependents").val()) != "" ? $("#divPreTD").html($("#objQuo_TotalDependents").val()) : $("#divPreTD").html("Nil");
+        $.trim($("#objQuo_TotalSpousedependents").val()) != "" ? $("#divPreTSD").html($("#objQuo_TotalSpousedependents").val()) : $("#divPreTSD").html("Nil");
+        $.trim($("#objQuo_TotalChilddependents").val()) != "" ? $("#divPreTCD").html($("#objQuo_TotalChilddependents").val()) : $("#divPreTCD").html("Nil");
+        $.trim($("#objQuo_PolicyCurrency").val()) != "" ? $("#divPrePC").html($("#objQuo_PolicyCurrency").val()) : $("#divPrePC").html("Nil");
+        $.trim($("#objQuo_EligibilityCriteria").val()) != "" ? $("#divPreEC").html($("#objQuo_EligibilityCriteria").val()) : $("#divPreEC").html("Nil");
+        $.trim($("#objQuo_SumAssured_SA").val()) != "" ? $("#divPreSA").html("OMR : " +$("#objQuo_SumAssured_SA").val()) : $("#divPreSA").html("Nil");
+        $.trim($("#objQuo_AgeLimitforEmployees").val()) != "" ? $("#divALFE").html( $("#objQuo_AgeLimitforEmployees").val()) : $("#divALFE").html("Nil");
+        $.trim($("#objQuo_AgeLimitforDependentSpouse").val()) != "" ? $("#divPreALDS").html($("#objQuo_AgeLimitforDependentSpouse").val()) : $("#divPreALDS").html("Nil");
+        $.trim($("#objQuo_AgeLimitforDependentChild").val()) != "" ? $("#divALDC").html($("#objQuo_AgeLimitforDependentChild").val()) : $("#divALDC").html("Nil");
+        $.trim($("#objQuo_FCL").val()) != "" ? $("#divpreEDFCL").html($("#objQuo_FCL").val()) : $("#divpreEDFCL").html("Nil");
+
+    }
+    function getPremiumDetails() {
+
+        var TypeSA = $("input[name='Premium_TypeofSumAssured']:checked").val();
+
+        TypeSA != "" ? $("#divTypeSA").html(TypeSA) : $("#divTypeSA").html("Nil");
+
+        if (TypeSA == "Variable") {
+            $("#divSumSAFixed").addClass("hide");
+            $("#divGRateFixed").addClass("hide");
+            $("#divPreViewVariableSA").removeClass("hide");
+        }
+        else {
+            $("#divSumSAFixed").removeClass("hide");
+            $("#divGRateFixed").removeClass("hide");
+            $("#divPreViewVariableSA").addClass("hide");
+        }
+        
+            
+        $.trim($("#Premium_SumAssured").val()) != "" ? $("#divPDSumAssured").html("OMR : " + $("#Premium_SumAssured").val()) : $("#divPDSumAssured").html("Nil");
+        $.trim($("#Premium_GrossRate").val()) != "" ? $("#divPDGR").html($("#Premium_GrossRate").val()) : $("#divPDGR").html("Nil");
+
+        $.trim($("#Premium_NetPremium").val()) != "" ? $("#divPDNP").html($("#Premium_NetPremium").val()) : $("#divPDNP").html("Nil");
+        $.trim($("#Premium_Levy").val()) != "" ? $("#divPDLevy").html("OMR : " + $("#Premium_Levy").val()) : $("#divPDLevy").html("Nil");   
+        $.trim($("#Premium_PolicyFee1_RO").val()) != "" ? $("#divPDPF").html("OMR : " + $("#Premium_PolicyFee1_RO").val()) : $("#divPDPF").html("Nil");   
+        $.trim($("#Premium_GrossPremium").val()) != "" ? $("#divPDGP").html("OMR : " + $("#Premium_GrossPremium").val()) : $("#divPDGP").html("Nil"); 
+
+
+        $.trim($("#objQuo_Premium_BrokerName").val()) != "" ? $("#divPDBN").html($("#objQuo_Premium_BrokerName").val()) : $("#divPDBN").html("Nil");
+        $.trim($("#objQuo_Premium_BrokerCommssion").val()) != "" ? $("#divPDBD").html($("#objQuo_Premium_BrokerCommssion").val()) : $("#divPDBD").html("Nil");
+        $.trim($("#objQuo_Premium_Brokerage").val()) != "" ? $("#divPDBroker").html($("#objQuo_Premium_Brokerage").val()) : $("#divPDBroker").html("Nil"); 
+
+        var arrCategory = JSON.parse($("#hdnVariableTypeSumContent").val());
+
+        $("#divPreViewVariableSA").empty();
+
+        var totalNoOfTimes = 0.00, totalSal = 0.00, totalSA = 0.00, totalClientRate = 0.00; totalNetPremium = 0.00;
+
+        var tbl = '<table id="tblVariableTypeSumContent" class="table table-hover"><tr><th>Category Name</th><th>Salary</th><th>No.of times</th><th>Sum Assured</th><th>Client Rate in %</th><th>Net Premium</th></tr>';
+        $.each(arrCategory, function (index, value) {
+
+            tbl += '<tr><td>' + value.CategoryName + '</td><td> <input type="number" name="Salary" value="' + value.Salary + '" onblur="UpdateVariableSumAssured(this,' + "'" + value.CategoryName + "'" + ')" class="form-control w-full" placeholder = "Enter Salary" /> </td ><td><input type="number" name="NoOfTimes" value="' + value.NoOfTimes + '"  onblur="UpdateVariableSumAssured(this,' + "'" + value.CategoryName + "'" + ')" class="form-control w-full" placeholder="Enter NoOfTimes" /></td><td><input readonly type="number" name="SumAssured" id="txtSumAssured_' + index + '"  value="' + value.SumAssured + '"   class="form-control w-full"" /></td><td> <input type="number" name="ClientRate" value="' + value.ClientRate + '" onchange="UpdateVariableSumAssured(this,' + "'" + value.CategoryName + "'" + ')" class="form-control w-full" placeholder ="Enter ClientRate" /> </td><td> <input type="number" readonly id="txtNetPremium_' + index +'" name="NetPremium" value="' + value.NetPremium + '" onchange="UpdateVariableSumAssured(this,' + "'" + value.CategoryName + "'" + ')" class="form-control w-full" placeholder ="Enter Client Rate" /> </td> </tr >';
+
+            totalNoOfTimes = totalNoOfTimes + Number(value.NoOfTimes);
+            totalSal = totalSal + Number(value.Salary);
+            totalSA = totalSA + Number(value.SumAssured);
+            totalClientRate = totalClientRate + Number(value.ClientRate);
+            totalNetPremium = totalNetPremium + Number(value.NetPremium);
+
+        });
+
+
+
+        tbl += '<tr><td>Total </td> <td class="text-bold"> <label id="lblTotSalary" class="col-sm-12 col-form-label text-left">OMR ' + totalSal + '</label></td><td class="text-bold" > <label id="lblNoOfTimes" class="col-sm-12 col-form-label text-left">OMR ' + totalNoOfTimes + '</label></td ><td class="text-bold" > <label id="lbltotalSA" class="col-sm-12 col-form-label text-left">OMR ' + totalSA + '</label></td >            <td class="text-bold"><label id="lblClientRate" class="col-sm-12 col-form-label text-left">' + totalClientRate + '</label></td><td><label id="lbltotalNetPremium" class="col-sm-12 col-form-label text-left">' + totalNetPremium + '</label></td> </tr></table>';
+
+        $("#divPreViewVariableSA").append(tbl);
+
+
+
+        $('#preViewtblReinsurer').empty();
+        var lstReinsurerRate = JSON.parse($("#hdnlstReinsurerRate").val());
+        if (lstReinsurerRate.length > 0) {
+        
+        var   ReinsurerRate ='<table class="table table-hover"><tr><th>RI Name</th><th>RI net rate%</th><th>RI Premium</th><th>RI Retention %</th><th>Insurer Retention %</th><th>RI Retention Premium</th><th>Insurer Retention Premium</th><th>Insurer Loading Premium</th> <th>Insurer Loading</th></tr>'
+
+        $.each(lstReinsurerRate, function (key, value) {
+            ReinsurerRate += '<tr> <td>' + value.Premium_RIName + '</td><td>' + value.Premium_RInetrate + '</td><td>' + value.Premium_RIPremium + '</td> <td>' + value.Premium_RIRetention + '</td><td>' + value.Premium_InsurerRetention + '</td><td>' + value.Premium_RIRetentionPremium + '</td><td>' + value.Premium_InsurerRetentionPremium + '</td><td>' + value.Premium_InsurerLoadingPremium + '</td><td>' + value.Premium_InsurerLoading + '</td></tr>';
+        })
+            ReinsurerRate += '</table>'
+        $('#preViewtblReinsurer').append(ReinsurerRate);
+        }
+        else {
+            $('#preViewtblReinsurer').append('<tr> <td colspan="14" aligen="center" > No Records found </td></tr>');
+        }
+          
+
+    }
+    function pgetWorkmenCompensation() {
+
+        $.trim($("#objQuo_WCId option:selected").val()) != "-- Select WC Type --" ? $("#divWcEAW").html($("#objQuo_WCId option:selected").val()) : $("#divWcEAW").html("Nil");
+        $.trim($("#objQuo_NetPremium").val()) != "" ? $("#divWCNp").html("OMR : " + $("#objQuo_NetPremium").val()) : $("#divWCNp").html("Nil");
+        $.trim($("#objQuo_Premium_Incl_levy_PolFeeRO").val()) != "" ? $("#divWCLevy").html( $("#objQuo_Premium_Incl_levy_PolFeeRO").val()) : $("#divWCLevy").html("Nil");
+        $.trim($("#objQuo_PolicyFee1_RO").val()) != "" ? $("#divWcPF").html("OMR : " + $("#objQuo_PolicyFee1_RO").val()) : $("#divWcPF").html("Nil");   
+        $.trim($("#objQuo_GrossPremium").val()) != "" ? $("#divWcGP").html("OMR : " + $("#objQuo_GrossPremium").val()) : $("#divWcGP").html("Nil");   
+
+        $.trim($("#objQuo_BrokerName").val()) != "" ? $("#divWcBN").html($("#objQuo_BrokerName").val()) : $("#divWcBN").html("Nil");
+        $.trim($("#objQuo_BrokerPercentage").val()) != "" ? $("#divWcBC").html($("#objQuo_BrokerPercentage").val()) : $("#divWcBC").html("Nil");  
+        $.trim($("#objQuo_BrokerAmount").val()) != "" ? $("#divWCB").html($("#objQuo_BrokerAmount").val()) : $("#divWCB").html("Nil");  
+
+
+            
+    }
 
 </script>

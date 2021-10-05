@@ -69,6 +69,7 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
             }
             objGLIBAL = new GLIQuotationBAL();
             objQuotation.CreatedBy = loginID;
+            objQM.objQuo.Premium_GrossPremium = objQuotation.Premium_GrossPremium;
             string JParamValQuotationDetails = JsonConvert.SerializeObject(objQM.objQuo);
             string JParamValCoverageDetails = JsonConvert.SerializeObject(objQuotation);
             

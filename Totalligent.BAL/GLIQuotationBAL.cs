@@ -77,13 +77,16 @@ namespace Totalligent.BAL
             try
             {
                 new GLIQuotationDAL().GetQuotationPremiumReinsurer(InsuranceCompanyName, ClientCompanyName, out QKYCDetails,out objRIRate, out lstRate);
-                if (objRIRate != null && lstRate.Count > 0)
+                if (objRIRate != null && lstRate!=null)
                 {
-                    objRIRate.Premium_NetPremium = (objRIRate.Premium_SumAssured * objRIRate.Premium_GrossRate) / 100;
-                    objRIRate.Premium_Levy = (objRIRate.Premium_NetPremium * Convert.ToDecimal(Premium_Levy)) / 100;
-                    objRIRate.Premium_PolicyFee1RO = 1;
-                    objRIRate.Premium_GrossPremium = objRIRate.Premium_NetPremium + objRIRate.Premium_Levy + objRIRate.Premium_PolicyFee1RO;
-                    objRIRate.Premium_Brokerage = (objRIRate.Premium_GrossPremium * objRIRate.Premium_BrokerCommssion) / 100;
+                    if (lstRate.Count > 0)
+                    {
+                        objRIRate.Premium_NetPremium = (objRIRate.Premium_SumAssured * objRIRate.Premium_GrossRate) / 100;
+                        objRIRate.Premium_Levy = (objRIRate.Premium_NetPremium * Convert.ToDecimal(Premium_Levy)) / 100;
+                        objRIRate.Premium_PolicyFee1RO = 1;
+                        objRIRate.Premium_GrossPremium = objRIRate.Premium_NetPremium + objRIRate.Premium_Levy + objRIRate.Premium_PolicyFee1RO;
+                        objRIRate.Premium_Brokerage = (objRIRate.Premium_GrossPremium * objRIRate.Premium_BrokerCommssion) / 100;
+                    }
                 }
             }
             catch (Exception ex)

@@ -845,10 +845,10 @@ namespace Totalligent.DAL
             }
             return returnCode;
         }
-        public long GetUWDashBoardDetails(string UserName, out UnderWriter lstInfo)
+        public long GetUWDashBoardDetails(string UserName,DateTime StartDate, DateTime EndDate, out List<UnderWriter> lstUW)
         {
             long returnCode = -1;
-            lstInfo = new UnderWriter();
+            lstUW = null;
             try
             {
                 DataSet ds = new DataSet();
@@ -857,14 +857,14 @@ namespace Totalligent.DAL
                     con.Open();
                     SqlCommand cmd = new SqlCommand
                     {
-                        CommandText = "SP_GetUWDashboard"
+                        CommandText = "pGetUWDashboard"
                     };
 
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Connection = con;
                     cmd.Parameters.AddWithValue("@UserName", UserName);
-                    //cmd.Parameters.AddWithValue("@Password", lstInput.Password);
-                    //cmd.Parameters.AddWithValue("@RoleId", lstInput.Role);
+                    cmd.Parameters.AddWithValue("@StartDate", StartDate);
+                    cmd.Parameters.AddWithValue("@EndDate ", EndDate);
 
                     SqlDataAdapter sdaAdapter = new SqlDataAdapter
                     {
@@ -872,33 +872,13 @@ namespace Totalligent.DAL
                     };
                     //DataSet ds = new DataSet();
                     sdaAdapter.Fill(ds);
-                    List<Quotation> lst = new List<Quotation>();
+                    
                     if (ds.Tables[0].Rows.Count > 0)
                     {
-                        foreach (DataRow dr in ds.Tables[0].Rows)
-                        {
-                            lstInfo.TNPYear = Convert.ToInt64(dr["TNPYear"]);
-                            lstInfo.TotalNoPolQuotationDrafted = Convert.ToInt64(dr["TotalNoPolQuotationDrafted"]);
-                            lstInfo.TotNoPolIssued = Convert.ToInt64(dr["TotNoPolIssued"]);
-                            lstInfo.TotalNoPolRejected = Convert.ToInt64(dr["TotalNoPolRejected"]);
-                        }
-
+                        lstUW = new List<UnderWriter>();
+                        DTtoListConverter.ConvertTo(ds.Tables[0], out lstUW);
                     }
-                    if (ds.Tables[1].Rows.Count > 0)
-                    {
-                        DTtoListConverter.ConvertTo(ds.Tables[1], out lst);
-                        lstInfo.lstQuotation = lst;
-                    }
-                    if (ds.Tables[2].Rows.Count > 0)
-                    {
-                        foreach (DataRow dr in ds.Tables[2].Rows)
-                        {
-                            lstInfo.TotalPremiumEarned = Convert.ToInt64(dr["TotalPremiumEarned"]);
-                            lstInfo.TotalPremiumRejected = Convert.ToInt64(dr["TotalPremiumRejected"]);
-                            lstInfo.TotalPremiumPending = Convert.ToInt64(dr["TotalPremiumPending"]);
-                        }
-
-                    }
+                    
 
                 }
             }
@@ -1052,7 +1032,7 @@ namespace Totalligent.DAL
                     con.Open();
                     SqlCommand cmd = new SqlCommand
                     {
-                        CommandText = "GetBarChartUW"
+                        CommandText = "pGetBarChartUW"
                     };
 
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -1100,7 +1080,7 @@ namespace Totalligent.DAL
                     con.Open();
                     SqlCommand cmd = new SqlCommand
                     {
-                        CommandText = "SP_GetLineChartUW"
+                        CommandText = "pGetLineChartUW"
                     };
 
                     cmd.CommandType = CommandType.StoredProcedure;
