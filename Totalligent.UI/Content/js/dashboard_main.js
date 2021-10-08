@@ -279,13 +279,13 @@ $(function () {
         },
         series: [{
             name: 'Policies Quoted',
-            data: [44, 55, 57, 56, 61, 58]
+            data: [0, 55, 57, 56, 61, 0]
         }, {
             name: 'Policies Renewed',
-            data: [76, 85, 101, 98, 87, 105]
+            data: [0, 85, 0, 98, 87, 0]
         }, {
             name: 'Policies Lost',
-            data: [35, 41, 36, 26, 45, 48]
+            data: [0, 41, 36, 26, 45, 0]
         }],
         xaxis: {
             categories: ['Jan', 'Feb', 'Mar', 'Apr', 'Jun', 'Jul'],

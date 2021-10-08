@@ -82,13 +82,9 @@
                 <div class="navbar-custom-menu r-side">
                     <ul class="nav navbar-nav">
                         <!-- full Screen -->
-                        <li class="search-bar d-sm-inline-flex d-none">
-                            <div class="lookup lookup-circle lookup-right">
-                                <input type="text" name="s">
-                            </div>
-                        </li>
+                       
                         <!-- Messages -->
-                        <li class="dropdown messages-menu">
+                        <li class="d-none dropdown messages-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Messages">
                                 <i class="mdi mdi-email"></i>
                             </a>
@@ -188,7 +184,7 @@
                             </ul>
                         </li>
                         <!-- Notifications -->
-                        <li class="dropdown notifications-menu">
+                        <li class="d-none dropdown notifications-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Notifications">
                                 <i class="mdi mdi-bell"></i>
                             </a>
@@ -282,7 +278,7 @@
                         </li>
 
                         <!-- Control Sidebar Toggle Button -->
-                        <li>
+                        <li class="d-none">
                             <a href="#" data-toggle="control-sidebar" title="Setting"><i class="fa fa-cog fa-spin"></i></a>
                         </li>
                     </ul>
@@ -333,7 +329,7 @@
                                     <li><a href="@Url.Action("Masters", "UnderWriting")"> <i class="ti-zip"></i> <span>Masters</span> </a></li>
                                     <li><a href="@Url.Action("Quotation", "UnderWriting")"> <i class="ti-pencil-alt"></i> <span>Quotation</span> </a></li>
                                     <li><a href="@Url.Action("PolicyIssuance", "UnderWriting")"> <i class="ti-heart-broken"></i> <span>Policy Issuance</span> </a></li>
-                                    <li><a href="@Url.Action("CardIssuance", "UnderWriting")"> <i class="ti-id-badge"></i> <span>Card Issuance</span> </a></li>
+                                @*    <li><a href="@Url.Action("CardIssuance", "UnderWriting")"> <i class="ti-id-badge"></i> <span>Card Issuance</span> </a></li>*@
                                     <li><a href="@Url.Action("Endorsement", "UnderWriting")"> <i class="ti-stamp"></i> <span>Endorsement</span> </a></li>
                                 </ul>
                             </li>

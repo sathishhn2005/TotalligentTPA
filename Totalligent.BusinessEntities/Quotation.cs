@@ -41,6 +41,8 @@ namespace Totalligent.BusinessEntities
         public string Branch { get; set; }
 
         public DateTime? PeriodofInsurance { get; set; }
+        public DateTime? PeriodofInsuranceEndDate { get; set; }
+        
 
         private string _Category = string.Empty;
         public string Category

@@ -508,8 +508,7 @@
             objRiMaster.City = $("#City").val();
             objRiMaster.State = $("#State").val();
             objRiMaster.Zipcode = $("#Zipcode").val();
-            
-            $('#NationalityId').val(objRow.NationalityId);
+            objRiMaster.NationalityId = $("#NationalityId").val();
 
             objRiMaster.BankName = $('#BankName :selected').text();
             objRiMaster.BankID = $('#BankName :selected').val();
@@ -546,12 +545,12 @@
                         return false;
                     }
                     $('#formRenewal').reset();
-                    window.location.href = "@Url.Action("RIMaster", "GLIMaster")";
+                    //window.location.href = "@Url.Action("RIMaster", "GLIMaster")";
                 },
                 error: function () {
                     // $("#lblMessage").html('Error while Registring the Company!.');
                     $('#formRIMaster').reset();
-                    window.location.href = "@Url.Action("RIMaster", "GLIMaster")";
+                    //window.location.href = "@Url.Action("RIMaster", "GLIMaster")";
                 }
             })
         });

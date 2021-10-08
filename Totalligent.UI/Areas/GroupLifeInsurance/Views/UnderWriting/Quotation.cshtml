@@ -124,10 +124,18 @@
                                 </div>
                                 <div class="row m-b-15 m-t-15">
                                     <div class="col-md-4">
-                                        <label class="col-sm-12 col-form-label text-left">Period of Insurance</label>
+                                        <label class="col-sm-12 col-form-label text-left">Period of Insurance(StartDate)</label>
                                     </div>
                                     <div class="col-md-8 demo-section k-content">
                                         @Html.TextBoxFor(model => model.objQuo.PeriodofInsurance, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control w-full", @placeholder = "Enter PeriodofInsurance" })
+                                    </div>
+                                </div>
+                                <div class="row m-b-15 m-t-15">
+                                    <div class="col-md-4">
+                                        <label class="col-sm-12 col-form-label text-left">Period of Insurance(EndDate)</label>
+                                    </div>
+                                    <div class="col-md-8 demo-section k-content">
+                                        @Html.TextBoxFor(model => model.objQuo.PeriodofInsuranceEndDate, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control w-full", @placeholder = "Enter PeriodofInsurance" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -2243,7 +2251,7 @@
         </div>
     </div>
 </div>
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#previewQuotationModal" onclick="PreView()"><i class="mdi mdi-plus mx-2"></i>Preview Form</button>
+@*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#previewQuotationModal" onclick="PreView()"><i class="mdi mdi-plus mx-2"></i>Preview Form</button>*@
 <script type="text/javascript">
     $("#VariableTypeSum").click(function () {
 
@@ -2705,7 +2713,7 @@
                             Swal.fire({
                                 icon: 'success',
                                 title: '',
-                                text: "'" + res.Status + "'/n Policy No is '" + res.PolicyNo + "'/n WLPolicy No Is '" + res.WLPolicyNo + "'",
+                                text: "'" + res.Status + "'Policy No is '" + res.PolicyNo + "' WLPolicy No Is '" + res.WLPolicyNo + "'",
                             });
 
                         }
@@ -2713,15 +2721,16 @@
                             Swal.fire({
                                 icon: 'success',
                                 title: '',
-                                text: "'" + res.Status + "'/n Draft No is '" + res.DraftNo + "'/n WLDraft No Is '" + res.WLDraftNo + "'",
+                                text: "'" + res.Status + " Draft No is '" + res.DraftNo + "' WLDraft No Is '" + res.WLDraftNo + "'",
                             });
                         }
 
-                        window.location = '@Url.Action("Quotation", "UnderWriting")'
-                       // $('#formQuotation').reset();
+                       // window.location = '@Url.Action("Quotation", "UnderWriting")'
+                      $('#formQuotation').reset();
                     },
                     error: function () {
-                       window.location = '@Url.Action("Quotation", "UnderWriting")'
+                        //window.location = '@Url.Action("Quotation", "UnderWriting")'
+                        $('#formQuotation').reset();
                     }
                 })
 
@@ -2770,18 +2779,18 @@
                     Swal.fire({
                         icon: 'info',
                         title: '',
-                        text: "'" + res.Status + "'/n Draft No is '" + res.DraftNo + "'/n WLDraft No Is '" + res.WLDraftNo + "'",
+                        text: "'" + res.Status + "' Draft No is '" + res.DraftNo + "' WLDraft No Is '" + res.WLDraftNo + "'",
                     });
                 }
                 else {
                     Swal.fire({
                         icon: 'success',
                         title: '',
-                        text: "'" + res.Status + "'/n Draft No is '" + res.DraftNo + "'/n WLDraft No Is '" + res.WLDraftNo + "'",
+                        text: "'" + res.Status + "' Draft No is '" + res.DraftNo + "' WLDraft No Is '" + res.WLDraftNo + "'",
                     });
                 }
 
-                window.location = '@Url.Action("Quotation", "UnderWriting")'
+               // window.location = '@Url.Action("Quotation", "UnderWriting")'
 
                 // $('#formRenewal').reset();
             },
@@ -2791,7 +2800,7 @@
                     title: '',
                     text: "Saved successfully.!",
                 });
-                window.location = '@Url.Action("Quotation", "UnderWriting")'
+               // window.location = '@Url.Action("Quotation", "UnderWriting")'
 
                 // $("#lblMessage").html('Error while Registring the Company!.');
                 $('#formRenewal').reset();
@@ -2810,7 +2819,8 @@
             },
             onFinished: function (event, currentIndex) {
                 //swal("Your Order Submitted!", "Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem. Proin ut ligula vel nunc egestas porttitor.");
-                $('#myModal').modal('show');
+                PreView();
+                $("#previewQuotationModal").modal('show');
             },
             onCanceled: function (event, currentIndex) {
                 alert('Rejected Clicked');
