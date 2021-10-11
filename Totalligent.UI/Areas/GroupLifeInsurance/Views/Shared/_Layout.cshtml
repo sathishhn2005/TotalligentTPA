@@ -82,7 +82,6 @@
                 <div class="navbar-custom-menu r-side">
                     <ul class="nav navbar-nav">
                         <!-- full Screen -->
-                       
                         <!-- Messages -->
                         <li class="d-none dropdown messages-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Messages">
@@ -257,22 +256,21 @@
                                     <div class="flexbox align-self-center">
                                         <img src="/Content/images/marc.png" class="float-left rounded-circle" alt="User Image">
                                         <h4 class="user-name align-self-center">
-                                            <span>Samuel Brus</span>
-                                            <small>samuel@gmail.com</small>
+                                            <span id="spanUserName"></span><br />
+                                            <small id="roleSmall"></small>
                                         </h4>
                                     </div>
                                 </li>
                                 <!-- Menu Body -->
                                 <li class="user-body">
-                                    <a class="dropdown-item" href="javascript:void(0)"><i class="ion ion-person"></i> My Profile</a>
+                                   
                                     @*<a class="dropdown-item" href="javascript:void(0)"><i class="ion ion-bag"></i> My Balance</a>
                                         <a class="dropdown-item" href="javascript:void(0)"><i class="ion ion-email-unread"></i> Inbox</a>
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="javascript:void(0)"><i class="ion ion-settings"></i> Account Setting</a>*@
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="javascript:void(0)"><i class="ion-log-out"></i> Logout</a>
-                                    <div class="dropdown-divider"></div>
-                                    <div class="p-10"><a href="javascript:void(0)" class="btn btn-sm btn-rounded btn-success">View Profile</a></div>
+                                    <a class="dropdown-item" href="/Home/Home/Login"><i class="ion-log-out"></i> Logout</a>
+                                   
                                 </li>
                             </ul>
                         </li>
@@ -329,7 +327,7 @@
                                     <li><a href="@Url.Action("Masters", "UnderWriting")"> <i class="ti-zip"></i> <span>Masters</span> </a></li>
                                     <li><a href="@Url.Action("Quotation", "UnderWriting")"> <i class="ti-pencil-alt"></i> <span>Quotation</span> </a></li>
                                     <li><a href="@Url.Action("PolicyIssuance", "UnderWriting")"> <i class="ti-heart-broken"></i> <span>Policy Issuance</span> </a></li>
-                                @*    <li><a href="@Url.Action("CardIssuance", "UnderWriting")"> <i class="ti-id-badge"></i> <span>Card Issuance</span> </a></li>*@
+                                    @*    <li><a href="@Url.Action("CardIssuance", "UnderWriting")"> <i class="ti-id-badge"></i> <span>Card Issuance</span> </a></li>*@
                                     <li><a href="@Url.Action("Endorsement", "UnderWriting")"> <i class="ti-stamp"></i> <span>Endorsement</span> </a></li>
                                 </ul>
                             </li>
@@ -693,6 +691,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.html5.min.js"></script>
+
+    <script>
+        var uname = '@Session["UserName"]';
+        var role = '@Session["Roles"]';
+        if (role == 1) {
+            role = "Admin"
+        }
+        $('#spanUserName').text(uname);
+        $('#roleSmall').text(role);
+     //   alert(someSessionVariable)
+    </script>
 </body>
 
 </html>

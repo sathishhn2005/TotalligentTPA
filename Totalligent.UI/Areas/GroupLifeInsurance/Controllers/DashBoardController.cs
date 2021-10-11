@@ -15,18 +15,28 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
         readonly AdminModel objAdminModel = new AdminModel();
         readonly TotalligentBALayer objBALTot = new TotalligentBALayer();
         // GET: GroupLifeInsurance/DashBoard
-        public ActionResult UnderWriterDashBoard()
+        [HttpGet]
+        public ActionResult UnderWriterDashBoard(Quotation objUW)
         {
             long returnCode = -1;
             UnderWriter obj = null;
             try
             {
                 string UserName = "Sathish";
-                DateTime StartDate = DateTime.Now;
-                DateTime EndDate = DateTime.Now;
+                //if()
+                //DateTime StartDate = DateTime.Now;
+                //DateTime EndDate = DateTime.Now;
                 List<UnderWriter> lstUW = null;
+                if (objUW.PeriodofInsurance.Equals(null))
+                {
+                    objUW.PeriodofInsurance = DateTime.Now;
+                }
+                if (objUW.PeriodofInsuranceEndDate.Equals(null))
+                {
+                    objUW.PeriodofInsuranceEndDate = DateTime.Now;
+                }
                 //string UserName, DateTime StartDate, DateTime EndDate, out List<UnderWriter> lstUW
-                returnCode = objBALTot.GetUWDB(UserName, StartDate,EndDate, out lstUW);
+                returnCode = objBALTot.GetUWDB(UserName, (DateTime)objUW.PeriodofInsurance, (DateTime)objUW.PeriodofInsuranceEndDate, out lstUW);
                 obj = lstUW[0];
                 if (obj != null)
                 {

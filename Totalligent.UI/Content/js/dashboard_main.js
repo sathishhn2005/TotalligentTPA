@@ -160,6 +160,7 @@ $(function () {
                 //alert("Error");
             }
         });
+        $('#lstDateRangelabel').html("This Month");
     });
     var options = {
         chart: {
@@ -536,6 +537,34 @@ $(function () {
     $('#dashboard_daterangepicker').on('apply.daterangepicker', function (ev, picker) {
         console.log("Start Date: " + picker.startDate.format('DD-MM-YYYY'));
         console.log("End Date: " + picker.endDate.format('DD-MM-YYYY'));
+        var StartDate = picker.startDate.format('YYYY-MM-DD');
+        var EndDate = picker.endDate.format('YYYY-MM-DD');
+        if (picker.chosenLabel != undefined && picker.chosenLabel != null && picker.chosenLabel != "") {
+            $('#lstDateRangelabel').html(picker.chosenLabel);
+        }
+        else {
+            $('#lstDateRangelabel').html("This Month");
+        }
+        //picker.chosenLabel
+        //lstDateRangelabel
+
+
+        //2021 - 10 - 01 00: 00: 00.000	2022 - 04 - 22 00: 00: 00.000
+        //PeriodofInsurance, PeriodofInsuranceEndDate
+        var param = { PeriodofInsurance: StartDate, PeriodofInsuranceEndDate: EndDate };
+        $.ajax({
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            url: "/DashBoard/UnderWriterDashBoard",
+            data: param,
+            dataType: "json",
+            success: function (Result) {
+
+            },
+            error: function (Result) {
+                //alert("Error");
+            }
+        });
     });
     setTimeout(function () {
         chart1.render();

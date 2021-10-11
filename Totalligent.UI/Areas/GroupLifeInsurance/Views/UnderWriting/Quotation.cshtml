@@ -37,7 +37,7 @@
                                     @*$("#LifeEmgAreaCoverage").data("kendoMultiSelect").dataItems()*@
 
                                     <div class="col-md-8 demo-section k-content">
-                                        @Html.DropDownListFor(model => model.objQuo.InsuranceCompanyName, Model.lstInsuranceCompanyMaster, "-- Select Type --", new { @class = "form-control" })
+                                        @Html.DropDownListFor(model => model.objQuo.InsuranceCompanyName, Model.lstInsuranceCompanyMaster, "-- Select Type --", new { @onchange = "getReinsurerInfo()", @class = "form-control" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -278,8 +278,8 @@
                                                         <span class="input-group-text group-text-custom">*</span>
                                                         <input type="text" id="txtEnterNooftimes" class="form-control" placeholder="Enter No.of times" onchange="AssignDeathCoverValues('DNCtxt');">
                                                         <span class="input-group-text group-text-custom">*</span>
-                                                        <input type="text" id="txtDeathCoverDNCTotalAmt" readonly class="form-control" placeholder="total" >
-                                                        
+                                                        <input type="text" id="txtDeathCoverDNCTotalAmt" readonly class="form-control" placeholder="total">
+
                                                     </div>
                                                 </div>
                                                 <div class="row m-b-15 m-t-15" id="DNCFCLContent" style="display: none;">
@@ -1688,20 +1688,20 @@
                                 <div class="d-table-cell font-weight-bold">Category</div>
                                 <div class="d-table-cell" id="divtblCategory">
                                     @*<table class="table table-hover table-sm table-bordered" id="tblCategory">
-                                                            <tbody>
-                                <tr>
-                                    <th>Category Name</th>
-                                </tr>
-                                <tr>
-                                    <td>Gold Member</td>
+                                                                        <tbody>
+                                            <tr>
+                                                <th>Category Name</th>
+                                            </tr>
+                                            <tr>
+                                                <td>Gold Member</td>
 
-                                </tr>
-                                <tr>
-                                    <td>Silver  Member</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Silver  Member</td>
 
-                                </tr>
-                            </tbody>
-                                                        </table>*@
+                                            </tr>
+                                        </tbody>
+                                                                    </table>*@
                                 </div>
                             </div>
                         </div>
@@ -2131,7 +2131,7 @@
                             </div>
                             <div class="table-responsive" id="divPreViewVariableSA">
 
-                            </div>                           
+                            </div>
                             <div class="d-table-row" id="divSumSAFixed">
                                 <div class="d-table-cell font-weight-bold">Sum Assured (SA)</div>
                                 <div class="d-table-cell" id="divPDSumAssured"></div>
@@ -2185,7 +2185,7 @@
                             <h5 class="m-b-15 m-t-15 text-bold col-12 p-0">REInsurer</h5>
                             <hr />
                             <div class="table-responsive" id="preViewtblReinsurer">
-                                
+
                             </div>
                         </div>
 
@@ -2259,7 +2259,7 @@
             var Gross = $("#Premium_VariableGrossPremium").val();
             $("#Premium_GrossPremium").val(Gross);
         }
-        
+
     });
     $("#FixedTypeSum").click(function () {
 
@@ -2289,7 +2289,7 @@
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
             data: param,
             success: function (Result) {
-                if (Result.lstReinsurerRate.length > 0) {
+                if (Result.lstReinsurerRate != null && Result.lstReinsurerRate.length > 0) {
                     //Result.lstReinsurerRate
                     //Result.objRIRateCalc
                     var FixedSA = Result.objRIRateCalc;
@@ -2317,6 +2317,30 @@
                 }
                 else {
                     $('#tblReinsurer').append('<tr> <td colspan="14" aligen="center" > No Records found </td></tr>');
+                    $('#Premium_SumAssured').val('');
+                    $('#Premium_GrossRate').val('')
+                    $('#Premium_NetPremium').val('')
+                    $('#Premium_Levy').val('')
+                    $('#Premium_PolicyFee1_RO').val('')
+                    $('#Premium_GrossPremium').val('')
+                    $('#objQuo_Premium_BrokerName').val('')
+                    $('#objQuo_Premium_BrokerCommssion').val('')
+                    $('#objQuo_Premium_Brokerage').val('')
+
+
+                    $('#objQuo_Address').val('')
+                    $('#objQuo_City').val('')
+                    $('#objQuo_KYCDetails').val('')
+                    $('#objQuo_BankName').val('')
+                    $('#objQuo_IFSCCode').val('')
+
+                    $("#hdnlstReinsurerRate").val('');
+                    Swal.fire({
+                        icon: 'info',
+                        title: '',
+                        text: "There is no Data against the Selected Insurance Company & Client Company.!",
+                    });
+                    return false;
                 }
 
             },
@@ -2697,7 +2721,14 @@
             },
             onFinished: function (event, currentIndex) {
                 //swal("Your Order Submitted!", "Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem. Proin ut ligula vel nunc egestas porttitor.");
-
+                if (!$('#objQuo_Branch').val() > 1) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: '',
+                        text: "DraftNo/PolicyNo format includes Branch.! Please select the Branch.!",
+                    });
+                    return false;
+                }
                 var quotationData = $('#formQuotation').serialize();
 
                 $.ajax({
@@ -2766,46 +2797,65 @@
     }
     function saveQuotationForm() {
         var quotationData = $('#formQuotation').serialize();
+        Swal.fire({
+            title: 'Do you want to submit the Quotation?',
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            denyButtonText: 'No',
+            customClass: {
+                actions: 'my-actions',
+                cancelButton: 'order-1 right-gap',
+                confirmButton: 'order-2',
+                denyButton: 'order-3',
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
 
-        $.ajax({
+                    type: "POST",
+                    url: "/GroupLifeInsurance/Quotation/AddUpdateQuotationMaster",
+                    dataType: "json",
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    data: quotationData,
+                    success: function (res) {
+                        if (res.Status == 'Quotation Already Drafted for this Client.!') {
+                            Swal.fire({
+                                icon: 'info',
+                                title: '',
+                                text: "'" + res.Status + "' Draft No is '" + res.DraftNo + "' WLDraft No Is '" + res.WLDraftNo + "'",
+                            });
+                        }
+                        else {
+                            Swal.fire({
+                                icon: 'success',
+                                title: '',
+                                text: "'" + res.Status + "' Draft No is '" + res.DraftNo + "' WLDraft No Is '" + res.WLDraftNo + "'",
+                            });
+                        }
 
-            type: "POST",
-            url: "/GroupLifeInsurance/Quotation/AddUpdateQuotationMaster",
-            dataType: "json",
-            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-            data: quotationData,
-            success: function (res) {
-                if (res.Status == 'Quotation Already Drafted for this Client.!') {
-                    Swal.fire({
-                        icon: 'info',
-                        title: '',
-                        text: "'" + res.Status + "' Draft No is '" + res.DraftNo + "' WLDraft No Is '" + res.WLDraftNo + "'",
-                    });
-                }
-                else {
-                    Swal.fire({
-                        icon: 'success',
-                        title: '',
-                        text: "'" + res.Status + "' Draft No is '" + res.DraftNo + "' WLDraft No Is '" + res.WLDraftNo + "'",
-                    });
-                }
+                        window.location = '@Url.Action("Quotation", "UnderWriting")'
 
-               // window.location = '@Url.Action("Quotation", "UnderWriting")'
+                        // $('#formRenewal').reset();
+                    },
+                    error: function () {
+                        Swal.fire({
+                            icon: 'error',
+                            title: '',
+                            text: "Data not Saved successfully.!",
+                        });
+                        window.location = '@Url.Action("Quotation", "UnderWriting")'
 
-                // $('#formRenewal').reset();
-            },
-            error: function () {
-                Swal.fire({
-                    icon: 'success',
-                    title: '',
-                    text: "Saved successfully.!",
+                        // $("#lblMessage").html('Error while Registring the Company!.');
+                        $('#formRenewal').reset();
+                    }
                 });
-               // window.location = '@Url.Action("Quotation", "UnderWriting")'
-
-                // $("#lblMessage").html('Error while Registring the Company!.');
-                $('#formRenewal').reset();
+            } else if (result.isDenied) {
+                Swal.fire('Changes are not saved', '', 'info')
             }
         });
+
+
     }
     function initStepWizard() {
         //$('[data-layout="sidebar-collapse"]').click();
@@ -3113,49 +3163,50 @@
     }
 
     function bindCategoryType(loadType) {
+        if ($("#hdnVariableTypeSumContent").val() != "") {
+            var arrVal = JSON.parse($("#hdnVariableTypeSumContent").val());
+            var arrCategory = arrVal.length == 0 ? [] : arrVal;
+            var txtCategoryName;
+            if (loadType == "addCategory") {
+                txtCategoryName = $.trim($("#CategoryName").val());
 
-        var arrVal = JSON.parse($("#hdnVariableTypeSumContent").val());
-        var arrCategory = arrVal.length == 0 ? [] : arrVal;
-        var txtCategoryName;
-        if (loadType == "addCategory") {
-            txtCategoryName = $.trim($("#CategoryName").val());
-
-            if (txtCategoryName == "") {
-                alert("Please Enter CategoryName");
-                return false;
-            }
-            else {
-                arrCate = jQuery.grep(arrVal, function (val, n) {
-                    return ($.trim(val.CategoryName).toUpperCase() == $.trim(txtCategoryName).toUpperCase());
-                });
-
-                if (arrCate.length == 0) {
-                    arrCategory.push({ CategoryName: txtCategoryName, Salary: "0.00", NoOfTimes: "0.00", SumAssured: "0.00", ClientRate: "0.00", NetPremium: "0.00" });
-                }
-                else {
-                    alert("Please Check,This CategoryName already exists");
+                if (txtCategoryName == "") {
+                    alert("Please Enter CategoryName");
                     return false;
                 }
+                else {
+                    arrCate = jQuery.grep(arrVal, function (val, n) {
+                        return ($.trim(val.CategoryName).toUpperCase() == $.trim(txtCategoryName).toUpperCase());
+                    });
 
+                    if (arrCate.length == 0) {
+                        arrCategory.push({ CategoryName: txtCategoryName, Salary: "0.00", NoOfTimes: "0.00", SumAssured: "0.00", ClientRate: "0.00", NetPremium: "0.00" });
+                    }
+                    else {
+                        alert("Please Check,This CategoryName already exists");
+                        return false;
+                    }
+
+                }
             }
+
+            $("#divCategoryType").empty();
+
+            var tbl = '<table id="tblCategoryType" class="table table-hover table-sm"><tr><th>Category Name</th><th>Actions</th> </tr>';
+            $.each(arrCategory, function (index, value) {
+
+                tbl += '<tr><td>' + value.CategoryName + '</td><td><i class="mdi mdi-delete hov-pointer text-danger font-size-16 mx-2" onclick="DeleteCategoryType(this,' + "'" + value.CategoryName + "'" + ')"></i></td> </tr>';
+
+            });
+
+            tbl += '</table>';
+
+            $("#divCategoryType").append(tbl);
+            $("#hdnVariableTypeSumContent").val(JSON.stringify(arrCategory));
+            $("#CategoryName").val('');
+
+            BindPremiumVariableSumAssuredTbl(arrCategory);
         }
-
-        $("#divCategoryType").empty();
-
-        var tbl = '<table id="tblCategoryType" class="table table-hover table-sm"><tr><th>Category Name</th><th>Actions</th> </tr>';
-        $.each(arrCategory, function (index, value) {
-
-            tbl += '<tr><td>' + value.CategoryName + '</td><td><i class="mdi mdi-delete hov-pointer text-danger font-size-16 mx-2" onclick="DeleteCategoryType(this,' + "'" + value.CategoryName + "'" + ')"></i></td> </tr>';
-
-        });
-
-        tbl += '</table>';
-
-        $("#divCategoryType").append(tbl);
-        $("#hdnVariableTypeSumContent").val(JSON.stringify(arrCategory));
-        $("#CategoryName").val('');
-
-        BindPremiumVariableSumAssuredTbl(arrCategory);
     }
     function BindPremiumVariableSumAssuredTbl(arrCategory) {
 
@@ -3362,6 +3413,7 @@
                         $("#DACFCLContent").show();
                     }
                 }
+
                 if (objQuoJson.AccidentalDeath == "Y") {
                     if (objQuoJson.AccidentalAnnualLimit = "Fixed") {
                         $('input[name="DeathCoverAnnualLimit"][value="Fixed"]').attr('checked', 'checked');
@@ -3407,6 +3459,22 @@
                         $("#DACFCLContent").show();
                     }
                 }
+                //else if (objQuoJson.DeathCoverAnnualLimit == "Variable") {
+                //    $('input[name="DeathCoverAnnualLimit"][value="Variable"]').attr('checked', 'checked');
+                //    if ($('#FixedDAC:checked').val() === 'Variable') {
+                //        $("#FixedDACContent").show();
+
+                //        $('#txtDeathCoverFCL').val(objQuoJson.DeathCoverFCL);
+                //        $('#FixedDCSAmount').val(objQuoJson.DeathCoverSumAssuredAmount);
+                //        $("#VariableDACContent").hide();
+                //        $("#DACFCLContent").show();
+
+                //    } else if ($('#VariableDAC:checked').val() === 'Variable') {
+                //        $("#FixedDACContent").hide();
+                //        $("#VariableDACContent").show();
+                //        $("#DACFCLContent").show();
+                //    }
+                //}
                 if (objQuoJson.AccidentalDeath == "Y") {
                     if (objQuoJson.AccidentalAnnualLimit = "Fixed") {
                         $('input[name="DeathCoverAnnualLimit"][value="Fixed"]').attr('checked', 'checked');
@@ -3817,13 +3885,13 @@
         var DyAdd = "";
         var arrAdditionalCover = $.trim($("#hdnOtherAdditionalCover").val())!=''? JSON.parse($("#hdnOtherAdditionalCover").val()):[];
         $("#divDyAddCover").empty();
-        
+
         $.each(arrAdditionalCover, function (index, value) {
             DyAdd +='  <div class="ml-50 mt-20"><h5 class="font-weight-900" >' +value.Title+'</h5>  </div><div class="d-table ml-100  m-b-25"> <div class="d-table-row"><div class="d-table-cell font-weight-bold">Coverage Limit</div><div class="d-table-cell" id="divCIBCL">'+value.CoverageLimit+'</div> </div> <div class="d-table-row"> <div class="d-table-cell font-weight-bold">Maximum Limit</div><div class="d-table-cell" id="divCIBML">'+value.MaximumLimit+'</div> </div><div class="d-table-row"> <div class="d-table-cell font-weight-bold">Waiting Period in Days</div> <div class="d-table-cell" id="divCIBWPD">'+value.WaitingPeriodinYears+'</div></div></div>';
         });
         $("#divDyAddCover").append(DyAdd);
 
-        //Exclusions 
+        //Exclusions
         if ($("#WarExclusion").is(':checked')) {
             $.trim($("#txtWECoverageLimit").val()) != "" ? $("#divWEBCL").html("OMR : " + $("#txtWECoverageLimit").val()) : $("#divWEBCL").html("Nil");
             $.trim($("#txtWEMaximumLimit").val()) != "" ? $("#divWEBML").html("OMR : " + $("#txtWEMaximumLimit").val()) : $("#divWEBML").html("Nil");
@@ -3923,7 +3991,7 @@
             $("#divHIVAML").html("Nil");
             $("#divHIVAPD").html("Nil");
         }
-  
+
         // divDyExclusion
 
         var DyAdd = "";
@@ -3935,7 +4003,7 @@
         });
         $("#divDyExclusion").append(DyAdd);
 
-    
+
     }
     function getEmployeeDetails() {
 
@@ -3968,20 +4036,20 @@
             $("#divGRateFixed").removeClass("hide");
             $("#divPreViewVariableSA").addClass("hide");
         }
-        
-            
+
+
         $.trim($("#Premium_SumAssured").val()) != "" ? $("#divPDSumAssured").html("OMR : " + $("#Premium_SumAssured").val()) : $("#divPDSumAssured").html("Nil");
         $.trim($("#Premium_GrossRate").val()) != "" ? $("#divPDGR").html($("#Premium_GrossRate").val()) : $("#divPDGR").html("Nil");
 
         $.trim($("#Premium_NetPremium").val()) != "" ? $("#divPDNP").html($("#Premium_NetPremium").val()) : $("#divPDNP").html("Nil");
-        $.trim($("#Premium_Levy").val()) != "" ? $("#divPDLevy").html("OMR : " + $("#Premium_Levy").val()) : $("#divPDLevy").html("Nil");   
-        $.trim($("#Premium_PolicyFee1_RO").val()) != "" ? $("#divPDPF").html("OMR : " + $("#Premium_PolicyFee1_RO").val()) : $("#divPDPF").html("Nil");   
-        $.trim($("#Premium_GrossPremium").val()) != "" ? $("#divPDGP").html("OMR : " + $("#Premium_GrossPremium").val()) : $("#divPDGP").html("Nil"); 
+        $.trim($("#Premium_Levy").val()) != "" ? $("#divPDLevy").html("OMR : " + $("#Premium_Levy").val()) : $("#divPDLevy").html("Nil");
+        $.trim($("#Premium_PolicyFee1_RO").val()) != "" ? $("#divPDPF").html("OMR : " + $("#Premium_PolicyFee1_RO").val()) : $("#divPDPF").html("Nil");
+        $.trim($("#Premium_GrossPremium").val()) != "" ? $("#divPDGP").html("OMR : " + $("#Premium_GrossPremium").val()) : $("#divPDGP").html("Nil");
 
 
         $.trim($("#objQuo_Premium_BrokerName").val()) != "" ? $("#divPDBN").html($("#objQuo_Premium_BrokerName").val()) : $("#divPDBN").html("Nil");
         $.trim($("#objQuo_Premium_BrokerCommssion").val()) != "" ? $("#divPDBD").html($("#objQuo_Premium_BrokerCommssion").val()) : $("#divPDBD").html("Nil");
-        $.trim($("#objQuo_Premium_Brokerage").val()) != "" ? $("#divPDBroker").html($("#objQuo_Premium_Brokerage").val()) : $("#divPDBroker").html("Nil"); 
+        $.trim($("#objQuo_Premium_Brokerage").val()) != "" ? $("#divPDBroker").html($("#objQuo_Premium_Brokerage").val()) : $("#divPDBroker").html("Nil");
 
         var arrCategory = JSON.parse($("#hdnVariableTypeSumContent").val());
 
@@ -4013,7 +4081,7 @@
         $('#preViewtblReinsurer').empty();
         var lstReinsurerRate = JSON.parse($("#hdnlstReinsurerRate").val());
         if (lstReinsurerRate.length > 0) {
-        
+
         var   ReinsurerRate ='<table class="table table-hover"><tr><th>RI Name</th><th>RI net rate%</th><th>RI Premium</th><th>RI Retention %</th><th>Insurer Retention %</th><th>RI Retention Premium</th><th>Insurer Retention Premium</th><th>Insurer Loading Premium</th> <th>Insurer Loading</th></tr>'
 
         $.each(lstReinsurerRate, function (key, value) {
@@ -4025,7 +4093,7 @@
         else {
             $('#preViewtblReinsurer').append('<tr> <td colspan="14" aligen="center" > No Records found </td></tr>');
         }
-          
+
 
     }
     function pgetWorkmenCompensation() {
@@ -4033,15 +4101,15 @@
         $.trim($("#objQuo_WCId option:selected").val()) != "-- Select WC Type --" ? $("#divWcEAW").html($("#objQuo_WCId option:selected").val()) : $("#divWcEAW").html("Nil");
         $.trim($("#objQuo_NetPremium").val()) != "" ? $("#divWCNp").html("OMR : " + $("#objQuo_NetPremium").val()) : $("#divWCNp").html("Nil");
         $.trim($("#objQuo_Premium_Incl_levy_PolFeeRO").val()) != "" ? $("#divWCLevy").html( $("#objQuo_Premium_Incl_levy_PolFeeRO").val()) : $("#divWCLevy").html("Nil");
-        $.trim($("#objQuo_PolicyFee1_RO").val()) != "" ? $("#divWcPF").html("OMR : " + $("#objQuo_PolicyFee1_RO").val()) : $("#divWcPF").html("Nil");   
-        $.trim($("#objQuo_GrossPremium").val()) != "" ? $("#divWcGP").html("OMR : " + $("#objQuo_GrossPremium").val()) : $("#divWcGP").html("Nil");   
+        $.trim($("#objQuo_PolicyFee1_RO").val()) != "" ? $("#divWcPF").html("OMR : " + $("#objQuo_PolicyFee1_RO").val()) : $("#divWcPF").html("Nil");
+        $.trim($("#objQuo_GrossPremium").val()) != "" ? $("#divWcGP").html("OMR : " + $("#objQuo_GrossPremium").val()) : $("#divWcGP").html("Nil");
 
         $.trim($("#objQuo_BrokerName").val()) != "" ? $("#divWcBN").html($("#objQuo_BrokerName").val()) : $("#divWcBN").html("Nil");
-        $.trim($("#objQuo_BrokerPercentage").val()) != "" ? $("#divWcBC").html($("#objQuo_BrokerPercentage").val()) : $("#divWcBC").html("Nil");  
-        $.trim($("#objQuo_BrokerAmount").val()) != "" ? $("#divWCB").html($("#objQuo_BrokerAmount").val()) : $("#divWCB").html("Nil");  
+        $.trim($("#objQuo_BrokerPercentage").val()) != "" ? $("#divWcBC").html($("#objQuo_BrokerPercentage").val()) : $("#divWcBC").html("Nil");
+        $.trim($("#objQuo_BrokerAmount").val()) != "" ? $("#divWCB").html($("#objQuo_BrokerAmount").val()) : $("#divWCB").html("Nil");
 
 
-            
+
     }
 
 </script>

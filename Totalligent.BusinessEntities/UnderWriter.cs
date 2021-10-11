@@ -54,6 +54,6 @@ namespace Totalligent.BusinessEntities
 
         public long TotalNoPolQuotationDrafted { get; set; }
         public long TotNoPolIssued { get; set; }
-        public decimal TotalNoPolRejected { get; set; }
+        public long TotalNoPolRejected { get; set; }
     }
 }

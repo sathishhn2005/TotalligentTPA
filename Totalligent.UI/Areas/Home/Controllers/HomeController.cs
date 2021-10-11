@@ -106,8 +106,9 @@ namespace Totalligent.UI.Areas.Home.Controllers
                 {
                     Session["Loginid"] = objEmployee.Loginid.ToString();
                     Session["UserName"] = objEmployee.UserName;
+                    Session["Roles"] = objModels.Role;
 
-                    UName = objEmployee.UserName;
+                   UName = objEmployee.UserName;
                     U_Name = objEmployee.UserName;
                     TempData["uname"] = UName;
                     TempData["u"] = U_Name;
