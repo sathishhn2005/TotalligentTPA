@@ -9,20 +9,26 @@ namespace Totalligent.BusinessEntities
 {
     public class Quotation
     {
+
         public long QuotationId { get; set; }
-        public int WCId { get; set; }
 
         public string DraftNo { get; set; }
         public string WLDraftNo { get; set; }
-        public string WLPolicyNo { get; set; }
 
         public string Status { get; set; }
 
         public string PolicyNo { get; set; }
+        public string WLPolicyNo { get; set; }
 
         public string InsuranceCompanyName { get; set; }
 
+        public long? ICMId { get; set; }
+
         public string ClientCompanyName { get; set; }
+
+        public string ClientCompanyCode { get; set; }
+
+        public long? ClientCompanyMasterId { get; set; }
 
         public string ScopeofCoverage { get; set; }
 
@@ -41,15 +47,10 @@ namespace Totalligent.BusinessEntities
         public string Branch { get; set; }
 
         public DateTime? PeriodofInsurance { get; set; }
-        public DateTime? PeriodofInsuranceEndDate { get; set; }
-        
 
-        private string _Category = string.Empty;
-        public string Category
-        {
-            get { return _Category; }
-            set { _Category = value; }
-        }
+        public DateTime? PeriodofInsuranceEndDate { get; set; }
+
+        public string Category { get; set; }
 
         public int? TotalEmployees { get; set; }
 
@@ -59,7 +60,7 @@ namespace Totalligent.BusinessEntities
 
         public int? TotalChilddependents { get; set; }
 
-        public long? PolicyCurrency { get; set; }
+        public string PolicyCurrency { get; set; }
 
         public string EligibilityCriteria { get; set; }
 
@@ -73,26 +74,71 @@ namespace Totalligent.BusinessEntities
 
         public long? FCL { get; set; }
 
-        public double WCRate { get; set; }
-        public decimal? SumOfSalary { get; set; }
-        public decimal? PerPerson { get; set; }
-        public decimal? NetPremium { get; set; }
-        public int? TotalEmployeescount { get; set; }
-
-        public decimal? EstimatedAnnualWages { get; set; }
-        #region
-        /// <summary>
-        /// Premium Screen(Quotation) Entities
-        /// </summary>
         public decimal? Premium_SumAssured { get; set; }
+
         public decimal? Premium_GrossRate { get; set; }
+
         public decimal? Premium_NetPremium { get; set; }
-        public decimal? Premium_Levy { get; set; }
+
+        public decimal? Premium_Incllevy { get; set; }
+
         public decimal? Premium_PolicyFee1RO { get; set; }
+
         public decimal? Premium_GrossPremium { get; set; }
-        public string Premium_BrokerName { get; set; }
-        public decimal? Premium_BrokerCommssion { get; set; }
-        public decimal? Premium_Brokerage { get; set; }
+
+        public string Premium_VariableSADetails { get; set; }
+
+        public decimal? Premium_VariableNetPremium { get; set; }
+
+        public decimal? Premium_VariableLevy { get; set; }
+
+        public decimal? Premium_VariablePolicyFee1_RO { get; set; }
+
+        public decimal? Premium_VariableGrossPremium { get; set; }
+
+        public string Premium_RIDetails { get; set; }
+
+        public string BrokerName { get; set; }
+
+        public decimal? BrokerCommission { get; set; }
+
+        public decimal? Brokerage { get; set; }
+
+        public string WCEstimatedAnnualWagesType { get; set; }
+
+        public decimal? WCSumOfSalary { get; set; }
+
+        public decimal? WCEstimatedAnnualWages { get; set; }
+
+        public decimal? WCRate { get; set; }
+
+        public long? WCTotalEmployee { get; set; }
+
+        public long? WCPerPerson { get; set; }
+
+        public decimal? WCNetPremium { get; set; }
+
+        public decimal? WCIncllevy { get; set; }
+
+        public decimal? WCPolicyFee1RO { get; set; }
+
+        public decimal? WCGrossPremium { get; set; }
+
+        public string WCBrokerName { get; set; }
+
+        public decimal? WCBrokerCommission { get; set; }
+
+        public decimal? WCBrokerage { get; set; }
+
+        public string CreatedBy { get; set; }
+
+        public DateTime? CreatedAt { get; set; }
+
+        public string UpdatedBy { get; set; }
+
+        public DateTime? UpdatedAt { get; set; }
+
+        //RITable
         public string Premium_RIName { get; set; }
         public decimal? Premium_RInetrate { get; set; }
         public decimal? Premium_RIPremium { get; set; }
@@ -102,44 +148,8 @@ namespace Totalligent.BusinessEntities
         public decimal? Premium_InsurerRetentionPremium { get; set; }
         public decimal? Premium_InsurerLoadingPremium { get; set; }
         public decimal? Premium_InsurerLoading { get; set; }
-
-#endregion
-
-        public decimal? GrossPremium { get; set; }
-        public int PolicyFee1_RO { get; set; }
-
         
 
-        public decimal? VATonWCpremium { get; set; }
-
-        public decimal? TotalPremiumInclVAT { get; set; }
-
-        public string BrokerPercentage { get; set; }
-
-        public decimal? BrokerAmount { get; set; }
-
-        public string CreatedBy { get; set; }
-
-        public DateTime? CreatedAt { get; set; }
-
-        public string UpdatedBy { get; set; }
-        public string BrokerName { get; set; }
-
-        public DateTime? UpdatedAt { get; set; }
-
-        public string Premium_TypeofSumAssured { get; set; }
-        
-        public decimal? Premium_Salary { get; set; }
-        public decimal? Premium_FCL { get; set; }
-        public decimal? Premium_ClientRate { get; set; }
-        public decimal? Premium_Incl_levy_PolFeeRO { get; set; }
-        public decimal? Premium_VariableNetPremium { get; set; }
-        public decimal? Premium_VariableLevy { get; set; }
-        public decimal? Premium_VariablePolicyFee1_RO { get; set; }
-        public decimal? Premium_VariableGrossPremium { get; set; }
-
-        public string Premium_VariableSADetails { get; set; }
-        
         //QuotationCoverageDetail
         public long QuotationCoverageDetailID { get; set; }
         public string DeathCoverType { get; set; }
@@ -147,6 +157,18 @@ namespace Totalligent.BusinessEntities
         public decimal DeathCoverSumAssuredAmount { get; set; }
         public int DeathCoverSumAssuredNoOfTimes { get; set; }
         public decimal DeathCoverFCL { get; set; }
+
+
+        public decimal VariableDCSAmount { get; set; }
+        
+        public decimal DeathCoverTotalAmt { get; set; }
+
+        public decimal VariableDNCSAmount { get; set; }
+        public int DNCSNoOfTimes { get; set; }
+        public decimal DeathCoverDNCTotalAmt { get; set; }
+
+
+        public decimal TotalAccidentalSumAssuredNoOfTimes { get; set; }
 
         public string AccidentalDeath { get; set; }
         public string AccidentalAnnualLimit { get; set; }

@@ -57,7 +57,7 @@ namespace Totalligent.DAL
             }
             return RIMAsterID;
         }
-        public long RejectDraft(long Qid, string Action)
+        public long RejectDraft(long Qid, string Action, string Remarks)
         {
             long response = 0;
             int InsRow = 0;
@@ -67,11 +67,15 @@ namespace Totalligent.DAL
                 SqlParameter[] Param = {
                                             new SqlParameter("@Action",SqlDbType.NVarChar),
                                             new SqlParameter("@QId",SqlDbType.BigInt),
-                                            new SqlParameter("@ReturnRIid",SqlDbType.BigInt)
-                                      };
+                                            new SqlParameter("@Remarks",SqlDbType.NVarChar),
+                                            new SqlParameter("@ReturnRIid",SqlDbType.BigInt),
+
+
+                };
                 Param[0].Value = Action;
                 Param[1].Value = Qid;
-                Param[2].Direction = ParameterDirection.Output; 
+                Param[2].Value = Remarks;
+                Param[3].Direction = ParameterDirection.Output;
                 using (objDBEngine = new DBEngine())
                 {
                     sqlCommand = objDBEngine.DMLOperationOutPutParam("pRejectQuotation", Param, out InsRow);
@@ -158,7 +162,7 @@ namespace Totalligent.DAL
             }
             return returnCode;
         }
-        public long GetQuotationPremiumReinsurer(string InsuranceCompanyName, string ClientCompanyName,out QuotationKYCDetails QKYCDetails, out Quotation objRIRate, out List<Quotation> lstRate)
+        public long GetQuotationPremiumReinsurer(string InsuranceCompanyName, string ClientCompanyName, out QuotationKYCDetails QKYCDetails, out Quotation objRIRate, out List<Quotation> lstRate)
         {
             long RIMAsterID = 0;
             lstRate = null;
@@ -167,18 +171,18 @@ namespace Totalligent.DAL
             SqlCommand sqlCommand = new SqlCommand();
             DataSet dt = new DataSet();
 
-           
+
             try
             {
                 SqlParameter[] Param = {
                                             new SqlParameter("@InsuranceCompanyName",SqlDbType.NVarChar),
                                             new SqlParameter("@ClientCompanyName",SqlDbType.NVarChar),
-                                            
+
 
                                       };
                 Param[0].Value = InsuranceCompanyName;
                 Param[1].Value = ClientCompanyName;
-               
+
                 using (objDBEngine = new DBEngine())
                 {
                     dt = objDBEngine.GetDataSet("pGetQuotationReinsurer", Param);
@@ -190,8 +194,8 @@ namespace Totalligent.DAL
 
                             objRIRate.Premium_SumAssured = Convert.ToDecimal(dr["Premium_SumAssured"]);
                             objRIRate.Premium_GrossRate = Convert.ToDecimal(dr["Premium_GrossRate"]);
-                            objRIRate.Premium_BrokerName = Convert.ToString(dr["Premium_BrokerName"]);
-                            objRIRate.Premium_BrokerCommssion = Convert.ToDecimal(dr["Premium_BrokerCommssion"]);
+                            objRIRate.BrokerName = Convert.ToString(dr["BrokerName"]);
+                            objRIRate.BrokerCommission = Convert.ToDecimal(dr["BrokerCommssion"]);
                         }
                     }
                     if (dt.Tables[1].Rows.Count > 0)
@@ -207,14 +211,14 @@ namespace Totalligent.DAL
                         {
 
                             QKYCDetails.Address = Convert.ToString(dr["Address"]);
-                            QKYCDetails.City= Convert.ToString(dr["City"]);
+                            QKYCDetails.City = Convert.ToString(dr["City"]);
                             QKYCDetails.KYCUploadPath = Convert.ToString(dr["KYCUploadPath"]);
                             QKYCDetails.BankName = Convert.ToString(dr["BankName"]);
                             QKYCDetails.IFSCCode = Convert.ToString(dr["IFSCCode"]);
                         }
                     }
                 }
-                
+
             }
             catch (Exception ex)
             {

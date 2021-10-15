@@ -10,6 +10,9 @@ using Totalligent.UI.Models;
 using System.IO;
 using System.Configuration;
 using System.IO.Compression;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using iTextSharp.tool.xml;
 
 
 namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
@@ -24,12 +27,12 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
         }
 
         [HttpPost]
-        public ActionResult RejectQuotation(long Qid, string Action)
+        public ActionResult RejectQuotation(long Qid, string Action,string Remarks)
         {
             long res = 0;
             string msg = "";
             objGLIBAL = new GLIQuotationBAL();
-            res = objGLIBAL.RejectDraft(Qid, Action);
+            res = objGLIBAL.RejectDraft(Qid, Action, Remarks);
 
             string Msg = res > 0 ? "Draft Rejected Successfully.!" : "Error occured while rejecting,Contact Admin";
             return Json(Msg, JsonRequestBehavior.AllowGet);
@@ -69,7 +72,7 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
             }
             objGLIBAL = new GLIQuotationBAL();
             objQuotation.CreatedBy = loginID;
-            objQM.objQuo.Premium_GrossPremium = objQuotation.Premium_GrossPremium;
+           // objQM.objQuo.Premium_GrossPremium = objQuotation.Premium_GrossPremium;
             string JParamValQuotationDetails = JsonConvert.SerializeObject(objQM.objQuo);
             string JParamValCoverageDetails = JsonConvert.SerializeObject(objQuotation);
             
@@ -137,6 +140,23 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
                 objKYCDetails = QKYCDetails,
             }, JsonRequestBehavior.AllowGet);
         }
-        
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public FileResult GeneratePDF(string hdnPdfContent)
+        {
+            using (MemoryStream stream = new System.IO.MemoryStream())
+            {
+                StringReader reader = new StringReader(hdnPdfContent);
+                Document PdfFile = new Document(PageSize.A4);
+                PdfWriter writer = PdfWriter.GetInstance(PdfFile, stream);
+                PdfFile.Open();
+                XMLWorkerHelper.GetInstance().ParseXHtml(writer, PdfFile, reader);
+                PdfFile.Close();
+                return File(stream.ToArray(), "application/pdf", "QutationDraft.pdf");
+            }
+
+        }
+
     }
 }

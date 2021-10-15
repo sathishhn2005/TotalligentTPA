@@ -7,6 +7,10 @@
     Layout = "~/Areas/GroupLifeInsurance/Views/Shared/_Layout.cshtml";
 }
 @*@Scripts.Render("~/Content/vendor/jquery-3.3.1/jquery-3.3.1.js");*@
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>*@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>
+
+
 <div class="row">
     <div class="col-md-12 p-t-30">
         <!-- Step wizard -->
@@ -216,11 +220,11 @@
                                                         <span class="input-group-prepend">
                                                             <span class="input-group-text">OMR</span>
                                                         </span>
-                                                        <input type="number" id="VariableDCSAmount" class="form-control" placeholder="Enter Sum Assured Amount" onchange="AssignDeathCoverValues('DACtxt');">
+                                                        <input type="number" id="VariableDCSAmount" name="VariableDCSAmount" class="form-control" placeholder="Enter Sum Assured Amount" onchange="AssignDeathCoverValues('DACtxt');">
                                                         <span class="input-group-text group-text-custom">*</span>
-                                                        <input type="number" id="txtDeathCoverSumAssuredNoOfTimes" class="form-control" placeholder="Nooftimes" onchange="AssignDeathCoverValues('DACtxt');">
+                                                        <input type="number" id="txtDeathCoverSumAssuredNoOfTimes" name="DeathCoverSumAssuredNoOfTimes" class="form-control" placeholder="Nooftimes" onchange="AssignDeathCoverValues('DACtxt');">
                                                         <span class="input-group-text group-text-custom">*</span>
-                                                        <input type="number" id="txtDeathCoverTotalAmt" class="form-control" placeholder="Total" readonly>
+                                                        <input type="number" id="txtDeathCoverTotalAmt" name="DeathCoverTotalAmt" class="form-control" placeholder="Total" readonly>
                                                     </div>
                                                 </div>
                                                 <div class="row m-b-15 m-t-15" id="DACFCLContent" style="display: none;">
@@ -274,11 +278,11 @@
                                                         <span class="input-group-prepend">
                                                             <span class="input-group-text">OMR</span>
                                                         </span>
-                                                        <input type="text" class="form-control" id="txtDNCSAA01" placeholder="Enter Sum Assured Amount" onchange="AssignDeathCoverValues('DNCtxt');">
+                                                        <input type="text" class="form-control" id="txtDNCSAA01" name="VariableDNCSAmount" placeholder="Enter Sum Assured Amount" onchange="AssignDeathCoverValues('DNCtxt');">
                                                         <span class="input-group-text group-text-custom">*</span>
-                                                        <input type="text" id="txtEnterNooftimes" class="form-control" placeholder="Enter No.of times" onchange="AssignDeathCoverValues('DNCtxt');">
+                                                        <input type="text" id="txtEnterNooftimes" class="form-control" name="DNCSNoOfTimes" placeholder="Enter No.of times" onchange="AssignDeathCoverValues('DNCtxt');">
                                                         <span class="input-group-text group-text-custom">*</span>
-                                                        <input type="text" id="txtDeathCoverDNCTotalAmt" readonly class="form-control" placeholder="total">
+                                                        <input type="text" id="txtDeathCoverDNCTotalAmt" name="DeathCoverDNCTotalAmt" readonly class="form-control" placeholder="total">
 
                                                     </div>
                                                 </div>
@@ -336,7 +340,7 @@
                                                         <span class="input-group-prepend">
                                                             <span class="input-group-text">OMR</span>
                                                         </span>
-                                                        <input type="number" id="txtACDSAM" onchange="AssignDeathCoverValues('txtACD');" class="form-control" placeholder="Enter Sum Assured Amount">
+                                                        <input type="number" id="txtACDSAM" name="ACDSAM" onchange="AssignDeathCoverValues('txtACD');" class="form-control" placeholder="Enter Sum Assured Amount">
                                                         <span class="input-group-text group-text-custom">*</span>
                                                         <input type="number" id="txtACDNoOfTimes" onchange="AssignDeathCoverValues('txtNoOfTimesACD');" name="AccidentalSumAssuredNoOfTimes" class="form-control" placeholder="Enter No.of times">
                                                         <span class="input-group-text group-text-custom">*</span>
@@ -1274,7 +1278,7 @@
                                                     <label class="col-sm-12 col-form-label text-left">Sum Assured (SA)</label>
                                                 </div>
                                                 <div class="col-md-7 demo-section k-content">
-                                                    @Html.TextBox("Premium_SumAssured", "", new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Sum Assured (SA)" })
+                                                    @Html.TextBoxFor(model => model.objQuo.Premium_SumAssured, new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Sum Assured (SA)" })
                                                 </div>
                                             </div>
                                             <div class="row m-b-15 m-t-15">
@@ -1282,7 +1286,7 @@
                                                     <label class="col-sm-12 col-form-label text-left">Gross Rate%</label>
                                                 </div>
                                                 <div class="col-md-7 demo-section k-content">
-                                                    @Html.TextBox("Premium_GrossRate", "", new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Gross Rate%" })
+                                                    @Html.TextBoxFor(model => model.objQuo.Premium_GrossRate, new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Gross Rate%" })
                                                 </div>
                                             </div>
                                             <div class="row m-b-15 m-t-15">
@@ -1290,7 +1294,7 @@
                                                     <label class="col-sm-12 col-form-label text-left">Net Premium</label>
                                                 </div>
                                                 <div class="col-md-7 demo-section k-content">
-                                                    @Html.TextBox("Premium_NetPremium", "", new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Net Premium" })
+                                                    @Html.TextBoxFor(model => model.objQuo.Premium_NetPremium, new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Net Premium" })
                                                 </div>
                                             </div>
                                             <div class="row m-b-15 m-t-15">
@@ -1298,7 +1302,7 @@
                                                     <label class="col-sm-12 col-form-label text-left">Levy 0.55%</label>
                                                 </div>
                                                 <div class="col-md-7 demo-section k-content">
-                                                    @Html.TextBox("Premium_Levy", "", new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Levy 0.55%" })
+                                                    @Html.TextBoxFor(model => model.objQuo.Premium_Incllevy, new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Levy 0.55%" })
                                                 </div>
                                             </div>
                                             <div class="row m-b-15 m-t-15">
@@ -1306,7 +1310,7 @@
                                                     <label class="col-sm-12 col-form-label text-left">Policy Fee 1 RO</label>
                                                 </div>
                                                 <div class="col-md-7 demo-section k-content">
-                                                    @Html.TextBox("Premium_PolicyFee1_RO", "", new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "EnterPolicy Fee 1 RO" })
+                                                    @Html.TextBoxFor(model => model.objQuo.Premium_PolicyFee1RO, new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "EnterPolicy Fee 1 RO" })
                                                 </div>
                                             </div>
                                             <div class="row m-b-15 m-t-15">
@@ -1314,7 +1318,7 @@
                                                     <label class="col-sm-12 col-form-label text-left">Gross Premium</label>
                                                 </div>
                                                 <div class="col-md-7 demo-section k-content">
-                                                    @Html.TextBox("Premium_GrossPremium", "", new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Gross Premium" })
+                                                    @Html.TextBoxFor(model => model.objQuo.Premium_GrossPremium, new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Gross Premium" })
                                                 </div>
                                             </div>
                                             <input type="hidden" id="hdnVariableTypeSumContent" name="Premium_VariableSADetails" value='[{"CategoryName":"Gold Member","Salary":"0.00","NoOfTimes":"0.00","SumAssured":"0.00","NetPremium":"0.00","ClientRate":"0.00"},{"CategoryName":"Silver  Member","Salary":"0.00","NoOfTimes":"0","SumAssured":"0.00","NetPremium":"0.00","ClientRate":"0.00"}]' />
@@ -1329,7 +1333,7 @@
                                                     <label class="col-sm-12 col-form-label text-left">Net Premium</label>
                                                 </div>
                                                 <div class="col-md-7 demo-section k-content">
-                                                    @Html.TextBox("Premium_VariableNetPremium", "", new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Net Premium" })
+                                                    @Html.TextBoxFor(model => model.objQuo.Premium_VariableNetPremium, new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Net Premium" })
                                                 </div>
                                             </div>
                                             <div class="row m-b-15 m-t-15">
@@ -1337,7 +1341,7 @@
                                                     <label class="col-sm-12 col-form-label text-left">Levy 0.55%</label>
                                                 </div>
                                                 <div class="col-md-7 demo-section k-content">
-                                                    @Html.TextBox("Premium_VariableLevy", "", new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Levy 0.55%" })
+                                                    @Html.TextBoxFor(model => model.objQuo.Premium_VariableLevy, new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Levy 0.55%" })
                                                 </div>
                                             </div>
                                             <div class="row m-b-15 m-t-15">
@@ -1345,7 +1349,7 @@
                                                     <label class="col-sm-12 col-form-label text-left">Policy Fee 1 RO</label>
                                                 </div>
                                                 <div class="col-md-7 demo-section k-content">
-                                                    @Html.TextBox("Premium_VariablePolicyFee1_RO", "", new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "EnterPolicy Fee 1 RO" })
+                                                    @Html.TextBoxFor(model => model.objQuo.Premium_VariablePolicyFee1_RO, new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "EnterPolicy Fee 1 RO" })
                                                 </div>
                                             </div>
                                             <div class="row m-b-15 m-t-15">
@@ -1353,7 +1357,7 @@
                                                     <label class="col-sm-12 col-form-label text-left">Gross Premium</label>
                                                 </div>
                                                 <div class="col-md-7 demo-section k-content">
-                                                    @Html.TextBox("Premium_VariableGrossPremium", "", new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Gross Premium" })
+                                                    @Html.TextBoxFor(model => model.objQuo.Premium_VariableGrossPremium, new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Gross Premium" })
                                                 </div>
                                             </div>
                                         </div>
@@ -1370,7 +1374,7 @@
                                                 <label class="col-sm-12 col-form-label text-left">Broker Name</label>
                                             </div>
                                             <div class="col-md-7 demo-section k-content">
-                                                @Html.TextBoxFor(model => model.objQuo.Premium_BrokerName, new { @readonly = "readonly", @class = "form-control w-full", @placeholder = "Enter Broker Name" })
+                                                @Html.TextBoxFor(model => model.objQuo.BrokerName, new { @readonly = "readonly", @class = "form-control w-full", @placeholder = "Enter Broker Name" })
                                             </div>
                                         </div>
                                         <div class="row m-b-15 m-t-15">
@@ -1378,7 +1382,7 @@
                                                 <label class="col-sm-12 col-form-label text-left">Broker Commssion %</label>
                                             </div>
                                             <div class="col-md-7 demo-section k-content">
-                                                @Html.TextBoxFor(model => model.objQuo.Premium_BrokerCommssion, new { @type = "number", @min = "0", @step = "0.01", @readonly = "readonly", @class = "form-control w-full", @placeholder = "Enter Broker Commission%" })
+                                                @Html.TextBoxFor(model => model.objQuo.BrokerCommission, new { @type = "number", @min = "0", @step = "0.01", @readonly = "readonly", @class = "form-control w-full", @placeholder = "Enter Broker Commission%" })
                                             </div>
                                         </div>
                                         <div class="row m-b-15 m-t-15">
@@ -1386,7 +1390,7 @@
                                                 <label class="col-sm-12 col-form-label text-left">Brokerage</label>
                                             </div>
                                             <div class="col-md-7 demo-section k-content">
-                                                @Html.TextBoxFor(model => model.objQuo.Premium_Brokerage, new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Broker Amount" })
+                                                @Html.TextBoxFor(model => model.objQuo.Brokerage, new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Broker Amount" })
                                             </div>
                                         </div>
                                     </div>
@@ -1429,7 +1433,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Estimated Annual Wages</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        @Html.DropDownListFor(model => model.objQuo.WCId, Model.lstWC, "-- Select WC Type --", new { @class = "form-control" })
+                                        @Html.DropDownListFor(model => model.objQuo.WCEstimatedAnnualWagesType, Model.lstWC, "-- Select WC Type --", new { @class = "form-control" })
                                     </div>
                                 </div>
                                 <div id="divWCRate">
@@ -1439,7 +1443,7 @@
                                             <label class="col-sm-12 col-form-label text-left">Sum of Salary</label>
                                         </div>
                                         <div class="col-md-7 demo-section k-content">
-                                            @Html.TextBoxFor(model => model.objQuo.SumOfSalary, new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Total Employees Count" })
+                                            @Html.TextBoxFor(model => model.objQuo.WCSumOfSalary, new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Total Employees Count" })
                                         </div>
                                     </div>
                                     <div class="row m-b-15 m-t-15">
@@ -1447,7 +1451,7 @@
                                             <label class="col-sm-12 col-form-label text-left">Estimated Annual Wages</label>
                                         </div>
                                         <div class="col-md-7 demo-section k-content">
-                                            @Html.TextBoxFor(model => model.objQuo.EstimatedAnnualWages, new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Estimated Annual Wages" })
+                                            @Html.TextBoxFor(model => model.objQuo.WCEstimatedAnnualWages, new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Estimated Annual Wages" })
 
                                         </div>
                                     </div>
@@ -1467,7 +1471,7 @@
                                             <label class="col-sm-12 col-form-label text-left">Total Employees</label>
                                         </div>
                                         <div class="col-md-7 demo-section k-content">
-                                            @Html.TextBoxFor(model => model.objQuo.TotalEmployeescount, new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Total Employees Count" })
+                                            @Html.TextBoxFor(model => model.objQuo.WCTotalEmployee, new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Total Employees Count" })
                                         </div>
                                     </div>
                                     <div class="row m-b-15 m-t-15">
@@ -1475,7 +1479,7 @@
                                             <label class="col-sm-12 col-form-label text-left">Per Person</label>
                                         </div>
                                         <div class="col-md-7 demo-section k-content">
-                                            @Html.TextBoxFor(model => model.objQuo.PerPerson, new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Estimated Annual Wages" })
+                                            @Html.TextBoxFor(model => model.objQuo.WCPerPerson, new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Estimated Annual Wages" })
 
                                         </div>
                                     </div>
@@ -1486,7 +1490,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Net Premium</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        @Html.TextBoxFor(model => model.objQuo.NetPremium, new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Net Premium" })
+                                        @Html.TextBoxFor(model => model.objQuo.WCNetPremium, new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Net Premium" })
 
                                     </div>
                                 </div>
@@ -1495,7 +1499,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Levy 1.6%</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        @Html.TextBoxFor(model => model.objQuo.Premium_Incl_levy_PolFeeRO, new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Premium (Incl. 1.6% levy + Pol Fee RO.1)" })
+                                        @Html.TextBoxFor(model => model.objQuo.WCIncllevy, new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Premium (Incl. 1.6% levy + Pol Fee RO.1)" })
 
                                     </div>
                                 </div>
@@ -1504,7 +1508,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Policy Fee 1 RO</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        @Html.TextBoxFor(model => model.objQuo.PolicyFee1_RO, new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Policy Fee 1 RO" })
+                                        @Html.TextBoxFor(model => model.objQuo.WCPolicyFee1RO, new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Policy Fee 1 RO" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -1513,7 +1517,7 @@
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
 
-                                        @Html.TextBoxFor(model => model.objQuo.GrossPremium, new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Gross Premium" })
+                                        @Html.TextBoxFor(model => model.objQuo.WCGrossPremium, new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Gross Premium" })
                                     </div>
                                 </div>
                                 <h4>Loadings</h4>
@@ -1522,7 +1526,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Broker Name</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        @Html.TextBoxFor(model => model.objQuo.BrokerName, new { @readonly = "readonly", @class = "form-control w-full", @placeholder = "Enter Broker Name" })
+                                        @Html.TextBoxFor(model => model.objQuo.WCBrokerName, new { @readonly = "readonly", @class = "form-control w-full", @placeholder = "Enter Broker Name" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -1530,7 +1534,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Broker Commssion %</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        @Html.TextBoxFor(model => model.objQuo.BrokerPercentage, new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Broker Commssion%" })
+                                        @Html.TextBoxFor(model => model.objQuo.WCBrokerCommission, new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Broker Commssion%" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -1538,7 +1542,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Brokerage</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        @Html.TextBoxFor(model => model.objQuo.BrokerAmount, new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Brokerage" })
+                                        @Html.TextBoxFor(model => model.objQuo.WCBrokerage, new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Brokerage" })
                                     </div>
                                 </div>
                             </div>
@@ -1624,632 +1628,558 @@
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-body">
-                <div class="m-b-50 m-t-50 ">
-                    <div class="d-flex justify-content-center">
-                        <h3 class="modal-title mt-0 font-weight-700">Preview Drafted Quotation</h3>
-                    </div>
+                <div id="previewQuotationModalDownload">
+
+
+                    <table style="width: 700px;font-family: Nunito Sans, sans-serif; font-size: medium;">
+
+                        <tr style="height:30px">
+                            <td> Preview Drafted Quotation </td>
+                        </tr>
+                        <tr>
+                            @*Client Details*@
+                            <td style="background: #673AB7; padding: 15px; color: #fff;"><h4 style="margin-bottom: 0px !important; font-weight: 700 !important;">CLIENT DETAILS</h4></td>
+                        </tr>
+                        <tr>
+                            @*Client Details*@
+                            <td>
+                                <table style="border:0px;width:680px;text-align:left">
+                                    <tr style="height:25px">
+                                        <td align="left"> Insurance Company Name </td>
+                                        <td id="divInsuranceCompanyName" align="left"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left" style="width:300px"> Client Company Name </td>
+                                        <td id="divClientCompanyName" align="left" style="width:380px"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td>Area of Coverage </td>
+                                        <td id="divAreaofCoverage"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td>Jurisdiction</td>
+                                        <td id="divJurisdiction"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td>Address</td>
+                                        <td id="divAddress"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td>City</td>
+                                        <td id="divCity"></td>
+                                    </tr>
+                                   
+                                    <tr style="height:25px">
+                                        <td>KYC Details</td>
+                                        <td id="divKYCDetails"></td>
+                                    </tr>
+                                   
+                                    <tr style="height:25px">
+                                        <td>Bank Name</td>
+                                        <td id="divBankName"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td>IFSC Code</td>
+                                        <td id="divIFSCCode"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td>Branch</td>
+                                        <td id="divBranch"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td>Period of Insurance(StartDate)</td>
+                                        <td id="divPeriodofInsurance"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td>Period of Insurance(ENDDate)</td>
+                                        <td id="divPeriodofInsuranceEnd"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Category</td>
+                                        <td>
+                                            <div class="d-table-cell" id="divtblCategory"></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            @*End of Client Details*@
+                        </tr>
+
+                        <tr>
+                            @*Coverage Details*@
+                            <td style="background: #673AB7; padding: 15px; color: #fff;"><h4 style="margin-bottom: 0px !important; font-weight: 700 !important;">COVERAGE DETAILS</h4></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table style="border:0px;width:680px;text-align:left">
+                                    <tr style="height:25px">
+                                        <td colspan="2"><h5>Death Cover</h5></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left" style="width:300px"> Annual Limit </td>
+                                        <td id="divPreAnnualLimit" align="left" style="width:380px"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left">Sum Assured</td>
+                                        <td id="divPreSumAssured" align="left"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left">FCL</td>
+                                        <td id="divPreFCL" align="left"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td colspan="2"><h5>Accidental death</h5></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left">Annual Limit</td>
+                                        <td id="divPreACAnnualLimit" align="left"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left">Sum Assured</td>
+                                        <td id="divPreACSumAssured" align="left"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left">FCL</td>
+                                        <td id="divPreACFCL" align="left"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td colspan="2"><h5>Benefits</h5></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td colspan="2"><h5>Permanent Total Disability (PTD)</h5></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left">PTD Optional Benefits</td>
+                                        <td id="divPTDOptionalBenefits" align="left"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left">Coverage Limit</td>
+                                        <td id="divPTDOptionalBenefitsCL" align="left"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left">Waiting Period in Days</td>
+                                        <td id="divPTDOptionalBenefitsWPD" align="left"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td colspan="2"><h5>Permanent Partial Disability (PPD)</h5></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left">PPD Benefits</td>
+                                        <td id="divPPDBenefits" align="left"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left">Coverage Limit</td>
+                                        <td id="divPPDCL" align="left"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left">Waiting Period in Days</td>
+                                        <td id="divPPDWPD" align="left"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td colspan="2"><h5>Temporary Total Disability (TTD)</h5></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left">TTD Benefits</td>
+                                        <td id="divTTDBenefits" align="left"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left">Coverage Limit</td>
+                                        <td id="divTTDCL" align="left"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left">Waiting Period in Days</td>
+                                        <td id="divTTDWPD" align="left"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td colspan="2"><h5>Repatriation  Benefit</h5></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left">Coverage Limit</td>
+                                        <td id="divRBCL" align="left"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td colspan="2"><h5>Additional Cover</h5></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td colspan="2"><h5>Passive War Risk Benefits</h5></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left">Coverage Limit</td>
+                                        <td id="divPWRB" align="left"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td colspan="2"><h5>Terminal Illness Benefits</h5></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left">Coverage Limit</td>
+                                        <td id="divTIBCL" align="left"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left">Maximum Limit</td>
+                                        <td id="divTIPML" align="left"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left">Waiting Period in Days</td>
+                                        <td id="divTIPWPD" align="left"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td colspan="2"><h5>Critical Illness Benefits</h5></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left">Coverage Limit</td>
+                                        <td id="divCIBCL" align="left"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left">Maximum Limit</td>
+                                        <td id="divCIBML" align="left"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left">Waiting Period in Days</td>
+                                        <td id="divCIBWPD" align="left"></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <div id="divDyAddCover">
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td colspan="2"><h5>Exclusions</h5></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left">Coverage Limit</td>
+                                        <td id="divWEBCL" align="left"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left">Maximum Limit</td>
+                                        <td id="divWEBML" align="left"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left">Waiting Period in Days</td>
+                                        <td id="divWEBWPD" align="left"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td colspan="2"><h5>Atomic, Biological and Chemical/Nuclear Exclusion</h5></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left">Coverage Limit</td>
+                                        <td id="divABCECL" align="left"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left">Maximum Limit</td>
+                                        <td id="divABCEML" align="left"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left">Waiting Period in Days</td>
+                                        <td id="divABCEWPD" align="left"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td colspan="2"><h5>Criminal Act Exclusion</h5></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left">Coverage Limit</td>
+                                        <td id="divCAECL" align="left"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left">Maximum Limit</td>
+                                        <td id="divCAEML" align="left"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left">Waiting Period in Days</td>
+                                        <td id="divCAEWPD" align="left"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td colspan="2"><h5>Hazardous Sports Exclusion</h5></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left">Coverage Limit</td>
+                                        <td id="divHSECL" align="left"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left">Maximum Limit</td>
+                                        <td id="divHSEML" align="left"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left">Waiting Period in Days</td>
+                                        <td id="divHSEWPD" align="left"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td colspan="2"><h5> Aviation Exclusion</h5></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left">Coverage Limit</td>
+                                        <td id="divAECL" align="left"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left">Maximum Limit</td>
+                                        <td id="divAEML" align="left"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left">Waiting Period in Days</td>
+                                        <td id="divAEWPD" align="left"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td colspan="2"><h5>Intentionally self - inflicted injury, suicide or attempted suicide</h5></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left">Coverage Limit</td>
+                                        <td id="divISISCL" align="left"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left">Maximum Limit</td>
+                                        <td id="divISISML" align="left"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left">Waiting Period in Days</td>
+                                        <td id="divISISWPD" align="left"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td colspan="2"><h5>Pandemic / Epidemic Conditions</h5></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left">Coverage Limit</td>
+                                        <td id="divPECCL" align="left"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left">Maximum Limit</td>
+                                        <td id="divPECML" align="left"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left">Waiting Period in Days</td>
+                                        <td id="divPECWPD" align="left"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td colspan="2"><h5>Sucide Benefits</h5></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left">Coverage Limit</td>
+                                        <td id="divSBBCL" align="left"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left">Maximum Limit</td>
+                                        <td id="divSBBML" align="left"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left">Waiting Period in Days</td>
+                                        <td id="divSBBPD" align="left"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td colspan="2"><h5>HIV / AIDS or related conditions</h5></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left">Coverage Limit</td>
+                                        <td id="divHIVACL" align="left"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left">Maximum Limit</td>
+                                        <td id="divHIVAML" align="left"></td>
+                                    </tr>
+                                    <tr style="height:25px">
+                                        <td align="left">Waiting Period in Days</td>
+                                        <td id="divHIVAPD" align="left"></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <div id="divDyExclusion">
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            @*End of Coverage Details*@
+                        </tr>
+
+                        <tr>
+                            @*Employee Details*@
+                            <td style="background: #673AB7; padding: 15px; color: #fff;"><h4 style="margin-bottom: 0px !important; font-weight: 700 !important;">Employee Details</h4></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table style="border:0px;width:680px;text-align:left">
+                                    <tr>
+                                        <td style="width:300px;height:25px">Total Employees </td>
+                                        <td style="width: 300px;height: 25px" id="divPreTE"></td>
+                                    </tr>
+                                   
+                                    <tr  style="height: 25px">
+                                        <td>Total Dependents </td>
+                                        <td id="divPreTD"></td>
+                                    </tr>
+                                    <tr  style="height: 25px">
+                                        <td>Total Spouse dependents </td>
+                                        <td id="divPreTSD"></td>
+                                    </tr>
+                                    <tr  style="height: 25px">
+                                        <td>Total Child dependents</td>
+                                        <td id="divPreTCD"></td>
+                                    </tr>
+                                    <tr  style="height: 25px">
+                                        <td>Policy Currency</td>
+                                        <td id="divPrePC"></td>
+                                    </tr>
+                                    <tr  style="height: 25px">
+                                        <td>Eligibility Criteria</td>
+                                        <td id="divPreEC"></td>
+                                    </tr>
+                                    <tr  style="height: 25px">
+                                        <td>Sum Assured (SA)</td>
+                                        <td id="divPreSA"></td>
+                                    </tr>
+                                    <tr  style="height: 25px">
+                                        <td>Age Limit for Employees</td>
+                                        <td id="divALFE"></td>
+                                    </tr>
+                                    <tr  style="height: 25px">
+                                        <td>Age Limit for Dependent Spouse</td>
+                                        <td id="divPreALDS"></td>
+                                    </tr>
+                                    <tr  style="height: 25px">
+                                        <td>Age Limit for Dependent Child</td>
+                                        <td id="divALDC"></td>
+                                    </tr>
+                                    <tr  style="height: 25px">
+                                        <td>FCL</td>
+                                        <td id="divpreEDFCL"></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        @*End of Client Details*@
+                        <tr>
+                            @*PREMIUM DETAILS*@
+                            <td style="background: #673AB7; padding: 15px; color: #fff;"><h4 style="margin-bottom: 0px !important; font-weight: 700 !important;">PREMIUM DETAILS</h4></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table id="tblPremimumDetails" style="border:0px;width:680px;text-align:left">
+                                    <tr  style="height: 25px">
+                                        <td colspan="2"><h3>Fixed Sum Assured</h3> </td>
+                                    </tr>
+                                    <tr  style="height: 25px">
+                                        <td style="width:300px">Type of Sum Assured</td>
+                                        <td style="width:380px" id="divTypeSA"></td>
+                                    </tr>
+                                    <tr  style="height: 25px">
+                                        <td colspan="2">
+                                            <div id="divPreViewVariableSA">  </div>
+                                        </td>
+                                    </tr>
+                                    <tr id="divSumSAFixed"  style="height: 25px">
+
+                                    </tr>
+                                    <tr id="divGRateFixed"  style="height: 25px">
+                                     
+                                    </tr>
+                                    <tr  style="height: 25px">
+                                        <td style="width:300px">Net Premium</td>
+                                        <td style="width:380px" id="divPDNP"></td>
+                                    </tr>
+                                    <tr  style="height: 25px">
+                                        <td style="width:300px">Levy 0.55%</td>
+                                        <td style="width:380px" id="divPDLevy"></td>
+                                    </tr>
+                                    <tr  style="height: 25px">
+                                        <td style="width:300px">Policy Fee 1 RO</td>
+                                        <td style="width:380px" id="divPDPF"></td>
+                                    </tr>
+                                    <tr style="height: 25px">
+                                        <td style="width:300px">Gross Premium</td>
+                                        <td style="width:380px" id="divPDGP"></td>
+                                    </tr>
+                                    <tr  style="height: 25px">
+                                        <td colspan="2"><h5>Loadings</h5> </td>
+                                    </tr>
+                                    <tr  style="height: 25px">
+                                        <td style="width:300px">Broker Name</td>
+                                        <td style="width:380px" id="divPDBN"></td>
+                                    </tr>
+                                    <tr  style="height: 25px">
+                                        <td style="width:300px">Broker Commssion %</td>
+                                        <td style="width:380px" id="divPDBD"></td>
+                                    </tr>
+                                    <tr  style="height: 25px">
+                                        <td style="width:300px">Brokerage</td>
+                                        <td style="width:380px" id="divPDBroker"></td>
+                                    </tr>
+                                    <tr  style="height: 25px">
+                                        <td colspan="2"><h5>REInsurer</h5> </td>
+                                    </tr>
+                                    <tr  style="height: 25px">
+                                        <td colspan="2">
+                                            <div id="preViewtblReinsurer">  </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            @*End PREMIUM DETAILS*@
+                        </tr>
+                        <tr>
+                            @*WORKMEN COMPENSATION*@
+                            <td style="background: #673AB7; padding: 15px; color: #fff;"><h4 style="margin-bottom: 0px !important; font-weight: 700 !important;">WORKMEN COMPENSATION</h4></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table style="border:0px;width:680px;text-align:left">
+                                    <tr  style="height: 25px">
+                                        <td>Estimated Annual Wages</td>
+                                        <td id="divWcEAW"></td>
+                                    </tr>
+                                    <tr  style="height: 25px">
+                                        <td>Net Premium</td>
+                                        <td id="divWCNp"></td>
+                                    </tr>
+                                    <tr  style="height: 25px">
+                                        <td>Levy 1.6 %</td>
+                                        <td id="divWCLevy"></td>
+                                    </tr>
+                                    <tr  style="height: 25px">
+                                        <td>Policy Fee 1 RO</td>
+                                        <td id="divWcPF"></td>
+                                    </tr>
+                                    <tr  style="height: 25px">
+                                        <td>Gross Premium</td>
+                                        <td id="divWcGP"></td>
+                                    </tr>
+                                    <tr  style="height: 25px">
+                                        <td colspan="2">Loadings</td>
+                                    </tr>
+                                    <tr  style="height: 25px">
+                                        <td>Broker Name</td>
+                                        <td id="divWcBN"></td>
+                                    </tr>
+                                    <tr  style="height: 25px">
+                                        <td>Broker Commssion %</td>
+                                        <td id="divWcBC"></td>
+                                    </tr>
+                                    <tr  style="height: 25px">
+                                        <td>Brokerage</td>
+                                        <td id="divWCB"></td>
+                                    </tr>
+                                </table>
+                            </td>
+                            @*END WORKMEN COMPENSATION*@
+                        </tr>
+                    </table>
+
                 </div>
-                @*Client Details*@
-                <div>
-                    <div class="previewHeader">
-                        <h4 class="mb-0 font-weight-bold">CLIENT DETAILS</h4>
-                    </div>
-                    <div class="previewContent">
-                        <div class="d-table ml-100 mt-25">
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Insurance Company Name</div>
-                                <div class="d-table-cell" id="divInsuranceCompanyName"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Client Company Name</div>
-                                <div class="d-table-cell" id="divClientCompanyName"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Area of Coverage</div>
-                                <div class="d-table-cell" id="divAreaofCoverage"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Jurisdiction</div>
-                                <div class="d-table-cell" id="divJurisdiction"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Address</div>
-                                <div class="d-table-cell" id="divAddress"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">City</div>
-                                <div class="d-table-cell" id="divCity"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Nationality</div>
-                                <div class="d-table-cell" id="divNationality"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">KYC Details</div>
-                                <div class="d-table-cell" id="divKYCDetails"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Bank Name</div>
-                                <div class="d-table-cell" id="divBankName"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">IFSC Code</div>
-                                <div class="d-table-cell" id="divIFSCCode"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Branch</div>
-                                <div class="d-table-cell" id="divBranch"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Period of Insurance</div>
-                                <div class="d-table-cell" id="divPeriodofInsurance"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Category</div>
-                                <div class="d-table-cell" id="divtblCategory">
-                                    @*<table class="table table-hover table-sm table-bordered" id="tblCategory">
-                                                                        <tbody>
-                                            <tr>
-                                                <th>Category Name</th>
-                                            </tr>
-                                            <tr>
-                                                <td>Gold Member</td>
-
-                                            </tr>
-                                            <tr>
-                                                <td>Silver  Member</td>
-
-                                            </tr>
-                                        </tbody>
-                                                                    </table>*@
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @*End of Client Details*@
-                @*Coverage Details*@
-                <div>
-                    <div class="previewHeader">
-                        <h4 class="mb-0 font-weight-bold">COVERAGE DETAILS</h4>
-                    </div>
-                    <div class="previewContent">
-                        <div class=" mt-25">
-                            <hr />
-                            <h5 class="m-b-15 m-t-15 text-bold col-12 p-0">Death Cover</h5>
-                            <hr />
-                        </div>
-                        <div class="ml-50 mt-20" id="divDeathCover">
-
-                        </div>
-                        <div class="d-table ml-100">
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Annual Limit</div>
-                                <div class="d-table-cell" id="divPreAnnualLimit">Fixed</div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Sum Assured</div>
-                                <div class="d-table-cell" id="divPreSumAssured"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">FCL</div>
-                                <div class="d-table-cell" id="divPreFCL"></div>
-                            </div>
-                        </div>
-                        <div class="ml-50 mt-20">
-                            <h5 class="font-weight-900">Accidental death</h5>
-                        </div>
-                        <div class="d-table ml-100">
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Annual Limit</div>
-                                <div class="d-table-cell" id="divPreACAnnualLimit"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Sum Assured</div>
-                                <div class="d-table-cell" id="divPreACSumAssured"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">FCL</div>
-                                <div class="d-table-cell" id="divPreACFCL"></div>
-                            </div>
-                        </div>
-
-                        <div class=" mt-25">
-                            <hr />
-                            <h5 class="m-b-15 m-t-15 text-bold col-12 p-0">Benefits</h5>
-                            <hr />
-                        </div>
-                        <div class="ml-50 mt-20">
-                            <h5 class="font-weight-900">Permanent Total Disability (PTD)</h5>
-                        </div>
-                        <div class="d-table ml-100  m-b-25">
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">PTD Optional Benefits</div>
-                                <div class="d-table-cell" id="divPTDOptionalBenefits"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Coverage Limit</div>
-                                <div class="d-table-cell" id="divPTDOptionalBenefitsCL"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Waiting Period in Days</div>
-                                <div class="d-table-cell" id="divPTDOptionalBenefitsWPD">120</div>
-                            </div>
-                        </div>
-
-                        <div class="ml-50 mt-20">
-                            <h5 class="font-weight-900">Permanent Partial Disability (PPD)</h5>
-                        </div>
-                        <div class="d-table ml-100  m-b-25">
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">PPD Benefits</div>
-                                <div class="d-table-cell" id="divPPDBenefits"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Coverage Limit</div>
-                                <div class="d-table-cell" id="divPPDCL"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Waiting Period in Days</div>
-                                <div class="d-table-cell" id="divPPDWPD"></div>
-                            </div>
-                        </div>
-
-                        <div class="ml-50 mt-20">
-                            <h5 class="font-weight-900">Temporary Total Disability (TTD)</h5>
-                        </div>
-                        <div class="d-table ml-100  m-b-25">
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">TTD Benefits</div>
-                                <div class="d-table-cell" id="divTTDBenefits"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Coverage Limit</div>
-                                <div class="d-table-cell" id="divTTDCL"></div>
-                            </div>
-
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Waiting Period in Days</div>
-                                <div class="d-table-cell" id="divTTDWPD"></div>
-                            </div>
-                        </div>
-
-                        <div class="ml-50 mt-20">
-                            <h5 class="font-weight-900">Repatriation  Benefit</h5>
-                        </div>
-                        <div class="d-table ml-100  m-b-25">
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Coverage Limit</div>
-                                <div class="d-table-cell" id="divRBCL"></div>
-                            </div>
-
-                        </div>
-
-                        <div class="ml-50 mt-20">
-                            <h5 class="font-weight-900">Additional Cover</h5>
-                        </div>
-                        <div class="ml-50 mt-20">
-                            <h5 class="font-weight-900">Passive War Risk Benefits</h5>
-                        </div>
-                        <div class="d-table ml-100  m-b-25">
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Coverage Limit</div>
-                                <div class="d-table-cell" id="divPWRB"></div>
-                            </div>
-                        </div>
-
-                        <div class="ml-50 mt-20">
-                            <h5 class="font-weight-900">Terminal Illness Benefits</h5>
-                        </div>
-                        <div class="d-table ml-100  m-b-25">
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Coverage Limit</div>
-                                <div class="d-table-cell" id="divTIBCL"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Maximum Limit</div>
-                                <div class="d-table-cell" id="divTIPML"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Waiting Period in Days</div>
-                                <div class="d-table-cell" id="divTIPWPD"></div>
-                            </div>
-                        </div>
-
-
-                        <div class="ml-50 mt-20">
-                            <h5 class="font-weight-900"> Critical Illness Benefits</h5>
-                        </div>
-                        <div class="d-table ml-100  m-b-25">
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Coverage Limit</div>
-                                <div class="d-table-cell" id="divCIBCL"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Maximum Limit</div>
-                                <div class="d-table-cell" id="divCIBML"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Waiting Period in Days</div>
-                                <div class="d-table-cell" id="divCIBWPD"></div>
-                            </div>
-                        </div>
-
-                        <div id="divDyAddCover">
-
-                        </div>
-
-                        <div class="ml-50 mt-20">
-                            <h5 class="font-weight-900">Exclusions</h5>
-                        </div>
-
-                        <div class="ml-50 mt-20">
-                            <h5 class="font-weight-900">  War Exclusion Benefits</h5>
-                        </div>
-                        <div class="d-table ml-100  m-b-25">
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Coverage Limit</div>
-                                <div class="d-table-cell" id="divWEBCL"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Maximum Limit</div>
-                                <div class="d-table-cell" id="divWEBML"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Waiting Period in Days</div>
-                                <div class="d-table-cell" id="divWEBWPD"></div>
-                            </div>
-                        </div>
-
-
-                        <div class="ml-50 mt-20">
-                            <h5 class="font-weight-900"> Atomic, Biological and Chemical/Nuclear Exclusion</h5>
-                        </div>
-                        <div class="d-table ml-100  m-b-25">
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Coverage Limit</div>
-                                <div class="d-table-cell" id="divABCECL"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Maximum Limit</div>
-                                <div class="d-table-cell" id="divABCEML"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Waiting Period in Days</div>
-                                <div class="d-table-cell" id="divABCEWPD"></div>
-                            </div>
-                        </div>
-
-                        <div class="ml-50 mt-20">
-                            <h5 class="font-weight-900"> Criminal Act Exclusion</h5>
-                        </div>
-                        <div class="d-table ml-100  m-b-25">
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Coverage Limit</div>
-                                <div class="d-table-cell" id="divCAECL"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Maximum Limit</div>
-                                <div class="d-table-cell" id="divCAEML"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Waiting Period in Days</div>
-                                <div class="d-table-cell" id="divCAEWPD"></div>
-                            </div>
-                        </div>
-
-                        <div class="ml-50 mt-20">
-                            <h5 class="font-weight-900"> Hazardous Sports Exclusion</h5>
-                        </div>
-                        <div class="d-table ml-100  m-b-25">
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Coverage Limit</div>
-                                <div class="d-table-cell" id="divHSECL"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Maximum Limit</div>
-                                <div class="d-table-cell" id="divHSEML"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Waiting Period in Days</div>
-                                <div class="d-table-cell" id="divHSEWPD"></div>
-                            </div>
-                        </div>
-
-                        <div class="ml-50 mt-20">
-                            <h5 class="font-weight-900"> Aviation Exclusion</h5>
-                        </div>
-                        <div class="d-table ml-100  m-b-25">
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Coverage Limit</div>
-                                <div class="d-table-cell" id="divAECL"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Maximum Limit</div>
-                                <div class="d-table-cell" id="divAEML"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Waiting Period in Days</div>
-                                <div class="d-table-cell" id="divAEWPD"></div>
-                            </div>
-                        </div>
-
-
-                        <div class="ml-50 mt-20">
-                            <h5 class="font-weight-900"> Intentionally self - inflicted injury, suicide or attempted suicide</h5>
-                        </div>
-                        <div class="d-table ml-100  m-b-25">
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Coverage Limit</div>
-                                <div class="d-table-cell" id="divISISCL"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Maximum Limit</div>
-                                <div class="d-table-cell" id="divISISML"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Waiting Period in Days</div>
-                                <div class="d-table-cell" id="divISISWPD"></div>
-                            </div>
-                        </div>
-
-                        <div class="ml-50 mt-20">
-                            <h5 class="font-weight-900"> Pandemic / Epidemic Conditions</h5>
-                        </div>
-                        <div class="d-table ml-100  m-b-25">
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Coverage Limit</div>
-                                <div class="d-table-cell" id="divPECCL"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Maximum Limit</div>
-                                <div class="d-table-cell" id="divPECML"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Waiting Period in Days</div>
-                                <div class="d-table-cell" id="divPECWPD"></div>
-                            </div>
-                        </div>
-
-
-                        <div class="ml-50 mt-20">
-                            <h5 class="font-weight-900"> Sucide Benefits</h5>
-                        </div>
-                        <div class="d-table ml-100  m-b-25">
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Coverage Limit</div>
-                                <div class="d-table-cell" id="divSBBCL"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Maximum Limit</div>
-                                <div class="d-table-cell" id="divSBBML"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Waiting Period in Days</div>
-                                <div class="d-table-cell" id="divSBBPD"></div>
-                            </div>
-                        </div>
-
-
-                        <div class="ml-50 mt-20">
-                            <h5 class="font-weight-900">   HIV / AIDS or related conditions</h5>
-                        </div>
-                        <div class="d-table ml-100  m-b-25">
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Coverage Limit</div>
-                                <div class="d-table-cell" id="divHIVACL"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Maximum Limit</div>
-                                <div class="d-table-cell" id="divHIVAML"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Waiting Period in Days</div>
-                                <div class="d-table-cell" id="divHIVAPD"></div>
-                            </div>
-                        </div>
-
-                        <div id="divDyExclusion">
-
-                        </div>
-
-                    </div>
-                </div>
-                @*Coverage Details*@
-                @*Employee Details*@
-                <div>
-                    <div class="previewHeader">
-                        <h4 class="mb-0 font-weight-bold">Employee Details</h4>
-                    </div>
-                    <div class="previewContent">
-                        <div class="d-table ml-100 mt-25 mb-25">
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Total Employees</div>
-                                <div class="d-table-cell" id="divPreTE"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Total Dependents</div>
-                                <div class="d-table-cell" id="divPreTD"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Total Spouse dependents</div>
-                                <div class="d-table-cell" id="divPreTSD"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Total Child dependents</div>
-                                <div class="d-table-cell" id="divPreTCD"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Policy Currency</div>
-                                <div class="d-table-cell" id="divPrePC"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Eligibility Criteria</div>
-                                <div class="d-table-cell" id="divPreEC"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Sum Assured (SA)</div>
-                                <div class="d-table-cell" id="divPreSA"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Age Limit for Employees</div>
-                                <div class="d-table-cell" id="divALFE"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Age Limit for Dependent Spouse</div>
-                                <div class="d-table-cell" id="divPreALDS"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">
-                                    Age Limit for Dependent Child
-                                </div>
-                                <div class="d-table-cell" id="divALDC"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">FCL</div>
-                                <div class="d-table-cell" id="divpreEDFCL"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @*End of Client Details*@
-                @*Coverage Details*@
-                <div>
-                    <div class="previewHeader">
-                        <h4 class="mb-0 font-weight-bold">PREMIUM DETAILS</h4>
-                    </div>
-                    <div class="previewContent">
-                        <div class=" mt-25">
-                            <hr />
-                            <h5 class="m-b-15 m-t-15 text-bold col-12 p-0">Fixed Sum Assured</h5>
-                            <hr />
-                        </div>
-                        <div class="d-table ml-100">
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Type of Sum Assured</div>
-                                <div class="d-table-cell" id="divTypeSA"></div>
-                            </div>
-                            <div class="table-responsive" id="divPreViewVariableSA">
-
-                            </div>
-                            <div class="d-table-row" id="divSumSAFixed">
-                                <div class="d-table-cell font-weight-bold">Sum Assured (SA)</div>
-                                <div class="d-table-cell" id="divPDSumAssured"></div>
-                            </div>
-                            <div class="d-table-row" id="divGRateFixed">
-                                <div class="d-table-cell font-weight-bold">Gross Rate in %</div>
-                                <div class="d-table-cell" id="divPDGR"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Net Premium</div>
-                                <div class="d-table-cell" id="divPDNP"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Levy 0.55%</div>
-                                <div class="d-table-cell" id="divPDLevy"></div>
-                            </div>
-
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Policy Fee 1 RO</div>
-                                <div class="d-table-cell" id="divPDPF">OMR 500</div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Gross Premium</div>
-                                <div class="d-table-cell" id="divPDGP"></div>
-                            </div>
-                        </div>
-                        <div class=" mt-25">
-                            <hr />
-                            <h5 class="m-b-15 m-t-15 text-bold col-12 p-0">Loadings</h5>
-                            <hr />
-                        </div>
-
-                        <div class="d-table ml-100 m-b-25">
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Broker Name</div>
-                                <div class="d-table-cell" id="divPDBN"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Broker Commssion %</div>
-                                <div class="d-table-cell" id="divPDBD"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Brokerage</div>
-                                <div class="d-table-cell" id="divPDBroker"></div>
-                            </div>
-                        </div>
-
-
-                        <div class="col-12">
-                            <hr />
-                            <h5 class="m-b-15 m-t-15 text-bold col-12 p-0">REInsurer</h5>
-                            <hr />
-                            <div class="table-responsive" id="preViewtblReinsurer">
-
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                @*Coverage Details*@
-                @*WORKMEN COMPENSATION*@
-                <div>
-                    <div class="previewHeader">
-                        <h4 class="mb-0 font-weight-bold">WORKMEN COMPENSATION</h4>
-                    </div>
-                    <div class="previewContent">
-                        <div class="d-table ml-100 m-t-25">
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Estimated Annual Wages</div>
-                                <div class="d-table-cell" id="divWcEAW"></div>
-                            </div>
-
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Net Premium</div>
-                                <div class="d-table-cell" id="divWCNp"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Levy 1.6 %</div>
-                                <div class="d-table-cell" id="divWCLevy"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Policy Fee 1 RO</div>
-                                <div class="d-table-cell" id="divWcPF"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Gross Premium</div>
-                                <div class="d-table-cell" id="divWcGP"></div>
-                            </div>
-                        </div>
-                        <div class=" mt-25">
-                            <hr />
-                            <h5 class="m-b-15 m-t-15 text-bold col-12 p-0">Loadings</h5>
-                            <hr />
-                        </div>
-                        <div class="d-table ml-100 m-b-25">
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Broker Name</div>
-                                <div class="d-table-cell" id="divWcBN">VISO</div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Broker Commssion %</div>
-                                <div class="d-table-cell" id="divWcBC"></div>
-                            </div>
-                            <div class="d-table-row">
-                                <div class="d-table-cell font-weight-bold">Brokerage</div>
-                                <div class="d-table-cell" id="divWCB">25,400</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @*Coverage Details*@
-            </div>
+             <div>
+         </div>
+            <div id="editor"></div>
+            @using (Html.BeginForm("GeneratePDF", "Quotation", FormMethod.Post))
+            {
+                <input type="hidden" id="hdnPdfContent" name="hdnPdfContent" value="" />
+                <input type="submit" class="btn btn-rounded btn-primary hide" id="btnDownloadPDF" value="Download" />
+            }
             <div class="modal-footer text-right">
                 <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                <button class="btn btn-rounded btn-primary" data-dismiss="modal" aria-hidden="true" id="btngeneratePDF">Download</button>
                 <button class="btn btn-primary" onclick="saveQuotationForm()">Save & Submit Quotation</button>
             </div>
         </div>
     </div>
+</div>
 </div>
 @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#previewQuotationModal" onclick="PreView()"><i class="mdi mdi-plus mx-2"></i>Preview Form</button>*@
 <script type="text/javascript">
@@ -2275,7 +2205,7 @@
             return false;
         }
         if (!$('#objQuo_ClientCompanyName').val() > 0) {
-            alert('Please Select Client Company');
+           // alert('Please Select Client Company');
             return false;
         }
         var param = { InsuranceCompanyName: $('#objQuo_InsuranceCompanyName').val(), ClientCompanyName: $('#objQuo_ClientCompanyName option:selected').text()};
@@ -2293,15 +2223,15 @@
                     //Result.lstReinsurerRate
                     //Result.objRIRateCalc
                     var FixedSA = Result.objRIRateCalc;
-                    $('#Premium_SumAssured').val(FixedSA.Premium_SumAssured)
-                    $('#Premium_GrossRate').val(FixedSA.Premium_GrossRate)
-                    $('#Premium_NetPremium').val(FixedSA.Premium_NetPremium)
-                    $('#Premium_Levy').val(FixedSA.Premium_Levy)
-                    $('#Premium_PolicyFee1_RO').val(FixedSA.Premium_PolicyFee1RO)
-                    $('#Premium_GrossPremium').val(FixedSA.Premium_GrossPremium)
-                    $('#objQuo_Premium_BrokerName').val(FixedSA.Premium_BrokerName)
-                    $('#objQuo_Premium_BrokerCommssion').val(FixedSA.Premium_BrokerCommssion)
-                    $('#objQuo_Premium_Brokerage').val(FixedSA.Premium_Brokerage)
+                    $('#objQuo_Premium_SumAssured').val(FixedSA.Premium_SumAssured)
+                    $('#objQuo_Premium_GrossRate').val(FixedSA.Premium_GrossRate)
+                    $('#objQuo_Premium_NetPremium').val(FixedSA.Premium_NetPremium)
+                    $('#objQuo_Premium_Incllevy').val(FixedSA.Premium_Incllevy)
+                    $('#objQuo_Premium_PolicyFee1RO').val(FixedSA.Premium_PolicyFee1RO)
+                    $('#objQuo_Premium_GrossPremium').val(FixedSA.Premium_GrossPremium)
+                    $('#objQuo_BrokerName').val(FixedSA.BrokerName)
+                    $('#objQuo_BrokerCommission').val(FixedSA.BrokerCommission)
+                    $('#objQuo_Brokerage').val(FixedSA.Brokerage)
 
                     var KYCDetails = Result.objKYCDetails;
                     $('#objQuo_Address').val(KYCDetails.Address)
@@ -2349,13 +2279,13 @@
         })
     }
     $(function () {
-        $("#objQuo_WCId").change(function () {
+        $("#objQuo_WCEstimatedAnnualWagesType").change(function () {
             $('#divPerpersonRate input').val('');
             $('#divWCRate input').val('');
-            $('#objQuo_Premium_Incl_levy_PolFeeRO').val('');
-            $('#objQuo_GrossPremium').val('');
-            $('#objQuo_NetPremium').val('');
-            $('#objQuo_PolicyFee1_RO').val('');
+            $('#objQuo_WCIncllevy').val('');
+            $('#objQuo_WCGrossPremium').val('');
+            $('#objQuo_WCNetPremium').val('');
+            $('#objQuo_WCPolicyFee1RO').val('');
             var selectedText = $(this).find("option:selected").text();
             var selectedValue = $(this).val();
             var ClientName = $('#objQuo_ClientCompanyName').val();
@@ -2390,20 +2320,21 @@
             data: param,
             success: function (Result) {
 
-                $('#objQuo_SumOfSalary').val(Result.SumOfSalary);
-                $('#objQuo_EstimatedAnnualWages').val(Result.EstimatedAnnualWages);
-                $('#objQuo_Premium_Incl_levy_PolFeeRO').val(Result.Premium_Incl_levy_PolFeeRO);
-                $('#objQuo_GrossPremium').val(Result.GrossPremium);
-                $('#objQuo_NetPremium').val(Result.NetPremium);
-                $('#objQuo_PolicyFee1_RO').val(Result.PolicyFee1_RO);
+                $('#objQuo_WCSumOfSalary').val(Result.WCSumOfSalary);
+                $('#objQuo_WCEstimatedAnnualWages').val(Result.WCEstimatedAnnualWages);
+                $('#objQuo_WCIncllevy').val(Result.WCIncllevy);
+                $('#objQuo_WCGrossPremium').val(Result.WCGrossPremium);
+                $('#objQuo_WCNetPremium').val(Result.WCNetPremium);
+                $('#objQuo_WCPolicyFee1RO').val(Result.WCPolicyFee1RO);
                 $('#objQuo_WCRate').val(Result.WCRate);
-                var WC_BrokerName = $('#objQuo_Premium_BrokerName').val();
-                var WC_BrokerCommission = $('#objQuo_Premium_BrokerCommssion').val();
-                var WC_NetPremium = Result.NetPremium;
+                var WC_BrokerName = $('#objQuo_BrokerName').val();
+                var WC_BrokerCommission = $('#objQuo_BrokerCommission').val();
+                var WC_NetPremium = Result.WCNetPremium;
                 var WC_BrokerAmount = (parseFloat(WC_NetPremium) * parseFloat(WC_BrokerCommission)) / 100;
-                $('#objQuo_BrokerName').val(WC_BrokerName);
-                $('#objQuo_BrokerPercentage').val(WC_BrokerCommission);
-                $('#objQuo_BrokerAmount').val(WC_BrokerAmount);
+
+                $('#objQuo_WCBrokerName').val(WC_BrokerName);
+                $('#objQuo_WCBrokerCommission').val(WC_BrokerCommission);
+                $('#objQuo_WCBrokerage').val(WC_BrokerAmount);
             },
             error: function () {
                 // $("#lblMessage").html('Error while Registring the Company!.');
@@ -2422,18 +2353,18 @@
             data: param,
             success: function (Result) {
 
-                $('#objQuo_TotalEmployeescount').val(Result.TotalEmployees);
-                $('#objQuo_PerPerson').val(Result.PerPerson);
-                $('#objQuo_NetPremium').val(Result.NetPremium);
-                $('#objQuo_Premium_Incl_levy_PolFeeRO').val(Result.Premium_Incl_levy_PolFeeRO);
-                $('#objQuo_PolicyFee1_RO').val(Result.PolicyFee1_RO);
-                $('#objQuo_GrossPremium').val(Result.GrossPremium);
-                var WC_BrokerName = $('#objQuo_Premium_BrokerName').val();
-                var WC_BrokerCommission = $('#objQuo_Premium_BrokerCommssion').val();
-                var WC_BrokerAmount = (parseFloat(Result.NetPremium) * parseFloat(WC_BrokerCommission)) / 100;
-                $('#objQuo_BrokerName').val(WC_BrokerName);
-                $('#objQuo_BrokerPercentage').val(WC_BrokerCommission);
-                $('#objQuo_BrokerAmount').val(WC_BrokerAmount);
+                $('#objQuo_WCTotalEmployee').val(Result.WCTotalEmployee);
+                $('#objQuo_WCPerPerson').val(Result.WCPerPerson);
+                $('#objQuo_WCNetPremium').val(Result.WCNetPremium);
+                $('#objQuo_WCIncllevy').val(Result.WCIncllevy);
+                $('#objQuo_WCPolicyFee1RO').val(Result.WCPolicyFee1RO);
+                $('#objQuo_WCGrossPremium').val(Result.WCGrossPremium);
+                var WC_BrokerName = $('#objQuo_BrokerName').val();
+                var WC_BrokerCommission = $('#objQuo_BrokerCommission').val();
+                var WC_BrokerAmount = (parseFloat(Result.WCNetPremium) * parseFloat(WC_BrokerCommission)) / 100;
+                $('#objQuo_WCBrokerName').val(WC_BrokerName);
+                $('#objQuo_WCBrokerCommission').val(WC_BrokerCommission);
+                $('#objQuo_WCBrokerage').val(WC_BrokerAmount);
             },
             error: function () {
                 // $("#lblMessage").html('Error while Registring the Company!.');
@@ -2721,7 +2652,7 @@
             },
             onFinished: function (event, currentIndex) {
                 //swal("Your Order Submitted!", "Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem. Proin ut ligula vel nunc egestas porttitor.");
-                if (!$('#objQuo_Branch').val() > 1) {
+                if ($('#objQuo_Branch').val() =='') {
                     Swal.fire({
                         icon: 'warning',
                         title: '',
@@ -2770,7 +2701,8 @@
             onCanceled: function (event, currentIndex) {
 
                 var quotationData = $('#formQuotation').serialize();
-                var param = { Qid: $('#objQuo_QuotationId').val(), Action: "Reject" };
+                var Remarks = "sample test";
+                var param = { Qid: $('#objQuo_QuotationId').val(), Action: "Reject",Remarks:Remarks };
                 $.ajax({
 
                     type: "POST",
@@ -2796,6 +2728,15 @@
         });
     }
     function saveQuotationForm() {
+        if ($('#objQuo_Branch').val() =='') {
+            Swal.fire({
+                icon: 'warning',
+                title: '',
+                text: "DraftNo/PolicyNo format includes Branch.! Please select the Branch.!",
+            });
+            return false;
+        }
+        //return false;
         var quotationData = $('#formQuotation').serialize();
         Swal.fire({
             title: 'Do you want to submit the Quotation?',
@@ -3345,7 +3286,7 @@
             //var Str = (value.getFullYear() + "-" + ("00" + (value.getMonth() + 1)).slice(-2) + "-" + ("00" + value.getDate().slice(-2))
             var Str = ("00" + value.getDate()).slice(-2) + "-" + ("00" + (value.getMonth() + 1)).slice(-2) + "-" + value.getFullYear();
 
-            $('#objQuo_PeriodofInsurance').val(Str);
+           // $('#objQuo_PeriodofInsurance').val(Str);
             console.log(objQuoJson);
 
             var OAC = JSON.parse(objQuoJson.OtherAdditionalCover);
@@ -3413,15 +3354,54 @@
                         $("#DACFCLContent").show();
                     }
                 }
+                if (objQuoJson.DeathCoverAnnualLimit == "Variable") {
+                    $('input[name="DeathCoverAnnualLimit"][value="Variable"]').attr('checked', 'checked');
+                    if ($('#VariableDAC:checked').val() === 'Variable') {
+                        $("#VariableDACContent").show();
+                        //DACFCLContent
+                        $('#txtDeathCoverFCL').val(objQuoJson.DeathCoverFCL);
+                        $('#FixedDCSAmount').val(objQuoJson.DeathCoverSumAssuredAmount);
+                       // $("#VariableDACContent").hide();
+                        $("#DACFCLContent").show();
+
+                    } else if ($('#VariableDAC:checked').val() === 'Variable') {
+                        $("#FixedDACContent").hide();
+                        $("#VariableDACContent").show();
+                        $("#DACFCLContent").show();
+                    }
+                }
 
                 if (objQuoJson.AccidentalDeath == "Y") {
                     if (objQuoJson.AccidentalAnnualLimit = "Fixed") {
-                        $('input[name="DeathCoverAnnualLimit"][value="Fixed"]').attr('checked', 'checked');
+                      $('input[name="AccidentalAnnualLimit"][value="Fixed"]').attr('checked', 'checked');
                         $('#AccidentalDeath').attr('checked', true);
                         $('#FixedACD').attr('checked', true);
                         $("#ACDContent").slideDown();
                         $("#FixedACDContent").show();
                         if ($("#FixedACD").is(':checked')) {
+
+                            $("#txtAccidentalDeathSAM").val(objQuoJson.AccidentalSumAssuredAmount)
+                            $("#txtAccidentalFCL").val(objQuoJson.AccidentalFCL)
+                            $("#hdnAccidentalSumAssuredAmount").val($("#txtAccidentalDeathSAM").val());
+
+
+                        } else {
+                            $("#txtACDSAM").val(objQuoJson.AccidentalSumAssuredAmount)
+                            $("#txtAccidentalFCL").val(objQuoJson.AccidentalFCL)
+                            $("#hdnAccidentalSumAssuredAmount").val($("#txtACDSAM").val());
+                        }
+                    }
+                    if (objQuoJson.AccidentalAnnualLimit = "Variable") {
+                        $('input[name="AccidentalAnnualLimit"][value="Variable"]').attr('checked', 'checked');
+                        $('#AccidentalDeath').attr('checked', true);
+                        $('#VariableACD').attr('checked', true);
+                        $("#ACDContent").slideDown();
+                        $("#VariableACDContent").show();
+                        $("#FixedACDContent").hide();
+                        $("#ACDFCLContent").show();
+                        
+
+                        if ($("#VariableACD").is(':checked')) {
 
                             $("#txtAccidentalDeathSAM").val(objQuoJson.AccidentalSumAssuredAmount)
                             $("#txtAccidentalFCL").val(objQuoJson.AccidentalFCL)
@@ -3667,8 +3647,9 @@
                 $('#txtSEMaximumLimit').val(objQuoJson.SEMaximumLimit);
                 $('#txtSEWaitingYears').val(objQuoJson.SEWaitingYears);
             }
-            $('#objQuo_WCId').val(objQuoJson.WCId);
-            $("#objQuo_WCId").change();
+            $('#objQuo_WCEstimatedAnnualWagesType').val(objQuoJson.WCEstimatedAnnualWagesType);
+            $("#objQuo_WCEstimatedAnnualWagesType").change();
+            getReinsurerInfo();
             //objQM.objQuo.WCId = objQuotation.WCId;
 
         }
@@ -3690,23 +3671,28 @@
         $("#divJurisdiction").html($("#Jurisdiction").val());
         $("#divAddress").html($("#objQuo_Address").val());
         $("#divCity").html($("#objQuo_City").val());
+        $("#divNationality").html($("#objQuo_City").val());
         $("#divKYCDetails").html($("#objQuo_KYCDetails").val());
         $("#divBankName").html($("#objQuo_BankName").val());
         $("#divIFSCCode").html($("#objQuo_IFSCCode").val());
-        $("#divBranch").html($("#objQuo_Branch option:selected").text());
-        $("#divPeriodofInsurance").html($("#objQuo_PeriodofInsurance").val());
+        $.trim($("#objQuo_Branch option:selected").val()) != "-- Select Type --" ? $("#divBranch").html($("#objQuo_Branch option:selected").val()) : $("#divBranch").html("Nil");
+        //$("#divBranch").html($("#objQuo_Branch option:selected").text());
+        $.trim($("#objQuo_PeriodofInsurance").val()) != "" ? $("#divPeriodofInsurance").html($("#objQuo_PeriodofInsurance").val()) : $("#divPeriodofInsurance").html("Nil");
+        $.trim($("#objQuo_PeriodofInsuranceEndDate").val()) != "" ? $("#divPeriodofInsuranceEnd").html($("#objQuo_PeriodofInsuranceEndDate").val()) : $("#divPeriodofInsuranceEnd").html("Nil");
 
         var arrVal = JSON.parse($("#hdnVariableTypeSumContent").val());
         var arrCategory = arrVal.length == 0 ? [] : arrVal;
         $("#divtblCategory").empty();
-        var tbl = '<table class="table table-hover table-sm table-bordered" ><tr><th> Category Name</th></tr >';
+        var tbl = '<table style="border: 1px solid lavender;border-collapse:collapse;border-color:lavender;"><tr style="height:20px;"><th style="border: 1px solid lavender;border-collapse:collapse;border-color:lavender;"> Category Name</th></tr >';
         $.each(arrCategory, function (index, value) {
-            tbl += '<tr><td>' + value.CategoryName + '</td></tr>';
+            tbl += '<tr style="height:20px;"><td style="border: 1px solid lavender;border-collapse:collapse;border-color:lavender;">' + value.CategoryName + '</td></tr>';
         });
         tbl += '</table>';
         $("#divtblCategory").append(tbl);
             //divNationality  -> no control
         // CLIENT DETAILS End
+
+       // $.trim($("#objQuo_WCId option:selected").val()) != "-- Select WC Type --" ? $("#divWcEAW").html($("#objQuo_WCId option:selected").val()) : $("#divWcEAW").html("Nil");
     }
     function getCoverageDetails() {
 
@@ -3887,7 +3873,8 @@
         $("#divDyAddCover").empty();
 
         $.each(arrAdditionalCover, function (index, value) {
-            DyAdd +='  <div class="ml-50 mt-20"><h5 class="font-weight-900" >' +value.Title+'</h5>  </div><div class="d-table ml-100  m-b-25"> <div class="d-table-row"><div class="d-table-cell font-weight-bold">Coverage Limit</div><div class="d-table-cell" id="divCIBCL">'+value.CoverageLimit+'</div> </div> <div class="d-table-row"> <div class="d-table-cell font-weight-bold">Maximum Limit</div><div class="d-table-cell" id="divCIBML">'+value.MaximumLimit+'</div> </div><div class="d-table-row"> <div class="d-table-cell font-weight-bold">Waiting Period in Days</div> <div class="d-table-cell" id="divCIBWPD">'+value.WaitingPeriodinYears+'</div></div></div>';
+            DyAdd += "<table><tr><td colspan='2'><h5>" + value.Title + "</h5></td></tr><tr style='height: 25px'><td></td></tr><tr><td style = 'width: 300px'>Coverage Limit</td><td style = 'width: 380px'>" + value.CoverageLimit + "</td></tr><tr style='height: 25px'><td>Maximum Limit</td><td>" + value.MaximumLimit + "</td></tr><tr style='height: 25px'><td>Waiting Period in Days</td><td>" + value.WaitingPeriodinYears + "</td></tr>  </table>"
+            //DyAdd +='  <div class="ml-50 mt-20"><h5 class="font-weight-900" >' +value.Title+'</h5>  </div><div class="d-table ml-100  m-b-25"> <div class="d-table-row"><div class="d-table-cell font-weight-bold">Coverage Limit</div><div class="d-table-cell" id="divCIBCL">'+value.CoverageLimit+'</div> </div> <div class="d-table-row"> <div class="d-table-cell font-weight-bold">Maximum Limit</div><div class="d-table-cell" id="divCIBML">'+value.MaximumLimit+'</div> </div><div class="d-table-row"> <div class="d-table-cell font-weight-bold">Waiting Period in Days</div> <div class="d-table-cell" id="divCIBWPD">'+value.WaitingPeriodinYears+'</div></div></div>';
         });
         $("#divDyAddCover").append(DyAdd);
 
@@ -3998,8 +3985,10 @@
         var arrExclusion = $.trim($("#hdnOtherExclusions").val()) != '' ? JSON.parse($("#hdnOtherExclusions").val()) : [];
         $("#divDyExclusion").empty();
 
+
         $.each(arrExclusion, function (index, value) {
-            DyAdd += '  <div class="ml-50 mt-20"><h5 class="font-weight-900" >' + value.Title + '</h5>  </div><div class="d-table ml-100  m-b-25"> <div class="d-table-row"><div class="d-table-cell font-weight-bold">Coverage Limit</div><div class="d-table-cell" id="divCIBCL">' + value.CoverageLimit + '</div> </div> <div class="d-table-row"> <div class="d-table-cell font-weight-bold">Maximum Limit</div><div class="d-table-cell" id="divCIBML">' + value.MaximumLimit + '</div> </div><div class="d-table-row"> <div class="d-table-cell font-weight-bold">Waiting Period in Days</div> <div class="d-table-cell" id="divCIBWPD">' + value.WaitingPeriodinYears + '</div></div></div>';
+            DyAdd += "<table><tr style='height: 25px'><td colspan='2'><h5>" + value.Title + "</h5></td></tr><tr style='height: 25px'><td></td></tr><tr><td style = 'width: 300px'>Coverage Limit</td><td style = 'width: 380px'>" + value.CoverageLimit + "</td></tr><tr style='height: 25px'><td>Maximum Limit</td><td>" + value.MaximumLimit + "</td></tr><tr style='height: 25px'><td>Waiting Period in Days</td><td>" + value.WaitingPeriodinYears +"</td></tr>  </table>"
+
         });
         $("#divDyExclusion").append(DyAdd);
 
@@ -4027,89 +4016,99 @@
         TypeSA != "" ? $("#divTypeSA").html(TypeSA) : $("#divTypeSA").html("Nil");
 
         if (TypeSA == "Variable") {
-            $("#divSumSAFixed").addClass("hide");
-            $("#divGRateFixed").addClass("hide");
-            $("#divPreViewVariableSA").removeClass("hide");
+
+            $('table#tblPremimumDetails tr#divSumSAFixed').empty();
+            $('table#tblPremimumDetails tr#divGRateFixed').empty();
+            //$("#divGRateFixed").empty();
+           // $("#divGRateFixed").empty();
+            var arrCategory = JSON.parse($("#hdnVariableTypeSumContent").val());
+
+            $("#divPreViewVariableSA").empty();
+
+            var totalNoOfTimes = 0.00, totalSal = 0.00, totalSA = 0.00, totalClientRate = 0.00; totalNetPremium = 0.00;
+
+            var tbl = '<table style="border: 1px solid lavender;border-collapse:collapse;border-color:lavender;width:680px" id="tblVariableTypeSumContent"><tr style="height:25px;"><th style="border: 1px solid lavender;border-collapse:collapse;border-color:lavender">Category Name</th><th style="border: 1px solid lavender;border-collapse:collapse;border-color:lavender">Salary</th><th style="border: 1px solid lavender;border-collapse:collapse;border-color:lavender">No.of times</th><th style="border: 1px solid lavender;border-collapse:collapse;border-color:lavender">Sum Assured</th><th style="border: 1px solid lavender;border-collapse:collapse;border-color:lavender">Client Rate in %</th><th style="border: 1px solid lavender;border-collapse:collapse;border-color:lavender">Net Premium</th></tr>';
+            $.each(arrCategory, function (index, value) {
+
+                tbl += '<tr style="height:25px"><td style="border: 1px solid lavender;border-collapse:collapse;border-color:lavender">' + value.CategoryName + '</td><td style="border: 1px solid lavender;border-collapse:collapse;border-color:lavender"> ' + value.Salary + ' </td ><td style="border: 1px solid lavender;border-collapse:collapse;border-color:lavender">' + value.NoOfTimes + '</td><td style="border: 1px solid lavender;border-collapse:collapse;border-color:lavender">' + value.SumAssured + '</td><td style="border: 1px solid lavender;border-collapse:collapse;border-color:lavender">' + value.ClientRate + '</td><td style="border: 1px solid lavender;border-collapse:collapse;border-color:lavender">' + value.NetPremium + ' </td> </tr>';
+
+                totalNoOfTimes = totalNoOfTimes + Number(value.NoOfTimes);
+                totalSal = totalSal + Number(value.Salary);
+                totalSA = totalSA + Number(value.SumAssured);
+                totalClientRate = totalClientRate + Number(value.ClientRate);
+                totalNetPremium = totalNetPremium + Number(value.NetPremium);
+
+            });
+
+            tbl += '<tr style="height:25px;"><td style="border: 1px solid lavender;border-collapse:collapse;border-color:lavender">Total </td> <td style="border: 1px solid lavender;border-collapse:collapse;border-color:lavender"> ' + totalSal + '</td><td style="border: 1px solid lavender;border-collapse:collapse;border-color:lavender" > ' + totalNoOfTimes + '</td ><td style="border: 1px solid lavender;border-collapse:collapse;border-color:lavender" >' + totalSA + '</td > <td style="border: 1px solid lavender;border-collapse:collapse;border-color:lavender">' + totalClientRate + '</td><td style="border: 1px solid lavender;border-collapse:collapse;border-color:lavender">' + totalNetPremium + '</td> </tr></table>';
+
+            $("#divPreViewVariableSA").append(tbl);
         }
         else {
-            $("#divSumSAFixed").removeClass("hide");
-            $("#divGRateFixed").removeClass("hide");
-            $("#divPreViewVariableSA").addClass("hide");
+            $("#divPreViewVariableSA").empty();
+            $('table#tblPremimumDetails tr#divSumSAFixed').empty();
+            $('table#tblPremimumDetails tr#divGRateFixed').empty();
+            $("#divSumSAFixed").append('<td style="width:300px">Sum Assured (SA)</td><td style="width:380px" id="divPDSumAssured"></td>');
+            $("#divGRateFixed").append('<td style = "width:300px" > Gross Rate in %</td > <td style="width:380px" id="divPDGR"></td>');
+            $.trim($("#objQuo_Premium_SumAssured").val()) != "" ? $("#divPDSumAssured").html("OMR : " + $("#objQuo_Premium_SumAssured").val()) : $("#divPDSumAssured").html("Nil");
+            $.trim($("#objQuo_Premium_GrossRate").val()) != "" ? $("#divPDGR").html($("#objQuo_Premium_GrossRate").val()) : $("#divPDGR").html("Nil");
+
         }
 
 
-        $.trim($("#Premium_SumAssured").val()) != "" ? $("#divPDSumAssured").html("OMR : " + $("#Premium_SumAssured").val()) : $("#divPDSumAssured").html("Nil");
-        $.trim($("#Premium_GrossRate").val()) != "" ? $("#divPDGR").html($("#Premium_GrossRate").val()) : $("#divPDGR").html("Nil");
 
-        $.trim($("#Premium_NetPremium").val()) != "" ? $("#divPDNP").html($("#Premium_NetPremium").val()) : $("#divPDNP").html("Nil");
-        $.trim($("#Premium_Levy").val()) != "" ? $("#divPDLevy").html("OMR : " + $("#Premium_Levy").val()) : $("#divPDLevy").html("Nil");
-        $.trim($("#Premium_PolicyFee1_RO").val()) != "" ? $("#divPDPF").html("OMR : " + $("#Premium_PolicyFee1_RO").val()) : $("#divPDPF").html("Nil");
-        $.trim($("#Premium_GrossPremium").val()) != "" ? $("#divPDGP").html("OMR : " + $("#Premium_GrossPremium").val()) : $("#divPDGP").html("Nil");
+        $.trim($("#objQuo_Premium_NetPremium").val()) != "" ? $("#divPDNP").html($("#objQuo_Premium_NetPremium").val()) : $("#divPDNP").html("Nil");
+        $.trim($("#objQuo_Premium_Incllevy").val()) != "" ? $("#divPDLevy").html("OMR : " + $("#objQuo_Premium_Incllevy").val()) : $("#divPDLevy").html("Nil");
+        $.trim($("#objQuo_Premium_PolicyFee1RO").val()) != "" ? $("#divPDPF").html("OMR : " + $("#objQuo_Premium_PolicyFee1RO").val()) : $("#divPDPF").html("Nil");
+        $.trim($("#objQuo_Premium_GrossPremium").val()) != "" ? $("#divPDGP").html("OMR : " + $("#objQuo_Premium_GrossPremium").val()) : $("#divPDGP").html("Nil");
 
 
-        $.trim($("#objQuo_Premium_BrokerName").val()) != "" ? $("#divPDBN").html($("#objQuo_Premium_BrokerName").val()) : $("#divPDBN").html("Nil");
-        $.trim($("#objQuo_Premium_BrokerCommssion").val()) != "" ? $("#divPDBD").html($("#objQuo_Premium_BrokerCommssion").val()) : $("#divPDBD").html("Nil");
-        $.trim($("#objQuo_Premium_Brokerage").val()) != "" ? $("#divPDBroker").html($("#objQuo_Premium_Brokerage").val()) : $("#divPDBroker").html("Nil");
-
-        var arrCategory = JSON.parse($("#hdnVariableTypeSumContent").val());
-
-        $("#divPreViewVariableSA").empty();
-
-        var totalNoOfTimes = 0.00, totalSal = 0.00, totalSA = 0.00, totalClientRate = 0.00; totalNetPremium = 0.00;
-
-        var tbl = '<table id="tblVariableTypeSumContent" class="table table-hover"><tr><th>Category Name</th><th>Salary</th><th>No.of times</th><th>Sum Assured</th><th>Client Rate in %</th><th>Net Premium</th></tr>';
-        $.each(arrCategory, function (index, value) {
-
-            tbl += '<tr><td>' + value.CategoryName + '</td><td> <input type="number" name="Salary" value="' + value.Salary + '" onblur="UpdateVariableSumAssured(this,' + "'" + value.CategoryName + "'" + ')" class="form-control w-full" placeholder = "Enter Salary" /> </td ><td><input type="number" name="NoOfTimes" value="' + value.NoOfTimes + '"  onblur="UpdateVariableSumAssured(this,' + "'" + value.CategoryName + "'" + ')" class="form-control w-full" placeholder="Enter NoOfTimes" /></td><td><input readonly type="number" name="SumAssured" id="txtSumAssured_' + index + '"  value="' + value.SumAssured + '"   class="form-control w-full"" /></td><td> <input type="number" name="ClientRate" value="' + value.ClientRate + '" onchange="UpdateVariableSumAssured(this,' + "'" + value.CategoryName + "'" + ')" class="form-control w-full" placeholder ="Enter ClientRate" /> </td><td> <input type="number" readonly id="txtNetPremium_' + index +'" name="NetPremium" value="' + value.NetPremium + '" onchange="UpdateVariableSumAssured(this,' + "'" + value.CategoryName + "'" + ')" class="form-control w-full" placeholder ="Enter Client Rate" /> </td> </tr >';
-
-            totalNoOfTimes = totalNoOfTimes + Number(value.NoOfTimes);
-            totalSal = totalSal + Number(value.Salary);
-            totalSA = totalSA + Number(value.SumAssured);
-            totalClientRate = totalClientRate + Number(value.ClientRate);
-            totalNetPremium = totalNetPremium + Number(value.NetPremium);
-
-        });
-
-
-
-        tbl += '<tr><td>Total </td> <td class="text-bold"> <label id="lblTotSalary" class="col-sm-12 col-form-label text-left">OMR ' + totalSal + '</label></td><td class="text-bold" > <label id="lblNoOfTimes" class="col-sm-12 col-form-label text-left">OMR ' + totalNoOfTimes + '</label></td ><td class="text-bold" > <label id="lbltotalSA" class="col-sm-12 col-form-label text-left">OMR ' + totalSA + '</label></td >            <td class="text-bold"><label id="lblClientRate" class="col-sm-12 col-form-label text-left">' + totalClientRate + '</label></td><td><label id="lbltotalNetPremium" class="col-sm-12 col-form-label text-left">' + totalNetPremium + '</label></td> </tr></table>';
-
-        $("#divPreViewVariableSA").append(tbl);
-
-
+        $.trim($("#objQuo_BrokerName").val()) != "" ? $("#divPDBN").html($("#objQuo_BrokerName").val()) : $("#divPDBN").html("Nil");
+        $.trim($("#objQuo_BrokerCommission").val()) != "" ? $("#divPDBD").html($("#objQuo_BrokerCommission").val()) : $("#divPDBD").html("Nil");
+        $.trim($("#objQuo_Brokerage").val()) != "" ? $("#divPDBroker").html($("#objQuo_Brokerage").val()) : $("#divPDBroker").html("Nil");
 
         $('#preViewtblReinsurer').empty();
         var lstReinsurerRate = JSON.parse($("#hdnlstReinsurerRate").val());
         if (lstReinsurerRate.length > 0) {
 
-        var   ReinsurerRate ='<table class="table table-hover"><tr><th>RI Name</th><th>RI net rate%</th><th>RI Premium</th><th>RI Retention %</th><th>Insurer Retention %</th><th>RI Retention Premium</th><th>Insurer Retention Premium</th><th>Insurer Loading Premium</th> <th>Insurer Loading</th></tr>'
+
+            var ReinsurerRate = "<table style='width:680px'><tr><th style = 'border: 1px solid lavender;border-collapse:collapse;border-color:lavender'>RI Name</th><th style = 'border: 1px solid lavender;border-collapse:collapse;border-color:lavender'>RI net rate%</th><th style = 'border: 1px solid lavender;border-collapse:collapse;border-color:lavender'>RI Premium</th><th style = 'border: 1px solid lavender;border-collapse:collapse;border-color:lavender'>RI Retention %</th><th style = 'border: 1px solid lavender;border-collapse:collapse;border-color:lavender'>Insurer Retention %</th><th style = 'border: 1px solid lavender;border-collapse:collapse;border-color:lavender'>RI Retention Premium</th><th style = 'border: 1px solid lavender;border-collapse:collapse;border-color:lavender'>Insurer Retention Premium</th><th style = 'border: 1px solid lavender;border-collapse:collapse;border-color:lavender'>Insurer Loading Premium</th> <th style = 'border: 1px solid lavender;border-collapse:collapse;border-color:lavender'>Insurer Loading</th></tr>";
 
         $.each(lstReinsurerRate, function (key, value) {
-            ReinsurerRate += '<tr> <td>' + value.Premium_RIName + '</td><td>' + value.Premium_RInetrate + '</td><td>' + value.Premium_RIPremium + '</td> <td>' + value.Premium_RIRetention + '</td><td>' + value.Premium_InsurerRetention + '</td><td>' + value.Premium_RIRetentionPremium + '</td><td>' + value.Premium_InsurerRetentionPremium + '</td><td>' + value.Premium_InsurerLoadingPremium + '</td><td>' + value.Premium_InsurerLoading + '</td></tr>';
+            ReinsurerRate += "<tr> <td style = 'border: 1px solid lavender;border-collapse:collapse;border-color:lavender'>" + value.Premium_RIName + "</td><td style = 'border: 1px solid lavender;border-collapse:collapse;border-color:lavender'>" + value.Premium_RInetrate + "</td><td style = 'border: 1px solid lavender;border-collapse:collapse;border-color:lavender'>" + value.Premium_RIPremium + "</td> <td style = 'border: 1px solid lavender;border-collapse:collapse;border-color:lavender'>" + value.Premium_RIRetention + "</td><td style = 'border: 1px solid lavender;border-collapse:collapse;border-color:lavender'>" + value.Premium_InsurerRetention + "</td><td style = 'border: 1px solid lavender;border-collapse:collapse;border-color:lavender'>" + value.Premium_RIRetentionPremium + "</td><td style = 'border: 1px solid lavender;border-collapse:collapse;border-color:lavender'>" + value.Premium_InsurerRetentionPremium + "</td><td style = 'border: 1px solid lavender;border-collapse:collapse;border-color:lavender'>" + value.Premium_InsurerLoadingPremium + "</td><td style = 'border: 1px solid lavender;border-collapse:collapse;border-color:lavender'>" + value.Premium_InsurerLoading + "</td></tr>";
         })
-            ReinsurerRate += '</table>'
+            ReinsurerRate += "</table>";
         $('#preViewtblReinsurer').append(ReinsurerRate);
         }
         else {
-            $('#preViewtblReinsurer').append('<tr> <td colspan="14" aligen="center" > No Records found </td></tr>');
+            $('#preViewtblReinsurer').append('<tr> <td style = "border: 1px solid lavender; border - collapse: collapse; border - color: lavender" colspan="14" aligen="center" > No Records found </td></tr>');
         }
 
 
     }
     function pgetWorkmenCompensation() {
 
-        $.trim($("#objQuo_WCId option:selected").val()) != "-- Select WC Type --" ? $("#divWcEAW").html($("#objQuo_WCId option:selected").val()) : $("#divWcEAW").html("Nil");
-        $.trim($("#objQuo_NetPremium").val()) != "" ? $("#divWCNp").html("OMR : " + $("#objQuo_NetPremium").val()) : $("#divWCNp").html("Nil");
-        $.trim($("#objQuo_Premium_Incl_levy_PolFeeRO").val()) != "" ? $("#divWCLevy").html( $("#objQuo_Premium_Incl_levy_PolFeeRO").val()) : $("#divWCLevy").html("Nil");
-        $.trim($("#objQuo_PolicyFee1_RO").val()) != "" ? $("#divWcPF").html("OMR : " + $("#objQuo_PolicyFee1_RO").val()) : $("#divWcPF").html("Nil");
-        $.trim($("#objQuo_GrossPremium").val()) != "" ? $("#divWcGP").html("OMR : " + $("#objQuo_GrossPremium").val()) : $("#divWcGP").html("Nil");
+        $.trim($("#objQuo_WCEstimatedAnnualWagesType option:selected").val()) != "-- Select WC Type --" ? $("#divWcEAW").html($("#objQuo_WCEstimatedAnnualWagesType option:selected").text()) : $("#divWcEAW").html("Nil");
+        $.trim($("#objQuo_WCNetPremium").val()) != "" ? $("#divWCNp").html("OMR : " + $("#objQuo_WCNetPremium").val()) : $("#divWCNp").html("Nil");
+        $.trim($("#objQuo_WCIncllevy").val()) != "" ? $("#divWCLevy").html($("#objQuo_WCIncllevy").val()) : $("#divWCLevy").html("Nil");
+        $.trim($("#objQuo_WCPolicyFee1RO").val()) != "" ? $("#divWcPF").html("OMR : " + $("#objQuo_WCPolicyFee1RO").val()) : $("#divWcPF").html("Nil");
+        $.trim($("#objQuo_WCGrossPremium").val()) != "" ? $("#divWcGP").html("OMR : " + $("#objQuo_WCGrossPremium").val()) : $("#divWcGP").html("Nil");
 
         $.trim($("#objQuo_BrokerName").val()) != "" ? $("#divWcBN").html($("#objQuo_BrokerName").val()) : $("#divWcBN").html("Nil");
-        $.trim($("#objQuo_BrokerPercentage").val()) != "" ? $("#divWcBC").html($("#objQuo_BrokerPercentage").val()) : $("#divWcBC").html("Nil");
-        $.trim($("#objQuo_BrokerAmount").val()) != "" ? $("#divWCB").html($("#objQuo_BrokerAmount").val()) : $("#divWCB").html("Nil");
-
-
+        $.trim($("#objQuo_BrokerCommission").val()) != "" ? $("#divWcBC").html($("#objQuo_BrokerCommission").val()) : $("#divWcBC").html("Nil");
+        $.trim($("#objQuo_Brokerage").val()) != "" ? $("#divWCB").html($("#objQuo_Brokerage").val()) : $("#divWCB").html("Nil");
 
     }
+
+
+    $(function () {
+        $("#btngeneratePDF").click(function () {
+            $("#hdnPdfContent").val($("#previewQuotationModalDownload").html());
+            $("#btnDownloadPDF").click();
+        });
+    });
+
+
+
 
 </script>

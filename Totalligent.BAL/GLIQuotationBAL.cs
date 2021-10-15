@@ -19,9 +19,9 @@ namespace Totalligent.BAL
         {
             return new GLIQuotationDAL().DMLQuotationMaster(Action, JParamValQuotationDetails, JParamValCoverageDetails, out objResponse);
         }
-        public long RejectDraft(long Qid, string Action)
+        public long RejectDraft(long Qid, string Action, string Remarks)
         {
-            return new GLIQuotationDAL().RejectDraft(Qid, Action);
+            return new GLIQuotationDAL().RejectDraft(Qid, Action, Remarks);
         }
         public long GetWCRate(string ClientCompanyName, out Quotation objWCRate)
         {
@@ -31,13 +31,13 @@ namespace Totalligent.BAL
             try
             {
                 new GLIQuotationDAL().GetSumOfSalary(ClientCompanyName, out SumOfSalary);
-                objWCRate.SumOfSalary = SumOfSalary;
-                objWCRate.EstimatedAnnualWages = SumOfSalary * 12;
-                objWCRate.WCRate = WCRateFixed;
-                objWCRate.NetPremium = ((objWCRate.EstimatedAnnualWages) * Convert.ToDecimal(objWCRate.WCRate)) / 100;
-                objWCRate.Premium_Incl_levy_PolFeeRO = (objWCRate.NetPremium * Convert.ToDecimal(Levy)) / 100;
-                objWCRate.PolicyFee1_RO = 1;
-                objWCRate.GrossPremium = objWCRate.NetPremium + objWCRate.Premium_Incl_levy_PolFeeRO + objWCRate.PolicyFee1_RO;
+                objWCRate.WCSumOfSalary = SumOfSalary;
+                objWCRate.WCEstimatedAnnualWages = SumOfSalary * 12;
+                objWCRate.WCRate = Convert.ToDecimal(WCRateFixed);
+                objWCRate.WCNetPremium = ((objWCRate.WCEstimatedAnnualWages) * Convert.ToDecimal(objWCRate.WCRate)) / 100;
+                objWCRate.WCIncllevy = (objWCRate.WCNetPremium * Convert.ToDecimal(Levy)) / 100;
+                objWCRate.WCPolicyFee1RO = 1;
+                objWCRate.WCGrossPremium = objWCRate.WCNetPremium + objWCRate.WCIncllevy + objWCRate.WCPolicyFee1RO;
             }
             catch (Exception ex)
             {
@@ -54,12 +54,12 @@ namespace Totalligent.BAL
             try
             {
                 new GLIQuotationDAL().GetEmpCount(ClientCompanyName, out EmpCount);
-                objPPRate.TotalEmployees = EmpCount;
-                objPPRate.PerPerson = 2;
-                objPPRate.NetPremium = (objPPRate.TotalEmployees) * Convert.ToDecimal(objPPRate.PerPerson);
-                objPPRate.Premium_Incl_levy_PolFeeRO = (objPPRate.NetPremium * Convert.ToDecimal(Levy)) / 100;
-                objPPRate.PolicyFee1_RO = 1;
-                objPPRate.GrossPremium = objPPRate.NetPremium + objPPRate.Premium_Incl_levy_PolFeeRO + objPPRate.PolicyFee1_RO;
+                objPPRate.WCTotalEmployee = EmpCount;
+                objPPRate.WCPerPerson = 2;
+                objPPRate.WCNetPremium = (objPPRate.WCTotalEmployee) * Convert.ToDecimal(objPPRate.WCPerPerson);
+                objPPRate.WCIncllevy = (objPPRate.WCNetPremium * Convert.ToDecimal(Levy)) / 100;
+                objPPRate.WCPolicyFee1RO = 1;
+                objPPRate.WCGrossPremium = objPPRate.WCNetPremium + objPPRate.WCIncllevy + objPPRate.WCPolicyFee1RO;
             }
             catch (Exception ex)
             {
@@ -82,10 +82,10 @@ namespace Totalligent.BAL
                     if (lstRate.Count > 0)
                     {
                         objRIRate.Premium_NetPremium = (objRIRate.Premium_SumAssured * objRIRate.Premium_GrossRate) / 100;
-                        objRIRate.Premium_Levy = (objRIRate.Premium_NetPremium * Convert.ToDecimal(Premium_Levy)) / 100;
+                        objRIRate.Premium_Incllevy = (objRIRate.Premium_NetPremium * Convert.ToDecimal(Premium_Levy)) / 100;
                         objRIRate.Premium_PolicyFee1RO = 1;
-                        objRIRate.Premium_GrossPremium = objRIRate.Premium_NetPremium + objRIRate.Premium_Levy + objRIRate.Premium_PolicyFee1RO;
-                        objRIRate.Premium_Brokerage = (objRIRate.Premium_GrossPremium * objRIRate.Premium_BrokerCommssion) / 100;
+                        objRIRate.Premium_GrossPremium = objRIRate.Premium_NetPremium + objRIRate.Premium_Incllevy + objRIRate.Premium_PolicyFee1RO;
+                        objRIRate.Brokerage = (objRIRate.Premium_GrossPremium * objRIRate.BrokerCommission) / 100;
                     }
                 }
             }
