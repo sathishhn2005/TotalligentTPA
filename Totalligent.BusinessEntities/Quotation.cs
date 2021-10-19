@@ -271,5 +271,12 @@ namespace Totalligent.BusinessEntities
         public string KYCUploadPath { get; set; }
         public string BankName { get; set; }
         public string IFSCCode { get; set; }
+        public long TotalEmployees { get; set; }
+        public long TotalDependents { get; set; }
+        public long TotalSpousedependents { get; set; }
+        public long TotalChilddependents { get; set; }
+        public decimal SumAssured_SA { get; set; }
+        
+
     }
 }

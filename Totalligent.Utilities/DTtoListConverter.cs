@@ -28,7 +28,7 @@ namespace Totalligent.Utilities
             catch (Exception ex)
             {
                 returnCode = 1000;
-
+                throw ex;
             }
             finally
             {

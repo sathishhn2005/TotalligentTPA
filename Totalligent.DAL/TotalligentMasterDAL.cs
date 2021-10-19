@@ -474,7 +474,7 @@ namespace Totalligent.DAL
             }
             catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
 
             return returnCode;

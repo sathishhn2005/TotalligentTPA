@@ -328,6 +328,11 @@ namespace Totalligent.Utilities
                 _dt.Columns.Add("MedicalPolicyNo", typeof(string));
                 _dt.Columns.Add("MedicalPremium", typeof(decimal));
                 _dt.Columns.Add("GLpostedFileDocPath", typeof(string));
+                _dt.Columns.Add("WLEndorsementNumber", typeof(string));
+                _dt.Columns.Add("GLEndorsementNumber", typeof(string));
+                
+                _dt.Columns.Add("EndorsementDate", typeof(DateTime));
+                _dt.Columns.Add("EndorsementTypeOthers", typeof(string));
                 DataRow _dr;
 
                 _dr = _dt.NewRow();
@@ -349,6 +354,10 @@ namespace Totalligent.Utilities
                 _dr["MedicalPremium"] = _obj.MedicalPremium.Equals(null) ? 0 : _obj.MedicalPremium;
 
                 _dr["GLpostedFileDocPath"] = _obj.GlpostedFileDocPath ?? "";
+                _dr["WLEndorsementNumber"] = _obj.WLEndorsementNumber ?? "";
+                _dr["GLEndorsementNumber"] = _obj.GLEndorsementNumber ?? "";
+                _dr["EndorsementDate"] = _obj.EndorsementDate.Equals(null) ? DateTime.Now : _obj.EndorsementDate;
+                _dr["EndorsementTypeOthers"] = _obj.EndorsementTypeOthers ?? "";
                 _dt.Rows.Add(_dr);
                 return _dt;
 

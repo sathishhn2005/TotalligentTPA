@@ -215,8 +215,15 @@ namespace Totalligent.DAL
                             QKYCDetails.KYCUploadPath = Convert.ToString(dr["KYCUploadPath"]);
                             QKYCDetails.BankName = Convert.ToString(dr["BankName"]);
                             QKYCDetails.IFSCCode = Convert.ToString(dr["IFSCCode"]);
+                            QKYCDetails.TotalEmployees = Convert.ToInt64(dr["TotalEmployees"]);
+                            QKYCDetails.TotalDependents = Convert.ToInt64(dr["TotalDependents"]);
+                            QKYCDetails.TotalSpousedependents = Convert.ToInt64(dr["TotalSpousedependents"]);
+                            QKYCDetails.TotalChilddependents = Convert.ToInt64(dr["TotalChilddependents"]);
+                            QKYCDetails.SumAssured_SA = Convert.ToDecimal(dr["SumAssured_SA"]);
+                            
                         }
                     }
+
                 }
 
             }

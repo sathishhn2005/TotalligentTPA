@@ -161,6 +161,7 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
             catch (Exception ex)
             {
                 isSavedSuccessfully = false;
+                throw ex;
             }
 
 

@@ -250,13 +250,13 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
             GenerateHTML += "<html><head></head><div>";
             if (lstEndorsement != null)
             {
-                GenerateHTML += "<div align='center'> GROUP LIFE  – ENDORSEMENT </div>  <br /> ";
+                GenerateHTML += "<div align='center'> " + lstEndorsement[0].ClssOfInsurance + " </div>  <br /> ";
                 GenerateHTML += "<table style='width: 80 %;'> <tr style='height: 35px;'><td>Class of Insurance</td> <td>:</td><td>" + lstEndorsement[0].ClssOfInsurance + "</td> </tr >";
                 GenerateHTML += "<tr style='height: 35px;'><td>Endorsement No</td><td>:</td><td>" + lstEndorsement[0].EndorsementNo + "</td> </tr>";
                 GenerateHTML += "<tr style='height: 35px;'><td>Policy No </td><td>:</td><td>" + lstEndorsement[0].PolicyNo + "</td></tr>";
                 GenerateHTML += "<tr style='height: 35px;'><td>Insured</td><td>:</td><td>" + lstEndorsement[0].ClientName + "</td></tr>";
                 GenerateHTML += "<tr style='height: 35px;'> <td>Policy Period</td> <td>:</td><td>" + lstEndorsement[0].PolicyPeriod + "</td></tr></table> <br /><br />";
-                GenerateHTML += "<div style='height: 75px;'><p> At the request of the Insured, it is hereby agreed to delete the following employees of <b>" + lstEndorsement[0].ClientName + "</b>. to the above-mentioned policy. The details are as mentioned below</p> </div>";
+                GenerateHTML += "<div style='height: 75px;'><p> At the request of the Insured, it is hereby agreed to " + lstEndorsement[0].EndorsementType + " the following employees of <b>" + lstEndorsement[0].ClientName + "</b>. to the above-mentioned policy. The details are as mentioned below</p> </div>";
 
                 GenerateHTML += "<table style='width:100 %;border-color:darkgray' border='1' cellpadding='0' cellspacing='0'><thead><tr style='height: 30px;background-color:lightsteelblue'><td>S.No</td><td>Name of Employee</td><td>DOB </td><td>Sum Assured</td> <td>Effective Date</td></tr></thead > <tbody>";
                 foreach (Endorsement value in lstEndorsement)
@@ -272,7 +272,7 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
                 GenerateHTML += "</tbody></table><br /><br />";
 
 
-                GenerateHTML += "<div> <p>In consideration of the foregoing, a premium of <b>RO.31.931</b> is hereby Credited to the Insured.All other terms, conditions and limitations remain unaltered. </p > </div >";
+                GenerateHTML += "<div> <p>In consideration of the foregoing, a premium of <b>RO. " + lstEndorsement[0].GLPremium + "</b> is hereby " + lstEndorsement[0].EndorsementTypeOthers + "to the Insured.All other terms, conditions and limitations remain unaltered. </p > </div >";
                 GenerateHTML += "<br /><br /><div><div> Authorized Signatory </div><div>  Place: Muscat </div><div>  Date: " + DateTime.Now.ToString() + "</div></div>";
 
             }

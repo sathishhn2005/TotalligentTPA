@@ -46,7 +46,7 @@ namespace Totalligent.BAL
             }
             return returnCode;
         }
-        public long GetPerPersonRate(string ClientCompanyName, out Quotation objPPRate)
+        public long GetPerPersonRate(string ClientCompanyName, int PerPerson, out Quotation objPPRate)
         {
             long returnCode = -1;
             int EmpCount = 0;
@@ -55,7 +55,7 @@ namespace Totalligent.BAL
             {
                 new GLIQuotationDAL().GetEmpCount(ClientCompanyName, out EmpCount);
                 objPPRate.WCTotalEmployee = EmpCount;
-                objPPRate.WCPerPerson = 2;
+                objPPRate.WCPerPerson = PerPerson;
                 objPPRate.WCNetPremium = (objPPRate.WCTotalEmployee) * Convert.ToDecimal(objPPRate.WCPerPerson);
                 objPPRate.WCIncllevy = (objPPRate.WCNetPremium * Convert.ToDecimal(Levy)) / 100;
                 objPPRate.WCPolicyFee1RO = 1;

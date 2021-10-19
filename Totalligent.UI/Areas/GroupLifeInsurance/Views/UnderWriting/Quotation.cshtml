@@ -6,8 +6,7 @@
     ViewBag.Title = "Masters";
     Layout = "~/Areas/GroupLifeInsurance/Views/Shared/_Layout.cshtml";
 }
-@*@Scripts.Render("~/Content/vendor/jquery-3.3.1/jquery-3.3.1.js");*@
-@*<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>*@
+<script src="~/Content/js/Quotation.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>
 
 
@@ -1162,7 +1161,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Total Employees</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        @Html.TextBoxFor(model => model.objQuo.TotalEmployees, new { @class = "form-control w-full", @placeholder = "Enter TotalEmployees" })
+                                        @Html.TextBoxFor(model => model.objQuo.TotalEmployees, new { @readonly = "readonly", @class = "form-control w-full", @placeholder = "Enter TotalEmployees" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -1170,7 +1169,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Total Dependents</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        @Html.TextBoxFor(model => model.objQuo.TotalDependents, new { @class = "form-control w-full", @placeholder = "Enter TotalDependents" })
+                                        @Html.TextBoxFor(model => model.objQuo.TotalDependents, new { @readonly = "readonly", @class = "form-control w-full", @placeholder = "Enter TotalDependents" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -1178,7 +1177,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Total Spouse dependents</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        @Html.TextBoxFor(model => model.objQuo.TotalSpousedependents, new { @class = "form-control w-full", @placeholder = "Enter TotalSpousedependents" })
+                                        @Html.TextBoxFor(model => model.objQuo.TotalSpousedependents, new { @readonly = "readonly", @class = "form-control w-full", @placeholder = "Enter TotalSpousedependents" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -1186,7 +1185,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Total Child dependents</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        @Html.TextBoxFor(model => model.objQuo.TotalChilddependents, new { @class = "form-control w-full", @placeholder = "Enter TotalChilddependents" })
+                                        @Html.TextBoxFor(model => model.objQuo.TotalChilddependents, new { @readonly = "readonly", @class = "form-control w-full", @placeholder = "Enter TotalChilddependents" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -1210,7 +1209,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Sum Assured (SA)</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        @Html.TextBoxFor(model => model.objQuo.SumAssured_SA, new { @class = "form-control w-full", @placeholder = "Enter SumAssured_SA" })
+                                        @Html.TextBoxFor(model => model.objQuo.SumAssured_SA, new { @readonly = "readonly", @class = "form-control w-full", @placeholder = "Enter SumAssured_SA" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -1218,7 +1217,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Age Limit for Employees</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        @Html.TextBoxFor(model => model.objQuo.AgeLimitforEmployees, new { @class = "form-control w-full", @placeholder = "Enter Age Limit 18 to 64" })
+                                        @Html.TextBoxFor(model => model.objQuo.AgeLimitforEmployees, new { @type = "number", @onchange = "validateAge('1')", @class = "form-control w-full", @placeholder = "Enter Age Limit 18 to 64" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -1226,7 +1225,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Age Limit for Dependent Spouse</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        @Html.TextBoxFor(model => model.objQuo.AgeLimitforDependentSpouse, new { @class = "form-control w-full", @placeholder = "Enter Age Limit for Dependent Spouse 18 to 64" })
+                                        @Html.TextBoxFor(model => model.objQuo.AgeLimitforDependentSpouse, new { @type = "number", @onchange = "validateAge('2')", @class = "form-control w-full", @placeholder = "Enter Age Limit for Dependent Spouse 18 to 64" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -1234,7 +1233,7 @@
                                         <label class="col-sm-12 col-form-label text-left">Age Limit for Dependent Child</label>
                                     </div>
                                     <div class="col-md-7 demo-section k-content">
-                                        @Html.TextBoxFor(model => model.objQuo.AgeLimitforDependentChild, new { @class = "form-control w-full", @placeholder = "Enter Age Limit for Dependent Child 1 to 17" })
+                                        @Html.TextBoxFor(model => model.objQuo.AgeLimitforDependentChild, new { @type = "number", @onchange = "validateAge('3')", @class = "form-control w-full", @placeholder = "Enter Age Limit for Dependent Child 1 to 17" })
                                     </div>
                                 </div>
                                 <div class="row m-b-15 m-t-15">
@@ -1479,7 +1478,7 @@
                                             <label class="col-sm-12 col-form-label text-left">Per Person</label>
                                         </div>
                                         <div class="col-md-7 demo-section k-content">
-                                            @Html.TextBoxFor(model => model.objQuo.WCPerPerson, new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Estimated Annual Wages" })
+                                            @Html.TextBoxFor(model => model.objQuo.WCPerPerson, new { @onchange = "getWCRate()", @type = "number", @min = "0", @step = "0.01", @class = "form-control w-full", @placeholder = "Enter Estimated Annual Wages" })
 
                                         </div>
                                     </div>
@@ -1668,12 +1667,12 @@
                                         <td>City</td>
                                         <td id="divCity"></td>
                                     </tr>
-                                   
+
                                     <tr style="height:25px">
                                         <td>KYC Details</td>
                                         <td id="divKYCDetails"></td>
                                     </tr>
-                                   
+
                                     <tr style="height:25px">
                                         <td>Bank Name</td>
                                         <td id="divBankName"></td>
@@ -2002,44 +2001,44 @@
                                         <td style="width:300px;height:25px">Total Employees </td>
                                         <td style="width: 300px;height: 25px" id="divPreTE"></td>
                                     </tr>
-                                   
-                                    <tr  style="height: 25px">
+
+                                    <tr style="height: 25px">
                                         <td>Total Dependents </td>
                                         <td id="divPreTD"></td>
                                     </tr>
-                                    <tr  style="height: 25px">
+                                    <tr style="height: 25px">
                                         <td>Total Spouse dependents </td>
                                         <td id="divPreTSD"></td>
                                     </tr>
-                                    <tr  style="height: 25px">
+                                    <tr style="height: 25px">
                                         <td>Total Child dependents</td>
                                         <td id="divPreTCD"></td>
                                     </tr>
-                                    <tr  style="height: 25px">
+                                    <tr style="height: 25px">
                                         <td>Policy Currency</td>
                                         <td id="divPrePC"></td>
                                     </tr>
-                                    <tr  style="height: 25px">
+                                    <tr style="height: 25px">
                                         <td>Eligibility Criteria</td>
                                         <td id="divPreEC"></td>
                                     </tr>
-                                    <tr  style="height: 25px">
+                                    <tr style="height: 25px">
                                         <td>Sum Assured (SA)</td>
                                         <td id="divPreSA"></td>
                                     </tr>
-                                    <tr  style="height: 25px">
+                                    <tr style="height: 25px">
                                         <td>Age Limit for Employees</td>
                                         <td id="divALFE"></td>
                                     </tr>
-                                    <tr  style="height: 25px">
+                                    <tr style="height: 25px">
                                         <td>Age Limit for Dependent Spouse</td>
                                         <td id="divPreALDS"></td>
                                     </tr>
-                                    <tr  style="height: 25px">
+                                    <tr style="height: 25px">
                                         <td>Age Limit for Dependent Child</td>
                                         <td id="divALDC"></td>
                                     </tr>
-                                    <tr  style="height: 25px">
+                                    <tr style="height: 25px">
                                         <td>FCL</td>
                                         <td id="divpreEDFCL"></td>
                                     </tr>
@@ -2054,33 +2053,31 @@
                         <tr>
                             <td>
                                 <table id="tblPremimumDetails" style="border:0px;width:680px;text-align:left">
-                                    <tr  style="height: 25px">
+                                    <tr style="height: 25px">
                                         <td colspan="2"><h3>Fixed Sum Assured</h3> </td>
                                     </tr>
-                                    <tr  style="height: 25px">
+                                    <tr style="height: 25px">
                                         <td style="width:300px">Type of Sum Assured</td>
                                         <td style="width:380px" id="divTypeSA"></td>
                                     </tr>
-                                    <tr  style="height: 25px">
+                                    <tr style="height: 25px">
                                         <td colspan="2">
                                             <div id="divPreViewVariableSA">  </div>
                                         </td>
                                     </tr>
-                                    <tr id="divSumSAFixed"  style="height: 25px">
-
+                                    <tr id="divSumSAFixed" style="height: 25px">
                                     </tr>
-                                    <tr id="divGRateFixed"  style="height: 25px">
-                                     
+                                    <tr id="divGRateFixed" style="height: 25px">
                                     </tr>
-                                    <tr  style="height: 25px">
+                                    <tr style="height: 25px">
                                         <td style="width:300px">Net Premium</td>
                                         <td style="width:380px" id="divPDNP"></td>
                                     </tr>
-                                    <tr  style="height: 25px">
+                                    <tr style="height: 25px">
                                         <td style="width:300px">Levy 0.55%</td>
                                         <td style="width:380px" id="divPDLevy"></td>
                                     </tr>
-                                    <tr  style="height: 25px">
+                                    <tr style="height: 25px">
                                         <td style="width:300px">Policy Fee 1 RO</td>
                                         <td style="width:380px" id="divPDPF"></td>
                                     </tr>
@@ -2088,25 +2085,25 @@
                                         <td style="width:300px">Gross Premium</td>
                                         <td style="width:380px" id="divPDGP"></td>
                                     </tr>
-                                    <tr  style="height: 25px">
+                                    <tr style="height: 25px">
                                         <td colspan="2"><h5>Loadings</h5> </td>
                                     </tr>
-                                    <tr  style="height: 25px">
+                                    <tr style="height: 25px">
                                         <td style="width:300px">Broker Name</td>
                                         <td style="width:380px" id="divPDBN"></td>
                                     </tr>
-                                    <tr  style="height: 25px">
+                                    <tr style="height: 25px">
                                         <td style="width:300px">Broker Commssion %</td>
                                         <td style="width:380px" id="divPDBD"></td>
                                     </tr>
-                                    <tr  style="height: 25px">
+                                    <tr style="height: 25px">
                                         <td style="width:300px">Brokerage</td>
                                         <td style="width:380px" id="divPDBroker"></td>
                                     </tr>
-                                    <tr  style="height: 25px">
+                                    <tr style="height: 25px">
                                         <td colspan="2"><h5>REInsurer</h5> </td>
                                     </tr>
-                                    <tr  style="height: 25px">
+                                    <tr style="height: 25px">
                                         <td colspan="2">
                                             <div id="preViewtblReinsurer">  </div>
                                         </td>
@@ -2122,38 +2119,38 @@
                         <tr>
                             <td>
                                 <table style="border:0px;width:680px;text-align:left">
-                                    <tr  style="height: 25px">
+                                    <tr style="height: 25px">
                                         <td>Estimated Annual Wages</td>
                                         <td id="divWcEAW"></td>
                                     </tr>
-                                    <tr  style="height: 25px">
+                                    <tr style="height: 25px">
                                         <td>Net Premium</td>
                                         <td id="divWCNp"></td>
                                     </tr>
-                                    <tr  style="height: 25px">
+                                    <tr style="height: 25px">
                                         <td>Levy 1.6 %</td>
                                         <td id="divWCLevy"></td>
                                     </tr>
-                                    <tr  style="height: 25px">
+                                    <tr style="height: 25px">
                                         <td>Policy Fee 1 RO</td>
                                         <td id="divWcPF"></td>
                                     </tr>
-                                    <tr  style="height: 25px">
+                                    <tr style="height: 25px">
                                         <td>Gross Premium</td>
                                         <td id="divWcGP"></td>
                                     </tr>
-                                    <tr  style="height: 25px">
+                                    <tr style="height: 25px">
                                         <td colspan="2">Loadings</td>
                                     </tr>
-                                    <tr  style="height: 25px">
+                                    <tr style="height: 25px">
                                         <td>Broker Name</td>
                                         <td id="divWcBN"></td>
                                     </tr>
-                                    <tr  style="height: 25px">
+                                    <tr style="height: 25px">
                                         <td>Broker Commssion %</td>
                                         <td id="divWcBC"></td>
                                     </tr>
-                                    <tr  style="height: 25px">
+                                    <tr style="height: 25px">
                                         <td>Brokerage</td>
                                         <td id="divWCB"></td>
                                     </tr>
@@ -2164,22 +2161,22 @@
                     </table>
 
                 </div>
-             <div>
-         </div>
-            <div id="editor"></div>
-            @using (Html.BeginForm("GeneratePDF", "Quotation", FormMethod.Post))
-            {
-                <input type="hidden" id="hdnPdfContent" name="hdnPdfContent" value="" />
-                <input type="submit" class="btn btn-rounded btn-primary hide" id="btnDownloadPDF" value="Download" />
-            }
-            <div class="modal-footer text-right">
-                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-                <button class="btn btn-rounded btn-primary" data-dismiss="modal" aria-hidden="true" id="btngeneratePDF">Download</button>
-                <button class="btn btn-primary" onclick="saveQuotationForm()">Save & Submit Quotation</button>
+                <div>
+                </div>
+                <div id="editor"></div>
+                @using (Html.BeginForm("GeneratePDF", "Quotation", FormMethod.Post))
+                {
+                    <input type="hidden" id="hdnPdfContent" name="hdnPdfContent" value="" />
+                    <input type="submit" class="btn btn-rounded btn-primary hide" id="btnDownloadPDF" value="Download" />
+                }
+                <div class="modal-footer text-right">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                    <button class="btn btn-rounded btn-primary" data-dismiss="modal" aria-hidden="true" id="btngeneratePDF">Download</button>
+                    <button class="btn btn-primary" onclick="saveQuotationForm()">Save & Submit Quotation</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#previewQuotationModal" onclick="PreView()"><i class="mdi mdi-plus mx-2"></i>Preview Form</button>*@
 <script type="text/javascript">
@@ -2191,6 +2188,49 @@
         }
 
     });
+
+    function validateAge(id) {
+        var empAge = $('#objQuo_AgeLimitforEmployees').val();
+        var empSpouseAge = $('#objQuo_AgeLimitforDependentSpouse').val();
+        var empChildAge = $('#objQuo_AgeLimitforDependentChild ').val();
+        if (id == 1) {
+            if (empAge > 64 || empAge < 18) {
+                Swal.fire({
+                    icon: 'info',
+                    title: '',
+                    text: "Please provide valid age.! \n Employee: 18-64 EmployeeSpouse: 18-64 Child: 1-17",
+                });
+                $('#objQuo_AgeLimitforEmployees').val('');
+                $('#objQuo_AgeLimitforEmployees').focus();
+                return false;
+            }
+        }
+        if (id == 2) {
+            if (empSpouseAge > 64 || empSpouseAge < 18) {
+                Swal.fire({
+                    icon: 'info',
+                    title: '',
+                    text: "Please provide valid age Employee: 18-64 EmployeeSpouse: 18-64 Child: 1-17",
+                });
+                $('#objQuo_AgeLimitforDependentSpouse').val('');
+                $('#objQuo_AgeLimitforDependentSpouse').focus();
+                return false;
+            }
+        }
+        if (id == 3) {
+            if (empChildAge > 17 || empSpouseAge < 1) {
+                Swal.fire({
+                    icon: 'info',
+                    title: '',
+                    text: "Please provide valid age Employee: 18-64 EmployeeSpouse: 18-64 Child: 1-17",
+                });
+                $('#objQuo_AgeLimitforDependentChild').val('');
+                $('#objQuo_AgeLimitforDependentChild').focus();
+                return false;
+            }
+        }
+
+    }
     $("#FixedTypeSum").click(function () {
 
         if ($(this).is(":checked")) {
@@ -2205,10 +2245,10 @@
             return false;
         }
         if (!$('#objQuo_ClientCompanyName').val() > 0) {
-           // alert('Please Select Client Company');
+            // alert('Please Select Client Company');
             return false;
         }
-        var param = { InsuranceCompanyName: $('#objQuo_InsuranceCompanyName').val(), ClientCompanyName: $('#objQuo_ClientCompanyName option:selected').text()};
+        var param = { InsuranceCompanyName: $('#objQuo_InsuranceCompanyName').val(), ClientCompanyName: $('#objQuo_ClientCompanyName option:selected').text() };
         $("#tblReinsurer").find("tr:not(:first)").remove();
 
         $.ajax({
@@ -2239,6 +2279,12 @@
                     $('#objQuo_KYCDetails').val(KYCDetails.KYCUploadPath)
                     $('#objQuo_BankName').val(KYCDetails.BankName)
                     $('#objQuo_IFSCCode').val(KYCDetails.IFSCCode)
+                    $('#objQuo_TotalEmployees').val(KYCDetails.TotalEmployees)
+                    $('#objQuo_TotalDependents').val(KYCDetails.TotalDependents)
+                    $('#objQuo_TotalSpousedependents').val(KYCDetails.TotalSpousedependents)
+                    $('#objQuo_TotalChilddependents').val(KYCDetails.TotalChilddependents)
+                    $('#objQuo_SumAssured_SA').val(KYCDetails.SumAssured_SA)
+
 
                     $("#hdnlstReinsurerRate").val(JSON.stringify(Result.lstReinsurerRate));
                     $.each(Result.lstReinsurerRate, function (key, value) {
@@ -2308,6 +2354,11 @@
 
         });
     });
+    function getWCRate() {
+        var ClientName = $('#objQuo_ClientCompanyName').val();
+
+        GetPPRateCalc(ClientName);
+    }
     function GetWCRateCalc(ClientName) {
 
         var param = { ClientCompanyName: ClientName };
@@ -2343,7 +2394,14 @@
     }
     function GetPPRateCalc(ClientName) {
 
-        var param = { ClientCompanyName: ClientName };
+        var PerPerson = 0;
+        if ($('#objQuo_WCPerPerson').val() == "") {
+            PerPerson = 0;
+        }
+        else {
+            PerPerson = $('#objQuo_WCPerPerson').val();
+        }
+        var param = { ClientCompanyName: ClientName, Perperson: PerPerson };
         $.ajax({
 
             type: "GET",
@@ -2652,7 +2710,7 @@
             },
             onFinished: function (event, currentIndex) {
                 //swal("Your Order Submitted!", "Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem. Proin ut ligula vel nunc egestas porttitor.");
-                if ($('#objQuo_Branch').val() =='') {
+                if ($('#objQuo_Branch').val() == '') {
                     Swal.fire({
                         icon: 'warning',
                         title: '',
@@ -2660,8 +2718,7 @@
                     });
                     return false;
                 }
-                var quotationData = $('#formQuotation').serialize();
-
+             var quotationData = $('#formQuotation').serialize();
                 $.ajax({
 
                     type: "POST",
@@ -2670,59 +2727,83 @@
                     contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                     data: quotationData,
                     success: function (res) {
-                        if (res.QuotationId > 0) {
-                            console.log(res);
-                            Swal.fire({
-                                icon: 'success',
-                                title: '',
-                                text: "'" + res.Status + "'Policy No is '" + res.PolicyNo + "' WLPolicy No Is '" + res.WLPolicyNo + "'",
-                            });
+                        Swal.fire({
+                            icon: 'success',
+                            title: '',
+                            text: "' Policy No is '" + res.Policy + "' WLPolicy No Is '" + res.WLPolicyNo + "'",
+                        });
 
-                        }
-                        else {
-                            Swal.fire({
-                                icon: 'success',
-                                title: '',
-                                text: "'" + res.Status + " Draft No is '" + res.DraftNo + "' WLDraft No Is '" + res.WLDraftNo + "'",
-                            });
-                        }
+                        QGlBrokerPDF(res.WLPolicyNo, res.Policy);
+                        //QDownLoadPDF(res.WLPolicyNo, res.Policy);
+                      
+                        //QGlRIPDF(res.WLPolicyNo, res.Policy);
+                        //QWCBROKERPDF(res.WLPolicyNo, res.Policy);
+                        //QGLPOLICYPDF(res.WLPolicyNo, res.Policy);
+                        //QWCPOLICYPDF(res.WLPolicyNo, res.Policy);
+                        
+                        window.location = '@Url.Action("Quotation", "UnderWriting")'
 
-                       // window.location = '@Url.Action("Quotation", "UnderWriting")'
-                      $('#formQuotation').reset();
+                        // $('#formRenewal').reset();
                     },
                     error: function () {
-                        //window.location = '@Url.Action("Quotation", "UnderWriting")'
-                        $('#formQuotation').reset();
+                        Swal.fire({
+                            icon: 'error',
+                            title: '',
+                            text: "Data not Saved successfully.!",
+                        });
+                        window.location = '@Url.Action("Quotation", "UnderWriting")'
+
+                        // $("#lblMessage").html('Error while Registring the Company!.');
+                        $('#formRenewal').reset();
                     }
-                })
+                });
 
 
             },
             onCanceled: function (event, currentIndex) {
+                  Swal.fire({
+                    title: 'Do you want to Reject this Draft?',
+                    showDenyButton: true,
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes',
+                    denyButtonText: 'No',
+                    customClass: {
+                        actions: 'my-actions',
+                        cancelButton: 'order-1 right-gap',
+                        confirmButton: 'order-2',
+                        denyButton: 'order-3',
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
 
-                var quotationData = $('#formQuotation').serialize();
-                var Remarks = "sample test";
-                var param = { Qid: $('#objQuo_QuotationId').val(), Action: "Reject",Remarks:Remarks };
-                $.ajax({
+                        var quotationData = $('#formQuotation').serialize();
+                        var Remarks = "sample test";
+                        var param = { Qid: $('#objQuo_QuotationId').val(), Action: "Reject", Remarks: Remarks };
+                        $.ajax({
 
-                    type: "POST",
-                    url: "/GroupLifeInsurance/Quotation/RejectQuotation",
-                    dataType: "json",
-                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                    data: param,
-                    success: function (res) {
-                        alert(res);
-                       window.location = '@Url.Action("Quotation", "UnderWriting")'
+                            type: "POST",
+                            url: "/GroupLifeInsurance/Quotation/RejectQuotation",
+                            dataType: "json",
+                            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                            data: param,
+                            success: function (res) {
+                                alert(res);
+                                window.location = '@Url.Action("Quotation", "UnderWriting")'
 
-                    },
-                    error: function () {
-                        alert('Error while rejecting the draft');
-                        window.location = '@Url.Action("Quotation", "UnderWriting")'
+                            },
+                            error: function () {
+                                alert('Error while rejecting the draft');
+                                window.location = '@Url.Action("Quotation", "UnderWriting")'
 
-                        // $("#lblMessage").html('Error while Registring the Company!.');
-                        $('#formQuotation').reset();
+                                // $("#lblMessage").html('Error while Registring the Company!.');
+                                $('#formQuotation').reset();
+                            }
+                        });
+                    } else if (result.isDenied) {
+                        Swal.fire('Changes are not saved', '', 'info')
                     }
                 });
+
             }
 
         });
@@ -3360,7 +3441,11 @@
                         $("#VariableDACContent").show();
                         //DACFCLContent
                         $('#txtDeathCoverFCL').val(objQuoJson.DeathCoverFCL);
-                        $('#FixedDCSAmount').val(objQuoJson.DeathCoverSumAssuredAmount);
+                        $('#VariableDCSAmount').val(objQuoJson.DeathCoverSumAssuredAmount);
+                        $('#txtDeathCoverSumAssuredNoOfTimes').val(objQuoJson.DeathCoverSumAssuredNoOfTimes);
+                        $('#txtDeathCoverTotalAmt').val(objQuoJson.DeathCoverSumAssuredAmount * objQuoJson.DeathCoverSumAssuredNoOfTimes);
+
+
                        // $("#VariableDACContent").hide();
                         $("#DACFCLContent").show();
 
@@ -3399,11 +3484,13 @@
                         $("#VariableACDContent").show();
                         $("#FixedACDContent").hide();
                         $("#ACDFCLContent").show();
-                        
+
 
                         if ($("#VariableACD").is(':checked')) {
+                            $("#txtACDSAM").val(objQuoJson.AccidentalSumAssuredAmount)
+                            $("#txtACDNoOfTimes").val(objQuoJson.AccidentalSumAssuredNoOfTimes)
+                            $("#txtACDTotal").val(objQuoJson.AccidentalSumAssuredAmount * objQuoJson.AccidentalSumAssuredNoOfTimes)
 
-                            $("#txtAccidentalDeathSAM").val(objQuoJson.AccidentalSumAssuredAmount)
                             $("#txtAccidentalFCL").val(objQuoJson.AccidentalFCL)
                             $("#hdnAccidentalSumAssuredAmount").val($("#txtAccidentalDeathSAM").val());
 
@@ -3439,22 +3526,28 @@
                         $("#DACFCLContent").show();
                     }
                 }
-                //else if (objQuoJson.DeathCoverAnnualLimit == "Variable") {
-                //    $('input[name="DeathCoverAnnualLimit"][value="Variable"]').attr('checked', 'checked');
-                //    if ($('#FixedDAC:checked').val() === 'Variable') {
-                //        $("#FixedDACContent").show();
+                else if (objQuoJson.DeathCoverAnnualLimit == "Variable") {
+                    $('input[name="DNCGroup"][value="Variable"]').attr('checked', 'checked');
+                    if ($('#FixedDAC:checked').val() === 'Variable') {
+                        $("#FixedDACContent").hide();
+                        $("#FixedDNCContent").show();
 
-                //        $('#txtDeathCoverFCL').val(objQuoJson.DeathCoverFCL);
-                //        $('#FixedDCSAmount').val(objQuoJson.DeathCoverSumAssuredAmount);
-                //        $("#VariableDACContent").hide();
-                //        $("#DACFCLContent").show();
 
-                //    } else if ($('#VariableDAC:checked').val() === 'Variable') {
-                //        $("#FixedDACContent").hide();
-                //        $("#VariableDACContent").show();
-                //        $("#DACFCLContent").show();
-                //    }
-                //}
+                        $('#txtDeathCoverFCL').val(objQuoJson.DeathCoverFCL);
+                        $('#FixedDCSAmount').val(objQuoJson.DeathCoverSumAssuredAmount);
+                        $("#VariableDACContent").show();
+                        $("#DACFCLContent").hide();
+                        $('#txtDNCFCLContent').val(objQuoJson.DeathCoverFCL);
+                        $('#txtDNCSAA01').val(objQuoJson.DeathCoverSumAssuredAmount);
+                        $('#txtEnterNooftimes').val(objQuoJson.DeathCoverSumAssuredNoOfTimes);
+                        $('#txtDeathCoverTotalAmt').val(objQuoJson.DeathCoverSumAssuredAmount * objQuoJson.DeathCoverSumAssuredNoOfTimes);
+
+                    } else if ($('#VariableDAC:checked').val() === 'Variable') {
+                        $("#FixedDACContent").show();
+                        $("#VariableDACContent").hide();
+                        $("#DACFCLContent").hide();
+                    }
+                }
                 if (objQuoJson.AccidentalDeath == "Y") {
                     if (objQuoJson.AccidentalAnnualLimit = "Fixed") {
                         $('input[name="DeathCoverAnnualLimit"][value="Fixed"]').attr('checked', 'checked');
@@ -3649,6 +3742,9 @@
             }
             $('#objQuo_WCEstimatedAnnualWagesType').val(objQuoJson.WCEstimatedAnnualWagesType);
             $("#objQuo_WCEstimatedAnnualWagesType").change();
+            $("#objQuo_WCPerPerson").val(objQuoJson.WCPerPerson);
+            getWCRate();
+
             getReinsurerInfo();
             //objQM.objQuo.WCId = objQuotation.WCId;
 
@@ -3675,7 +3771,7 @@
         $("#divKYCDetails").html($("#objQuo_KYCDetails").val());
         $("#divBankName").html($("#objQuo_BankName").val());
         $("#divIFSCCode").html($("#objQuo_IFSCCode").val());
-        $.trim($("#objQuo_Branch option:selected").val()) != "-- Select Type --" ? $("#divBranch").html($("#objQuo_Branch option:selected").val()) : $("#divBranch").html("Nil");
+        $.trim($("#objQuo_Branch option:selected").val()) != "-- Select Type --" ? $("#divBranch").html($("#objQuo_Branch option:selected").text()) : $("#divBranch").html("Nil");
         //$("#divBranch").html($("#objQuo_Branch option:selected").text());
         $.trim($("#objQuo_PeriodofInsurance").val()) != "" ? $("#divPeriodofInsurance").html($("#objQuo_PeriodofInsurance").val()) : $("#divPeriodofInsurance").html("Nil");
         $.trim($("#objQuo_PeriodofInsuranceEndDate").val()) != "" ? $("#divPeriodofInsuranceEnd").html($("#objQuo_PeriodofInsuranceEndDate").val()) : $("#divPeriodofInsuranceEnd").html("Nil");

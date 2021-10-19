@@ -17,11 +17,19 @@ namespace Totalligent.BusinessEntities
         public long? TicketNumber { get; set; }
 
         public string ClientName { get; set; }
+        public string WLEndorsementNumber { get; set; }
+        public string GLEndorsementNumber { get; set; }
+
+
+        [DisplayFormat(DataFormatString = "{0: dd/MM/yyyy}")]
+        public DateTime? EndorsementDate { get; set; }
 
         [DisplayFormat(DataFormatString = "{0: dd/MM/yyyy}")]
         public DateTime? MailReceivedDate { get; set; }
 
         public string GLPolicyNumber { get; set; }
+        public string EndorsementTypeOthers { get; set; }
+        
 
         public string WCPolicyNumber { get; set; }
 
@@ -61,15 +69,15 @@ namespace Totalligent.BusinessEntities
         public long WLEndorsementId { get; set; }
 
         public decimal? EAWRo { get; set; }
-      //  public string GLpostedFileDocPath { get; set; }
-        
+        //  public string GLpostedFileDocPath { get; set; }
+
         public string GlpostedFileDocPath { get => glpostedFileDocPath; set => glpostedFileDocPath = value; }
 
         public string ClssOfInsurance { get; set; }
         public string EndorsementNo { get; set; }
         public string PolicyNo { get; set; }
 
-        
+
 
 
 

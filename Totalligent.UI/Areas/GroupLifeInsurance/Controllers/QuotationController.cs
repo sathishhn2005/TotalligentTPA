@@ -110,13 +110,13 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
             return Json(objWCRate, JsonRequestBehavior.AllowGet);
         }
         [HttpGet]
-        public JsonResult GetPerPersonRate(string ClientCompanyName)
+        public JsonResult GetPerPersonRate(string ClientCompanyName,int Perperson)
         {
 
             long ReturnCode = 0;
             objGLIBAL = new GLIQuotationBAL();
 
-            ReturnCode = objGLIBAL.GetPerPersonRate(ClientCompanyName, out Quotation objPPRate);
+            ReturnCode = objGLIBAL.GetPerPersonRate(ClientCompanyName, Perperson,out Quotation objPPRate);
             if (objPPRate == null)
             {
                 objPPRate.Status.Equals("Not found");

@@ -574,6 +574,10 @@ namespace Totalligent.BAL
         {
             return objTotalligentDAL.GetGL_WL_PDFdata(EndorsementID, PdfType, out lstEndorsement);
         }
+        public long GetEndroQuotaiton(string WLPolicyNo, string GLPolicyNo, out List<Quotation> lstQ)
+        {
+            return objTotalligentDAL.GetEndorsementQuotation(WLPolicyNo, GLPolicyNo, out lstQ);
+        }
 
     }
 }

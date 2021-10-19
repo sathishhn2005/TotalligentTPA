@@ -294,22 +294,22 @@ namespace Totalligent.UI.Areas.GroupLifeInsurance.Controllers
             objCsvFileBulkUplaod.EmployeeUniqueNumber = values[1];
             objCsvFileBulkUplaod.ClientName = values[2];
             objCsvFileBulkUplaod.RelationType = values[3];
+
             objCsvFileBulkUplaod.Nationlity = values[4];
             objCsvFileBulkUplaod.Category = values[5];
             objCsvFileBulkUplaod.DOB = Convert.ToDateTime(values[6]);
             objCsvFileBulkUplaod.Age = Convert.ToInt32(values[7]);
-            objCsvFileBulkUplaod.Salary = Convert.ToDecimal(values[8]);
-            objCsvFileBulkUplaod.SumAssured = Convert.ToDecimal(values[10]);
-            objCsvFileBulkUplaod.EffectiveDate = Convert.ToDateTime(values[11]);
-            objCsvFileBulkUplaod.Remarks = values[12];
 
-            objCsvFileBulkUplaod.SpouseSumAssured = Convert.ToDecimal(values[13]);
-            objCsvFileBulkUplaod.ChildSumAssured = Convert.ToDecimal(values[14]);
-            objCsvFileBulkUplaod.BankName = values[15];
-            objCsvFileBulkUplaod.AccountNumber = values[16];
-            objCsvFileBulkUplaod.IFSCCode = values[17];
-            objCsvFileBulkUplaod.Status = values[18];
-            objCsvFileBulkUplaod.KYCUploadPath = values[19];
+            objCsvFileBulkUplaod.Salary = Convert.ToDecimal(values[8]);
+            objCsvFileBulkUplaod.SumAssured = Convert.ToDecimal(values[9]);
+            objCsvFileBulkUplaod.EffectiveDate = Convert.ToDateTime(values[10]);
+            objCsvFileBulkUplaod.Remarks = values[11];
+
+            objCsvFileBulkUplaod.BankName = values[12];
+            objCsvFileBulkUplaod.AccountNumber = values[13];
+            objCsvFileBulkUplaod.IFSCCode = values[14];
+            objCsvFileBulkUplaod.Status = values[15];
+            
             return objCsvFileBulkUplaod;
         }
 

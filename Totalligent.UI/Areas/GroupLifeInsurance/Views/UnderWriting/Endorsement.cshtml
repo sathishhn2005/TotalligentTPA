@@ -5,8 +5,8 @@
 
 }
 
-<script src="~/Scripts/Pdf/jspdf.min.js"></script>
-<script src="~/Scripts/Pdf/jquery-1.12.4.min.js"></script>
+@*<script src="~/Scripts/Pdf/jspdf.min.js"></script>
+<script src="~/Scripts/Pdf/jquery-1.12.4.min.js"></script>*@
 
 <div class="col-lg-12 col-12 p-t-30">
     <div class="box">
@@ -56,7 +56,8 @@
                             <div class="col-md-4 form-group">
                                 <label class="col-form-label">Error Description</label>
                                 <select id="ErrorDescription" name="ErrorDescription" class="form-control">
-                                    <option selected="selected" value="">Description</option>
+                                    <option selected="selected" value="0">-Select-</option>
+                                    <option value="Description">Description</option>
                                     <option value="Completed">Completed</option>
                                     <option value="Credit Limit Error">Credit Limit Error</option>
                                     <option value="Credit Days Exceed">Credit Days Exceed</option>
@@ -68,13 +69,44 @@
 
                                 </select>
                             </div>
+                            <div id="divCompleted">
+                                <div class="col-md-4 " >
+                                    <b>
+                                        <label>GL Endorsement Number</label>
+                                        <input name="GLEndorsementNumber" type="text" id="GLEndorsementNumber" title="GL Endorsement Number" class="form-control" placeholder="GL Endorsement No">
+                                    </b>
+                                </div>
+                                <div class="col-md-4 ">
+                                    <b>
+                                        <label>WC Endorsement Number</label>
+                                        <input name="WLEndorsementNumber" type="text" id="WLEndorsementNumber" title="WC Endorsement Number" class="form-control" placeholder="WC Endorsement No">
+                                    </b>
+                                </div>
+                                <div class="col-md-4 ">
+                                    <b>
+                                        <label>Endorsement Date</label>
+                                        <input name="EndorsementDate" maxlength="10" id="Endorsement Date" class="form-control" type="date" style="width:100%;">
+                                    </b>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-4 form-group">
                                 <label class="col-form-label">Endorsement Type</label>
                                 <select id="EndorsementType" name="EndorsementType" class="form-control">
-                                    <option selected="selected" value="">Endorsement Type</option>
+                                    <option value="">-Select-</option>
                                     <option value="Add">Add</option>
                                     <option value="Delete">Delete</option>
-                                    <option value="Others">Others</option>
+                                  
+                                </select>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <label class="col-form-label">Endorsement (Charged/Credited)</label>
+                                <select id="EndorsementTypeOthers" name="EndorsementTypeOthers" class="form-control">
+                                    <option value="">-Select-</option>
+                                    <option value="Charged">Charged</option>
+                                    <option value="Credited">Credited</option>
+                                  
                                 </select>
                             </div>
                             <div class="col-md-4 form-group">
@@ -233,6 +265,7 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
+        $('#divCompleted').hide();
         $.ajax({
             type: "GET",
             url: "/UnderWriting/GetClientMaster",
@@ -270,7 +303,22 @@
             }
         });
 
-
     }
+    $("#ErrorDescription").change(function () {
+        var t = $("#ErrorDescription option:selected").text();
+        if (t == "Completed") {
+            $('#divCompleted').show();
+        }
+        else {
+            $('#WLEndorsementNumber').val('');
+            $('#GLEndorsementNumber').val('');
+            $('#EndorsementDate').val('');
+            $('#divCompleted').hide();
+        }
+
+    });
+    
+    
 </script>
+
 

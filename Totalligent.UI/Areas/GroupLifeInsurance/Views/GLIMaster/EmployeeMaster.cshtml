@@ -721,7 +721,7 @@
 
     }
     function csvFileUpload() {
-
+        var err = 0;
         var rowCount = 0;
         var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
         if (regex.test($("#fileUploadEM").val().toLowerCase())) {
@@ -737,191 +737,20 @@
                         var cells = rows[i].split(",");
                         var RRC = rowCount + 1;
                         if (i == 0) {
-
-
-                            // Heater validation
-                            if (cells.length == 36) {
-                                if (cells[0] != "EmployeeName") {
+                            if (cells.length == 16) {
+                                const cellList = ["EmployeeName", "EmployeeUniqueNumber", "ClientName", "RelationType", "Nationlity", "Category", "DOB", "Age", "Salary", "SumAssured", "EffectiveDate", "Remarks", "BankName", "AccountNumber", "IFSCCode", "Status"]
+                                $.each(cellList, function (key, value) {
+                                    if (cells[key] != value) {
+                                        $('#fileUploadEM').val('');
+                                        alert("'" + cells[key] + "' Column is Either missing or Rearranged or would be typo.!");
+                                        err = 1;
+                                        return false;
+                                    }
+                                })
+                                if (err > 0) {
                                     $('#fileUploadEM').val('');
-                                    alert("Please check column name mismatch (EmployeeName).");
                                     return false;
                                 }
-                                if (cells[1] != "EmployeeUniqueNumber") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check column name mismatch (EmployeeUniqueNumber).");
-                                    return false;
-                                }
-                                if (cells[2] != "ClientName") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check column name mismatch (ClientName).");
-                                    return false;
-                                }
-                                if (cells[3] != "Relation") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check column name mismatch (Relation).");
-                                    return false;
-                                }
-                                if (cells[4] != "Nationality") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check column name mismatch (Nationality).");
-                                    return false;
-                                }
-                                if (cells[5] != "Category") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check column name mismatch (Category).");
-                                    return false;
-                                }
-                                if (cells[6] != "DOB") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check column name mismatch (DOB).");
-                                    return false;
-                                }
-                                if (cells[7] != "Age") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check column name mismatch (Age).");
-                                    return false;
-                                }
-                                if (cells[8] != "Salary") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check column name mismatch (Salary).");
-                                    return false;
-                                }
-                                if (cells[9] != "EAW") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check column name mismatch (EAW).");
-                                    return false;
-                                }
-                                if (cells[10] != "SumAssured") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check column name mismatch (SumAssured).");
-                                    return false;
-                                }
-                                if (cells[11] != "EffectiveDate") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check column name mismatch (EffectiveDate).");
-                                    return false;
-                                }
-                                if (cells[12] != "Remarks") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check column name mismatch (Remarks).");
-                                    return false;
-                                }
-                                if (cells[13] != "SpouseAge") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check column name mismatch (SpouseAge).");
-                                    return false;
-                                }
-                                if (cells[14] != "ChildAge") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check column name mismatch (ChildAge).");
-                                    return false;
-                                }
-                                if (cells[15] != "SpouseCategory") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check column name mismatch (SpouseCategory).");
-                                    return false;
-                                }
-                                if (cells[16] != "ChildCategory") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check column name mismatch (ChildCategory).");
-                                    return false;
-                                }
-                                if (cells[17] != "SpouseDOB") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check column name mismatch (SpouseDOB).");
-                                    return false;
-                                }
-                                if (cells[18] != "ChildDOB") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check column name mismatch (ChildDOB).");
-                                    return false;
-                                }
-                                if (cells[19] != "SpouseEffectiveDate") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check column name mismatch (SpouseEffectiveDate).");
-                                    return false;
-                                }
-                                if (cells[20] != "ChildEffectiveDate") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check column name mismatch (ChildEffectiveDate).");
-                                    return false;
-                                }
-                                if (cells[21] != "SpouseNationality") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check column name mismatch (SpouseNationality).");
-                                    return false;
-                                }
-                                if (cells[22] != "ChildNationality") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check column name mismatch (ChildNationality).");
-                                    return false;
-                                }
-                                if (cells[23] != "SpouseRemarks") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check column name mismatch (SpouseRemarks).");
-                                    return false;
-                                }
-                                if (cells[24] != "ChildRemarks") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check column name mismatch (ChildRemarks).");
-                                    return false;
-                                }
-                                if (cells[25] != "SpouseSalary") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check column name mismatch (SpouseSalary).");
-                                    return false;
-                                }
-                                if (cells[26] != "ChildSalary") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check column name mismatch (ChildSalary).");
-                                    return false;
-                                }
-                                if (cells[27] != "SpouseStatus") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check column name mismatch (SpouseStatus).");
-                                    return false;
-                                }
-                                if (cells[28] != "ChildStatus") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check column name mismatch (ChildStatus).");
-                                    return false;
-                                }
-                                if (cells[29] != "SpouseSumAssured") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check column name mismatch (SpouseSumAssured).");
-                                    return false;
-                                }
-                                if (cells[30] != "ChildSumAssured") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check column name mismatch (ChildSumAssured).");
-                                    return false;
-                                }
-                                if (cells[31] != "BankID") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check column name mismatch (BankID).");
-                                    return false;
-                                }
-                                if (cells[32] != "AccountNumber") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check column name mismatch (AccountNumber).");
-                                    return false;
-                                }
-                                if (cells[33] != "IFSCCode") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check column name mismatch (IFSCCode).");
-                                    return false;
-                                }
-                                if (cells[34] != "Status") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check column name mismatch (Status).");
-                                    return false;
-                                }
-                                if (cells[35] != "KYCUploadPath") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check column name mismatch (KYCUploadPath).");
-                                    return false;
-                                }
-
                             }
                             else {
                                 $('#fileUploadEM').val('');
@@ -929,189 +758,24 @@
                                 return false;
                             }
 
+                           
                         } else {
                             // Row validation
-                            if (cells.length == 36) {
-                                if (cells[0] == "") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check Row NO : " + RRC + "EmployeeName  is empty");
-                                    return false;
-                                }
+                            if (cells.length == 16) {
                                 if (cells[1] == "") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check Row NO : " + RRC + "EmployeeUniqueNumber  is empty");
-                                    return false;
-                                }
-                                if (cells[2] == "") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check Row NO : " + RRC + "ClientName  is empty");
-                                    return false;
-                                }
-                                if (cells[3] == "") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check Row NO : " + RRC + "Relation  is empty");
-                                    return false;
-                                }
-                                if (cells[4] == "") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check Row NO : " + RRC + "Nationality  is empty");
-                                    return false;
-                                }
-                                if (cells[5] == "") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check Row NO : " + RRC + "Category  is empty");
-                                    return false;
-                                }
-                                if (cells[6] == "") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check Row NO : " + RRC + "DOB  is empty");
-                                    return false;
-                                }
-                                if (cells[7] == "") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check Row NO : " + RRC + "Age  is empty");
-                                    return false;
-                                }
-                                if (cells[8] == "") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check Row NO : " + RRC + "Salary  is empty");
-                                    return false;
-                                }
-                                if (cells[9] == "") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check Row NO : " + RRC + "EAW  is empty");
-                                    return false;
-                                }
-                                if (cells[10] == "") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check Row NO : " + RRC + "SumAssured  is empty");
-                                    return false;
-                                }
-                                if (cells[11] == "") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check Row NO : " + RRC + "EffectiveDate  is empty");
-                                    return false;
-                                }
-                                if (cells[12] == "") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check Row NO : " + RRC + "Remarks  is empty");
-                                    return false;
-                                }
-                                if (cells[13] == "") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check Row NO : " + RRC + "SpouseAge  is empty");
-                                    return false;
-                                }
-                                if (cells[14] == "") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check Row NO : " + RRC + "ChildAge  is empty");
-                                    return false;
-                                }
-                                if (cells[15] == "") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check Row NO : " + RRC + "SpouseCategory  is empty");
-                                    return false;
-                                }
-                                if (cells[16] == "") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check Row NO : " + RRC + "ChildCategory  is empty");
-                                    return false;
-                                }
-                                if (cells[17] == "") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check Row NO : " + RRC + "SpouseDOB  is empty");
-                                    return false;
-                                }
-                                if (cells[18] == "") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check Row NO : " + RRC + "ChildDOB  is empty");
-                                    return false;
-                                }
-                                if (cells[19] == "") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check Row NO : " + RRC + "SpouseEffectiveDate  is empty");
-                                    return false;
-                                }
-                                if (cells[20] == "") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check Row NO : " + RRC + "ChildEffectiveDate  is empty");
-                                    return false;
-                                }
-                                if (cells[21] == "") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check Row NO : " + RRC + "SpouseNationality  is empty");
-                                    return false;
-                                }
-                                if (cells[22] == "") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check Row NO : " + RRC + "ChildNationality  is empty");
-                                    return false;
-                                }
-                                if (cells[23] == "") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check Row NO : " + RRC + "SpouseRemarks  is empty");
-                                    return false;
-                                }
-                                if (cells[24] == "") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check Row NO : " + RRC + "ChildRemarks  is empty");
-                                    return false;
-                                }
-                                if (cells[25] == "") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check Row NO : " + RRC + "SpouseSalary  is empty");
-                                    return false;
-                                }
-                                if (cells[26] == "") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check Row NO : " + RRC + "ChildSalary  is empty");
-                                    return false;
-                                }
-                                if (cells[27] == "") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check Row NO : " + RRC + "SpouseStatus  is empty");
-                                    return false;
-                                }
-                                if (cells[28] == "") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check Row NO : " + RRC + "ChildStatus  is empty");
-                                    return false;
-                                }
-                                if (cells[29] == "") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check Row NO : " + RRC + "SpouseSumAssured  is empty");
-                                    return false;
-                                }
-                                if (cells[30] == "") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check Row NO : " + RRC + "ChildSumAssured  is empty");
-                                    return false;
-                                }
-                                if (cells[31] == "") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check Row NO : " + RRC + "BankID  is empty");
-                                    return false;
-                                }
-                                if (cells[32] == "") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check Row NO : " + RRC + "AccountNumber  is empty");
-                                    return false;
-                                }
-                                if (cells[33] == "") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check Row NO : " + RRC + "IFSCCode  is empty");
-                                    return false;
-                                }
-                                if (cells[34] == "") {
-                                    $('#fileUploadEM').val('');
-                                    alert("Please check Row NO : " + RRC + "Status  is empty");
-                                    return false;
-                                }
-                                if (cells[35] == "") {
                                     $('#fileUploadEM').val('');
                                     alert("Please check Row NO : " + RRC + "KYCUploadPath  is empty");
                                     return false;
                                 }
+                               // const cellList = ["EmployeeName", "EmployeeUniqueNumber", "ClientName", "RelationType", "Nationlity", "Category", "DOB", "Age", "Salary", "SumAssured", "EffectiveDate", "Remarks", "BankName", "AccountNumber", "IFSCCode", "Status"]
+                                //for (var i = 1; i <= cells.length; i++) {
+                                //    if (cells[i] == "") {
+                                //        $('#fileUploadEM').val('');
+                                //        alert("Please check Row NO : " + RRC + "KYCUploadPath  is empty");
+                                        
+                                //    }
+                                //    return false;
+                                //}
                             }
                             else {
 
